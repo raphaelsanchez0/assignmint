@@ -1,3 +1,4 @@
+"use client"
 import Image from 'next/image'
 import Link from "next/link"
 
@@ -8,12 +9,16 @@ import iconCalendar from "../../_assets/icons/calendar.svg"
 import iconPencil from "../../_assets/icons/pencil.svg"
 import iconSettings from "../../_assets/icons/settings.svg"
 
+import { usePathname } from 'next/navigation'
+
 const Sidebar = () => {
+    const pathname = usePathname()
+    if (pathname === "/") return <> </>
     const sideBarIconStyle = `relative flex items-center justify-center 
                               h-12 w-12 mt-2 mb-2 mx-auto hover:color-white`
 
     return (
-        <div className="md:fixed md:top-0 md:left-0 md:h-screen md:w-16
+        <div className=" md:top-0 md:left-0 md:h-screen md:w-16
                         md:flex md:flex-col
                         bg-primary text-white shadow-lg">
             <SideBarIcon icon={iconLogo} alt="logo" width={40}
