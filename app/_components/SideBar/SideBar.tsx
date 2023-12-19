@@ -42,6 +42,7 @@ interface SideBarIconProps {
 }
 
 const SideBarIcon: React.FC<SideBarIconProps> = ({ icon, alt, width, href, className, name }) => {
+
     const sideBarNameStyle = `absolute w-auto p-2 min-w-max left-16
                               rounded-md shadow-md text-white bg-grey-900
                               text-xs font-bold
@@ -49,7 +50,7 @@ const SideBarIcon: React.FC<SideBarIconProps> = ({ icon, alt, width, href, class
                               group-hover:scale-100
                               bg-primary`
     return (
-        <div className={className + " group"}>
+        <div className={`${className} group`}>
             <Link href={href}>
                 <Image src={icon} alt={alt} width={width} />
             </Link>
