@@ -10,6 +10,16 @@ body{
   @apply text-5xl font-extrabold text-off-black;
 }
 
+/*  card styles */
 .card{
-  @apply bg-white rounded-md shadow-lg w-full p-6;
+  @apply bg-white rounded-lg shadow-lg w-full p-6;
+}
+
+.card-title{
+  @apply text-2xl font-bold text-off-black;
+}
+
+/* Calender styles */
+.react-calendar{
+  border: 0;
 }
