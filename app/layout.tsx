@@ -25,7 +25,7 @@ export default function RootLayout({
     <html lang="en">
 
       <body className={poppins.className}>
-        <div className="flex">
+        <div className="">
           <Sidebar />
           <main>{children}</main>
         </div>
