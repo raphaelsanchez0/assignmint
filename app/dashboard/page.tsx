@@ -1,5 +1,5 @@
 import Title from './Title'
-import AssignmentsList from './AssignmentsList'
+import AssignmentsList from './_AssignmentsList/AssignmentsList'
 import ThisWeek from './ThisWeek'
 import MiniCalender from './_MiniCalendar/MiniCalendar'
 import Exams from './Exams'

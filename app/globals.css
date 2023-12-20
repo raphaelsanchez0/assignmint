@@ -12,7 +12,7 @@ body{
 
 /*  card styles */
 .card{
-  @apply bg-white rounded-xl shadow-lg w-full p-6;
+  @apply bg-white rounded-xl shadow-lg w-full p-8;
 }
 
 .card-title{
