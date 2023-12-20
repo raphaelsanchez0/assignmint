@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-.layout {
-  @apply flex
+body{
+  @apply bg-background;
+
+}
+.section-title{
+  @apply text-5xl font-extrabold text-off-black;
+}
+
+.card{
+  @apply bg-white rounded-md shadow-lg w-full p-6;
 }
