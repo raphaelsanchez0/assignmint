@@ -5,8 +5,10 @@ import MiniCalender from './_MiniCalendar/MiniCalendar'
 import Exams from './Exams'
 
 export default function Dashboard() {
+
     return (
-        <div style={{ width: 'calc(100vw - 4rem)' }}>
+
+        <div className='ml-sidebar-width'>
             <Title />
             <div className='flex m-4 gap-4'>
                 <div className='basis-1/3 '>
@@ -22,7 +24,6 @@ export default function Dashboard() {
 
             </div>
         </div >
-
     )
 }
 

@@ -16,6 +16,9 @@ const config: Config = {
         "background": "#FAF9FF",
         'off-black': '#353535',
       },
+      spacing: {
+        'sidebar-width': '4rem',
+      }
     },
   },
   plugins: [],

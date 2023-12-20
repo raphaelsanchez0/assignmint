@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body{
-  @apply bg-background;
+  @apply bg-background overflow-x-hidden
 
 }
 .section-title{

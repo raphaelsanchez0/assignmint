@@ -18,7 +18,7 @@ const Sidebar = () => {
                               h-12 w-12 mt-2 mb-2 mx-auto hover:color-white`
 
     return (
-        <div className=" md:top-0 md:left-0 md:h-screen md:w-16
+        <div className="fixed md:top-0 md:left-0 md:h-screen md:w-sidebar-width
                         md:flex md:flex-col
                         bg-primary text-white shadow-lg">
             <SideBarIcon icon={iconLogo} alt="logo" width={40}
