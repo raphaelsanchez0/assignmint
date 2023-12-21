@@ -17,7 +17,7 @@ const Assignment: React.FC<AssignmentProps> = ({ name, course, due, color }) => 
                         <h5 className="text-sm text-gray-500">{course}</h5>
                     </div>
                     <div>
-                        <h5 className="text-sm text-gray">{due}</h5>
+                        <h5 className="text-sm text-off-black">{due}</h5>
                     </div>
                 </div>
 

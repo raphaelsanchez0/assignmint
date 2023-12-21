@@ -13,7 +13,7 @@ const Assignment: React.FC<AssignmentProps> = ({ name, course, color }) => {
                 <div className="w-1 h-full" style={{ backgroundColor: color }}></div>
                 <div className="p-2 flex justify-between w-full">
                     <div>
-                        <h4 className="text-md font-medium">{name}</h4>
+                        <h4 className="text-md font-mediumv text-off-black">{name}</h4>
                         <h5 className="text-sm text-gray-500">{course}</h5>
                     </div>
 

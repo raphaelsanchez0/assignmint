@@ -10,7 +10,7 @@ export default function Dashboard() {
 
         <div className='ml-sidebar-width'>
             <Title />
-            <div className='flex m-4 gap-4'>
+            <div className='flex p-4 gap-4'>
                 <div className='basis-1/3 '>
                     <AssignmentsList showAddAssignment={true} />
                 </div>

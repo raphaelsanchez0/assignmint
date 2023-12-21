@@ -71,6 +71,7 @@
 
 .react-calendar__month-view__weekdays__weekday {
     padding: 0.5em;
+    @apply text-off-black
 }
 
 .react-calendar__month-view__weekNumbers .react-calendar__tile {
@@ -104,7 +105,9 @@
     line-height: 16px;
     font: inherit;
     font-size: 0.833em;
+    @apply text-off-black
 }
+
 
 .react-calendar__tile:disabled {
     background-color: #f0f0f0;
@@ -145,4 +148,8 @@
 
 .react-calendar--selectRange .react-calendar__tile--hover {
     background-color: #e6e6e6;
+}
+
+.react-calendar__navigation__label__labelText {
+    @apply text-off-black;
 }

@@ -20,7 +20,7 @@ const Day: React.FC<DayProps> = ({ day }) => {
             <hr className="h-px w-full bg-gray-400 border-0 my-4" />
             <div className="flex justify-between" onClick={handleClick}>
                 <div>
-                    <h3 className="text-xl font-semibold">{day}</h3>
+                    <h3 className="text-xl font-semibold text-off-black">{day}</h3>
                     <h5 className="text-sm text-gray-500">5 Assignment due</h5>
                 </div>
                 <Image src={iconArrow} alt="arrow" width={50}
