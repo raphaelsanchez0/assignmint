@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 //import Document, { Html, Head, Main, NextScript } from 'next/document'
 import { Poppins } from 'next/font/google'
 import './globals.css'
-import Sidebar from './_components/SideBar/SideBar'
+import Sidebar from './_components/SideBar'
 
 const poppins = Poppins({
   subsets: ['latin'],

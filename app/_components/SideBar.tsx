@@ -2,12 +2,12 @@
 import Image from 'next/image'
 import Link from "next/link"
 
-import iconLogo from "../../_assets/icons/logo.svg"
-import iconHome from "../../_assets/icons/home.svg"
-import iconPaper from "../../_assets/icons/paper.svg"
-import iconCalendar from "../../_assets/icons/calendar.svg"
-import iconPencil from "../../_assets/icons/pencil.svg"
-import iconSettings from "../../_assets/icons/settings.svg"
+import iconLogo from "../_assets/icons/logo.svg"
+import iconHome from "../_assets/icons/home.svg"
+import iconPaper from "../_assets/icons/paper.svg"
+import iconCalendar from "../_assets/icons/calendar.svg"
+import iconPencil from "../_assets/icons/pencil.svg"
+import iconSettings from "../_assets/icons/settings.svg"
 
 import { usePathname } from 'next/navigation'
 
