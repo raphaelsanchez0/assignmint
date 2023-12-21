@@ -12,7 +12,7 @@ export default function Dashboard() {
             <Title />
             <div className='flex m-4 gap-4'>
                 <div className='basis-1/3 '>
-                    <AssignmentsList />
+                    <AssignmentsList showAddAssignment={true} />
                 </div>
                 <div className='basis-1/3'>
                     <ThisWeek />

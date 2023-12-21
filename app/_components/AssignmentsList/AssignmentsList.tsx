@@ -1,12 +1,20 @@
 import Assignment from "./Assignment";
 import SectionDivider from "./SectionDivider";
 
-export default function AssignmentsList() {
+interface AssignmentsListProps {
+    showAddAssignment: boolean;
+}
+
+const AssignmentsList: React.FC<AssignmentsListProps> = ({ showAddAssignment }) => {
     return (
         <div className="card">
             <div className="flex items-center justify-between mb-2">
                 <h3 className="card-title">Assignments</h3>
-                <button className="btn">Add</button>
+                {
+                    showAddAssignment &&
+                    <button className="btn">Add</button>
+                }
+
             </div>
             <div>
                 <SectionDivider title="Overdue" color="#FC7C7C" />
@@ -37,3 +45,5 @@ export default function AssignmentsList() {
         </div>
     )
 }
+
+export default AssignmentsList;
