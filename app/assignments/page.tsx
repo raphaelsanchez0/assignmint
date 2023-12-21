@@ -9,7 +9,14 @@ export default function Assignments() {
                     <AssignmentsList showAddAssignment={false} />
                 </div>
                 <div className='basis-1/2'>
-                    <h2>f</h2>
+                    <AddAssignment
+                        courses={
+                            [{ label: 'Math', value: 'Math' },
+                            { label: 'Science', value: 'Science' },
+                            { label: 'English', value: 'English' },
+                            { label: 'History', value: 'History' }
+                            ]}
+                    />
                 </div>
             </div>
         </div>

@@ -53,7 +53,8 @@ const SideBarIcon: React.FC<SideBarIconProps> = ({ icon, alt, width, href, class
                               text-xs font-bold
                               transition-all duration-100 scale-0 origin-left
                               group-hover:scale-100
-                              bg-primary`
+                              bg-primary
+                              z-10`
     return (
         <div className={`${className} group`}>
             <Link href={href}>
