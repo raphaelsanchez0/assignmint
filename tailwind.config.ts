@@ -12,7 +12,7 @@ const config: Config = {
       colors: {
         'primary': '#0D664D',
         'secondary': '#656262',
-        'gray': '#949494',
+
         "background": "#FAF9FF",
         'off-black': '#353535',
       },

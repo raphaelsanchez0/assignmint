@@ -1,8 +1,8 @@
 import Title from './Title'
 import AssignmentsList from './_AssignmentsList/AssignmentsList'
-import ThisWeek from './ThisWeek'
+import ThisWeek from './_ThisWeek/ThisWeek'
 import MiniCalender from './_MiniCalendar/MiniCalendar'
-import Exams from './Exams'
+import ExamsList from './_ExamsList/ExamsList'
 
 export default function Dashboard() {
 
@@ -19,7 +19,7 @@ export default function Dashboard() {
                 </div>
                 <div className='basis-1/3 flex flex-col gap-4'>
                     <MiniCalender />
-                    <Exams />
+                    <ExamsList />
                 </div>
 
             </div>

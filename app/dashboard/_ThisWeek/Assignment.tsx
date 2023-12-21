@@ -1,11 +1,11 @@
 interface AssignmentProps {
     name: string;
     course: string;
-    due: string;
+
     color: string;
 }
 
-const Assignment: React.FC<AssignmentProps> = ({ name, course, due, color }) => {
+const Assignment: React.FC<AssignmentProps> = ({ name, course, color }) => {
     return (
         <>
             <hr className="h-px w-full bg-gray-400 border-0" />
@@ -16,9 +16,7 @@ const Assignment: React.FC<AssignmentProps> = ({ name, course, due, color }) => 
                         <h4 className="text-md font-medium">{name}</h4>
                         <h5 className="text-sm text-gray-500">{course}</h5>
                     </div>
-                    <div>
-                        <h5 className="text-sm text-gray">{due}</h5>
-                    </div>
+
                 </div>
 
             </div>
