@@ -8,7 +8,7 @@ interface AssignmentsListProps {
 const AssignmentsList: React.FC<AssignmentsListProps> = ({ showAddAssignment }) => {
     return (
         <div className="card">
-            <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center justify-between">
                 <h3 className="card-title">Assignments</h3>
                 {
                     showAddAssignment &&
