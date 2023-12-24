@@ -1,15 +1,16 @@
-import Title from './Title'
+import Title from '../_components/PageTitle'
 import AssignmentsList from '../_components/AssignmentsList/AssignmentsList'
 import ThisWeek from './_ThisWeek/ThisWeek'
 import MiniCalender from './_MiniCalendar/MiniCalendar'
 import ExamsList from './_ExamsList/ExamsList'
+import PageTitle from '../_components/PageTitle'
 
 export default function Dashboard() {
 
     return (
 
         <div className='ml-sidebar-width'>
-            <Title />
+            <PageTitle title='Dashboard' />
             <div className='flex p-4 gap-4'>
                 <div className='basis-1/3 '>
                     <AssignmentsList showAddAssignment={true} />
