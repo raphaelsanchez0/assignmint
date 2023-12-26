@@ -1,9 +1,9 @@
-import Title from '../_components/PageTitle'
 import AssignmentsList from '../_components/AssignmentsList/AssignmentsList'
 import ThisWeek from './_ThisWeek/ThisWeek'
 import MiniCalender from './_MiniCalendar/MiniCalendar'
 import ExamsList from '../_components/ExamsList/ExamsList'
 import PageTitle from '../_components/PageTitle'
+import Dialog from "../_components/Dialog"
 
 export default function Dashboard() {
 
@@ -24,6 +24,7 @@ export default function Dashboard() {
                 </div>
 
             </div>
+
         </div >
     )
 }

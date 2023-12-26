@@ -1,6 +1,7 @@
 import CourseList from "./CourseList";
 import Account from "./Account";
 
+
 export default function Settings() {
     return (
         <div className="ml-sidebar-width">
@@ -10,6 +11,9 @@ export default function Settings() {
                 </div>
                 <div className="card basis-1/3">
                     <CourseList />
+                </div>
+                <div>
+
                 </div>
             </div>
         </div>
