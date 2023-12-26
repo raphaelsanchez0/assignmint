@@ -3,26 +3,24 @@ import ThisWeek from './_ThisWeek/ThisWeek'
 import MiniCalender from './_MiniCalendar/MiniCalendar'
 import ExamsList from '../_components/ExamsList/ExamsList'
 import PageTitle from '../_components/PageTitle'
-import Dialog from "../_components/Dialog"
+import Dialog from "../_components/Dialogs/Dialog"
+import AddAssignmentDialog from './AddAssignmentDialog'
+
 
 export default function Dashboard() {
-    async function onClose() {
-        "use server"
-        console.log('closed')
-    }
-    async function onOk() {
-        "use server"
-        console.log('ok was clicked')
-    }
+
 
     return (
         <>
             <div className='ml-sidebar-width'>
-                <Dialog title="Add Assignment" onClose={onClose} onOk={onOk} >
-                    <p>
-                        lorem ipsum delor sit amet consectueur
-                    </p>
-                </Dialog>
+                <AddAssignmentDialog
+                    courses={
+                        [{ label: 'Math', value: 'Math' },
+                        { label: 'Science', value: 'Science' },
+                        { label: 'English', value: 'English' },
+                        { label: 'History', value: 'History' }
+                        ]}
+                />
                 <PageTitle title='Dashboard' />
                 <div className='flex p-4 gap-4'>
                     <div className='basis-1/3 '>
