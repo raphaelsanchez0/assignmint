@@ -2,7 +2,7 @@ import Title from '../_components/PageTitle'
 import AssignmentsList from '../_components/AssignmentsList/AssignmentsList'
 import ThisWeek from './_ThisWeek/ThisWeek'
 import MiniCalender from './_MiniCalendar/MiniCalendar'
-import ExamsList from './_ExamsList/ExamsList'
+import ExamsList from '../_components/ExamsList/ExamsList'
 import PageTitle from '../_components/PageTitle'
 
 export default function Dashboard() {
