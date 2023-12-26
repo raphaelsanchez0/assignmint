@@ -20,7 +20,8 @@ const Sidebar = () => {
     return (
         <div className="fixed md:top-0 md:left-0 md:h-screen md:w-sidebar-width
                         md:flex md:flex-col
-                        bg-primary text-white shadow-lg">
+                        bg-primary text-white shadow-lg
+                        z-10">
             <SideBarIcon icon={iconLogo} alt="logo" width={40}
                 href="/dashboard" className={sideBarIconStyle} />
             <SideBarIcon name="Dashboard" icon={iconHome} alt="logo" width={40}
