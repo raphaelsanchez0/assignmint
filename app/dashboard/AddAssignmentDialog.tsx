@@ -30,11 +30,21 @@ const AddAssignmentDialog: React.FC<AddAssignmentDialogProps> = ({ courses }) =>
         console.log('ok was clicked')
     }
 
+    const handleSubmit = (event: React.FormEvent) => {
+        event.preventDefault();
+        onOk()
+        window.location.href = '/dashboard';
+    }
+
     return (
-        <Dialog title="Add Assignment" onClose={() => { onClose }} onOk={() => { onOk }}>
+        <Dialog
+            title="Add Assignment"
+            onClose={() => { onClose }}
+            onOk={() => { onOk }}
+            searchParamKey="addassignment">
 
 
-            <form>
+            <form onSubmit={handleSubmit}>
                 <div className="grid gap-6 mb-6 grid-cols-2 ">
 
                     <div className="assignment--input-container col-span-2">

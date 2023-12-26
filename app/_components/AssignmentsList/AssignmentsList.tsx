@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Assignment from "./Assignment";
 import SectionDivider from "./SectionDivider";
 
@@ -12,7 +13,11 @@ const AssignmentsList: React.FC<AssignmentsListProps> = ({ showAddAssignment }) 
                 <h3 className="card-title">Assignments</h3>
                 {
                     showAddAssignment &&
-                    <button className="btn">Add</button>
+
+                    <Link href="/dashboard?addassignment=y">
+                        <button className="btn">Add</button>
+                    </Link>
+
                 }
 
             </div>

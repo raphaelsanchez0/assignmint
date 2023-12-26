@@ -1,6 +1,6 @@
 "use client"
 
-import { useSearchParams } from "next/navigation"
+import { useSearchParams, useRouter } from "next/navigation"
 import { useRef, useEffect } from "react"
 
 interface DialogProps {
@@ -8,13 +8,17 @@ interface DialogProps {
     onClose: () => void;
     onOk: () => void;
     children: React.ReactNode,
+    searchParamKey: string;
 }
 
-const Dialog: React.FC<DialogProps> = ({ title, onClose, onOk, children }) => {
+const Dialog: React.FC<DialogProps> = ({ title, onClose, onOk, children, searchParamKey }) => {
 
     const searchParams = useSearchParams()
+    const router = useRouter()
+
     const dialogRef = useRef<HTMLDialogElement | null>(null)
-    const showDialog = searchParams.get("showDialog")
+    const showDialog = searchParams.get(searchParamKey)
+
 
     useEffect(() => {
         if (showDialog === 'y') {
@@ -27,6 +31,7 @@ const Dialog: React.FC<DialogProps> = ({ title, onClose, onOk, children }) => {
 
     const closeDialog = () => {
         dialogRef.current?.close()
+        router.push('/dashboard')
         onClose()
     }
     const clickOk = () => {
@@ -48,7 +53,6 @@ const Dialog: React.FC<DialogProps> = ({ title, onClose, onOk, children }) => {
                     </div>
                     <div className="px-5 pb-6">
                         {children}
-
                     </div>
                 </div>
             </dialog>
