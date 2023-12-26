@@ -37,10 +37,10 @@ const AddAssignmentDialog: React.FC<AddAssignmentDialogProps> = ({ courses }) =>
 
     return (
         <Dialog
-            title="Add Assignment"
+            title="Add Exam"
             onClose={onClose}
             onOk={onOk}
-            searchParamKey="addassignment">
+            searchParamKey="addexam">
 
 
             <form onSubmit={handleSubmit}>

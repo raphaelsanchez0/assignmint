@@ -1,11 +1,19 @@
 import Exam from "./Exam";
 
-export default function ExamsList() {
+interface ExamsListProps {
+    showAddExam?: boolean;
+
+}
+
+const ExamsList: React.FC<ExamsListProps> = ({ showAddExam = false }) => {
     return (
         <div className="card">
             <div className="flex items-center justify-between mb-4">
                 <h3 className="card-title">Exams</h3>
-                <button className="btn">Add</button>
+                {
+                    showAddExam &&
+                    <button className="btn">Add</button>
+                }
             </div>
             <div>
                 <Exam name="Chem Final" date="Nov 15" course="CHEM 1035" color="green" />
@@ -13,3 +21,5 @@ export default function ExamsList() {
         </div>
     )
 }
+
+export default ExamsList;

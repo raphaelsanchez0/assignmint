@@ -3,10 +3,10 @@ import Assignment from "./Assignment";
 import SectionDivider from "./SectionDivider";
 
 interface AssignmentsListProps {
-    showAddAssignment: boolean;
+    showAddAssignment?: boolean;
 }
 
-const AssignmentsList: React.FC<AssignmentsListProps> = ({ showAddAssignment }) => {
+const AssignmentsList: React.FC<AssignmentsListProps> = ({ showAddAssignment = false }) => {
     return (
         <div className="card">
             <div className="flex items-center justify-between">
