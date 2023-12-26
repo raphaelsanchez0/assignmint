@@ -23,11 +23,19 @@ const AddAssignment: React.FC<AddAssignmentProps> = ({ courses }) => {
     const [dueDate, setDueDate] = useState<Date | null>(new Date());
     const [notes, setNotes] = useState<string>('');
 
+
+    const handleSubmit = (event: React.FormEvent) => {
+        event.preventDefault();
+
+        window.location.href = '/assignments';
+    }
+
+
     return (
         <div className="card">
             <h3 className="card-title my-4">Add Assignment</h3>
             <hr className="h-px w-full bg-gray-400 border-0" />
-            <form>
+            <form onSubmit={handleSubmit}>
                 <div className="grid gap-6 mb-6 grid-cols-2 ">
 
                     <div className="assignment--input-container col-span-2">
@@ -49,7 +57,7 @@ const AddAssignment: React.FC<AddAssignmentProps> = ({ courses }) => {
                             text-gray-900 text-sm rounded-lg
                             block w-full p-2.5  
                           caret-gray-500"
-                            placeholder="CS 1114"
+                            placeholder="Essay Draft"
                             required />
                     </div>
                     <div>

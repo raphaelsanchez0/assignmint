@@ -9,7 +9,12 @@ export default function Exams() {
                     <ExamsList />
                 </div>
                 <div className='basis-1/2'>
-                    <AddExam />
+                    <AddExam courses={
+                        [{ label: 'Math', value: 'Math' },
+                        { label: 'Science', value: 'Science' },
+                        { label: 'English', value: 'English' },
+                        { label: 'History', value: 'History' }
+                        ]} />
                 </div>
             </div>
         </div>

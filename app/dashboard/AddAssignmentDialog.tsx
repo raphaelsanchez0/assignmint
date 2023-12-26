@@ -65,7 +65,7 @@ const AddAssignmentDialog: React.FC<AddAssignmentDialogProps> = ({ courses }) =>
                             text-gray-900 text-sm rounded-lg
                             block w-full p-2.5  
                           caret-gray-500"
-                            placeholder="CS 1114"
+                            placeholder="Essay Draft"
                             required />
                     </div>
                     <div>

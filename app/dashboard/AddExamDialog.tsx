@@ -65,11 +65,11 @@ const AddAssignmentDialog: React.FC<AddAssignmentDialogProps> = ({ courses }) =>
                             text-gray-900 text-sm rounded-lg
                             block w-full p-2.5  
                           caret-gray-500"
-                            placeholder="CS 1114"
+                            placeholder="Final Exam"
                             required />
                     </div>
                     <div>
-                        <label htmlFor="due-date" className="assignment--input-header">Due Date</label>
+                        <label htmlFor="due-date" className="assignment--input-header">Exam Date</label>
                         <DatePicker
                             id="due-date"
                             selected={dueDate}
@@ -91,7 +91,7 @@ const AddAssignmentDialog: React.FC<AddAssignmentDialogProps> = ({ courses }) =>
                         />
                     </div>
                     <div className='col-span-2 flex justify-center'>
-                        <button type='submit' className='btn shadow-lg' onClick={onOk}>Add Assignment</button>
+                        <button type='submit' className='btn shadow-lg' onClick={onOk}>Add Exam</button>
                     </div>
 
                 </div>

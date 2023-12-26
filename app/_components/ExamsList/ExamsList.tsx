@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Exam from "./Exam";
 
 interface ExamsListProps {
@@ -12,7 +13,9 @@ const ExamsList: React.FC<ExamsListProps> = ({ showAddExam = false }) => {
                 <h3 className="card-title">Exams</h3>
                 {
                     showAddExam &&
-                    <button className="btn">Add</button>
+                    <Link href="/dashboard?addexam=y">
+                        <button className="btn">Add</button>
+                    </Link>
                 }
             </div>
             <div>
