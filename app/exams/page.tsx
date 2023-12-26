@@ -1,5 +1,5 @@
 import ExamsList from "../_components/ExamsList/ExamsList"
-import AddExam from "./AddAssignment"
+import AddExam from "./AddExam"
 
 export default function Exams() {
     return (
