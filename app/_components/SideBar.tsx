@@ -28,10 +28,10 @@ const Sidebar = () => {
                 href="/dashboard" className={sideBarIconStyle} />
             <SideBarIcon name="Assignments" icon={iconPaper} alt="logo" width={40}
                 href="/assignments" className={sideBarIconStyle} />
-            <SideBarIcon name="Calendar" icon={iconCalendar} alt="logo" width={30}
-                href="/calendar" className={sideBarIconStyle} />
             <SideBarIcon name="Exams" icon={iconPencil} alt="logo" width={50}
                 href="/exams" className={sideBarIconStyle} />
+            <SideBarIcon name="Calendar" icon={iconCalendar} alt="logo" width={30}
+                href="/calendar" className={sideBarIconStyle} />
             <SideBarIcon name="Settings" icon={iconSettings} alt="logo" width={50}
                 href="/settings" className={sideBarIconStyle + " mt-auto"} />
 

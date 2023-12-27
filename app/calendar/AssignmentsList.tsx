@@ -1,5 +1,7 @@
 import Assignment from "../_components/AssignmentsList/Assignment";
 import SectionDivider from "../_components/AssignmentsList/SectionDivider";
+import { isToday, isTomorrow, isYesterday,format } from 'date-fns';
+
 
 interface AssignmentsListProps {
     date: Date;
@@ -7,7 +9,19 @@ interface AssignmentsListProps {
 
 const AssignmentsList: React.FC<AssignmentsListProps> = ({ date }) => {
 
-    const formatedDate = date.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })
+    let formatedDate;
+    if (isToday(date)) {
+        formatedDate = 'Today';
+    } 
+    else if (isTomorrow(date)) {
+        formatedDate = 'Tomorrow';
+    }
+    else if (isYesterday(date)) {
+        formatedDate = 'Yesterday';
+    }
+    else {
+        formatedDate = format(date, 'MMMM d, yyyy');
+    }
     return (
         <div className="card">
             <div className="flex items-center justify-between">
