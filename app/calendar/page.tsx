@@ -24,9 +24,7 @@ export default function CalendarPage() {
         };
     }
 
-    useEffect(() => {
-        router.replace('/calendar');
-    }, []);
+    
 
     return (
         <div className="ml-sidebar-width">
