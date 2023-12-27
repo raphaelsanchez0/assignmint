@@ -7,6 +7,7 @@ import AssignmentsList from "./AssignmentsList";
 
 import { format } from 'date-fns'
 import { useSearchParams, useRouter } from "next/navigation"
+import { useEffect } from "react";
 
 
 export default function CalendarPage() {
@@ -21,8 +22,11 @@ export default function CalendarPage() {
         } else {
             router.push(`/calendar?date=${format(value, 'yyyy-MM-dd')}`)
         };
-
     }
+
+    useEffect(() => {
+        router.replace('/calendar');
+    }, []);
 
     return (
         <div className="ml-sidebar-width">
