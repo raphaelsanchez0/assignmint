@@ -1,5 +1,6 @@
 "use client";
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 import Select from 'react-select'
 
@@ -23,11 +24,13 @@ const AddAssignment: React.FC<AddAssignmentProps> = ({ courses }) => {
     const [dueDate, setDueDate] = useState<Date | null>(new Date());
     const [notes, setNotes] = useState<string>('');
 
+    const router = useRouter()
+
 
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
-
         window.location.href = '/assignments';
+
     }
 
 
