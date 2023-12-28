@@ -15,6 +15,7 @@ const AssignmentsList: React.FC<AssignmentsListProps> = ({
 }) => {
     const [assignments, setAssignments] = useState([
         {
+            key: "1",
             name: "Pogram 10",
             course: "CS 1114",
             dueDate: "Nov 12",
@@ -22,6 +23,7 @@ const AssignmentsList: React.FC<AssignmentsListProps> = ({
             category: "overdue",
         },
         {
+            key: "2",
             name: "Reading 2",
             course: "ITDS 2064",
             dueDate: "Nov 12",
@@ -29,6 +31,7 @@ const AssignmentsList: React.FC<AssignmentsListProps> = ({
             category: "overdue",
         },
         {
+            key: "3",
             name: "Essay 3",
             course: "ENGL 2122",
             dueDate: "Nov 12",
@@ -36,6 +39,7 @@ const AssignmentsList: React.FC<AssignmentsListProps> = ({
             category: "overdue",
         },
         {
+            key: "4",
             name: "Pogram 10",
             course: "CS 1114",
             dueDate: "Nov 12",
@@ -43,6 +47,7 @@ const AssignmentsList: React.FC<AssignmentsListProps> = ({
             category: "priority",
         },
         {
+            key: "5",
             name: "Essay 3",
             course: "ENGL 2122",
             dueDate: "Nov 12",
@@ -50,6 +55,7 @@ const AssignmentsList: React.FC<AssignmentsListProps> = ({
             category: "priority",
         },
         {
+            key: "6",
             name: "Essay 3",
             course: "ENGL 2122",
             dueDate: "Nov 12",
@@ -57,6 +63,7 @@ const AssignmentsList: React.FC<AssignmentsListProps> = ({
             category: "due today",
         },
         {
+            key: "7",
             name: "Pogram 10",
             course: "CS 1114",
             dueDate: "Nov 12",
@@ -64,6 +71,7 @@ const AssignmentsList: React.FC<AssignmentsListProps> = ({
             category: "priority",
         },
         {
+            key: "8",
             name: "Essay 3",
             course: "ENGL 2122",
             dueDate: "Nov 12",
@@ -71,6 +79,7 @@ const AssignmentsList: React.FC<AssignmentsListProps> = ({
             category: "priority",
         },
         {
+            key: "9",
             name: "Essay 3",
             course: "ENGL 2122",
             dueDate: "Nov 12",

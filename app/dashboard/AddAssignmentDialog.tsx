@@ -1,6 +1,6 @@
 "use client";
 import Dialog from "../_components/Dialogs/Dialog";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Select from "react-select";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -20,6 +20,7 @@ interface AddAssignmentDialogProps {
 const AddAssignmentDialog: React.FC<AddAssignmentDialogProps> = ({
     courses,
 }) => {
+    const [assignments, setNewAssignemnt] = useState<Assignment[]>([]); // [Assignment, setAssignments]
     const [newAssignment, setNewAssignment] = useState<Assignment>({
         course: null,
         title: "",
@@ -35,8 +36,9 @@ const AddAssignmentDialog: React.FC<AddAssignmentDialogProps> = ({
     }
 
     async function addAssignment(ReactEvent: React.FormEvent<HTMLFormElement>) {
-        window.location.href = "/dashboard";
         ReactEvent.preventDefault();
+        console.log(assignments);
+
         try {
             await addDoc(collection(db, "assignments"), {
                 course: newAssignment.course,
@@ -47,7 +49,12 @@ const AddAssignmentDialog: React.FC<AddAssignmentDialogProps> = ({
         } catch (e) {
             console.log(e);
         }
+        window.location.href = "/dashboard";
     }
+
+    useEffect(() => {
+        console.log(assignments);
+    }, [assignments]);
 
     return (
         <Dialog
@@ -56,7 +63,7 @@ const AddAssignmentDialog: React.FC<AddAssignmentDialogProps> = ({
             onOk={onOk}
             searchParamKey="addassignment"
         >
-            <form>
+            <form onSubmit={addAssignment}>
                 <div className="grid gap-6 mb-6 grid-cols-2 ">
                     <div className="assignment--input-container col-span-2">
                         <label
@@ -154,7 +161,7 @@ const AddAssignmentDialog: React.FC<AddAssignmentDialogProps> = ({
                         <button
                             type="submit"
                             className="btn shadow-lg"
-                            onClick={addAssignment}
+                            //
                         >
                             Add Assignment
                         </button>
