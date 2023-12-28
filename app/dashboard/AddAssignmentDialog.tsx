@@ -20,7 +20,6 @@ interface AddAssignmentDialogProps {
 const AddAssignmentDialog: React.FC<AddAssignmentDialogProps> = ({
     courses,
 }) => {
-    const [assignments, setNewAssignemnt] = useState<Assignment[]>([]); // [Assignment, setAssignments]
     const [newAssignment, setNewAssignment] = useState<Assignment>({
         course: null,
         title: "",
@@ -28,17 +27,8 @@ const AddAssignmentDialog: React.FC<AddAssignmentDialogProps> = ({
         notes: "",
     });
 
-    function onClose() {
-        console.log("closed");
-    }
-    function onOk() {
-        console.log("ok was clicked");
-    }
-
     async function addAssignment(ReactEvent: React.FormEvent<HTMLFormElement>) {
         ReactEvent.preventDefault();
-        console.log(assignments);
-
         try {
             await addDoc(collection(db, "assignments"), {
                 course: newAssignment.course,
@@ -52,17 +42,8 @@ const AddAssignmentDialog: React.FC<AddAssignmentDialogProps> = ({
         window.location.href = "/dashboard";
     }
 
-    useEffect(() => {
-        console.log(assignments);
-    }, [assignments]);
-
     return (
-        <Dialog
-            title="Add Assignment"
-            onClose={onClose}
-            onOk={onOk}
-            searchParamKey="addassignment"
-        >
+        <Dialog title="Add Assignment" searchParamKey="addassignment">
             <form onSubmit={addAssignment}>
                 <div className="grid gap-6 mb-6 grid-cols-2 ">
                     <div className="assignment--input-container col-span-2">
