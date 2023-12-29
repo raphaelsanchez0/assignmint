@@ -4,3 +4,8 @@ interface Assignment {
     dueDate: Date | null;
     notes: string;
 }
+
+interface CourseType {
+    value: string;
+    label: string;
+}
