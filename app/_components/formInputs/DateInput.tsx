@@ -4,7 +4,11 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useState } from "react";
 
-export default function DueDateInput() {
+interface DateInputProps {
+    type: "assignment" | "exam";
+}
+
+const DateInput: React.FC<DateInputProps> = ({ type }) => {
     const [selectedDate, setSelectedDate] = useState(new Date());
 
     const handleDateChange = (date: Date) => {
@@ -13,11 +17,11 @@ export default function DueDateInput() {
     return (
         <>
             <label htmlFor="due-date" className="assignment--input-header">
-                Due Date
+                {type === "assignment" ? "Due Date" : "Exam Date"}
             </label>
             <DatePicker
                 id="due-date"
-                name="due-date"
+                name={type === "assignment" ? "dueDate" : "examDate"}
                 selected={selectedDate}
                 onChange={handleDateChange}
                 className="bg-slate-50 border border-gray-300 
@@ -27,4 +31,6 @@ export default function DueDateInput() {
             />
         </>
     );
-}
+};
+
+export default DateInput;

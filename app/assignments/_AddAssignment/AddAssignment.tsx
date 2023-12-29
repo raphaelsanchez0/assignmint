@@ -3,7 +3,7 @@ import { useFormState } from "react-dom";
 
 import CoursesInput from "../../_components/formInputs/CoursesInput";
 import TitleInput from "../../_components/formInputs/TitleInput";
-import DueDateInput from "../../_components/formInputs/DueDateInput";
+import DueDateInput from "../../_components/formInputs/DateInput";
 import NotesInput from "../../_components/formInputs/NotesInput";
 
 import { createAssignment } from "@/app/_actions/actions";

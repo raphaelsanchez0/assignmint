@@ -1,12 +1,11 @@
 "use client";
-import "react-datepicker/dist/react-datepicker.css";
 import { useFormState } from "react-dom";
-
 import { createAssignment } from "@/app/_actions/actions";
 import Dialog from "../_components/Dialogs/Dialog";
+
 import CoursesInput from "../_components/formInputs/CoursesInput";
 import TitleInput from "../_components/formInputs/TitleInput";
-import DueDateInput from "../_components/formInputs/DueDateInput";
+import DateInput from "../_components/formInputs/DateInput";
 import NotesInput from "../_components/formInputs/NotesInput";
 
 interface AddAssignmentDialogProps {
@@ -34,7 +33,7 @@ const AddAssignmentDialog: React.FC<AddAssignmentDialogProps> = ({
                         <TitleInput />
                     </div>
                     <div>
-                        <DueDateInput />
+                        <DateInput type="assignment" />
                     </div>
                     <div className="col-span-2">
                         <NotesInput />
