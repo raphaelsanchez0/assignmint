@@ -1,10 +1,10 @@
 "use client";
 import { useFormState } from "react-dom";
 
-import CoursesInput from "./CoursesInput";
-import TitleInput from "./TitleInput";
-import DueDateInput from "./DueDateInput";
-import NotesInput from "./NotesInput";
+import CoursesInput from "../../_components/formInputs/CoursesInput";
+import TitleInput from "../../_components/formInputs/TitleInput";
+import DueDateInput from "../../_components/formInputs/DueDateInput";
+import NotesInput from "../../_components/formInputs/NotesInput";
 
 import { createAssignment } from "@/app/_actions/actions";
 
@@ -13,6 +13,7 @@ interface AddAssignmentProps {
 }
 
 const AddAssignment: React.FC<AddAssignmentProps> = ({ courses }) => {
+    //Sends formdata to createAssignment server action
     const [assignment, formAction] = useFormState(createAssignment, null);
 
     return (
