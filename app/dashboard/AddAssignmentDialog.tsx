@@ -1,17 +1,13 @@
 "use client";
-import Dialog from "../_components/Dialogs/Dialog";
-import { useState, useEffect } from "react";
-import Select from "react-select";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { set } from "date-fns";
-import { addDoc, collection } from "firebase/firestore";
-import { db } from "@/services/firebase";
+import { useFormState } from "react-dom";
 
-type CourseType = {
-    value: string;
-    label: string;
-};
+import { createAssignment } from "@/app/_actions/actions";
+import Dialog from "../_components/Dialogs/Dialog";
+import CoursesInput from "../_components/formInputs/CoursesInput";
+import TitleInput from "../_components/formInputs/TitleInput";
+import DueDateInput from "../_components/formInputs/DueDateInput";
+import NotesInput from "../_components/formInputs/NotesInput";
 
 interface AddAssignmentDialogProps {
     courses: CourseType[];
@@ -20,129 +16,34 @@ interface AddAssignmentDialogProps {
 const AddAssignmentDialog: React.FC<AddAssignmentDialogProps> = ({
     courses,
 }) => {
-    const [newAssignment, setNewAssignment] = useState<Assignment>({
-        course: null,
-        title: "",
-        dueDate: new Date(),
-        notes: "",
-    });
+    //Sends formdata to createAssignment server action
+    const [assignment, formAction] = useFormState(createAssignment, null);
 
-    async function addAssignment(ReactEvent: React.FormEvent<HTMLFormElement>) {
-        ReactEvent.preventDefault();
-        try {
-            await addDoc(collection(db, "assignments"), {
-                course: newAssignment.course,
-                title: newAssignment.title,
-                dueDate: newAssignment.dueDate,
-                notes: newAssignment.notes,
-            });
-        } catch (e) {
-            console.log(e);
-        }
+    function closeDialog() {
         window.location.href = "/dashboard";
     }
 
     return (
         <Dialog title="Add Assignment" searchParamKey="addassignment">
-            <form onSubmit={addAssignment}>
+            <form action={formAction}>
                 <div className="grid gap-6 mb-6 grid-cols-2 ">
                     <div className="assignment--input-container col-span-2">
-                        <label
-                            className="assignment--input-header"
-                            htmlFor="course"
-                        >
-                            Course
-                        </label>
-                        <Select
-                            id="course"
-                            options={courses}
-                            name="course"
-                            className="w-1/2 border-slate-400 bg-slate-50"
-                            required
-                            onChange={(e) => {
-                                if (e !== null) {
-                                    setNewAssignment((prevState) => ({
-                                        ...prevState,
-                                        course: e.value,
-                                    }));
-                                }
-                            }}
-                        ></Select>
+                        <CoursesInput courses={courses} />
                     </div>
                     <div>
-                        <label
-                            htmlFor="title"
-                            className="assignment--input-header"
-                        >
-                            Title
-                        </label>
-                        <input
-                            id="title"
-                            type="text"
-                            className="bg-slate-50 border border-gray-300 
-                            text-gray-900 text-sm rounded-lg
-                            block w-full p-2.5  
-                          caret-gray-500"
-                            placeholder="Essay Draft"
-                            value={newAssignment.title}
-                            onChange={(e) =>
-                                setNewAssignment((prevState) => ({
-                                    ...prevState,
-                                    title: e.target.value,
-                                }))
-                            }
-                            required
-                        />
+                        <TitleInput />
                     </div>
                     <div>
-                        <label
-                            htmlFor="due-date"
-                            className="assignment--input-header"
-                        >
-                            Due Date
-                        </label>
-                        <DatePicker
-                            id="due-date"
-                            selected={newAssignment.dueDate}
-                            onChange={(date: Date) =>
-                                setNewAssignment((prevState) => ({
-                                    ...prevState,
-                                    dueDate: date,
-                                }))
-                            }
-                            className="bg-slate-50 border border-gray-300 
-                            text-gray-900 text-sm rounded-lg
-                            block w-full p-2.5"
-                            required
-                        />
+                        <DueDateInput />
                     </div>
                     <div className="col-span-2">
-                        <label
-                            htmlFor="notes"
-                            className="assignment--input-header"
-                        >
-                            Notes
-                        </label>
-                        <textarea
-                            id="notes"
-                            className="bg-slate-50 border border-gray-300 
-                            text-gray-900 text-sm rounded-lg
-                            block w-full p-2.5 resize-none"
-                            placeholder="Notes"
-                            value={newAssignment.notes}
-                            onChange={(e) =>
-                                setNewAssignment((prevState) => ({
-                                    ...prevState,
-                                    notes: e.target.value,
-                                }))
-                            }
-                        />
+                        <NotesInput />
                     </div>
                     <div className="col-span-2 flex justify-center">
                         <button
                             type="submit"
                             className="btn shadow-lg"
-                            //
+                            onClick={closeDialog}
                         >
                             Add Assignment
                         </button>
