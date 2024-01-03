@@ -1,22 +1,33 @@
 "use client";
+import { useEffect, useState } from "react";
 import { useFormState } from "react-dom";
 import { createAssignment } from "@/app/_server/actions";
 import Dialog from "../_components/Dialogs/Dialog";
+import { getCourses } from "../_server/api";
 
 import CoursesInput from "../_components/formInputs/CoursesInput";
 import TitleInput from "../_components/formInputs/TitleInput";
 import DateInput from "../_components/formInputs/DateInput";
 import NotesInput from "../_components/formInputs/NotesInput";
 
-interface AddAssignmentDialogProps {
-    courses: CourseType[];
-}
-
-const AddAssignmentDialog: React.FC<AddAssignmentDialogProps> = ({
-    courses,
-}) => {
+export default function AddAssignmentDialog() {
     //Sends formdata to createAssignment server action
     const [assignment, formAction] = useFormState(createAssignment, null);
+    const [courses, setCourses] = useState<CourseType[]>([]);
+
+    //Gets courses from server and formats them for the CoursesInput component
+    useEffect(() => {
+        const fetchCourses = async () => {
+            const coursesFromServer = await getCourses();
+            const formattedCourses = coursesFromServer.map((course) => ({
+                label: course.title,
+                value: course,
+            }));
+
+            setCourses(formattedCourses);
+        };
+        fetchCourses();
+    }, []);
 
     function closeDialog() {
         window.location.href = "/dashboard";
@@ -55,6 +66,4 @@ const AddAssignmentDialog: React.FC<AddAssignmentDialogProps> = ({
             </form>
         </Dialog>
     );
-};
-
-export default AddAssignmentDialog;
+}
