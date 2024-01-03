@@ -1,6 +1,6 @@
 import CourseList from "./CourseList";
 import Account from "./Account";
-
+import AddCourseDialog from "./AddCourseDialog";
 
 export default function Settings() {
     return (
@@ -12,10 +12,10 @@ export default function Settings() {
                 <div className="card basis-1/4">
                     <CourseList />
                 </div>
-                <div>
-
-                </div>
+                <div></div>
             </div>
+            {/* Dialog */}
+            <AddCourseDialog />
         </div>
-    )
+    );
 }
