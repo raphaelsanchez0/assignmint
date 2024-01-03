@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Course from "./Course";
 import { getCourses } from "../_server/api";
+import { v4 as uuidv4 } from "uuid";
 
 export default function CourseList() {
     const [courses, setCourses] = useState<Course[]>([]);
@@ -17,7 +18,7 @@ export default function CourseList() {
 
     const addCourse = () => {
         const newCourse = {
-            id: null,
+            id: uuidv4(),
             title: "New Course",
             color: "#000000",
         };

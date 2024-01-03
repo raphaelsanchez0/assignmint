@@ -7,7 +7,7 @@ interface Assignment {
 }
 
 interface Course {
-    id: string | null;
+    id: string;
     title: string;
     color: string;
 }
