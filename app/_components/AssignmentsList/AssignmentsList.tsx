@@ -113,7 +113,7 @@ const AssignmentsList: React.FC<AssignmentsListProps> = ({
 
                 {overdueAssignments.map((assignment) => (
                     <Assignment
-                        key={assignment.name}
+                        key={assignment.key}
                         name={assignment.name}
                         course={assignment.course}
                         due={assignment.dueDate}
