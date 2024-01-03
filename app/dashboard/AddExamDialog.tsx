@@ -30,7 +30,7 @@ const AddAssignmentDialog: React.FC<AddAssignmentDialogProps> = ({
     }
 
     return (
-        <Dialog title="Add Exam" searchParamKey="addexam">
+        <Dialog title="Add Exam" searchParamKey="addexam" redirect="/dashboard">
             <form action={formAction}>
                 <div className="grid gap-6 mb-6 grid-cols-2 ">
                     <div className="assignment--input-container col-span-2">

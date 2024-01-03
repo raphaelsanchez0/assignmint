@@ -23,7 +23,11 @@ const AddAssignmentDialog: React.FC<AddAssignmentDialogProps> = ({
     }
 
     return (
-        <Dialog title="Add Assignment" searchParamKey="addassignment">
+        <Dialog
+            title="Add Assignment"
+            searchParamKey="addassignment"
+            redirect="/dashboard"
+        >
             <form action={formAction}>
                 <div className="grid gap-6 mb-6 grid-cols-2 ">
                     <div className="assignment--input-container col-span-2">

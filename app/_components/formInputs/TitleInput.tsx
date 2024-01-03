@@ -1,4 +1,9 @@
-export default function TitleInput({}) {
+interface TitleInputProps {
+    title?: string;
+    placeholder?: string;
+}
+
+export const TitleInput = () => {
     return (
         <>
             <label htmlFor="title" className="assignment--input-header">
@@ -17,4 +22,4 @@ export default function TitleInput({}) {
             />
         </>
     );
-}
+};

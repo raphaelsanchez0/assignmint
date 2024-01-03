@@ -9,6 +9,7 @@ interface DialogProps {
     onOk?: () => void;
     children: React.ReactNode;
     searchParamKey: string;
+    redirect: string;
 }
 
 const Dialog: React.FC<DialogProps> = ({
@@ -17,6 +18,7 @@ const Dialog: React.FC<DialogProps> = ({
     onOk,
     children,
     searchParamKey,
+    redirect,
 }) => {
     const searchParams = useSearchParams();
     const router = useRouter();
@@ -34,7 +36,7 @@ const Dialog: React.FC<DialogProps> = ({
 
     const closeDialog = () => {
         dialogRef.current?.close();
-        router.push("/dashboard");
+        router.push(redirect);
         onClose?.();
     };
     const clickOk = () => {
