@@ -1,6 +1,6 @@
 import CourseList from "./CourseList";
 import Account from "./Account";
-import AddCourseDialog from "./AddCourseDialog";
+import AddCourseDialog from "./DeleteCourseDialog";
 
 export default function Settings() {
     return (

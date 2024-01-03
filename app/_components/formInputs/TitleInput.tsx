@@ -1,9 +1,8 @@
 interface TitleInputProps {
-    title?: string;
     placeholder?: string;
 }
 
-export const TitleInput = () => {
+const TitleInput = ({ placeholder = "Essay Draft" }) => {
     return (
         <>
             <label htmlFor="title" className="assignment--input-header">
@@ -17,9 +16,11 @@ export const TitleInput = () => {
                           text-gray-900 text-sm rounded-lg
                           block w-full p-2.5  
                         caret-gray-500"
-                placeholder="Essay Draft"
+                placeholder={placeholder}
                 required
             />
         </>
     );
 };
+
+export default TitleInput;
