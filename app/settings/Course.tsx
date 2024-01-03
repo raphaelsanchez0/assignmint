@@ -39,8 +39,8 @@ const Course: React.FC<CourseProps> = ({
     useOnClickOutside([colorPickerRef], () => setIsColorPickerOpen(false));
 
     //Course name change functions
-
     const [isEditing, setIsEditing] = useState(editEnabled);
+    const [isBlurEventPending, setIsBlurEventPending] = useState(false);
     const [courseName, setCourseName] = useState(name);
 
     const handleEditClick = () => {
@@ -54,11 +54,19 @@ const Course: React.FC<CourseProps> = ({
     const handleNameSubmit = () => {
         if (courseName.trim() !== "") {
             setIsEditing(false);
-            // Save the new course name...
         }
     };
 
-    const handleDeleteClick = () => {};
+    const handleBlur = () => {
+        if (courseName.trim() !== "") {
+            setIsEditing(false);
+        }
+    };
+
+    const handleTrashClick = (event: React.MouseEvent) => {
+        event.preventDefault();
+        setIsBlurEventPending(false);
+    };
 
     return (
         <>
@@ -86,7 +94,7 @@ const Course: React.FC<CourseProps> = ({
                                 type="text"
                                 value={courseName}
                                 onChange={handleNameChange}
-                                onBlur={handleNameSubmit}
+                                onBlur={handleBlur}
                                 autoFocus
                                 placeholder="Course Name"
                                 onKeyDown={(event) => {
@@ -108,7 +116,7 @@ const Course: React.FC<CourseProps> = ({
                             </button>
                         ) : (
                             <Link href="/settings?removecourse=y">
-                                <button ref={trashPickerRef}>
+                                <button onMouseDown={handleTrashClick}>
                                     <Image
                                         src={iconTrash}
                                         alt="delete"
