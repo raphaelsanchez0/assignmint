@@ -29,7 +29,7 @@ const AddAssignment: React.FC<AddAssignmentProps> = ({ courses }) => {
                         <TitleInput />
                     </div>
                     <div>
-                        <DueDateInput />
+                        <DueDateInput type="assignment" />
                     </div>
                     <div className="col-span-2">
                         <NotesInput />

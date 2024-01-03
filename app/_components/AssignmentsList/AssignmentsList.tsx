@@ -4,7 +4,7 @@ import Link from "next/link";
 import Assignment from "./Assignment";
 import SectionDivider from "./SectionDivider";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface AssignmentsListProps {
     showAddAssignment?: boolean;
@@ -16,7 +16,7 @@ const AssignmentsList: React.FC<AssignmentsListProps> = ({
     const [assignments, setAssignments] = useState([
         {
             key: "1",
-            name: "Pogram 10",
+            title: "Pogram 10",
             course: "CS 1114",
             dueDate: "Nov 12",
             color: "#DB5F5F",
@@ -24,7 +24,7 @@ const AssignmentsList: React.FC<AssignmentsListProps> = ({
         },
         {
             key: "2",
-            name: "Reading 2",
+            title: "Reading 2",
             course: "ITDS 2064",
             dueDate: "Nov 12",
             color: "#EFEA6A",
@@ -32,7 +32,7 @@ const AssignmentsList: React.FC<AssignmentsListProps> = ({
         },
         {
             key: "3",
-            name: "Essay 3",
+            title: "Essay 3",
             course: "ENGL 2122",
             dueDate: "Nov 12",
             color: "#5F89DB",
@@ -40,7 +40,7 @@ const AssignmentsList: React.FC<AssignmentsListProps> = ({
         },
         {
             key: "4",
-            name: "Pogram 10",
+            title: "Pogram 10",
             course: "CS 1114",
             dueDate: "Nov 12",
             color: "#DB5F5F",
@@ -48,7 +48,7 @@ const AssignmentsList: React.FC<AssignmentsListProps> = ({
         },
         {
             key: "5",
-            name: "Essay 3",
+            title: "Essay 3",
             course: "ENGL 2122",
             dueDate: "Nov 12",
             color: "#5F89DB",
@@ -56,7 +56,7 @@ const AssignmentsList: React.FC<AssignmentsListProps> = ({
         },
         {
             key: "6",
-            name: "Essay 3",
+            title: "Essay 3",
             course: "ENGL 2122",
             dueDate: "Nov 12",
             color: "#5F89DB",
@@ -64,7 +64,7 @@ const AssignmentsList: React.FC<AssignmentsListProps> = ({
         },
         {
             key: "7",
-            name: "Pogram 10",
+            title: "Pogram 10",
             course: "CS 1114",
             dueDate: "Nov 12",
             color: "#DB5F5F",
@@ -72,7 +72,7 @@ const AssignmentsList: React.FC<AssignmentsListProps> = ({
         },
         {
             key: "8",
-            name: "Essay 3",
+            title: "Essay 3",
             course: "ENGL 2122",
             dueDate: "Nov 12",
             color: "#5F89DB",
@@ -80,7 +80,7 @@ const AssignmentsList: React.FC<AssignmentsListProps> = ({
         },
         {
             key: "9",
-            name: "Essay 3",
+            title: "Essay 3",
             course: "ENGL 2122",
             dueDate: "Nov 12",
             color: "#5F89DB",
@@ -98,6 +98,8 @@ const AssignmentsList: React.FC<AssignmentsListProps> = ({
         assignments.filter((assignment) => assignment.category === "due today"),
     );
 
+    //Read assignments from database
+
     return (
         <div className="card">
             <div className="flex items-center justify-between">
@@ -114,7 +116,7 @@ const AssignmentsList: React.FC<AssignmentsListProps> = ({
                 {overdueAssignments.map((assignment) => (
                     <Assignment
                         key={assignment.key}
-                        name={assignment.name}
+                        title={assignment.title}
                         course={assignment.course}
                         due={assignment.dueDate}
                         color={assignment.color}
@@ -124,8 +126,8 @@ const AssignmentsList: React.FC<AssignmentsListProps> = ({
                 <SectionDivider title="Priority" color="#F4BD6B" />
                 {priorityAssignments.map((assignment) => (
                     <Assignment
-                        key={assignment.name}
-                        name={assignment.name}
+                        key={assignment.title}
+                        title={assignment.title}
                         course={assignment.course}
                         due={assignment.dueDate}
                         color={assignment.color}
@@ -134,8 +136,8 @@ const AssignmentsList: React.FC<AssignmentsListProps> = ({
                 <SectionDivider title="Due Today" color="#7DC672" />
                 {dueTodayAssignments.map((assignment) => (
                     <Assignment
-                        key={assignment.name}
-                        name={assignment.name}
+                        key={assignment.title}
+                        title={assignment.title}
                         course={assignment.course}
                         due={assignment.dueDate}
                         color={assignment.color}
