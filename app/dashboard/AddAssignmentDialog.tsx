@@ -10,6 +10,8 @@ import TitleInput from "../_components/formInputs/TitleInput";
 import DateInput from "../_components/formInputs/DateInput";
 import NotesInput from "../_components/formInputs/NotesInput";
 
+interface AddAssignmentDialogProps {}
+
 export default function AddAssignmentDialog() {
     //Sends formdata to createAssignment server action
     const [assignment, formAction] = useFormState(createAssignment, null);
@@ -21,9 +23,9 @@ export default function AddAssignmentDialog() {
             const coursesFromServer = await getCourses();
             const formattedCourses = coursesFromServer.map((course) => ({
                 label: course.title,
-                value: course,
+                value: course.id,
             }));
-
+            console.log(formattedCourses);
             setCourses(formattedCourses);
         };
         fetchCourses();

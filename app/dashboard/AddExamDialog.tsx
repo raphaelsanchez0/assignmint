@@ -23,7 +23,7 @@ export default function AddAssignmentDialog() {
             const coursesFromServer = await getCourses();
             const formattedCourses = coursesFromServer.map((course) => ({
                 label: course.title,
-                value: course,
+                value: course.id,
             }));
 
             setCourses(formattedCourses);

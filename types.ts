@@ -13,6 +13,6 @@ interface Course {
 }
 
 interface CourseType {
-    value: Course;
+    value: string;
     label: string;
 }
