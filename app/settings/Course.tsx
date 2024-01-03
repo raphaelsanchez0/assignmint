@@ -9,14 +9,17 @@ import Image from "next/image";
 
 import { Sketch } from "@uiw/react-color";
 import Link from "next/link";
+import { createOrUpdateCourse } from "../_server/api";
 
 interface CourseProps {
+    id: string;
     name: string;
     color: string;
     editEnabled?: boolean;
 }
 
 const Course: React.FC<CourseProps> = ({
+    id,
     name,
     color,
     editEnabled = false,
@@ -24,7 +27,6 @@ const Course: React.FC<CourseProps> = ({
     const [isColorPickerOpen, setIsColorPickerOpen] = useState(false);
     const [colorPickerValue, setColorPickerValue] = useState(color);
     const colorPickerRef = useRef(null);
-    const trashPickerRef = useRef(null);
 
     //Color Picker Functions
     const handleColorClick = () => {
@@ -36,11 +38,14 @@ const Course: React.FC<CourseProps> = ({
         setColorPickerValue(color.hex);
     };
 
-    useOnClickOutside([colorPickerRef], () => setIsColorPickerOpen(false));
+    useOnClickOutside([colorPickerRef], () => {
+        setIsColorPickerOpen(false);
+        createOrUpdateCourse(id, courseName, colorPickerValue);
+    });
 
     //Course name change functions
     const [isEditing, setIsEditing] = useState(editEnabled);
-    const [isBlurEventPending, setIsBlurEventPending] = useState(false);
+
     const [courseName, setCourseName] = useState(name);
 
     const handleEditClick = () => {
@@ -54,6 +59,7 @@ const Course: React.FC<CourseProps> = ({
     const handleNameSubmit = () => {
         if (courseName.trim() !== "") {
             setIsEditing(false);
+            createOrUpdateCourse(id, courseName, colorPickerValue);
         }
     };
 
@@ -65,7 +71,6 @@ const Course: React.FC<CourseProps> = ({
 
     const handleTrashClick = (event: React.MouseEvent) => {
         event.preventDefault();
-        setIsBlurEventPending(false);
     };
 
     return (

@@ -1,13 +1,23 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Course from "./Course";
+import { getCourses } from "../_server/api";
 
 export default function CourseList() {
     const [courses, setCourses] = useState<Course[]>([]);
+    useEffect(() => {
+        const fetchCourses = async () => {
+            const coursesFromServer = await getCourses();
+            setCourses(coursesFromServer);
+        };
+
+        fetchCourses();
+    }, []);
 
     const addCourse = () => {
         const newCourse = {
+            id: null,
             title: "New Course",
             color: "#000000",
         };
@@ -26,7 +36,12 @@ export default function CourseList() {
             </div>
             <div>
                 {courses.map((course) => (
-                    <Course name={course.title} color={course.color} />
+                    <Course
+                        name={course.title}
+                        color={course.color}
+                        key={course.id}
+                        id={course.id}
+                    />
                 ))}
             </div>
         </>

@@ -3,7 +3,7 @@
 import Dialog from "../_components/Dialogs/Dialog";
 import { useState } from "react";
 import { useFormState } from "react-dom";
-import { createExam } from "@/app/_actions/actions";
+import { createExam } from "@/app/_server/actions";
 import "react-datepicker/dist/react-datepicker.css";
 
 import CoursesInput from "../_components/formInputs/CoursesInput";

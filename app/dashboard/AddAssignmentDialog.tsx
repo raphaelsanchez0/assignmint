@@ -1,6 +1,6 @@
 "use client";
 import { useFormState } from "react-dom";
-import { createAssignment } from "@/app/_actions/actions";
+import { createAssignment } from "@/app/_server/actions";
 import Dialog from "../_components/Dialogs/Dialog";
 
 import CoursesInput from "../_components/formInputs/CoursesInput";
