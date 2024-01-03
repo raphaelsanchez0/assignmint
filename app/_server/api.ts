@@ -1,4 +1,10 @@
-import { doc, setDoc, collection, getDocs } from "firebase/firestore";
+import {
+    doc,
+    setDoc,
+    collection,
+    getDocs,
+    deleteDoc,
+} from "firebase/firestore";
 import { db } from "@/services/firebase";
 import { z } from "zod";
 
@@ -39,4 +45,9 @@ export async function getCourses() {
         // include other properties here if your Course type has more
     }));
     return courseList;
+}
+
+export async function deleteCourse(courseID: string) {
+    const courseRef = doc(db, "courses", courseID);
+    await deleteDoc(courseRef);
 }

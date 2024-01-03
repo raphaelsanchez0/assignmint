@@ -9,13 +9,14 @@ import Image from "next/image";
 
 import { Sketch } from "@uiw/react-color";
 import Link from "next/link";
-import { createOrUpdateCourse } from "../_server/api";
+import { createOrUpdateCourse, deleteCourse } from "../_server/api";
 
 interface CourseProps {
     id: string;
     name: string;
     color: string;
     editEnabled?: boolean;
+    setCourses: React.Dispatch<React.SetStateAction<Course[]>>;
 }
 
 const Course: React.FC<CourseProps> = ({
@@ -23,6 +24,7 @@ const Course: React.FC<CourseProps> = ({
     name,
     color,
     editEnabled = false,
+    setCourses,
 }) => {
     const [isColorPickerOpen, setIsColorPickerOpen] = useState(false);
     const [colorPickerValue, setColorPickerValue] = useState(color);
@@ -45,7 +47,6 @@ const Course: React.FC<CourseProps> = ({
 
     //Course name change functions
     const [isEditing, setIsEditing] = useState(editEnabled);
-
     const [courseName, setCourseName] = useState(name);
 
     const handleEditClick = () => {
@@ -69,8 +70,10 @@ const Course: React.FC<CourseProps> = ({
         }
     };
 
-    const handleTrashClick = (event: React.MouseEvent) => {
+    const handleTrashClick = async (event: React.MouseEvent) => {
         event.preventDefault();
+        setCourses((courses) => courses.filter((course) => course.id !== id));
+        await deleteCourse(id);
     };
 
     return (
