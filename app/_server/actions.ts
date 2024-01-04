@@ -47,11 +47,13 @@ export async function createExam(prevState: any, formData: FormData) {
             notes: formData.get("notes"),
         });
 
-        const dueDate = new Date(parsedData.examDate);
+        const examDate = new Date(parsedData.examDate);
         await addDoc(collection(db, "exams"), {
             ...parsedData,
-            dueDate,
+            examDate,
         });
+        revalidatePath("/exams");
+        console.log("Exam created");
     } catch (e) {
         console.log(e);
     }

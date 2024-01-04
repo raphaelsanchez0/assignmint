@@ -25,7 +25,6 @@ export default function AddAssignmentDialog() {
                 label: course.title,
                 value: course.id,
             }));
-            console.log(formattedCourses);
             setCourses(formattedCourses);
         };
         fetchCourses();

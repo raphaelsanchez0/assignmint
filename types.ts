@@ -1,8 +1,16 @@
 interface Assignment {
-    id?: string;
+    id: string;
     course: Course;
     title: string;
-    dueDate: Date | null;
+    dueDate: Date;
+    notes: string;
+}
+
+interface Exam {
+    id: string;
+    course: Course;
+    title: string;
+    examDate: Date;
     notes: string;
 }
 
