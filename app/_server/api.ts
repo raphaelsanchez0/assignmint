@@ -51,3 +51,14 @@ export async function deleteCourse(courseID: string) {
     const courseRef = doc(db, "courses", courseID);
     await deleteDoc(courseRef);
 }
+
+export async function getExams() {
+    const examsRef = collection(db, "exams");
+    let exams: Exam[] = [];
+    const snapshot = await getDocs(examsRef);
+    snapshot.docs.forEach((doc) => {
+        exams.push({ ...doc.data(), id: doc.id } as Exam);
+    });
+
+    return exams;
+}

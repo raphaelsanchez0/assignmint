@@ -1,12 +1,22 @@
 import Link from "next/link";
 import Exam from "./Exam";
-import FetchExams from "./FetchExams";
+import format from "date-fns/format";
+import { getExams } from "@/app/_server/api";
+import { useEffect, useState } from "react";
 
 interface ExamsListProps {
     showAddExam?: boolean;
 }
 
 const ExamsList: React.FC<ExamsListProps> = ({ showAddExam = false }) => {
+    const [exams, setExams] = useState<Exam[]>([]);
+    useEffect(() => {
+        const fetchExams = async () => {
+            const examsFromServer = await getExams();
+            setExams(examsFromServer);
+        };
+        fetchExams();
+    });
     return (
         <div className="card">
             <div className="flex items-center justify-between mb-4">
@@ -18,7 +28,19 @@ const ExamsList: React.FC<ExamsListProps> = ({ showAddExam = false }) => {
                 )}
             </div>
             <div>
-                <FetchExams />
+                {exams.map((exam) => (
+                    <Exam
+                        key={exam.id}
+                        name={exam.title}
+                        course={exam.course.title}
+                        date={
+                            exam.examDate
+                                ? format(exam.examDate.toDate(), "MMM dd")
+                                : ""
+                        }
+                        color={exam.course.color}
+                    />
+                ))}
             </div>
         </div>
     );
