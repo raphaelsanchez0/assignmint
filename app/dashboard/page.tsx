@@ -26,7 +26,6 @@ export default function Dashboard() {
                 </div>
                 {/* Dialogs */}
                 <AddAssignmentDialog />
-                <AddExamDialog />
             </div>
         </>
     );

@@ -12,7 +12,11 @@ import TitleInput from "../_components/formInputs/TitleInput";
 import DateInput from "../_components/formInputs/DateInput";
 import NotesInput from "../_components/formInputs/NotesInput";
 
-export default function AddAssignmentDialog() {
+interface AddExamDialogProps {
+    onData: (data: any) => void;
+}
+
+const AddExamDialog: React.FC<AddExamDialogProps> = ({ onData }) => {
     const [formState, formAction] = useFormState(createExam, null);
 
     const [courses, setCourses] = useState<CourseType[]>([]);
@@ -33,6 +37,7 @@ export default function AddAssignmentDialog() {
 
     function closeDialog() {
         window.location.href = "/dashboard";
+        onData(formState);
     }
 
     return (
@@ -64,4 +69,5 @@ export default function AddAssignmentDialog() {
             </form>
         </Dialog>
     );
-}
+};
+export default AddExamDialog;

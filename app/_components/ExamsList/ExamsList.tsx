@@ -4,6 +4,7 @@ import Exam from "./Exam";
 import format from "date-fns/format";
 import { getExams } from "@/app/_server/api";
 import { useEffect, useState } from "react";
+import AddExamDialog from "@/app/dashboard/AddExamDialog";
 
 interface ExamsListProps {
     showAddExam?: boolean;
@@ -11,6 +12,13 @@ interface ExamsListProps {
 
 const ExamsList: React.FC<ExamsListProps> = ({ showAddExam = false }) => {
     const [exams, setExams] = useState<Exam[]>([]);
+    const getChanges = () => {
+        const fetchExams = async () => {
+            const examsFromServer = await getExams();
+            setExams(examsFromServer);
+        };
+        fetchExams();
+    };
     useEffect(() => {
         const fetchExams = async () => {
             const examsFromServer = await getExams();
@@ -43,6 +51,7 @@ const ExamsList: React.FC<ExamsListProps> = ({ showAddExam = false }) => {
                     />
                 ))}
             </div>
+            <AddExamDialog onData={getChanges} />
         </div>
     );
 };

@@ -52,8 +52,7 @@ export async function createExam(prevState: any, formData: FormData) {
             ...parsedData,
             examDate,
         });
-        revalidatePath("/exams");
-        console.log("Exam created");
+        return formData;
     } catch (e) {
         console.log(e);
     }
