@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import Exam from "./Exam";
 import format from "date-fns/format";

@@ -13,7 +13,7 @@ import DateInput from "../_components/formInputs/DateInput";
 import NotesInput from "../_components/formInputs/NotesInput";
 
 export default function AddAssignmentDialog() {
-    const [exam, formAction] = useFormState(createExam, null);
+    const [formState, formAction] = useFormState(createExam, null);
 
     const [courses, setCourses] = useState<CourseType[]>([]);
 
