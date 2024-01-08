@@ -52,6 +52,7 @@ export async function createExam(prevState: any, formData: FormData) {
             ...parsedData,
             examDate,
         });
+        revalidatePath("/dasboard");
         return formData;
     } catch (e) {
         console.log(e);

@@ -3,19 +3,24 @@ import Link from "next/link";
 import Exam from "./Exam";
 import format from "date-fns/format";
 import { getExams } from "@/app/_server/api";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useOptimistic } from "react";
 import AddExamDialog from "@/app/dashboard/AddExamDialog";
 
 interface ExamsListProps {
     showAddExam?: boolean;
+    initialExams: Exam[];
 }
 
-const ExamsList: React.FC<ExamsListProps> = ({ showAddExam = false }) => {
-    const [exams, setExams] = useState<Exam[]>([]);
+const ExamsList: React.FC<ExamsListProps> = ({
+    showAddExam = false,
+    initialExams,
+}) => {
+    const [exams, setExams] = useState<Exam[]>(initialExams);
+    const [optimisticExams, setOptimisticExams] = useOptimistic<Exam[]>(exams);
     const getChanges = () => {
         const fetchExams = async () => {
             const examsFromServer = await getExams();
-            setExams(examsFromServer);
+            setExams((prev) => [...prev, ...examsFromServer]);
         };
         fetchExams();
     };
@@ -42,11 +47,6 @@ const ExamsList: React.FC<ExamsListProps> = ({ showAddExam = false }) => {
                         key={exam.id}
                         name={exam.title}
                         course={exam.course.title}
-                        date={
-                            exam.examDate
-                                ? format(exam.examDate.toDate(), "MMM dd")
-                                : ""
-                        }
                         color={exam.course.color}
                     />
                 ))}

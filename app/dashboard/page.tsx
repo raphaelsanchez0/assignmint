@@ -5,9 +5,11 @@ import ExamsList from "../_components/ExamsList/ExamsList";
 import PageTitle from "../_components/PageTitle";
 import Dialog from "../_components/Dialogs/Dialog";
 import AddAssignmentDialog from "./AddAssignmentDialog";
+import { getExams } from "../_server/api";
 import AddExamDialog from "./AddExamDialog";
 
-export default function Dashboard() {
+export default async function Dashboard() {
+    const initialExams = await getExams();
     return (
         <>
             <div className="ml-sidebar-width">
@@ -21,7 +23,7 @@ export default function Dashboard() {
                     </div>
                     <div className="basis-1/3 flex flex-col gap-4">
                         <MiniCalender />
-                        <ExamsList showAddExam />
+                        <ExamsList showAddExam initialExams={initialExams} />
                     </div>
                 </div>
                 {/* Dialogs */}
