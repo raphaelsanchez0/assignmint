@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useFormState } from "react-dom";
 import { createAssignment } from "@/server/actions";
 import Dialog from "../_components/Dialogs/Dialog";
-import { getCourses } from "../../server/actions";
+import { getCourses } from "../../server/api";
 
 import CoursesInput from "../_components/formInputs/CoursesInput";
 import TitleInput from "../_components/formInputs/TitleInput";

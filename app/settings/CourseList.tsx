@@ -1,10 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
 import Course from "./Course";
-import { getCourses } from "../../server/actions";
+import { getCourses } from "../../server/api";
 import { v4 as uuidv4 } from "uuid";
-
-export const revalidate = 0;
 
 export default function CourseList() {
     const [courses, setCourses] = useState<Course[]>([]);

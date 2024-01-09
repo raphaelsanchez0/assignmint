@@ -5,7 +5,7 @@ import { useFormState } from "react-dom";
 import { createExam } from "@/server/actions";
 import "react-datepicker/dist/react-datepicker.css";
 
-import { getCourses } from "../../server/actions";
+import { getCourses } from "../../server/api";
 import Dialog from "../_components/Dialogs/Dialog";
 import CoursesInput from "../_components/formInputs/CoursesInput";
 import TitleInput from "../_components/formInputs/TitleInput";

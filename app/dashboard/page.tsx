@@ -5,7 +5,7 @@ import ExamsList from "../_components/ExamsList/ExamsList";
 import PageTitle from "../_components/PageTitle";
 import Dialog from "../_components/Dialogs/Dialog";
 import AddAssignmentDialog from "./AddAssignmentDialog";
-import { getExams } from "../../server/actions";
+import { getExams } from "../../server/api";
 import AddExamDialog from "./AddExamDialog";
 
 export default async function Dashboard() {
