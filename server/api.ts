@@ -103,7 +103,8 @@ export async function getPriorityAssignments() {
     course(*)
     `,
         )
-        .eq("priority", true);
+        .eq("priority", true)
+        .order("dueDate", { ascending: true });
 
     if (error) {
         console.error("Error getting assignments: ", error);
