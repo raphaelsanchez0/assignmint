@@ -13,10 +13,10 @@ import DateInput from "../_components/formInputs/DateInput";
 import NotesInput from "../_components/formInputs/NotesInput";
 
 interface AddExamDialogProps {
-    onData: (data: any) => void;
+    onSubmission: (data: any) => void;
 }
 
-const AddExamDialog: React.FC<AddExamDialogProps> = ({ onData }) => {
+const AddExamDialog: React.FC<AddExamDialogProps> = ({ onSubmission }) => {
     const [formState, formAction] = useFormState(createExam, null);
 
     const [courses, setCourses] = useState<CourseType[]>([]);
@@ -37,7 +37,7 @@ const AddExamDialog: React.FC<AddExamDialogProps> = ({ onData }) => {
 
     function closeDialog() {
         window.location.href = "/dashboard";
-        onData(formState);
+        onSubmission(formState);
     }
 
     return (

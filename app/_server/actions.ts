@@ -53,7 +53,7 @@ export async function createExam(prevState: any, formData: FormData) {
         ...parsedData,
         examDate,
     });
-    revalidatePath("/dashboard");
+    revalidatePath("/exams");
 
     if (error) {
         throw error;

@@ -20,7 +20,7 @@ const ExamsList: React.FC<ExamsListProps> = ({
     initialExams,
 }) => {
     const [exams, setExams] = useState<Exam[]>(initialExams);
-    const getChanges = () => {
+    const updateExams = () => {
         const fetchExams = async () => {
             const examsFromServer = await getExams();
             setExams((prev) => [...prev, ...examsFromServer]);
@@ -58,7 +58,7 @@ const ExamsList: React.FC<ExamsListProps> = ({
                     />
                 ))}
             </div>
-            <AddExamDialog onData={getChanges} />
+            <AddExamDialog onSubmission={updateExams} />
         </div>
     );
 };
