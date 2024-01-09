@@ -6,34 +6,22 @@ import { getExams } from "@/server/api";
 import { useEffect, useState, useOptimistic } from "react";
 import AddExamDialog from "@/app/dashboard/AddExamDialog";
 import { utcToZonedTime } from "date-fns-tz";
+import { useQuery } from "@tanstack/react-query";
 
 interface ExamsListProps {
     showAddExam?: boolean;
-    initialExams: Exam[];
 }
 
 //Tells nextjs to not rely on cache
 export const revalidate = 0;
 
-const ExamsList: React.FC<ExamsListProps> = ({
-    showAddExam = false,
-    initialExams,
-}) => {
-    const [exams, setExams] = useState<Exam[]>(initialExams);
-    const updateExams = () => {
-        const fetchExams = async () => {
-            const examsFromServer = await getExams();
-            setExams((prev) => [...prev, ...examsFromServer]);
-        };
-        fetchExams();
-    };
-    useEffect(() => {
-        const fetchExams = async () => {
-            const examsFromServer = await getExams();
-            setExams(examsFromServer);
-        };
-        fetchExams();
-    }, []);
+const ExamsList: React.FC<ExamsListProps> = ({ showAddExam = false }) => {
+    const { data, error } = useQuery<Exam[]>({
+        queryKey: ["exams"],
+        queryFn: getExams,
+    });
+    if (error) return <div>An error has occured: {error.message}</div>;
+
     return (
         <div className="card">
             <div className="flex items-center justify-between mb-4">
@@ -45,7 +33,7 @@ const ExamsList: React.FC<ExamsListProps> = ({
                 )}
             </div>
             <div>
-                {exams.map((exam) => (
+                {data?.map((exam) => (
                     <Exam
                         key={exam.id}
                         name={exam.title}
@@ -58,7 +46,7 @@ const ExamsList: React.FC<ExamsListProps> = ({
                     />
                 ))}
             </div>
-            <AddExamDialog onSubmission={updateExams} />
+            <AddExamDialog />
         </div>
     );
 };

@@ -5,8 +5,19 @@ import ExamsList from "../_components/ExamsList/ExamsList";
 import PageTitle from "../_components/PageTitle";
 import AddAssignmentDialog from "./AddAssignmentDialog";
 import { getExams } from "../../server/api";
+import {
+    QueryClient,
+    HydrationBoundary,
+    dehydrate,
+} from "@tanstack/react-query";
 
 export default async function Dashboard() {
+    const queryClient = new QueryClient();
+
+    await queryClient.prefetchQuery({
+        queryKey: ["exams"],
+        queryFn: getExams,
+    });
     const initialExams = await getExams();
     return (
         <>
@@ -21,7 +32,9 @@ export default async function Dashboard() {
                     </div>
                     <div className="basis-1/3 flex flex-col gap-4">
                         <MiniCalender />
-                        <ExamsList showAddExam initialExams={initialExams} />
+                        <HydrationBoundary state={dehydrate(queryClient)}>
+                            <ExamsList showAddExam />
+                        </HydrationBoundary>
                     </div>
                 </div>
                 {/* Dialogs */}
