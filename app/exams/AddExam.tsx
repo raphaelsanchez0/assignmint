@@ -17,11 +17,7 @@ type CourseType = {
     label: string;
 };
 
-interface AddExamProps {
-    courses: CourseType[];
-}
-
-const AddExam: React.FC<AddExamProps> = ({ courses }) => {
+export default function AddExam() {
     const [formState, formAction] = useFormState(createExam, null);
     const formRef = React.useRef<HTMLFormElement>(null);
     //const queryClient = new QueryClient();
@@ -72,6 +68,4 @@ const AddExam: React.FC<AddExamProps> = ({ courses }) => {
             </form>
         </div>
     );
-};
-
-export default AddExam;
+}
