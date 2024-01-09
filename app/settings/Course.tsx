@@ -9,7 +9,7 @@ import Image from "next/image";
 
 import { Sketch } from "@uiw/react-color";
 import Link from "next/link";
-import { createOrUpdateCourse, deleteCourse } from "../_server/api";
+import { createOrUpdateCourse, deleteCourse } from "../_server/actions";
 
 interface CourseProps {
     id: string;
