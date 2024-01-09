@@ -9,7 +9,7 @@ import TitleInput from "../_components/formInputs/TitleInput";
 import { useFormState } from "react-dom";
 import { createExam } from "../../server/actions";
 import React from "react";
-import { QueryClient, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { getCourses } from "@/server/api";
 
 type CourseType = {

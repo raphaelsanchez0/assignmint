@@ -2,8 +2,6 @@ import ExamsList from "./ExamsList";
 import AddExam from "./AddExam";
 import { getExams, getCourses } from "@/server/actions";
 import {
-    useQuery,
-    useQueryClient,
     QueryClient,
     HydrationBoundary,
     dehydrate,
@@ -21,12 +19,6 @@ export default async function Exams() {
         queryKey: ["courses"],
         queryFn: getCourses,
     });
-
-    // const coursesFromServer = await getCourses();
-    // const formattedCourses = coursesFromServer.map((course) => ({
-    //     label: course.title,
-    //     value: course.id,
-    // }));
 
     return (
         <div className="ml-sidebar-width">
