@@ -9,11 +9,7 @@ import {
     useQuery,
     dehydrate,
 } from "@tanstack/react-query";
-import {
-    getCategorizedAssignments,
-    getAssignments,
-    getOverdueAssignments,
-} from "@/server/api";
+import { getOverdueAssignments } from "@/server/api";
 import { utcToZonedTime } from "date-fns-tz";
 import { format } from "date-fns";
 import OverdueAssignments from "./OverdueAssignments";
@@ -50,7 +46,6 @@ const AssignmentsList: React.FC<AssignmentsListProps> = async ({
                 {showAddAssignment && <AddAssignmentBtn />}
             </div>
             <ol>
-                <SectionDivider title="Overdue" color="#FC7C7C" />
                 <HydrationBoundary state={dehydrate(queryClient)}>
                     <OverdueAssignments />
                 </HydrationBoundary>

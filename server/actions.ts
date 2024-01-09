@@ -213,3 +213,23 @@ export async function getCategorizedAssignments() {
         dueToday: dueToday || [],
     };
 }
+
+export async function getOverdueAssignments() {
+    const currentDateIso = new Date().toISOString();
+    const { data, error } = await supabase
+        .from("assignments")
+        .select(
+            `
+        *,
+        course(*)
+        `,
+        )
+        .lt("dueDate", currentDateIso) // Use ISO formatted date
+        .order("dueDate", { ascending: true });
+
+    if (error) {
+        console.error("Error getting assignments: ", error);
+        throw error;
+    }
+    return data;
+}
