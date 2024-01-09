@@ -5,6 +5,7 @@ import format from "date-fns/format";
 import { getExams } from "@/app/_server/api";
 import { useEffect, useState, useOptimistic } from "react";
 import AddExamDialog from "@/app/dashboard/AddExamDialog";
+import { utcToZonedTime } from "date-fns-tz";
 
 interface ExamsListProps {
     showAddExam?: boolean;
@@ -50,7 +51,10 @@ const ExamsList: React.FC<ExamsListProps> = ({
                         name={exam.title}
                         course={exam.course.title}
                         color={exam.course.color}
-                        date={format(new Date(exam.examDate), "MMM d")}
+                        date={format(
+                            utcToZonedTime(exam.examDate, "Etc/UTC"),
+                            "MMM d",
+                        )}
                     />
                 ))}
             </div>

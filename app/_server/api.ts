@@ -75,6 +75,9 @@ export async function getExams() {
         console.error("Error getting exams: ", error);
         throw error;
     }
-
+    exams.sort(
+        (a, b) =>
+            new Date(a.examDate).getTime() - new Date(b.examDate).getTime(),
+    );
     return exams || [];
 }
