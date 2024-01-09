@@ -4,6 +4,7 @@ interface Assignment {
     title: string;
     dueDate: Date;
     notes: string;
+    priority: boolean;
 }
 
 interface Exam {

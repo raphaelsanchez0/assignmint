@@ -73,3 +73,103 @@ export async function getExams() {
     );
     return exams || [];
 }
+
+interface Assignments {
+    priority: Assignment[];
+    overdue: Assignment[];
+    dueToday: Assignment[];
+}
+export async function getCategorizedAssignments() {
+    let assignments: Assignments = {
+        priority: [],
+        overdue: [],
+        dueToday: [],
+    };
+
+    const currentDateIso = new Date().toISOString();
+    const { data: priority, error: priorityError } = await supabase
+        .from("assignments")
+        .select(
+            `
+    *,
+    course(*)
+    `,
+        )
+        .eq("priority", true);
+
+    const { data: overdue, error: overdueError } = await supabase
+        .from("assignments")
+        .select(
+            `
+    *,
+    course(*)
+    `,
+        )
+        .lt("dueDate", currentDateIso) // Use ISO formatted date
+        .order("dueDate", { ascending: true });
+
+    const { data: dueToday, error: dueTodayError } = await supabase
+        .from("assignments")
+        .select(
+            `
+    *,
+    course(*)
+    `,
+        )
+        .eq("dueDate", currentDateIso) // Use ISO formatted date
+        .order("dueDate", { ascending: true });
+    //Error checking
+    if (priorityError || overdueError || dueTodayError) {
+        console.error(
+            "Error getting assignments: ",
+            priorityError,
+            overdueError,
+            dueTodayError,
+        );
+        throw priorityError || overdueError || dueTodayError;
+    }
+
+    // Assigning values to the assignments object
+    assignments.priority = priority || [];
+    assignments.overdue = overdue || [];
+    assignments.dueToday = dueToday || [];
+
+    return assignments;
+}
+
+export async function getOverdueAssignments() {
+    const currentDateIso = new Date().toISOString();
+    const { data, error } = await supabase
+        .from("assignments")
+        .select(
+            `
+        *,
+        course(*)
+        `,
+        )
+        .lt("dueDate", currentDateIso) // Use ISO formatted date
+        .order("dueDate", { ascending: true });
+
+    if (error) {
+        console.error("Error getting assignments: ", error);
+        throw error;
+    }
+    return data;
+}
+
+export async function getAssignments() {
+    const { data: assignments, error } = await supabase.from("assignments")
+        .select(`
+    *,
+    course(*)
+    `);
+
+    if (error) {
+        console.error("Error getting assignments: ", error);
+        throw error;
+    }
+    assignments.sort(
+        (a, b) => new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime(),
+    );
+    return assignments || [];
+}

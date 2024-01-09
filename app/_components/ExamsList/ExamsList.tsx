@@ -3,7 +3,7 @@ import Link from "next/link";
 import Exam from "./Exam";
 import format from "date-fns/format";
 import { getExams } from "@/server/api";
-import { useEffect, useState, useOptimistic } from "react";
+
 import AddExamDialog from "@/app/dashboard/AddExamDialog";
 import { utcToZonedTime } from "date-fns-tz";
 import { useQuery } from "@tanstack/react-query";

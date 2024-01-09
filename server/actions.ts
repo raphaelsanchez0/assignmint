@@ -3,6 +3,7 @@ import { revalidatePath } from "next/cache";
 import { addDoc, collection } from "firebase/firestore";
 import supabase from "@/server/supabase";
 import { z } from "zod";
+import { createHash } from "crypto";
 
 const addAssignmentFormSchema = z.object({
     course: z.string().min(1, "Course is required"),
@@ -132,4 +133,83 @@ export async function createOrUpdateCourse(
         console.error("Error creating or updating course: ", error);
         throw error; // or handle the error as needed
     }
+}
+
+export async function getAssignments() {
+    const { data: assignments, error } = await supabase.from("assignments")
+        .select(`
+    *,
+    course(*)
+    `);
+
+    if (error) {
+        console.error("Error getting assignments: ", error);
+        throw error;
+    }
+
+    return assignments || [];
+}
+
+interface Assignments {
+    priority: Assignment[];
+    overdue: Assignment[];
+    dueToday: Assignment[];
+}
+export async function getCategorizedAssignments() {
+    "use server";
+    let assignments: Assignments = {
+        priority: [],
+        overdue: [],
+        dueToday: [],
+    };
+
+    const currentDateIso = new Date().toISOString();
+    const { data: priority, error: priorityError } = await supabase
+        .from("assignments")
+        .select(
+            `
+    *,
+    course(*)
+    `,
+        )
+        .eq("priority", true);
+
+    const { data: overdue, error: overdueError } = await supabase
+        .from("assignments")
+        .select(
+            `
+    *,
+    course(*)
+    `,
+        )
+        .lt("dueDate", currentDateIso) // Use ISO formatted date
+        .order("dueDate", { ascending: true });
+
+    const { data: dueToday, error: dueTodayError } = await supabase
+        .from("assignments")
+        .select(
+            `
+    *,
+    course(*)
+    `,
+        )
+        .eq("dueDate", currentDateIso) // Use ISO formatted date
+        .order("dueDate", { ascending: true });
+    //Error checking
+    if (priorityError || overdueError || dueTodayError) {
+        console.error(
+            "Error getting assignments: ",
+            priorityError,
+            overdueError,
+            dueTodayError,
+        );
+        throw priorityError || overdueError || dueTodayError;
+    }
+
+    // Assigning values to the assignments object
+    return {
+        priority: priority || [],
+        overdue: overdue || [],
+        dueToday: dueToday || [],
+    };
 }

@@ -4,7 +4,11 @@ import MiniCalender from "./_MiniCalendar/MiniCalendar";
 import ExamsList from "../_components/ExamsList/ExamsList";
 import PageTitle from "../_components/PageTitle";
 import AddAssignmentDialog from "./AddAssignmentDialog";
-import { getExams } from "../../server/api";
+import {
+    getExams,
+    getCategorizedAssignments,
+    getAssignments,
+} from "../../server/api";
 import {
     QueryClient,
     HydrationBoundary,
@@ -18,14 +22,16 @@ export default async function Dashboard() {
         queryKey: ["exams"],
         queryFn: getExams,
     });
-    const initialExams = await getExams();
+
     return (
         <>
             <div className="ml-sidebar-width">
                 <PageTitle title="Dashboard" />
                 <div className="flex p-4 gap-4">
                     <div className="basis-1/3 ">
-                        <AssignmentsList showAddAssignment />
+                        <HydrationBoundary state={dehydrate(queryClient)}>
+                            <AssignmentsList showAddAssignment />
+                        </HydrationBoundary>
                     </div>
                     <div className="basis-1/3">
                         <ThisWeek />

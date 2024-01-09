@@ -1,148 +1,86 @@
-"use client";
-
 import Link from "next/link";
 import Assignment from "./Assignment";
 import SectionDivider from "./SectionDivider";
 
 import { useEffect, useState } from "react";
+import {
+    HydrationBoundary,
+    QueryClient,
+    useQuery,
+    dehydrate,
+} from "@tanstack/react-query";
+import {
+    getCategorizedAssignments,
+    getAssignments,
+    getOverdueAssignments,
+} from "@/server/api";
+import { utcToZonedTime } from "date-fns-tz";
+import { format } from "date-fns";
+import OverdueAssignments from "./OverdueAssignments";
+import AddAssignment from "@/app/assignments/_AddAssignment/AddAssignment";
+import AddAssignmentBtn from "./AddAssignmentBtn";
 
 interface AssignmentsListProps {
     showAddAssignment?: boolean;
 }
+interface CategorizedAssignments {
+    category: string;
+    assignments: Assignment[];
+}
 
-const AssignmentsList: React.FC<AssignmentsListProps> = ({
+const AssignmentsList: React.FC<AssignmentsListProps> = async ({
     showAddAssignment = false,
 }) => {
-    const [assignments, setAssignments] = useState([
-        {
-            key: "1",
-            title: "Pogram 10",
-            course: "CS 1114",
-            dueDate: "Nov 12",
-            color: "#DB5F5F",
-            category: "overdue",
-        },
-        {
-            key: "2",
-            title: "Reading 2",
-            course: "ITDS 2064",
-            dueDate: "Nov 12",
-            color: "#EFEA6A",
-            category: "overdue",
-        },
-        {
-            key: "3",
-            title: "Essay 3",
-            course: "ENGL 2122",
-            dueDate: "Nov 12",
-            color: "#5F89DB",
-            category: "overdue",
-        },
-        {
-            key: "4",
-            title: "Pogram 10",
-            course: "CS 1114",
-            dueDate: "Nov 12",
-            color: "#DB5F5F",
-            category: "priority",
-        },
-        {
-            key: "5",
-            title: "Essay 3",
-            course: "ENGL 2122",
-            dueDate: "Nov 12",
-            color: "#5F89DB",
-            category: "priority",
-        },
-        {
-            key: "6",
-            title: "Essay 3",
-            course: "ENGL 2122",
-            dueDate: "Nov 12",
-            color: "#5F89DB",
-            category: "due today",
-        },
-        {
-            key: "7",
-            title: "Pogram 10",
-            course: "CS 1114",
-            dueDate: "Nov 12",
-            color: "#DB5F5F",
-            category: "priority",
-        },
-        {
-            key: "8",
-            title: "Essay 3",
-            course: "ENGL 2122",
-            dueDate: "Nov 12",
-            color: "#5F89DB",
-            category: "priority",
-        },
-        {
-            key: "9",
-            title: "Essay 3",
-            course: "ENGL 2122",
-            dueDate: "Nov 12",
-            color: "#5F89DB",
-            category: "due today",
-        },
-    ]);
+    const queryClient = new QueryClient();
+    await queryClient.prefetchQuery({
+        queryKey: ["overDueAssignments"],
+        queryFn: getOverdueAssignments,
+    });
 
-    const [overdueAssignments, setOverdueAssignments] = useState(
-        assignments.filter((assignment) => assignment.category === "overdue"),
-    );
-    const [priorityAssignments, setPriorityAssignments] = useState(
-        assignments.filter((assignment) => assignment.category === "priority"),
-    );
-    const [dueTodayAssignments, setDueTodayAssignments] = useState(
-        assignments.filter((assignment) => assignment.category === "due today"),
-    );
-
-    //Read assignments from database
-
+    // const currentDateIso = new Date().toISOString();
+    // const priority = data.filter((a) => a.priority);
+    // const overdue = data.filter(
+    //     (a) => new Date(a.dueDate) < new Date(currentDateIso),
+    // );
+    // const dueToday = data.filter((a) => a.dueDate === currentDateIso);
     return (
         <div className="card">
             <div className="flex items-center justify-between">
                 <h3 className="card-title">Assignments</h3>
-                {showAddAssignment && (
-                    <Link href="/dashboard?addassignment=y">
-                        <button className="btn">Add</button>
-                    </Link>
-                )}
+                {showAddAssignment && <AddAssignmentBtn />}
             </div>
             <ol>
                 <SectionDivider title="Overdue" color="#FC7C7C" />
-
-                {overdueAssignments.map((assignment) => (
-                    <Assignment
-                        key={assignment.key}
-                        title={assignment.title}
-                        course={assignment.course}
-                        due={assignment.dueDate}
-                        color={assignment.color}
-                    />
-                ))}
+                <HydrationBoundary state={dehydrate(queryClient)}>
+                    <OverdueAssignments />
+                </HydrationBoundary>
 
                 <SectionDivider title="Priority" color="#F4BD6B" />
-                {priorityAssignments.map((assignment) => (
+                {/* {priority.map((assignment) => (
                     <Assignment
-                        key={assignment.title}
+                        key={assignment.id}
                         title={assignment.title}
-                        course={assignment.course}
-                        due={assignment.dueDate}
-                        color={assignment.color}
+                        course={assignment.course.title}
+                        due={format(
+                            utcToZonedTime(assignment.dueDate, "Etc/UTC"),
+                            "MMM d",
+                        )}
+                        color={assignment.course.color}
                     />
-                ))}
+                ))} */}
                 <SectionDivider title="Due Today" color="#7DC672" />
-                {dueTodayAssignments.map((assignment) => (
+                {/* {dueToday.map((assignment) => (
                     <Assignment
-                        key={assignment.title}
+                        key={assignment.id}
                         title={assignment.title}
-                        course={assignment.course}
-                        due={assignment.dueDate}
-                        color={assignment.color}
+                        course={assignment.course.title}
+                        due={format(
+                            utcToZonedTime(assignment.dueDate, "Etc/UTC"),
+                            "MMM d",
+                        )}
+                        color={assignment.course.color}
                     />
-                ))}
+                ))} */}
             </ol>
         </div>
     );
