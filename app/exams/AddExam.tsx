@@ -26,13 +26,18 @@ const AddExam: React.FC<AddExamProps> = ({ courses }) => {
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
 
-        formRef.current?.reset();
+        // waits for form to be submitted before clearing
+        if (formRef.current) {
+            const formData = new FormData(formRef.current);
+            formAction(formData);
+            formRef.current.reset();
+        }
     };
     return (
         <div className="card">
             <h3 className="card-title my-4">Add Exam</h3>
             <hr className="h-px w-full bg-gray-400 border-0" />
-            <form action={formAction} ref={formRef}>
+            <form action={formAction} ref={formRef} onSubmit={handleSubmit}>
                 <div className="grid gap-6 mb-6 grid-cols-2 ">
                     <div className="assignment--input-container col-span-2">
                         <CoursesInput courses={courses} />
@@ -47,11 +52,7 @@ const AddExam: React.FC<AddExamProps> = ({ courses }) => {
                         <NotesInput />
                     </div>
                     <div className="col-span-2 flex justify-center">
-                        <button
-                            type="submit"
-                            className="btn shadow-lg"
-                            onClick={handleSubmit}
-                        >
+                        <button type="submit" className="btn shadow-lg">
                             Add Assignment
                         </button>
                     </div>
