@@ -54,8 +54,15 @@ export async function getCourses() {
 }
 
 export async function deleteCourse(courseID: string) {
-    const courseRef = doc(db, "courses", courseID);
-    await deleteDoc(courseRef);
+    const { error } = await supabase
+        .from("courses")
+        .delete()
+        .eq("id", courseID);
+
+    if (error) {
+        console.error("Error deleting course:", error);
+        throw error;
+    }
 }
 
 export async function getExams() {
