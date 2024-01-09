@@ -33,7 +33,7 @@ const ExamsList: React.FC<ExamsListProps> = ({ showAddExam = false }) => {
                 )}
             </div>
             <div>
-                {data.map((exam) => (
+                {data?.map((exam) => (
                     <Exam
                         key={exam.id}
                         name={exam.title}
