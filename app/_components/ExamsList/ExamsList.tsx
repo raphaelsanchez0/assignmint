@@ -16,7 +16,6 @@ const ExamsList: React.FC<ExamsListProps> = ({
     initialExams,
 }) => {
     const [exams, setExams] = useState<Exam[]>(initialExams);
-    const [optimisticExams, setOptimisticExams] = useOptimistic<Exam[]>(exams);
     const getChanges = () => {
         const fetchExams = async () => {
             const examsFromServer = await getExams();
@@ -30,7 +29,7 @@ const ExamsList: React.FC<ExamsListProps> = ({
             setExams(examsFromServer);
         };
         fetchExams();
-    });
+    }, []);
     return (
         <div className="card">
             <div className="flex items-center justify-between mb-4">

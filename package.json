@@ -11,6 +11,7 @@
         "test:ci": "jest --ci"
     },
     "dependencies": {
+        "@supabase/supabase-js": "^2.39.2",
         "@uiw/react-color": "^2.0.5",
         "date-and-time": "^3.0.3",
         "date-fns": "^2.30.0",
@@ -48,6 +49,7 @@
         "postcss": "^8",
         "prettier": "^3.1.1",
         "prettier-plugin-tailwindcss": "^0.5.9",
+        "supabase": "^1.127.4",
         "tailwindcss": "^3.3.0",
         "ts-jest": "^29.1.1",
         "typescript": "^5.3.3"

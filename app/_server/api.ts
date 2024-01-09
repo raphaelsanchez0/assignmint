@@ -6,10 +6,15 @@ import {
     deleteDoc,
 } from "firebase/firestore";
 import { db } from "@/services/firebase";
+import supabase from "@/services/supabase";
 import { z } from "zod";
 
 const addCouseSchema = z.object({
-    id: z.string().min(1, "Course is required"),
+    id: z
+        .number()
+        .min(1, "Course is required")
+        .or(z.string().min(1, "Course is required"))
+        .optional(),
     title: z.string().min(1, "Course is required"),
     color: z.string().min(1, "Color is required"),
 });
@@ -19,32 +24,33 @@ export async function createOrUpdateCourse(
     courseName: string,
     courseColor: string,
 ) {
-    try {
-        const validatedCourse = addCouseSchema.parse({
-            id: courseID,
-            title: courseName,
-            color: courseColor,
-        });
+    const validatedCourse = addCouseSchema.parse({
+        id: courseID,
+        title: courseName,
+        color: courseColor,
+    });
 
-        // Get a reference to the document
-        const courseRef = doc(db, "courses", validatedCourse.id);
+    const { error } = await supabase
+        .from("courses")
+        .upsert(validatedCourse, { onConflict: "id" });
 
-        // Set the document data
-        await setDoc(courseRef, validatedCourse, { merge: true });
-    } catch (e) {
-        console.log(e);
+    if (error) {
+        console.error("Error creating or updating course: ", error);
+        throw error; // or handle the error as needed
     }
 }
+
 export async function getCourses() {
-    const courseCollection = collection(db, "courses");
-    const courseSnapshot = await getDocs(courseCollection);
-    const courseList: Course[] = courseSnapshot.docs.map((doc) => ({
-        id: doc.id,
-        title: doc.data().title,
-        color: doc.data().color,
-        // include other properties here if your Course type has more
-    }));
-    return courseList;
+    const { data: courseList, error } = await supabase
+        .from("courses")
+        .select("id, title, color");
+
+    if (error) {
+        console.error("Error getting courses: ", error);
+        throw error;
+    }
+
+    return courseList || [];
 }
 
 export async function deleteCourse(courseID: string) {
@@ -53,12 +59,10 @@ export async function deleteCourse(courseID: string) {
 }
 
 export async function getExams() {
-    const examsRef = collection(db, "exams");
-    let exams: Exam[] = [];
-    const snapshot = await getDocs(examsRef);
-    snapshot.docs.forEach((doc) => {
-        exams.push({ ...doc.data(), id: doc.id } as Exam);
-    });
-
-    return exams;
+    const { data, error } = await supabase.from("exams").select();
+    if (error) {
+        console.error(error);
+        throw error;
+    }
+    return data;
 }

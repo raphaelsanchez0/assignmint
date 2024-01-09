@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { addDoc, collection } from "firebase/firestore";
+import supabase from "@/services/supabase";
 import { db } from "@/services/firebase";
 import { z } from "zod";
 
@@ -48,6 +49,12 @@ export async function createExam(prevState: any, formData: FormData) {
         });
 
         const examDate = new Date(parsedData.examDate);
+
+        const { error } = await supabase.from("exams").insert({
+            ...parsedData,
+            examDate,
+        });
+
         await addDoc(collection(db, "exams"), {
             ...parsedData,
             examDate,
