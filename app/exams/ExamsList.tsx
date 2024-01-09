@@ -3,8 +3,7 @@ import Link from "next/link";
 import Exam from "../_components/ExamsList/Exam";
 import format from "date-fns/format";
 import { getExams } from "@/server/api";
-import { useEffect, useState, useOptimistic } from "react";
-import AddExamDialog from "@/app/dashboard/AddExamDialog";
+
 import { utcToZonedTime } from "date-fns-tz";
 import { useQuery } from "@tanstack/react-query";
 
@@ -16,7 +15,7 @@ interface ExamsListProps {
 export const revalidate = 0;
 
 const ExamsList: React.FC<ExamsListProps> = ({ showAddExam = false }) => {
-    const { data, error, isFetched } = useQuery<Exam[]>({
+    const { data, error } = useQuery<Exam[]>({
         queryKey: ["exams"],
         queryFn: getExams,
     });
