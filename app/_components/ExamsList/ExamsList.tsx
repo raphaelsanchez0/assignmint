@@ -2,7 +2,7 @@
 import Link from "next/link";
 import Exam from "./Exam";
 import format from "date-fns/format";
-import { getExams } from "@/app/_server/actions";
+import { getExams } from "@/server/actions";
 import { useEffect, useState, useOptimistic } from "react";
 import AddExamDialog from "@/app/dashboard/AddExamDialog";
 import { utcToZonedTime } from "date-fns-tz";

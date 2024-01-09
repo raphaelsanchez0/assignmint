@@ -7,7 +7,7 @@ import DateInput from "../_components/formInputs/DateInput";
 import NotesInput from "../_components/formInputs/NotesInput";
 import TitleInput from "../_components/formInputs/TitleInput";
 import { useFormState } from "react-dom";
-import { createExam } from "../_server/actions";
+import { createExam } from "../../server/actions";
 import React from "react";
 
 type CourseType = {

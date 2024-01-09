@@ -1,8 +1,7 @@
 "use server";
 import { revalidatePath } from "next/cache";
 import { addDoc, collection } from "firebase/firestore";
-import supabase from "@/services/supabase";
-import { db } from "@/services/firebase";
+import supabase from "@/server/supabase";
 import { z } from "zod";
 
 const addAssignmentFormSchema = z.object({
@@ -13,22 +12,24 @@ const addAssignmentFormSchema = z.object({
 });
 
 export async function createAssignment(prevState: any, formData: FormData) {
-    try {
-        const parsedData = addAssignmentFormSchema.parse({
-            course: formData.get("course"),
-            title: formData.get("title"),
-            dueDate: formData.get("dueDate"),
-            notes: formData.get("notes"),
-        });
+    const parsedData = addAssignmentFormSchema.parse({
+        course: formData.get("course"),
+        title: formData.get("title"),
+        dueDate: formData.get("dueDate"),
+        notes: formData.get("notes"),
+    });
 
-        const dueDate = new Date(parsedData.dueDate);
-        await addDoc(collection(db, "assignments"), {
-            ...parsedData,
-            dueDate,
-        });
-    } catch (e) {
-        console.log(e);
+    const dueDate = new Date(parsedData.dueDate);
+
+    const { error } = await supabase.from("assignments").insert({
+        ...parsedData,
+        dueDate,
+    });
+
+    if (error) {
+        throw error;
     }
+    return formData;
 }
 
 const examFormSchema = z.object({

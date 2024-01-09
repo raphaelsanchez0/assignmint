@@ -1,6 +1,6 @@
 import ExamsList from "../_components/ExamsList/ExamsList";
 import AddExam from "./AddExam";
-import { getExams, getCourses } from "@/app/_server/actions";
+import { getExams, getCourses } from "@/server/actions";
 
 export default async function Exams() {
     const initialExams = await getExams();
