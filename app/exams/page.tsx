@@ -1,22 +1,45 @@
-import ExamsList from "../_components/ExamsList/ExamsList";
+import ExamsList from "./ExamsList";
 import AddExam from "./AddExam";
 import { getExams, getCourses } from "@/server/actions";
+import {
+    useQuery,
+    useQueryClient,
+    QueryClient,
+    HydrationBoundary,
+    dehydrate,
+} from "@tanstack/react-query";
 
 export default async function Exams() {
-    const initialExams = await getExams();
-    const coursesFromServer = await getCourses();
-    const formattedCourses = coursesFromServer.map((course) => ({
-        label: course.title,
-        value: course.id,
-    }));
+    const queryClient = new QueryClient();
+
+    await queryClient.prefetchQuery({
+        queryKey: ["exams"],
+        queryFn: getExams,
+    });
+
+    await queryClient.prefetchQuery({
+        queryKey: ["courses"],
+        queryFn: getCourses,
+    });
+
+    // const coursesFromServer = await getCourses();
+    // const formattedCourses = coursesFromServer.map((course) => ({
+    //     label: course.title,
+    //     value: course.id,
+    // }));
+
     return (
         <div className="ml-sidebar-width">
             <div className="flex gap-4 p-4">
                 <div className="basis-1/2 ">
-                    <ExamsList initialExams={initialExams} />
+                    <HydrationBoundary state={dehydrate(queryClient)}>
+                        <ExamsList />
+                    </HydrationBoundary>
                 </div>
                 <div className="basis-1/2">
-                    <AddExam courses={formattedCourses} />
+                    <HydrationBoundary state={dehydrate(queryClient)}>
+                        <AddExam />
+                    </HydrationBoundary>
                 </div>
             </div>
         </div>

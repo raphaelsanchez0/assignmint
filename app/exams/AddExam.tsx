@@ -9,6 +9,8 @@ import TitleInput from "../_components/formInputs/TitleInput";
 import { useFormState } from "react-dom";
 import { createExam } from "../../server/actions";
 import React from "react";
+import { QueryClient, useQuery } from "@tanstack/react-query";
+import { getCourses } from "@/server/api";
 
 type CourseType = {
     value: string;
@@ -22,6 +24,16 @@ interface AddExamProps {
 const AddExam: React.FC<AddExamProps> = ({ courses }) => {
     const [formState, formAction] = useFormState(createExam, null);
     const formRef = React.useRef<HTMLFormElement>(null);
+    //const queryClient = new QueryClient();
+    const { data, error, isFetched } = useQuery({
+        queryKey: ["courses"],
+        queryFn: getCourses,
+    });
+
+    const formattedCourses = data?.map((course) => ({
+        label: course.title,
+        value: course.id,
+    }));
 
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
@@ -40,7 +52,7 @@ const AddExam: React.FC<AddExamProps> = ({ courses }) => {
             <form action={formAction} ref={formRef} onSubmit={handleSubmit}>
                 <div className="grid gap-6 mb-6 grid-cols-2 ">
                     <div className="assignment--input-container col-span-2">
-                        <CoursesInput courses={courses} />
+                        <CoursesInput courses={formattedCourses || []} />
                     </div>
                     <div>
                         <TitleInput />
