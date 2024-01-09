@@ -66,10 +66,15 @@ export async function deleteCourse(courseID: string) {
 }
 
 export async function getExams() {
-    const { data, error } = await supabase.from("exams").select();
+    const { data: exams, error } = await supabase.from("exams").select(`
+    *,
+    course(*)
+    `);
+
     if (error) {
-        console.error(error);
+        console.error("Error getting exams: ", error);
         throw error;
     }
-    return data;
+
+    return exams || [];
 }

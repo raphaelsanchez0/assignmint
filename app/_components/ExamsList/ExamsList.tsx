@@ -11,6 +11,9 @@ interface ExamsListProps {
     initialExams: Exam[];
 }
 
+//Tells nextjs to not rely on cache
+export const revalidate = 0;
+
 const ExamsList: React.FC<ExamsListProps> = ({
     showAddExam = false,
     initialExams,
@@ -47,6 +50,7 @@ const ExamsList: React.FC<ExamsListProps> = ({
                         name={exam.title}
                         course={exam.course.title}
                         color={exam.course.color}
+                        date={format(new Date(exam.examDate), "MMM d")}
                     />
                 ))}
             </div>

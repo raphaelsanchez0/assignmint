@@ -40,28 +40,24 @@ const examFormSchema = z.object({
 });
 
 export async function createExam(prevState: any, formData: FormData) {
-    try {
-        const parsedData = examFormSchema.parse({
-            course: formData.get("course"),
-            title: formData.get("title"),
-            examDate: formData.get("examDate"),
-            notes: formData.get("notes"),
-        });
+    const parsedData = examFormSchema.parse({
+        course: formData.get("course"),
+        title: formData.get("title"),
+        examDate: formData.get("examDate"),
+        notes: formData.get("notes"),
+    });
 
-        const examDate = new Date(parsedData.examDate);
+    const examDate = new Date(parsedData.examDate);
 
-        const { error } = await supabase.from("exams").insert({
-            ...parsedData,
-            examDate,
-        });
+    const { error } = await supabase.from("exams").insert({
+        ...parsedData,
+        examDate,
+    });
+    revalidatePath("/dashboard");
 
-        await addDoc(collection(db, "exams"), {
-            ...parsedData,
-            examDate,
-        });
-        revalidatePath("/dasboard");
-        return formData;
-    } catch (e) {
-        console.log(e);
+    if (error) {
+        throw error;
     }
+
+    return formData;
 }
