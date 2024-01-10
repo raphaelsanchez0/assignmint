@@ -33,7 +33,6 @@ export default function ExamAndAssignmentList() {
       <div className="flex items-center justify-between">
         <h3 className="card-title mb-2">{formatedDate}</h3>
       </div>
-
       <ol>
         {exams?.map((exam) => (
           <Exam
