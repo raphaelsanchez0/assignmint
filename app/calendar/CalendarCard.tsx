@@ -3,7 +3,7 @@ import { format } from "date-fns";
 import { useRouter, useSearchParams } from "next/navigation";
 import React from "react";
 import Calendar from "react-calendar";
-
+import "./calendar.scss";
 export default function CalenderCard() {
   const searchParams = useSearchParams();
   const router = useRouter();

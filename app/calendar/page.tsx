@@ -1,7 +1,7 @@
 import PageTitle from "../_components/PageTitle";
 import "./calendar.scss";
 import AssignmentsList from "./ExamAndAssignmentList";
-import CalenderCard from "./CalenderCard";
+import CalenderCard from "./CalendarCard";
 import {
   HydrationBoundary,
   QueryClient,

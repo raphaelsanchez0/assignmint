@@ -4,9 +4,7 @@ import { isToday, isTomorrow, isYesterday, format } from "date-fns";
 import { getEventsOnDate } from "@/server/api";
 import { useQuery } from "@tanstack/react-query";
 import Exam from "../_components/ExamsList/Exam";
-import { utcToZonedTime } from "date-fns-tz";
 import Assignment from "../_components/AssignmentsList/Assignment";
-import SectionDivider from "../_components/AssignmentsList/AssignmentCatagories/SectionDivider";
 
 export default function ExamAndAssignmentList() {
   const searchParams = useSearchParams();
