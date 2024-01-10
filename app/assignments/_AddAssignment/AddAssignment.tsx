@@ -11,6 +11,7 @@ import NotesInput from "../../_components/formInputs/NotesInput";
 import { createAssignment } from "@/server/actions";
 import { useQuery } from "@tanstack/react-query";
 import { getCourses } from "@/server/api";
+import PriorityInput from "@/app/_components/formInputs/PriorityInput";
 
 export default function AddAssignment() {
   //Sends formdata to createAssignment server action
@@ -44,7 +45,7 @@ export default function AddAssignment() {
       <hr className="h-px w-full bg-gray-400 border-0" />
       <form action={formAction} onSubmit={handleSubmit} ref={formRef}>
         <div className="grid gap-6 mb-6 grid-cols-2 ">
-          <div className="assignment--input-container col-span-2">
+          <div className="assignment--input-container col-span-1">
             <CoursesInput courses={formattedCourses || []} />
           </div>
           <div>
@@ -52,6 +53,9 @@ export default function AddAssignment() {
           </div>
           <div>
             <DueDateInput type="assignment" />
+          </div>
+          <div>
+            <PriorityInput />
           </div>
           <div className="col-span-2">
             <NotesInput />
