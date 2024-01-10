@@ -9,6 +9,7 @@ import CoursesInput from "../_components/formInputs/CoursesInput";
 import TitleInput from "../_components/formInputs/TitleInput";
 import DateInput from "../_components/formInputs/DateInput";
 import NotesInput from "../_components/formInputs/NotesInput";
+import PriorityInput from "../_components/formInputs/PriorityInput";
 
 export default function AddAssignmentDialog() {
   //Sends formdata to createAssignment server action
@@ -40,7 +41,7 @@ export default function AddAssignmentDialog() {
     >
       <form action={formAction}>
         <div className="grid gap-6 mb-6 grid-cols-2 ">
-          <div className="assignment--input-container col-span-2">
+          <div className="assignment--input-container">
             <CoursesInput courses={courses} />
           </div>
           <div>
@@ -48,6 +49,9 @@ export default function AddAssignmentDialog() {
           </div>
           <div>
             <DateInput type="assignment" />
+          </div>
+          <div>
+            <PriorityInput />
           </div>
           <div className="col-span-2">
             <NotesInput />

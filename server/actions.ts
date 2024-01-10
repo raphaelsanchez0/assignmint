@@ -9,6 +9,7 @@ const addAssignmentFormSchema = z.object({
   course: z.string().min(1, "Course is required"),
   title: z.string().min(1, "Title is required"),
   dueDate: z.string().min(1, "Due date is required"),
+  priority: z.boolean(),
   notes: z.string().optional(),
 });
 
@@ -17,6 +18,7 @@ export async function createAssignment(prevState: any, formData: FormData) {
     course: formData.get("course"),
     title: formData.get("title"),
     dueDate: formData.get("dueDate"),
+    priority: formData.get("priority") === "on",
     notes: formData.get("notes"),
   });
 

@@ -3,7 +3,7 @@ import React from "react";
 export default function PriorityInput() {
   return (
     <>
-      <div className="flex w-full h-full mt-12 ">
+      <div className="flex w-full h-full mt-12">
         <div className="">
           <input
             type="checkbox"
@@ -12,7 +12,10 @@ export default function PriorityInput() {
             className="m-1"
             defaultChecked={false}
           ></input>
-          <label htmlFor="priority" className="item text-xl font-medium">
+          <label
+            htmlFor="priority"
+            className="item text-xl font-medium text-off-black"
+          >
             Priority
           </label>
         </div>
