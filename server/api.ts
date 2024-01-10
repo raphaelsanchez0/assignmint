@@ -72,7 +72,6 @@ export async function getExams() {
 
 export async function getOverdueAssignments() {
   const currentDateIso = new Date().toISOString();
-  console.log(currentDateIso);
   const { data, error } = await supabase
     .from("assignments")
     .select(

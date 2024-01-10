@@ -36,7 +36,6 @@ const Course: React.FC<CourseProps> = ({
   };
 
   const handleColorChange = (color: any) => {
-    console.log(color.hex);
     setColorPickerValue(color.hex);
   };
 

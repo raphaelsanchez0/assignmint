@@ -12,8 +12,6 @@ export default function OverdueAssignments() {
     queryKey: ["overDueAssignments"],
     queryFn: getOverdueAssignments,
   });
-  console.log(data);
-
   if (data?.length === 0) {
     return null;
   }

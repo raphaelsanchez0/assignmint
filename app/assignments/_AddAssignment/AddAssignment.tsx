@@ -14,7 +14,7 @@ import { getCourses } from "@/server/api";
 
 export default function AddAssignment() {
   //Sends formdata to createAssignment server action
-  const [assignment, formAction] = useFormState(createAssignment, null);
+  const [formState, formAction] = useFormState(createAssignment, null);
   const formRef = React.useRef<HTMLFormElement>(null);
 
   const { data, error, isFetched } = useQuery({
@@ -42,7 +42,7 @@ export default function AddAssignment() {
     <div className="card">
       <h3 className="card-title my-4">Add Assignment</h3>
       <hr className="h-px w-full bg-gray-400 border-0" />
-      <form action={formAction} onSubmit={handleSubmit}>
+      <form action={formAction} onSubmit={handleSubmit} ref={formRef}>
         <div className="grid gap-6 mb-6 grid-cols-2 ">
           <div className="assignment--input-container col-span-2">
             <CoursesInput courses={formattedCourses || []} />
