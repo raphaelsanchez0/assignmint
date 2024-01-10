@@ -1,5 +1,5 @@
 import Assignment from "../_components/AssignmentsList/Assignment";
-import SectionDivider from "../_components/AssignmentsList/SectionDivider";
+import SectionDivider from "../_components/AssignmentsList/AssignmentCatagories/SectionDivider";
 import { isToday, isTomorrow, isYesterday, format } from "date-fns";
 
 interface AssignmentsListProps {

@@ -1,4 +1,4 @@
-import SectionDivider from "./SectionDivider";
+import SectionDivider from "./AssignmentCatagories/SectionDivider";
 import {
   HydrationBoundary,
   QueryClient,
@@ -9,10 +9,10 @@ import {
   getOverdueAssignments,
   getPriorityAssignments,
 } from "@/server/api";
-import OverdueAssignments from "./OverdueAssignments";
+import OverdueAssignments from "./AssignmentCatagories/OverdueAssignments";
 import AddAssignmentBtn from "./AddAssignmentBtn";
-import PriorityAssignments from "./PriorityAssignments";
-import DueTodayAssignments from "./DueTodayAssignments";
+import PriorityAssignments from "./AssignmentCatagories/PriorityAssignments";
+import DueTodayAssignments from "./AssignmentCatagories/DueTodayAssignments";
 
 interface AssignmentsListProps {
   showAddAssignment?: boolean;
