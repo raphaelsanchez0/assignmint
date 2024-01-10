@@ -1,7 +1,11 @@
+"use client";
 import { useSearchParams } from "next/navigation";
-import Assignment from "../_components/AssignmentsList/Assignment";
-import SectionDivider from "../_components/AssignmentsList/AssignmentCatagories/SectionDivider";
 import { isToday, isTomorrow, isYesterday, format } from "date-fns";
+import { getEventsOnDate } from "@/server/api";
+import { useQuery } from "@tanstack/react-query";
+import Exam from "../_components/ExamsList/Exam";
+import { utcToZonedTime } from "date-fns-tz";
+import Assignment from "../_components/AssignmentsList/Assignment";
 
 export default function ExamAndAssignmentList() {
   const searchParams = useSearchParams();
@@ -10,23 +14,58 @@ export default function ExamAndAssignmentList() {
   let selectedDate = selectedDateString
     ? new Date(`${selectedDateString}T00:00`)
     : new Date();
-  let formatedDate;
-  if (isToday(selectedDate)) {
-    formatedDate = "Today";
-  } else if (isTomorrow(selectedDate)) {
-    formatedDate = "Tomorrow";
-  } else if (isYesterday(selectedDate)) {
-    formatedDate = "Yesterday";
-  } else {
-    formatedDate = format(selectedDate, "MMMM d, yyyy");
-  }
+  let formatedDate = formatDate(selectedDate);
+
+  const { data: exams, error: examsTodayError } = useQuery<Exam[]>({
+    queryKey: ["examsToday", formatedDate],
+    queryFn: () => getEventsOnDate("exams", selectedDate),
+  });
+
+  const { data: assignments, error: assignmentsTodayError } = useQuery<
+    Assignment[]
+  >({
+    queryKey: ["assignmentsToday", formatedDate],
+    queryFn: () => getEventsOnDate("assignments", selectedDate),
+  });
 
   return (
     <div className="card">
       <div className="flex items-center justify-between">
-        <h3 className="card-title">{formatedDate}</h3>
+        <h3 className="card-title mb-2">{formatedDate}</h3>
       </div>
-      <ol></ol>
+
+      <ol>
+        {exams?.map((exam) => (
+          <Exam
+            key={exam.id}
+            name={exam.title}
+            course={exam.course.title}
+            color={exam.course.color}
+          />
+        ))}
+      </ol>
+      <ol>
+        {assignments?.map((assignment) => (
+          <Assignment
+            key={assignment.id}
+            title={assignment.title}
+            course={assignment.course.title}
+            color={assignment.course.color}
+          />
+        ))}
+      </ol>
     </div>
   );
+}
+
+function formatDate(selectedDate: Date): string {
+  if (isToday(selectedDate)) {
+    return "Today";
+  } else if (isTomorrow(selectedDate)) {
+    return "Tomorrow";
+  } else if (isYesterday(selectedDate)) {
+    return "Yesterday";
+  } else {
+    return format(selectedDate, "MMMM d, yyyy");
+  }
 }

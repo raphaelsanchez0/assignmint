@@ -79,6 +79,7 @@ export async function getEventsOnDate(
   const ONLY_DATE = 10;
   const formattedDate = targetDate.toISOString().slice(0, ONLY_DATE);
 
+  const fieldName = type === "exams" ? "examDate" : "dueDate";
   const { data, error } = await supabase
     .from(type)
     .select(
@@ -86,7 +87,7 @@ export async function getEventsOnDate(
   *,
   course(*)`,
     )
-    .eq("dueDate", formattedDate);
+    .eq(fieldName, formattedDate);
 
   if (error) {
     console.error(`Error getting ${type}"`, error);
