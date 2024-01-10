@@ -1,13 +1,13 @@
 import SectionDivider from "./SectionDivider";
 import {
-    HydrationBoundary,
-    QueryClient,
-    dehydrate,
+  HydrationBoundary,
+  QueryClient,
+  dehydrate,
 } from "@tanstack/react-query";
 import {
-    getDueTodayAssignments,
-    getOverdueAssignments,
-    getPriorityAssignments,
+  getDueTodayAssignments,
+  getOverdueAssignments,
+  getPriorityAssignments,
 } from "@/server/api";
 import OverdueAssignments from "./OverdueAssignments";
 import AddAssignmentBtn from "./AddAssignmentBtn";
@@ -15,45 +15,49 @@ import PriorityAssignments from "./PriorityAssignments";
 import DueTodayAssignments from "./DueTodayAssignments";
 
 interface AssignmentsListProps {
-    showAddAssignment?: boolean;
+  showAddAssignment?: boolean;
 }
 
 const AssignmentsList: React.FC<AssignmentsListProps> = async ({
-    showAddAssignment = false,
+  showAddAssignment = false,
 }) => {
-    const queryClient = new QueryClient();
+  const queryClient = new QueryClient();
 
-    //Prefetching all data
-    await queryClient.prefetchQuery({
-        queryKey: ["overDueAssignments"],
-        queryFn: getOverdueAssignments,
-    });
+  //Prefetching all data
+  await queryClient.prefetchQuery({
+    queryKey: ["overDueAssignments"],
+    queryFn: getOverdueAssignments,
+  });
 
-    await queryClient.prefetchQuery({
-        queryKey: ["priorityAssignments"],
-        queryFn: getPriorityAssignments,
-    });
+  await queryClient.prefetchQuery({
+    queryKey: ["priorityAssignments"],
+    queryFn: getPriorityAssignments,
+  });
 
-    await queryClient.prefetchQuery({
-        queryKey: ["dueTodayAssignments"],
-        queryFn: getDueTodayAssignments,
-    });
+  await queryClient.prefetchQuery({
+    queryKey: ["dueTodayAssignments"],
+    queryFn: getDueTodayAssignments,
+  });
 
-    return (
-        <div className="card">
-            <div className="flex items-center justify-between">
-                <h3 className="card-title">Assignments</h3>
-                {showAddAssignment && <AddAssignmentBtn />}
-            </div>
-            <ol>
-                <HydrationBoundary state={dehydrate(queryClient)}>
-                    <OverdueAssignments />
-                    <PriorityAssignments />
-                    <DueTodayAssignments />
-                </HydrationBoundary>
-            </ol>
-        </div>
-    );
+  return (
+    <div className="card">
+      <div className="flex items-center justify-between">
+        <h3 className="card-title">Assignments</h3>
+        {showAddAssignment && <AddAssignmentBtn />}
+      </div>
+      <ol>
+        <HydrationBoundary state={dehydrate(queryClient)}>
+          <OverdueAssignments />
+        </HydrationBoundary>
+        <HydrationBoundary state={dehydrate(queryClient)}>
+          <PriorityAssignments />
+        </HydrationBoundary>
+        <HydrationBoundary state={dehydrate(queryClient)}>
+          <DueTodayAssignments />
+        </HydrationBoundary>
+      </ol>
+    </div>
+  );
 };
 
 export default AssignmentsList;
