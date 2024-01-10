@@ -1,4 +1,5 @@
 import supabase from "@/server/supabase";
+import exp from "constants";
 import { z } from "zod";
 
 const addCouseSchema = z.object({
@@ -69,6 +70,50 @@ export async function getExams() {
   );
   return exams || [];
 }
+
+export async function getEventsOnDate(
+  type: "assignments" | "exams",
+  date: Date,
+) {
+  const targetDate = new Date(date);
+  const ONLY_DATE = 10;
+  const formattedDate = targetDate.toISOString().slice(0, ONLY_DATE);
+
+  const { data, error } = await supabase
+    .from(type)
+    .select(
+      `
+  *,
+  course(*)`,
+    )
+    .eq("dueDate", formattedDate);
+
+  if (error) {
+    console.error(`Error getting ${type}"`, error);
+    throw error;
+  }
+
+  return data || [];
+}
+
+export async function getAssignmentsDueOnDate(date: string) {
+  const { data, error } = await supabase
+    .from("assignments")
+    .select(
+      `*,
+    course(*)
+    `,
+    )
+    .eq("dueDate", date);
+
+  if (error) {
+    console.error("Error getting assignments: ", error);
+    throw error;
+  }
+  return data;
+}
+
+//Catagories
 
 export async function getOverdueAssignments() {
   const currentDateIso = new Date().toISOString();
