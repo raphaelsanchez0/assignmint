@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import Exam from "../_components/ExamsList/Exam";
 import { utcToZonedTime } from "date-fns-tz";
 import Assignment from "../_components/AssignmentsList/Assignment";
+import SectionDivider from "../_components/AssignmentsList/AssignmentCatagories/SectionDivider";
 
 export default function ExamAndAssignmentList() {
   const searchParams = useSearchParams();
@@ -33,6 +34,7 @@ export default function ExamAndAssignmentList() {
       <div className="flex items-center justify-between">
         <h3 className="card-title mb-2">{formatedDate}</h3>
       </div>
+      <h4 className="font-semibold my-1 text-xl">Exams</h4>
       <ol>
         {exams?.map((exam) => (
           <Exam
@@ -43,6 +45,7 @@ export default function ExamAndAssignmentList() {
           />
         ))}
       </ol>
+      <h4 className="font-semibold my-1 text-xl">Assignments</h4>
       <ol>
         {assignments?.map((assignment) => (
           <Assignment
