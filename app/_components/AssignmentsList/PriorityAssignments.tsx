@@ -12,6 +12,10 @@ export default function PriorityAssignments() {
         queryKey: ["priorityAssignments"],
         queryFn: getPriorityAssignments,
     });
+
+    if (data?.length === 0) {
+        return null;
+    }
     return (
         <>
             <SectionDivider title="Priority" color="#F4BD6B" />

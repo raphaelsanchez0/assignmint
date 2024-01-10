@@ -23,6 +23,7 @@ const AssignmentsList: React.FC<AssignmentsListProps> = async ({
 }) => {
     const queryClient = new QueryClient();
 
+    //Prefetching all data
     await queryClient.prefetchQuery({
         queryKey: ["overDueAssignments"],
         queryFn: getOverdueAssignments,
@@ -47,11 +48,7 @@ const AssignmentsList: React.FC<AssignmentsListProps> = async ({
             <ol>
                 <HydrationBoundary state={dehydrate(queryClient)}>
                     <OverdueAssignments />
-                </HydrationBoundary>
-                <HydrationBoundary state={dehydrate(queryClient)}>
                     <PriorityAssignments />
-                </HydrationBoundary>{" "}
-                <HydrationBoundary state={dehydrate(queryClient)}>
                     <DueTodayAssignments />
                 </HydrationBoundary>
             </ol>

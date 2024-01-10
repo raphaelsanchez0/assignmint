@@ -10,8 +10,6 @@ import TitleInput from "../_components/formInputs/TitleInput";
 import DateInput from "../_components/formInputs/DateInput";
 import NotesInput from "../_components/formInputs/NotesInput";
 
-interface AddAssignmentDialogProps {}
-
 export default function AddAssignmentDialog() {
     //Sends formdata to createAssignment server action
     const [assignment, formAction] = useFormState(createAssignment, null);

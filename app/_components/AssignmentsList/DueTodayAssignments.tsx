@@ -12,6 +12,10 @@ export default function DueTodayAssignments() {
         queryKey: ["dueTodayAssignments"],
         queryFn: getDueTodayAssignments,
     });
+
+    if (data?.length === 0) {
+        return null;
+    }
     return (
         <>
             <SectionDivider title="Due Today" color="#7DC672" />

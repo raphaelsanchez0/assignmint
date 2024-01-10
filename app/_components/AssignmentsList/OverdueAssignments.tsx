@@ -12,6 +12,10 @@ export default function OverdueAssignments() {
         queryKey: ["overDueAssignments"],
         queryFn: getOverdueAssignments,
     });
+
+    if (data?.length === 0) {
+        return null;
+    }
     return (
         <>
             <SectionDivider title="Overdue" color="#FC7C7C" />
