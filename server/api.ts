@@ -117,8 +117,8 @@ export async function getAssignmentsDueOnDate(date: string) {
 
 export async function getOverdueAssignments() {
   const currentDate = new Date();
-  const ONLY_DATE = 10;
-  const currentDateIso = currentDate.toISOString().slice(0, ONLY_DATE);
+  currentDate.setHours(0, 0, 0, 0);
+  const currentDateIso = currentDate.toISOString();
   const { data, error } = await supabase
     .from("assignments")
     .select(
