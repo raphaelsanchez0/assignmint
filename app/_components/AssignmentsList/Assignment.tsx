@@ -1,7 +1,7 @@
 interface AssignmentProps {
   title: string;
   course: string;
-  due: string;
+  due?: string;
   color: string;
 }
 

@@ -1,7 +1,7 @@
 interface ExamProps {
   name: string;
   course: string;
-  date: string;
+  date?: string;
   color: string;
 }
 

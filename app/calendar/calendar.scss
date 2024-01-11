@@ -99,13 +99,13 @@
 
 .react-calendar__tile {
     max-width: 100%;
-    padding: 10px 6.6667px;
     background: none;
     text-align: center;
     line-height: 16px;
     font: inherit;
     font-size: 0.833em;
-    @apply py-6;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
 }
 
 

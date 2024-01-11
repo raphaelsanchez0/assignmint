@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
+import format from "date-fns/format";
 
 import iconLogo from "../_assets/icons/logo.svg";
 import iconHome from "../_assets/icons/home.svg";
@@ -60,7 +61,7 @@ const Sidebar = () => {
         icon={iconCalendar}
         alt="logo"
         width={30}
-        href="/calendar"
+        href={`/calendar?date=${format(new Date(), "yyyy-MM-dd")}`}
         className={sideBarIconStyle}
       />
       <SideBarIcon
