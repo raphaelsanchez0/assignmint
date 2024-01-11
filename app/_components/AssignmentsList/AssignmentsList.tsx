@@ -27,17 +27,17 @@ const AssignmentsList: React.FC<AssignmentsListProps> = async ({
 
   //Prefetching all data
   await queryClient.prefetchQuery({
-    queryKey: ["overDueAssignments", "assignments"],
+    queryKey: ["assignments", { type: "overdue" }],
     queryFn: getOverdueAssignments,
   });
 
   await queryClient.prefetchQuery({
-    queryKey: ["priorityAssignments", "assignments"],
+    queryKey: ["assignments", { type: "priority" }],
     queryFn: getPriorityAssignments,
   });
 
   await queryClient.prefetchQuery({
-    queryKey: ["dueTodayAssignments", "assignments"],
+    queryKey: ["assignments", { type: "dueToday" }],
     queryFn: getDueTodayAssignments,
   });
 

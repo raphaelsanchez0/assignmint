@@ -10,8 +10,12 @@ import TitleInput from "../_components/formInputs/TitleInput";
 import DateInput from "../_components/formInputs/DateInput";
 import NotesInput from "../_components/formInputs/NotesInput";
 import PriorityInput from "../_components/formInputs/PriorityInput";
+import { QueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 
 export default function AddAssignmentDialog() {
+  const queryClient = new QueryClient();
+  const router = useRouter();
   //Sends formdata to createAssignment server action
   const [assignment, formAction] = useFormState(createAssignment, null);
   const [courses, setCourses] = useState<CourseType[]>([]);
@@ -30,7 +34,7 @@ export default function AddAssignmentDialog() {
   }, []);
 
   function closeDialog() {
-    window.location.href = "/dashboard";
+    router.push("/dashboard");
   }
 
   return (

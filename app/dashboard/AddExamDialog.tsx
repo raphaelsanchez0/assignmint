@@ -11,11 +11,11 @@ import CoursesInput from "../_components/formInputs/CoursesInput";
 import TitleInput from "../_components/formInputs/TitleInput";
 import DateInput from "../_components/formInputs/DateInput";
 import NotesInput from "../_components/formInputs/NotesInput";
-import AddAssignment from "../assignments/_AddAssignment/AddAssignment";
+import { useRouter } from "next/navigation";
 
 export default function AddAssignmentDialog() {
+  const router = useRouter();
   const [formState, formAction] = useFormState(createExam, null);
-
   const [courses, setCourses] = useState<CourseType[]>([]);
 
   //Gets courses from server and formats them for the CoursesInput component
@@ -33,7 +33,7 @@ export default function AddAssignmentDialog() {
   }, []);
 
   function closeDialog() {
-    window.location.href = "/dashboard";
+    router.push("/dashboard");
   }
 
   return (

@@ -10,7 +10,7 @@ import LoadingSkeleton from "../../Loading/LoadingListShorter";
 
 export default function OverdueAssignments() {
   const { data, error, isLoading } = useQuery({
-    queryKey: ["overDueAssignments"],
+    queryKey: ["assignments", { type: "overdue" }],
     queryFn: getOverdueAssignments,
   });
 
