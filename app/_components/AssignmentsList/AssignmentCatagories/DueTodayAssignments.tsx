@@ -6,18 +6,18 @@ import Assignment from "../Assignment";
 import { format } from "date-fns";
 import { utcToZonedTime } from "date-fns-tz";
 import SectionDivider from "./SectionDivider";
-import LoadingListShorter from "../../Loading/LoadingListShorter";
+import LoadingSkeleton from "../../Loading/LoadingListShorter";
 
 export default function DueTodayAssignments() {
   const { data, error, isLoading } = useQuery({
-    queryKey: ["assignments", { type: "dueToday" }],
+    queryKey: ["dueTodayAssignments"],
     queryFn: getDueTodayAssignments,
   });
   if (data?.length === 0) {
     return null;
   }
 
-  if (isLoading) return <LoadingListShorter />;
+  if (isLoading) return <LoadingSkeleton />;
 
   return (
     <>

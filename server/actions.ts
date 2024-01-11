@@ -30,16 +30,8 @@ export async function createAssignment(prevState: any, formData: FormData) {
     dueDate,
   });
   queryClient.invalidateQueries({
-    queryKey: ["assignments", { type: "overdue" }],
+    queryKey: ["assignments"],
   });
-  queryClient.invalidateQueries({
-    queryKey: ["assignments", { type: "priority" }],
-  });
-
-  queryClient.invalidateQueries({
-    queryKey: ["assignments", { type: "dueToday" }],
-  });
-
   if (error) {
     throw error;
   }

@@ -10,7 +10,7 @@ import LoadingSkeleton from "../../Loading/LoadingListShorter";
 
 export default function PriorityAssignments() {
   const { data, error, isLoading } = useQuery({
-    queryKey: ["assignments", { type: "priority" }],
+    queryKey: ["priorityAssignments"],
     queryFn: getPriorityAssignments,
   });
 
