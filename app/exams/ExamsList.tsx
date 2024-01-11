@@ -6,6 +6,7 @@ import { getExams } from "@/server/api";
 
 import { utcToZonedTime } from "date-fns-tz";
 import { useQuery } from "@tanstack/react-query";
+import LoadingListShorter from "../_components/Loading/LoadingListShorter";
 
 interface ExamsListProps {
   showAddExam?: boolean;
@@ -15,10 +16,12 @@ interface ExamsListProps {
 export const revalidate = 0;
 
 const ExamsList: React.FC<ExamsListProps> = ({ showAddExam = false }) => {
-  const { data, error } = useQuery<Exam[]>({
+  const { data, error, isLoading } = useQuery<Exam[]>({
     queryKey: ["exams"],
     queryFn: getExams,
   });
+
+  if (isLoading) return <LoadingListShorter />;
   if (error) return <div>An error has occured: {error.message}</div>;
 
   return (

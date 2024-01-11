@@ -116,7 +116,9 @@ export async function getAssignmentsDueOnDate(date: string) {
 //Catagories
 
 export async function getOverdueAssignments() {
-  const currentDateIso = new Date().toISOString();
+  const currentDate = new Date();
+  const ONLY_DATE = 10;
+  const currentDateIso = currentDate.toISOString().slice(0, ONLY_DATE);
   const { data, error } = await supabase
     .from("assignments")
     .select(
