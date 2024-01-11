@@ -33,10 +33,6 @@ export default function AddAssignmentDialog() {
     fetchCourses();
   }, []);
 
-  function closeDialog() {
-    router.push("/dashboard");
-  }
-
   return (
     <Dialog
       title="Add Assignment"
@@ -61,11 +57,7 @@ export default function AddAssignmentDialog() {
             <NotesInput />
           </div>
           <div className="col-span-2 flex justify-center">
-            <button
-              type="submit"
-              className="btn shadow-lg"
-              onClick={closeDialog}
-            >
+            <button type="submit" className="btn shadow-lg">
               Add Assignment
             </button>
           </div>
