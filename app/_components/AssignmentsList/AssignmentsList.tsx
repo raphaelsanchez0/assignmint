@@ -13,6 +13,8 @@ import OverdueAssignments from "./AssignmentCatagories/OverdueAssignments";
 import AddAssignmentBtn from "./AddAssignmentBtn";
 import PriorityAssignments from "./AssignmentCatagories/PriorityAssignments";
 import DueTodayAssignments from "./AssignmentCatagories/DueTodayAssignments";
+import { Suspense } from "react";
+import LoadingSkeleton from "../Loading/LoadingListShorter";
 
 interface AssignmentsListProps {
   showAddAssignment?: boolean;
@@ -25,17 +27,17 @@ const AssignmentsList: React.FC<AssignmentsListProps> = async ({
 
   //Prefetching all data
   await queryClient.prefetchQuery({
-    queryKey: ["overDueAssignments"],
+    queryKey: ["overDueAssignments", "assignments"],
     queryFn: getOverdueAssignments,
   });
 
   await queryClient.prefetchQuery({
-    queryKey: ["priorityAssignments"],
+    queryKey: ["priorityAssignments", "assignments"],
     queryFn: getPriorityAssignments,
   });
 
   await queryClient.prefetchQuery({
-    queryKey: ["dueTodayAssignments"],
+    queryKey: ["dueTodayAssignments", "assignments"],
     queryFn: getDueTodayAssignments,
   });
 
@@ -45,6 +47,7 @@ const AssignmentsList: React.FC<AssignmentsListProps> = async ({
         <h3 className="card-title">Assignments</h3>
         {showAddAssignment && <AddAssignmentBtn />}
       </div>
+
       <ol>
         <HydrationBoundary state={dehydrate(queryClient)}>
           <OverdueAssignments />

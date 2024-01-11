@@ -1,9 +1,10 @@
 "use server";
 import { revalidatePath } from "next/cache";
-import { addDoc, collection } from "firebase/firestore";
 import supabase from "@/server/supabase";
 import { z } from "zod";
-import { createHash } from "crypto";
+import { QueryClient } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 const addAssignmentFormSchema = z.object({
   course: z.string().min(1, "Course is required"),
@@ -28,8 +29,9 @@ export async function createAssignment(prevState: any, formData: FormData) {
     ...parsedData,
     dueDate,
   });
-  revalidatePath("/assignments");
-
+  queryClient.invalidateQueries({
+    queryKey: ["assignments"],
+  });
   if (error) {
     throw error;
   }
@@ -57,7 +59,9 @@ export async function createExam(prevState: any, formData: FormData) {
     ...parsedData,
     examDate,
   });
-  revalidatePath("/exams");
+  queryClient.invalidateQueries({
+    queryKey: ["exams"],
+  });
 
   if (error) {
     throw error;

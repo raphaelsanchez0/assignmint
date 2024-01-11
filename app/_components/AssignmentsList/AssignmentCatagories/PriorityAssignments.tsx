@@ -6,13 +6,15 @@ import Assignment from "../Assignment";
 import { format } from "date-fns";
 import { utcToZonedTime } from "date-fns-tz";
 import SectionDivider from "./SectionDivider";
+import LoadingSkeleton from "../../Loading/LoadingListShorter";
 
 export default function PriorityAssignments() {
-  const { data, error } = useQuery({
+  const { data, error, isLoading } = useQuery({
     queryKey: ["priorityAssignments"],
     queryFn: getPriorityAssignments,
   });
 
+  if (isLoading) return <LoadingSkeleton />;
   if (data?.length === 0) {
     return null;
   }
