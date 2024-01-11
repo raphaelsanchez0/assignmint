@@ -11,10 +11,11 @@ import CoursesInput from "../_components/formInputs/CoursesInput";
 import TitleInput from "../_components/formInputs/TitleInput";
 import DateInput from "../_components/formInputs/DateInput";
 import NotesInput from "../_components/formInputs/NotesInput";
-import AddAssignment from "../assignments/_AddAssignment/AddAssignment";
+import { QueryClient } from "@tanstack/react-query";
 
 export default function AddAssignmentDialog() {
-  const [formState, formAction] = useFormState(createExam, null);
+  const queryClient = new QueryClient();
+  const [exam, formAction] = useFormState(createExam, null);
 
   const [courses, setCourses] = useState<CourseType[]>([]);
 
@@ -34,6 +35,9 @@ export default function AddAssignmentDialog() {
 
   function closeDialog() {
     window.location.href = "/dashboard";
+    queryClient.invalidateQueries({
+      queryKey: ["exams"],
+    });
   }
 
   return (

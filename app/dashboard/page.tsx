@@ -1,7 +1,7 @@
 import AssignmentsList from "../_components/AssignmentsList/AssignmentsList";
 import ThisWeek from "./_ThisWeek/ThisWeek";
 import MiniCalender from "./_MiniCalendar/MiniCalendar";
-import ExamsList from "../_components/ExamsList/ExamsList";
+import ExamsList from "../_components/ExamsList/ExamsCard";
 import PageTitle from "../_components/PageTitle";
 import AddAssignmentDialog from "./AddAssignmentDialog";
 import { getExams } from "../../server/api";
@@ -13,11 +13,6 @@ import {
 
 export default async function Dashboard() {
   const queryClient = new QueryClient();
-
-  await queryClient.prefetchQuery({
-    queryKey: ["exams"],
-    queryFn: getExams,
-  });
 
   return (
     <>

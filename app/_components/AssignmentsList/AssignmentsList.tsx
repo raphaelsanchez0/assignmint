@@ -13,8 +13,6 @@ import OverdueAssignments from "./AssignmentCatagories/OverdueAssignments";
 import AddAssignmentBtn from "./AddAssignmentBtn";
 import PriorityAssignments from "./AssignmentCatagories/PriorityAssignments";
 import DueTodayAssignments from "./AssignmentCatagories/DueTodayAssignments";
-import { Suspense } from "react";
-import LoadingSkeleton from "../Loading/LoadingListShorter";
 
 interface AssignmentsListProps {
   showAddAssignment?: boolean;
