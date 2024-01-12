@@ -10,7 +10,7 @@ import NotesInput from "../../_components/formInputs/NotesInput";
 
 import { createAssignment } from "@/server/actions";
 import { useQuery } from "@tanstack/react-query";
-import { getCourses } from "@/server/api";
+import { getCourses } from "@/server/apis/api";
 import PriorityInput from "@/app/_components/formInputs/PriorityInput";
 
 export default function AddAssignment() {

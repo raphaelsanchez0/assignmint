@@ -1,5 +1,5 @@
 "use client";
-import { getExams } from "@/server/api";
+import { getExams } from "@/server/apis/exams";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import Exam from "./Exam";

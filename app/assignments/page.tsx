@@ -5,7 +5,7 @@ import {
 } from "@tanstack/react-query";
 import AssignmentsList from "../_components/AssignmentsList/AssignmentsList";
 import AddAssignment from "./_AddAssignment/AddAssignment";
-import { getCourses } from "@/server/api";
+import { getCourses } from "@/server/apis/api";
 
 export default async function Assignments() {
   const queryClient = new QueryClient();

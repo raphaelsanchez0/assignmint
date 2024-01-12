@@ -1,9 +1,9 @@
 import Link from "next/link";
 import Exam from "./Exam";
 import format from "date-fns/format";
-import { getExams } from "@/server/api";
+import { getExams } from "@/server/apis/api";
 
-import AddExamDialog from "@/app/dashboard/AddExamDialog";
+import AddExamDialog from "@/app/_components/ExamsList/AddExamDialog";
 import { utcToZonedTime } from "date-fns-tz";
 import {
   HydrationBoundary,

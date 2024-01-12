@@ -218,7 +218,9 @@ export async function getCategorizedAssignments() {
 }
 
 export async function getOverdueAssignments() {
-  const currentDateIso = new Date().toISOString();
+  const currentDate = new Date();
+  currentDate.setHours(0, 0, 0, 0);
+  const currentDateIso = currentDate.toISOString();
   const { data, error } = await supabase
     .from("assignments")
     .select(

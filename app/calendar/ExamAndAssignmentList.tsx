@@ -1,7 +1,7 @@
 "use client";
 import { useSearchParams } from "next/navigation";
 import { isToday, isTomorrow, isYesterday, format } from "date-fns";
-import { getEventsOnDate } from "@/server/api";
+import { getEventsOnDate } from "@/server/apis/api";
 import { useQuery } from "@tanstack/react-query";
 import Exam from "../_components/ExamsList/Exam";
 import Assignment from "../_components/AssignmentsList/Assignment";

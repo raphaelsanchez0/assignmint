@@ -1,7 +1,7 @@
 "use client";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
-import { getPriorityAssignments } from "@/server/api";
+import { getPriorityAssignments } from "@/server/apis/assignments";
 import Assignment from "../Assignment";
 import { format } from "date-fns";
 import { utcToZonedTime } from "date-fns-tz";

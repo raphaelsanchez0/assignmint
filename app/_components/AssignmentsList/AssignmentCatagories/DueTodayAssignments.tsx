@@ -1,7 +1,7 @@
 "use client";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
-import { getDueTodayAssignments } from "@/server/api";
+import { getDueTodayAssignments } from "@/server/apis/assignments";
 import Assignment from "../Assignment";
 import { format } from "date-fns";
 import { utcToZonedTime } from "date-fns-tz";

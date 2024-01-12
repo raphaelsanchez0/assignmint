@@ -7,7 +7,7 @@ import {
   QueryClient,
   dehydrate,
 } from "@tanstack/react-query";
-import { getEventsOnDate } from "@/server/api";
+import { getEventsOnDate } from "@/server/apis/api";
 
 export default async function CalendarPage() {
   const queryClient = new QueryClient();

@@ -2,7 +2,7 @@
 import Link from "next/link";
 import Exam from "../_components/ExamsList/Exam";
 import format from "date-fns/format";
-import { getExams } from "@/server/api";
+import { getExams } from "@/server/apis/exams";
 
 import { utcToZonedTime } from "date-fns-tz";
 import { useQuery } from "@tanstack/react-query";

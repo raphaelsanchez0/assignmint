@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import Course from "./Course";
-import { getCourses } from "../../server/api";
+import { getCourses } from "../../server/apis/courses";
 import { v4 as uuidv4 } from "uuid";
 
 export default function CourseList() {

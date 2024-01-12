@@ -8,7 +8,7 @@ import {
   getDueTodayAssignments,
   getOverdueAssignments,
   getPriorityAssignments,
-} from "@/server/api";
+} from "@/server/apis/assignments";
 import OverdueAssignments from "./AssignmentCatagories/OverdueAssignments";
 import AddAssignmentBtn from "./AddAssignmentBtn";
 import PriorityAssignments from "./AssignmentCatagories/PriorityAssignments";
