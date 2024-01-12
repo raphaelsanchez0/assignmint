@@ -1,16 +1,8 @@
 import Link from "next/link";
-import Exam from "./Exam";
-import format from "date-fns/format";
-import { getExams } from "@/server/apis/api";
 
-import AddExamDialog from "@/app/_components/Dialogs/AddExamDialog";
+import AddExamDialog from "@/app/_components/dialogs/addEvent/AddExamDialog";
 import { utcToZonedTime } from "date-fns-tz";
-import {
-  HydrationBoundary,
-  QueryClient,
-  dehydrate,
-  useQuery,
-} from "@tanstack/react-query";
+import { QueryClient } from "@tanstack/react-query";
 import ExamsList from "./ExamsList";
 
 interface ExamsListProps {

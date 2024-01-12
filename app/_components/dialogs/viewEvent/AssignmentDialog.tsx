@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Dialog from "./Dialog";
+import Dialog from "../addEvent/AddEventDialog";
 import { useSearchParams } from "next/navigation";
 import { getAssignment } from "@/server/apis/assignments";
 import { useQuery } from "@tanstack/react-query";

@@ -1,6 +1,6 @@
 "use client";
 import useFormState from "react-dom";
-import Dialog from "../_components/Dialogs/Dialog";
+import Dialog from "../_components/dialogs/addEvent/AddEventDialog";
 
 import React from "react";
 import TitleInput from "../_components/formInputs/TitleInput";

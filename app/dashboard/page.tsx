@@ -3,14 +3,14 @@ import ThisWeek from "./_ThisWeek/ThisWeek";
 import MiniCalender from "./_MiniCalendar/MiniCalendar";
 import ExamsList from "../_components/ExamsList/ExamsCard";
 import PageTitle from "../_components/PageTitle";
-import AddAssignmentDialog from "../_components/Dialogs/AddAssignmentDialog";
+import AddAssignmentDialog from "../_components/dialogs/addEvent/AddAssignmentDialog";
 import {
   QueryClient,
   HydrationBoundary,
   dehydrate,
 } from "@tanstack/react-query";
 import Assignment from "./_ThisWeek/Assignment";
-import AssignmentDialog from "../_components/Dialogs/AssignmentDialog";
+import AssignmentDialog from "../_components/dialogs/viewEvent/AssignmentDialog";
 
 export default async function Dashboard() {
   const queryClient = new QueryClient();
