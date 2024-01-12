@@ -75,8 +75,8 @@ export async function getEventsOnDate(
   date: Date,
 ) {
   const targetDate = new Date(date);
-  const ONLY_DATE = 10;
-  const formattedDate = targetDate.toISOString().slice(0, ONLY_DATE);
+  targetDate.setHours(0, 0, 0, 0);
+  const formatedDate = targetDate.toISOString();
 
   const fieldName = type === "exams" ? "examDate" : "dueDate";
   const { data, error } = await supabase
@@ -86,7 +86,7 @@ export async function getEventsOnDate(
   *,
   course(*)`,
     )
-    .eq(fieldName, formattedDate);
+    .eq(fieldName, formatedDate);
 
   if (error) {
     console.error(`Error getting ${type}"`, error);
