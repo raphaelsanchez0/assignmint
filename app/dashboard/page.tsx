@@ -4,7 +4,6 @@ import MiniCalender from "./_MiniCalendar/MiniCalendar";
 import ExamsList from "../_components/ExamsList/ExamsCard";
 import PageTitle from "../_components/PageTitle";
 import AddAssignmentDialog from "../_components/Dialogs/AddAssignmentDialog";
-import { getExams } from "../../server/apis/api";
 import {
   QueryClient,
   HydrationBoundary,
