@@ -1,5 +1,6 @@
 "use client";
 
+import useOnClickOutside from "@/app/_hooks/useOnClickOutside";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useRef, useEffect } from "react";
 
@@ -26,6 +27,10 @@ const AddEventDialog: React.FC<DialogProps> = ({
   const dialogRef = useRef<HTMLDialogElement | null>(null);
   const showDialog = searchParams.get(searchParamKey);
 
+  // useOnClickOutside([dialogRef], () => {
+  //   closeDialog();
+  // });
+
   useEffect(() => {
     if (showDialog === "y") {
       dialogRef.current?.showModal();
@@ -43,6 +48,10 @@ const AddEventDialog: React.FC<DialogProps> = ({
     onOk?.();
     closeDialog();
   };
+
+  useOnClickOutside([dialogRef], () => {
+    closeDialog();
+  });
 
   const dialog: JSX.Element | null =
     showDialog === "y" ? (
