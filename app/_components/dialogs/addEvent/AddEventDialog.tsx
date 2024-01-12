@@ -12,7 +12,7 @@ interface DialogProps {
   redirect: string;
 }
 
-const Dialog: React.FC<DialogProps> = ({
+const AddEventDialog: React.FC<DialogProps> = ({
   title,
   onClose,
   onOk,
@@ -68,4 +68,4 @@ const Dialog: React.FC<DialogProps> = ({
   return dialog;
 };
 
-export default Dialog;
+export default AddEventDialog;
