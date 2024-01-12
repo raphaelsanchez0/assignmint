@@ -1,15 +1,29 @@
-import Day from "./Day"
+import { format } from "date-fns";
+import Day from "./Day";
+import add from "date-fns/add";
 export default function ThisWeek() {
-    return (
+  const daysThisWeek = getNextSevenDays();
 
-        <div className="card">
-            <h3 className="card-title ">This Week</h3>
-            <div className="mt-4">
-                <Day day="Monday" />
-                <Day day="Tuesday" />
-            </div>
-        </div>
+  return (
+    <div className="card">
+      <h3 className="card-title ">This Week</h3>
+      <div className="mt-4">
+        {daysThisWeek.map((day) => (
+          <Day key={day.toString()} date={day} />
+        ))}
+      </div>
+    </div>
+  );
+}
 
+function getNextSevenDays(): Date[] {
+  const days: Date[] = [];
+  const currentDay = new Date();
+  const DAYS_IN_WEEK = 7;
 
-    )
+  for (let i = 0; i < DAYS_IN_WEEK; i++) {
+    const newDate = add(currentDay, { days: i });
+    days.push(newDate);
+  }
+  return days;
 }
