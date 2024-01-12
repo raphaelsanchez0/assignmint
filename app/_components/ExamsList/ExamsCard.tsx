@@ -3,7 +3,7 @@ import Exam from "./Exam";
 import format from "date-fns/format";
 import { getExams } from "@/server/apis/api";
 
-import AddExamDialog from "@/app/_components/ExamsList/AddExamDialog";
+import AddExamDialog from "@/app/_components/Dialogs/AddExamDialog";
 import { utcToZonedTime } from "date-fns-tz";
 import {
   HydrationBoundary,

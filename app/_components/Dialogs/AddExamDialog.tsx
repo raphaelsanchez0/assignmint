@@ -6,7 +6,7 @@ import { createExam } from "@/server/actions";
 import "react-datepicker/dist/react-datepicker.css";
 
 import { getCourses } from "../../../server/apis/courses";
-import Dialog from "../Dialogs/Dialog";
+import Dialog from "./Dialog";
 import CoursesInput from "../formInputs/CoursesInput";
 import TitleInput from "../formInputs/TitleInput";
 import DateInput from "../formInputs/DateInput";

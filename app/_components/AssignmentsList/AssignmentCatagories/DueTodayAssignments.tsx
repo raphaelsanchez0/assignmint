@@ -26,6 +26,7 @@ export default function DueTodayAssignments() {
       {data?.map((assignment) => (
         <Assignment
           key={assignment.id}
+          id={assignment.id}
           title={assignment.title}
           course={assignment.course.title}
           due={format(utcToZonedTime(assignment.dueDate, "Etc/UTC"), "MMM d")}

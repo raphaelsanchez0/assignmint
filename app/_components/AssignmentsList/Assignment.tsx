@@ -3,6 +3,7 @@ interface AssignmentProps {
   course: string;
   due?: string;
   color: string;
+  id: number;
 }
 
 const Assignment: React.FC<AssignmentProps> = ({
@@ -10,6 +11,7 @@ const Assignment: React.FC<AssignmentProps> = ({
   course,
   due,
   color,
+  id,
 }) => {
   return (
     <>

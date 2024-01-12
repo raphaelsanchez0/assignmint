@@ -10,6 +10,8 @@ import {
   HydrationBoundary,
   dehydrate,
 } from "@tanstack/react-query";
+import Assignment from "./_ThisWeek/Assignment";
+import AssignmentDialog from "../_components/Dialogs/AssignmentDialog";
 
 export default async function Dashboard() {
   const queryClient = new QueryClient();
@@ -36,6 +38,7 @@ export default async function Dashboard() {
         </div>
         {/* Dialogs */}
         <AddAssignmentDialog />
+        <AssignmentDialog />
       </div>
     </>
   );

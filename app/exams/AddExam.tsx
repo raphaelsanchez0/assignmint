@@ -10,7 +10,7 @@ import { useFormState } from "react-dom";
 import { createExam } from "../../server/actions";
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import { getCourses } from "@/server/apis/api";
+import { getCourses } from "@/server/apis/courses";
 
 type CourseType = {
   value: string;
