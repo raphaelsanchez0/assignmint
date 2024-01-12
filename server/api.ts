@@ -157,7 +157,9 @@ export async function getPriorityAssignments() {
 }
 
 export async function getDueTodayAssignments() {
-  const currentDateIso = new Date().toISOString();
+  const currentDate = new Date();
+  currentDate.setHours(0, 0, 0, 0);
+  const currentDateIso = currentDate.toISOString();
   const { data, error } = await supabase
     .from("assignments")
     .select(

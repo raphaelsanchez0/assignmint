@@ -1,7 +1,7 @@
 "use client";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
-import { getDueTodayAssignments, getOverdueAssignments } from "@/server/api";
+import { getDueTodayAssignments } from "@/server/api";
 import Assignment from "../Assignment";
 import { format } from "date-fns";
 import { utcToZonedTime } from "date-fns-tz";
@@ -16,6 +16,7 @@ export default function DueTodayAssignments() {
   if (data?.length === 0) {
     return null;
   }
+  if (error) return <p>error</p>;
 
   if (isLoading) return <LoadingSkeleton />;
 

@@ -16,6 +16,8 @@ export default function OverdueAssignments() {
 
   if (isLoading) return <LoadingSkeleton />;
 
+  if (error) return <p>error</p>;
+
   if (data?.length === 0) {
     return null;
   }

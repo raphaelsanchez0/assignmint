@@ -26,20 +26,20 @@ const AssignmentsList: React.FC<AssignmentsListProps> = async ({
   //Prefetching all data
 
   //Does not work because they dont exactly match the query key of the components that depend on them
-  await queryClient.prefetchQuery({
-    queryKey: ["overDueAssignments", "assignments"],
-    queryFn: getOverdueAssignments,
-  });
+  // await queryClient.prefetchQuery({
+  //   queryKey: ["overDueAssignments", "assignments"],
+  //   queryFn: getOverdueAssignments,
+  // });
 
-  await queryClient.prefetchQuery({
-    queryKey: ["priorityAssignments", "assignments"],
-    queryFn: getPriorityAssignments,
-  });
+  // await queryClient.prefetchQuery({
+  //   queryKey: ["priorityAssignments", "assignments"],
+  //   queryFn: getPriorityAssignments,
+  // });
 
-  await queryClient.prefetchQuery({
-    queryKey: ["dueTodayAssignments", "assignments"],
-    queryFn: getDueTodayAssignments,
-  });
+  // await queryClient.prefetchQuery({
+  //   queryKey: ["dueTodayAssignments", "assignments"],
+  //   queryFn: getDueTodayAssignments,
+  // });
 
   return (
     <div className="card">
