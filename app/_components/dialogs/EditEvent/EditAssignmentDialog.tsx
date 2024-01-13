@@ -12,7 +12,7 @@ import { getCourses } from "@/server/apis/courses";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import { getAssignment } from "@/server/apis/assignments";
-import LoadingListShorter from "../../Loading/LoadingListShorter";
+import { utcToZonedTime } from "date-fns-tz";
 
 export default function EditAssignmentDialog() {
   //Sends formdata to createAssignment server action
@@ -62,7 +62,15 @@ export default function EditAssignmentDialog() {
             <TitleInput edit currentTitle={data?.title} />
           </div>
           <div>
-            <DateInput type="assignment" />
+            <DateInput
+              type="assignment"
+              edit
+              currentDate={
+                data?.dueDate
+                  ? new Date(utcToZonedTime(data.dueDate, "Etc/UTC"))
+                  : new Date()
+              }
+            />
           </div>
           <div>
             <PriorityInput />

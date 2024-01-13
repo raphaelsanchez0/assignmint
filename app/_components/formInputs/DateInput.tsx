@@ -6,10 +6,18 @@ import { useState } from "react";
 
 interface DateInputProps {
   type: "assignment" | "exam";
+  edit?: boolean;
+  currentDate?: Date;
 }
 
-const DateInput: React.FC<DateInputProps> = ({ type }) => {
-  const [selectedDate, setSelectedDate] = useState(new Date());
+const DateInput: React.FC<DateInputProps> = ({
+  type,
+  edit = false,
+  currentDate,
+}) => {
+  const [selectedDate, setSelectedDate] = useState(
+    edit ? currentDate : new Date(),
+  );
 
   const handleDateChange = (date: Date) => {
     setSelectedDate(date);
