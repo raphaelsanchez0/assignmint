@@ -9,11 +9,22 @@ import Dialog from "./EditEventDialog";
 import { useFormState } from "react-dom";
 import { createAssignment } from "@/server/actions";
 import { getCourses } from "@/server/apis/courses";
+import { useQuery } from "@tanstack/react-query";
+import { useSearchParams } from "next/navigation";
+import { getAssignment } from "@/server/apis/assignments";
 
 export default function EditAssignmentDialog() {
   //Sends formdata to createAssignment server action
   const [assignment, formAction] = useFormState(createAssignment, null);
   const [courses, setCourses] = useState<CourseType[]>([]);
+  const searchParams = useSearchParams();
+  const assignmentId = searchParams.get("assignment");
+
+  const { data, error, isLoading } = useQuery<Assignment>({
+    queryKey: ["assignment", assignmentId],
+    enabled: assignmentId != null,
+    queryFn: () => getAssignment(assignmentId as unknown as number),
+  });
 
   //Gets courses from server and formats them for the CoursesInput component
   useEffect(() => {

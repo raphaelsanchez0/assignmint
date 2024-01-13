@@ -25,7 +25,8 @@ const ViewEventDialog: React.FC<DialogProps> = ({
   const router = useRouter();
 
   const dialogRef = useRef<HTMLDialogElement | null>(null);
-  const showDialog = searchParams.has(searchParamKey);
+  const showDialog =
+    searchParams.has(searchParamKey) && !searchParams.has("edit");
 
   useEffect(() => {
     if (showDialog) {

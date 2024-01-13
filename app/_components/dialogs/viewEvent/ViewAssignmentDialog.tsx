@@ -25,8 +25,7 @@ export default function AssignmentDialog() {
 
   const editAssignmentParams = new URLSearchParams({
     edit: "",
-    type: "assignment",
-    assignmentId: assignmentId as unknown as string,
+    assignment: assignmentId as unknown as string,
   });
 
   return (
@@ -42,11 +41,12 @@ export default function AssignmentDialog() {
             <h3 className="font-semibold text-xl">{data?.course.title}</h3>
           </div>
           <div className="flex flex-col">
-            <button className="btn self-end">
-              <Link href={`/dashboard?${editAssignmentParams.toString()}`}>
-                Edit
-              </Link>
-            </button>
+            <Link
+              href={`/dashboard?${editAssignmentParams.toString()}`}
+              className="self-end"
+            >
+              <button className="btn ">Edit</button>
+            </Link>
             <h3 className="text-lg font-medium">
               {`Due 
               ${
