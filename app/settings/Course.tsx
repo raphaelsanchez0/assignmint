@@ -1,6 +1,6 @@
 "use client";
 
-import iconEdit from "../_assets/icons/edit.svg";
+import iconEdit from "../_assets/icons/blackEdit.svg";
 import iconTrash from "../_assets/icons/trash.svg";
 
 import { useState, useRef, useEffect } from "react";

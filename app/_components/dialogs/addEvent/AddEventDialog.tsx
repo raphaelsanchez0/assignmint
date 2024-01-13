@@ -49,10 +49,6 @@ const AddEventDialog: React.FC<DialogProps> = ({
     closeDialog();
   };
 
-  useOnClickOutside([dialogRef], () => {
-    closeDialog();
-  });
-
   const dialog: JSX.Element | null =
     showDialog === "y" ? (
       <dialog

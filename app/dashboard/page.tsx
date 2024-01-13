@@ -10,7 +10,7 @@ import {
   dehydrate,
 } from "@tanstack/react-query";
 import Assignment from "./_ThisWeek/Assignment";
-import AssignmentDialog from "../_components/dialogs/viewEvent/AssignmentDialog";
+import AssignmentDialog from "../_components/dialogs/viewEvent/ViewAssignmentDialog";
 
 export default async function Dashboard() {
   const queryClient = new QueryClient();

@@ -13,7 +13,7 @@ interface DialogProps {
   redirect: string;
 }
 
-const ViewEventDialog: React.FC<DialogProps> = ({
+const EditEventDialog: React.FC<DialogProps> = ({
   title,
   onClose,
   onOk,
@@ -68,4 +68,4 @@ const ViewEventDialog: React.FC<DialogProps> = ({
   return dialog;
 };
 
-export default ViewEventDialog;
+export default EditEventDialog;
