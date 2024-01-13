@@ -10,6 +10,7 @@ import { format } from "date-fns";
 import iconCheckMark from "@/app/_assets/icons/checkmark.svg";
 import Image from "next/image";
 import DatePicker from "react-datepicker";
+import Link from "next/link";
 
 export default function AssignmentDialog() {
   const searchParams = useSearchParams();
@@ -22,11 +23,11 @@ export default function AssignmentDialog() {
     queryFn: () => getAssignment(assignmentId as unknown as number),
   });
 
-  const [selectedDate, setSelectedDate] = useState<Date>(
-    data?.dueDate ? new Date(data.dueDate) : new Date(),
-  );
-
-  if (isLoading) return null;
+  const editAssignmentParams = new URLSearchParams({
+    edit: "",
+    type: "assignment",
+    assignmentId: assignmentId as unknown as string,
+  });
 
   return (
     <div>
@@ -41,7 +42,11 @@ export default function AssignmentDialog() {
             <h3 className="font-semibold text-xl">{data?.course.title}</h3>
           </div>
           <div className="flex flex-col">
-            <button className="btn self-end m-2">Edit</button>
+            <button className="btn self-end">
+              <Link href={`/dashboard?${editAssignmentParams.toString()}`}>
+                Edit
+              </Link>
+            </button>
             <h3 className="text-lg font-medium">
               {`Due 
               ${

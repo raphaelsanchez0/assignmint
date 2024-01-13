@@ -11,6 +11,7 @@ import {
 } from "@tanstack/react-query";
 import Assignment from "./_ThisWeek/Assignment";
 import AssignmentDialog from "../_components/dialogs/viewEvent/ViewAssignmentDialog";
+import EditAssignmentDialog from "../_components/dialogs/EditEvent/EditAssignmentDialog";
 
 export default async function Dashboard() {
   const queryClient = new QueryClient();
@@ -38,6 +39,7 @@ export default async function Dashboard() {
         {/* Dialogs */}
         <AddAssignmentDialog />
         <AssignmentDialog />
+        <EditAssignmentDialog />
       </div>
     </>
   );

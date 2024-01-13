@@ -1,10 +1,16 @@
 import Select from "react-select";
 
-interface CoursesInputProps {
+type CoursesInputProps = {
   courses: CourseType[];
-}
+  edit?: boolean;
+  currentCourse?: CourseType;
+};
 
-const CourseInput: React.FC<CoursesInputProps> = ({ courses }) => {
+const CourseInput: React.FC<CoursesInputProps> = ({
+  courses,
+  edit = false,
+  currentCourse,
+}) => {
   return (
     <>
       <label className="assignment--input-header" htmlFor="course">
@@ -16,6 +22,7 @@ const CourseInput: React.FC<CoursesInputProps> = ({ courses }) => {
         name="course"
         className="w-full border-slate-400 bg-slate-50"
         required
+        defaultValue={edit ? currentCourse : null}
       ></Select>
     </>
   );

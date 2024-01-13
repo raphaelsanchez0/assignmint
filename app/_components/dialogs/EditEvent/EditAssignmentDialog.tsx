@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useState } from "react";
 import CoursesInput from "../../formInputs/CoursesInput";
 import TitleInput from "../../formInputs/TitleInput";
@@ -32,11 +33,7 @@ export default function EditAssignmentDialog() {
   }
 
   return (
-    <Dialog
-      title="Add Assignment"
-      searchParamKey="addassignment"
-      redirect="/dashboard"
-    >
+    <Dialog title="Edit Assignment" searchParamKey="edit" redirect="/dashboard">
       <form action={formAction}>
         <div className="grid gap-6 mb-6 grid-cols-2 ">
           <div className="assignment--input-container">
