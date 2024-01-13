@@ -1,6 +1,5 @@
 "use client";
 
-import useOnClickOutside from "@/app/_hooks/useOnClickOutside";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useRef, useEffect } from "react";
 

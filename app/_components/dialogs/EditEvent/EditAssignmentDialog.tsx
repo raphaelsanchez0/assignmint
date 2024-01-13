@@ -12,6 +12,7 @@ import { getCourses } from "@/server/apis/courses";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import { getAssignment } from "@/server/apis/assignments";
+import LoadingListShorter from "../../Loading/LoadingListShorter";
 
 export default function EditAssignmentDialog() {
   //Sends formdata to createAssignment server action
@@ -48,10 +49,17 @@ export default function EditAssignmentDialog() {
       <form action={formAction}>
         <div className="grid gap-6 mb-6 grid-cols-2 ">
           <div className="assignment--input-container">
-            <CoursesInput courses={courses} />
+            <CoursesInput
+              courses={courses}
+              edit
+              currentCourse={{
+                value: data?.course?.id || "",
+                label: data?.course?.title || "",
+              }}
+            />
           </div>
           <div>
-            <TitleInput />
+            <TitleInput edit currentTitle={data?.title} />
           </div>
           <div>
             <DateInput type="assignment" />

@@ -11,6 +11,7 @@ import iconCheckMark from "@/app/_assets/icons/checkmark.svg";
 import Image from "next/image";
 import DatePicker from "react-datepicker";
 import Link from "next/link";
+import LoadingListShorter from "../../Loading/LoadingListShorter";
 
 export default function AssignmentDialog() {
   const searchParams = useSearchParams();
@@ -28,6 +29,19 @@ export default function AssignmentDialog() {
     assignment: assignmentId as unknown as string,
   });
 
+  if (isLoading)
+    return (
+      <>
+        <Dialog
+          title="Assignment"
+          searchParamKey="assignment"
+          redirect="/dashboard"
+        >
+          <LoadingListShorter />
+        </Dialog>
+      </>
+    );
+
   return (
     <div>
       <Dialog
@@ -40,7 +54,7 @@ export default function AssignmentDialog() {
             <h2 className="text-3xl font-bold text-off-black">{data?.title}</h2>
             <h3 className="font-semibold text-xl">{data?.course.title}</h3>
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col gap-2">
             <Link
               href={`/dashboard?${editAssignmentParams.toString()}`}
               className="self-end"
