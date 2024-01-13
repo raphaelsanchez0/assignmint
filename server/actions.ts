@@ -38,6 +38,39 @@ export async function createAssignment(prevState: any, formData: FormData) {
   return formData;
 }
 
+const updateAssignmentFormSchema = z.object({
+  course: z.string().min(1, "Course is required"),
+  title: z.string().min(1, "Title is required"),
+  dueDate: z.string().min(1, "Due date is required"),
+  priority: z.boolean(),
+  notes: z.string().optional(),
+});
+
+export async function updateAssignment(prevState: any, formData: FormData) {
+  const parsedData = updateAssignmentFormSchema.parse({
+    course: formData.get("course"),
+    title: formData.get("title"),
+    dueDate: formData.get("dueDate"),
+    priority: formData.get("priority") === "on",
+    notes: formData.get("notes"),
+  });
+
+  const dueDate = new Date(parsedData.dueDate);
+  console.log(formData.get("id"));
+  const { error } = await supabase
+    .from("assignments")
+    .update({
+      ...parsedData,
+      dueDate,
+    })
+    .eq("id", formData.get("id"));
+
+  if (error) {
+    throw error;
+  }
+  return formData;
+}
+
 const examFormSchema = z.object({
   course: z.string().min(1, "Course is required"),
   title: z.string().min(1, "Title is required"),

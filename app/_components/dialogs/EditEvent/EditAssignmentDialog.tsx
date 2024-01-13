@@ -7,7 +7,7 @@ import PriorityInput from "../../formInputs/PriorityInput";
 import NotesInput from "../../formInputs/NotesInput";
 import Dialog from "./EditEventDialog";
 import { useFormState } from "react-dom";
-import { createAssignment } from "@/server/actions";
+import { createAssignment, updateAssignment } from "@/server/actions";
 import { getCourses } from "@/server/apis/courses";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
@@ -16,7 +16,7 @@ import { utcToZonedTime } from "date-fns-tz";
 
 export default function EditAssignmentDialog() {
   //Sends formdata to createAssignment server action
-  const [assignment, formAction] = useFormState(createAssignment, null);
+  const [assignment, formAction] = useFormState(updateAssignment, null);
   const [courses, setCourses] = useState<CourseType[]>([]);
   const searchParams = useSearchParams();
   const assignmentId = searchParams.get("assignment");
@@ -76,8 +76,9 @@ export default function EditAssignmentDialog() {
             <PriorityInput edit currentPriority={data?.priority} />
           </div>
           <div className="col-span-2">
-            <NotesInput />
+            <NotesInput edit currentNotes={data?.notes} />
           </div>
+          <input type="hidden" name="id" value={data?.id} />
           <div className="col-span-2 flex justify-center">
             <button
               type="submit"
