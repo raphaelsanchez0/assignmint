@@ -73,7 +73,7 @@ export default function EditAssignmentDialog() {
             />
           </div>
           <div>
-            <PriorityInput />
+            <PriorityInput edit currentPriority={data?.priority} />
           </div>
           <div className="col-span-2">
             <NotesInput />
@@ -84,7 +84,7 @@ export default function EditAssignmentDialog() {
               className="btn shadow-lg"
               onClick={closeDialog}
             >
-              Add Assignment
+              Update Assignment
             </button>
           </div>
         </div>

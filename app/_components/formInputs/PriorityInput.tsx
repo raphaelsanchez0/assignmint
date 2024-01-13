@@ -1,6 +1,14 @@
 import React from "react";
 
-export default function PriorityInput() {
+interface PriorityInputProps {
+  edit?: boolean;
+  currentPriority?: boolean;
+}
+
+const PriorityInput: React.FC<PriorityInputProps> = ({
+  edit = false,
+  currentPriority,
+}) => {
   return (
     <>
       <div className="flex w-full h-full mt-12">
@@ -10,7 +18,7 @@ export default function PriorityInput() {
             name="priority"
             id="priority"
             className="m-1"
-            defaultChecked={false}
+            defaultChecked={edit ? currentPriority : false}
           ></input>
           <label
             htmlFor="priority"
@@ -22,4 +30,5 @@ export default function PriorityInput() {
       </div>
     </>
   );
-}
+};
+export default PriorityInput;
