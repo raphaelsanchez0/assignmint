@@ -9,7 +9,6 @@ import {
   HydrationBoundary,
   dehydrate,
 } from "@tanstack/react-query";
-import Assignment from "./_ThisWeek/Assignment";
 import AssignmentDialog from "../../components/dialogs/viewEvent/ViewAssignmentDialog";
 import EditAssignmentDialog from "../../components/dialogs/EditEvent/EditAssignmentDialog";
 
