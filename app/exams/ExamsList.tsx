@@ -1,12 +1,12 @@
 "use client";
 import Link from "next/link";
-import Exam from "../_components/ExamsList/Exam";
+import Exam from "../../components/ExamsList/Exam";
 import format from "date-fns/format";
 import { getExams } from "@/server/apis/exams";
 
 import { utcToZonedTime } from "date-fns-tz";
 import { useQuery } from "@tanstack/react-query";
-import LoadingListShorter from "../_components/Loading/LoadingListShorter";
+import LoadingListShorter from "../../components/Loading/LoadingListShorter";
 
 interface ExamsListProps {
   showAddExam?: boolean;

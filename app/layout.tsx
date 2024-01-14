@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import Sidebar from "./_components/SideBar";
+import Sidebar from "../components/SideBar";
 import Provider from "@/util/Providers";
 import { cn } from "@/lib/utils";
 

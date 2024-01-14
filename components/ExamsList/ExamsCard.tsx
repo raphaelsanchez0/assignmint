@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import AddExamDialog from "@/app/_components/dialogs/addEvent/AddExamDialog";
+import AddExamDialog from "@/components/dialogs/addEvent/AddExamDialog";
 import { utcToZonedTime } from "date-fns-tz";
 import { QueryClient } from "@tanstack/react-query";
 import ExamsList from "./ExamsList";

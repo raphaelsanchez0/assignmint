@@ -1,6 +1,6 @@
-import Exam from "@/app/_components/ExamsList/Exam";
+import Exam from "@/components/ExamsList/Exam";
 import React from "react";
-import Assignment from "@/app/_components/AssignmentsList/Assignment";
+import Assignment from "@/components/AssignmentsList/Assignment";
 
 interface ExpandedDayProps {
   exams: Exam[];

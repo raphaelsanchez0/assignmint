@@ -3,15 +3,15 @@ import { useFormState } from "react-dom";
 
 import React from "react";
 
-import CoursesInput from "../../_components/formInputs/CoursesInput";
-import TitleInput from "../../_components/formInputs/TitleInput";
-import DueDateInput from "../../_components/formInputs/DateInput";
-import NotesInput from "../../_components/formInputs/NotesInput";
+import CoursesInput from "../../../components/formInputs/CoursesInput";
+import TitleInput from "../../../components/formInputs/TitleInput";
+import DueDateInput from "../../../components/formInputs/DateInput";
+import NotesInput from "../../../components/formInputs/NotesInput";
 
 import { createAssignment } from "@/server/actions";
 import { useQuery } from "@tanstack/react-query";
 import { getCourses } from "@/server/apis/courses";
-import PriorityInput from "@/app/_components/formInputs/PriorityInput";
+import PriorityInput from "@/components/formInputs/PriorityInput";
 
 export default function AddAssignment() {
   //Sends formdata to createAssignment server action

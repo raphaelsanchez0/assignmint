@@ -3,8 +3,8 @@ import { useSearchParams } from "next/navigation";
 import { isToday, isTomorrow, isYesterday, format } from "date-fns";
 import { getEventsOnDate } from "@/server/apis/api";
 import { useQuery } from "@tanstack/react-query";
-import Exam from "../_components/ExamsList/Exam";
-import Assignment from "../_components/AssignmentsList/Assignment";
+import Exam from "../../components/ExamsList/Exam";
+import Assignment from "../../components/AssignmentsList/Assignment";
 
 export default function ExamAndAssignmentList() {
   const searchParams = useSearchParams();

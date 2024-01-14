@@ -1,17 +1,17 @@
-import AssignmentsList from "../_components/AssignmentsList/AssignmentsList";
+import AssignmentsList from "../../components/AssignmentsList/AssignmentsList";
 import ThisWeek from "./_ThisWeek/ThisWeek";
 import MiniCalender from "./_MiniCalendar/MiniCalendar";
-import ExamsList from "../_components/ExamsList/ExamsCard";
-import PageTitle from "../_components/PageTitle";
-import AddAssignmentDialog from "../_components/dialogs/addEvent/AddAssignmentDialog";
+import ExamsList from "../../components/ExamsList/ExamsCard";
+import PageTitle from "../../components/PageTitle";
+import AddAssignmentDialog from "../../components/dialogs/addEvent/AddAssignmentDialog";
 import {
   QueryClient,
   HydrationBoundary,
   dehydrate,
 } from "@tanstack/react-query";
 import Assignment from "./_ThisWeek/Assignment";
-import AssignmentDialog from "../_components/dialogs/viewEvent/ViewAssignmentDialog";
-import EditAssignmentDialog from "../_components/dialogs/EditEvent/EditAssignmentDialog";
+import AssignmentDialog from "../../components/dialogs/viewEvent/ViewAssignmentDialog";
+import EditAssignmentDialog from "../../components/dialogs/EditEvent/EditAssignmentDialog";
 
 export default async function Dashboard() {
   const queryClient = new QueryClient();

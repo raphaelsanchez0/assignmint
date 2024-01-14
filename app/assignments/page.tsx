@@ -3,7 +3,7 @@ import {
   QueryClient,
   dehydrate,
 } from "@tanstack/react-query";
-import AssignmentsList from "../_components/AssignmentsList/AssignmentsList";
+import AssignmentsList from "../../components/AssignmentsList/AssignmentsList";
 import AddAssignment from "./_AddAssignment/AddAssignment";
 import { getCourses } from "@/server/apis/api";
 

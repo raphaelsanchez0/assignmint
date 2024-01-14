@@ -1,13 +1,13 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
-import iconArrow from "../../_assets/icons/arrow.svg";
-import Assignment from "@/app/_components/AssignmentsList/Assignment";
+import iconArrow from "@/public/icons/arrow.svg";
+import Assignment from "@/components/AssignmentsList/Assignment";
 import { format } from "date-fns";
 import { useQuery } from "@tanstack/react-query";
 import { getEventsOnDate } from "@/server/apis/api";
-import Exam from "@/app/_components/ExamsList/Exam";
-import LoadingItem from "@/app/_components/Loading/LoadingItem";
+import Exam from "@/components/ExamsList/Exam";
+import LoadingItem from "@/components/Loading/LoadingItem";
 import ExpandedDay from "./ExpandedDay";
 
 interface DayProps {
