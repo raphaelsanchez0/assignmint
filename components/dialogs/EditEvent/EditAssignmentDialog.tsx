@@ -7,7 +7,7 @@ import PriorityInput from "../../formInputs/PriorityInput";
 import NotesInput from "../../formInputs/NotesInput";
 import Dialog from "./EditEventDialog";
 import { useFormState } from "react-dom";
-import { createAssignment, updateAssignment } from "@/server/actions";
+import { updateAssignment } from "@/server/actions";
 import { getCourses } from "@/server/apis/courses";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";

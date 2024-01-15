@@ -1,7 +1,8 @@
 import supabase from "@/server/supabase";
-import { id } from "date-fns/locale";
-import { z } from "zod";
 
+import { QueryClient } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 export async function getAssignmentsDueOnDate(date: string) {
   const { data, error } = await supabase
     .from("assignments")
@@ -101,8 +102,7 @@ export async function getAssignment(id: number): Promise<Assignment> {
     console.error("Error getting assignment: ", error);
     throw error;
   }
-  // Supabase returns an array, even though quearying by is garunteed to return one assignment
-  //data[0] is there for type safety
+
   return data[0];
 }
 

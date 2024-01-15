@@ -2,7 +2,8 @@
 import React, { useEffect, useState } from "react";
 import Dialog from "./ViewEventDialog";
 import { useSearchParams } from "next/navigation";
-import { deleteAssignment, getAssignment } from "@/server/apis/assignments";
+import { getAssignment } from "@/server/apis/assignments";
+import { deleteAssignment } from "@/server/actions";
 import { useQuery } from "@tanstack/react-query";
 import { utcToZonedTime } from "date-fns-tz";
 import { format } from "date-fns";
@@ -44,9 +45,8 @@ export default function AssignmentDialog() {
       </>
     );
   function handleDeleteAssignment() {
-    deleteAssignment(assignmentId as unknown as number).then(() => {
-      router.push("/dashboard");
-    });
+    deleteAssignment(assignmentId as unknown as number);
+    window.location.href = "/dashboard";
   }
 
   return (

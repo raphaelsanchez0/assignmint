@@ -271,3 +271,24 @@ export async function getOverdueAssignments() {
   }
   return data;
 }
+
+export async function deleteExam(id: number) {
+  const { data, error } = await supabase.from("exams").delete().eq("id", id);
+
+  if (error) {
+    console.error("Error deleting exam: ", error);
+    throw error;
+  }
+}
+
+export async function deleteAssignment(id: number) {
+  const { data, error } = await supabase
+    .from("assignments")
+    .delete()
+    .eq("id", id);
+
+  if (error) {
+    console.error("Error deleting assignment: ", error);
+    throw error;
+  }
+}

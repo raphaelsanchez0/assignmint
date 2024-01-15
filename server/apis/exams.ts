@@ -1,5 +1,7 @@
 import supabase from "@/server/supabase";
+import { QueryClient } from "@tanstack/react-query";
 
+const queryClient = new QueryClient();
 export async function getExams() {
   const { data: exams, error } = await supabase.from("exams").select(`
       *,
@@ -32,4 +34,13 @@ export async function getExam(id: number): Promise<Exam> {
     throw error;
   }
   return data[0];
+}
+
+export async function deleteExam(id: number) {
+  const { data, error } = await supabase.from("exams").delete().eq("id", id);
+
+  if (error) {
+    console.error("Error deleting exam: ", error);
+    throw error;
+  }
 }
