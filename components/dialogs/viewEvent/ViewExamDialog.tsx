@@ -1,3 +1,4 @@
+"use client";
 import { getExam } from "@/server/apis/exams";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
