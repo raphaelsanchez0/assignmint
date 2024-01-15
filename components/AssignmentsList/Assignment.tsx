@@ -5,8 +5,19 @@ interface AssignmentProps {
   due?: string;
   color: string;
   id: number;
+  page: string;
 }
-
+/**
+ * Represents an assignment
+ *
+ * @param {string} title - The title of the assignment
+ * @param {string} course - The course the assignment is for
+ * @param {string} color  - The color of the course the assignment is for
+ * @param {number} id - The id of the assignment
+ * @param {string} due - The due date of the assignment. If not provided, no due date is rendered
+ * @param {string} page - The page the assignment is on.
+ *
+ */
 const Assignment: React.FC<AssignmentProps> = ({
   title,
   course,
