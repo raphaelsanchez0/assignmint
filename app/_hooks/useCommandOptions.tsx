@@ -8,16 +8,22 @@ interface CommandOption {
 }
 
 export default function useCommandOptions(
-  options: CommandOption[],
+  courses: Course[],
   setValue: (value: string) => void,
+  setOpen: (open: boolean) => void,
   currentValue: string,
 ) {
+  const options: CommandOption[] = courses.map((course) => ({
+    id: course.id,
+    value: course.title,
+  }));
   return options.map((option) => (
     <CommandItem
       key={option.id}
       value={option.value}
       onSelect={() => {
         setValue(option.value === currentValue ? "" : option.value);
+        setOpen(false);
       }}
     >
       {option.value}

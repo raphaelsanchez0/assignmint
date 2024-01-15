@@ -1,4 +1,5 @@
 "use client";
+import ComboBox from "@/components/forms/ComboBox";
 import {
   Dialog,
   DialogContent,
@@ -33,8 +34,8 @@ export default function AddAssignmentDialog() {
       </DialogHeader>
 
       <form action={formAction}>
-        <div className="grid gap-4 py-4">
-          <div className="grid gap-4 py-4"></div>
+        <div className="grid gap-6 mb-6 grid-cols-2 ">
+          <ComboBox courses={courses} placeholder="Select Course" />
         </div>
       </form>
     </DialogContent>
