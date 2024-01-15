@@ -12,7 +12,6 @@ import Image from "next/image";
 import DatePicker from "react-datepicker";
 import Link from "next/link";
 import LoadingListShorter from "../../Loading/LoadingListShorter";
-import { deleteAssignment } from "@/server/apis/assignments";
 
 export default function AssignmentDialog() {
   const searchParams = useSearchParams();
@@ -29,14 +28,6 @@ export default function AssignmentDialog() {
     edit: "",
     assignment: assignmentId as unknown as string,
   });
-
-  function handleCompleteAssignment(id: number) {
-    if (id !== null) {
-      deleteAssignment(id);
-    } else {
-      console.error("Cannot delete assignment: id is null");
-    }
-  }
 
   if (isLoading)
     return (
@@ -93,14 +84,13 @@ export default function AssignmentDialog() {
           <div>No notes</div>
         )}
         <div className="flex justify-center gap-3">
-          <button
-            className="btn shadow-xl"
-            onClick={() => handleCompleteAssignment}
-          >
+          <button className="btn shadow-xl">
             <Image src={iconCheckMark} alt="Complete Assignment" width={20} />
           </button>
         </div>
       </Dialog>
     </div>
   );
+
+  //if (error) return <div>error</div>;
 }
