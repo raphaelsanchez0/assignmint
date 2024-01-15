@@ -31,7 +31,7 @@ const Day: React.FC<DayProps> = ({ date }) => {
     data: assignments,
     error: assignmentsThisWeekError,
     isLoading: assignmentsIsLoading,
-  } = useQuery<Assignment[]>({
+  } = useQuery({
     queryKey: [dayString, "thisWeek", "assignments"],
     queryFn: () => getEventsOnDate("assignments", date),
   });

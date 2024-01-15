@@ -16,7 +16,7 @@ export async function getExams() {
   return exams || [];
 }
 
-export async function getExam(id: number) {
+export async function getExam(id: number): Promise<Exam> {
   const { data, error } = await supabase
     .from("exams")
     .select(
@@ -25,6 +25,11 @@ export async function getExam(id: number) {
         course(*)
         `,
     )
-    .eq("id", id) // Use ISO formatted date
-    .order("dueDate", { ascending: true });
+    .eq("id", id); // Use ISO formatted date
+
+  if (error) {
+    console.error("Error getting exam: ", error);
+    throw error;
+  }
+  return data[0];
 }

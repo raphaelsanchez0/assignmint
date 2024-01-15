@@ -24,6 +24,7 @@ export default function ExamsList() {
       {data?.map((exam) => (
         <Exam
           key={exam.id}
+          id={exam.id}
           name={exam.title}
           course={exam.course.title}
           color={exam.course.color}

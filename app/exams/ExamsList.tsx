@@ -38,6 +38,7 @@ const ExamsList: React.FC<ExamsListProps> = ({ showAddExam = false }) => {
         {data?.map((exam) => (
           <Exam
             key={exam.id}
+            id={exam.id}
             name={exam.title}
             course={exam.course.title}
             color={exam.course.color}

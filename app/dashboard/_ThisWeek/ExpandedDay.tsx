@@ -32,6 +32,7 @@ const ExpandedDay: React.FC<ExpandedDayProps> = ({ exams, assignments }) => {
             {assignments?.map((assignment) => (
               <Assignment
                 key={assignment.id}
+                id={assignment.id}
                 title={assignment.title}
                 course={assignment.course.title}
                 color={assignment.course.color}
