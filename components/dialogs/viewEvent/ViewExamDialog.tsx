@@ -24,7 +24,7 @@ export default function ViewExamDialog() {
 
   const editExamParams = new URLSearchParams({
     edit: "",
-    assignment: examId as unknown as string,
+    exam: examId as unknown as string,
   });
 
   if (isLoading)

@@ -13,6 +13,7 @@ import Assignment from "./_ThisWeek/Assignment";
 import ViewAssignmentDialog from "../../components/dialogs/viewEvent/ViewAssignmentDialog";
 import EditAssignmentDialog from "../../components/dialogs/EditEvent/EditAssignmentDialog";
 import ViewExamDialog from "@/components/dialogs/viewEvent/ViewExamDialog";
+import EditExamDialog from "@/components/dialogs/EditEvent/EditExamDialog";
 
 export default async function Dashboard() {
   const queryClient = new QueryClient();
@@ -42,6 +43,7 @@ export default async function Dashboard() {
         <ViewAssignmentDialog />
         <EditAssignmentDialog />
         <ViewExamDialog />
+        <EditExamDialog />
       </div>
     </>
   );

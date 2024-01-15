@@ -56,7 +56,6 @@ export async function updateAssignment(prevState: any, formData: FormData) {
   });
 
   const dueDate = new Date(parsedData.dueDate);
-  console.log(formData.get("id"));
   const { error } = await supabase
     .from("assignments")
     .update({
@@ -70,16 +69,38 @@ export async function updateAssignment(prevState: any, formData: FormData) {
   }
   return formData;
 }
-
-const examFormSchema = z.object({
+const addExamFormSchema = z.object({
   course: z.string().min(1, "Course is required"),
   title: z.string().min(1, "Title is required"),
   examDate: z.string().min(1, "Due date is required"),
   notes: z.string().optional(),
 });
 
+export async function updateExam(prevState: any, formData: FormData) {
+  const parsedData = addExamFormSchema.parse({
+    course: formData.get("course"),
+    title: formData.get("title"),
+    examDate: formData.get("examDate"),
+    notes: formData.get("notes"),
+  });
+
+  const examDate = new Date(parsedData.examDate);
+
+  const { error } = await supabase
+    .from("exams")
+    .update({
+      ...parsedData,
+      examDate,
+    })
+    .eq("id", formData.get("id"));
+
+  if (error) {
+    console.log(error);
+  }
+}
+
 export async function createExam(prevState: any, formData: FormData) {
-  const parsedData = examFormSchema.parse({
+  const parsedData = addExamFormSchema.parse({
     course: formData.get("course"),
     title: formData.get("title"),
     examDate: formData.get("examDate"),

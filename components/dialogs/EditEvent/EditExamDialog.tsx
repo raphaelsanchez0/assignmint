@@ -1,33 +1,29 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import CoursesInput from "../../formInputs/CoursesInput";
-import TitleInput from "../../formInputs/TitleInput";
-import DateInput from "../../formInputs/DateInput";
-import PriorityInput from "../../formInputs/PriorityInput";
-import NotesInput from "../../formInputs/NotesInput";
-import Dialog from "./EditEventDialog";
-import { useFormState } from "react-dom";
-import { updateAssignment } from "@/server/actions";
 import { getCourses } from "@/server/apis/courses";
+import { getExam } from "@/server/apis/exams";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
-import { getAssignment } from "@/server/apis/assignments";
+import { useEffect, useState } from "react";
+import { useFormState } from "react-dom";
+import EditEventDialog from "./EditEventDialog";
+import CoursesInput from "@/components/formInputs/CoursesInput";
+import TitleInput from "@/components/formInputs/TitleInput";
+import DateInput from "@/components/formInputs/DateInput";
 import { utcToZonedTime } from "date-fns-tz";
+import NotesInput from "@/components/formInputs/NotesInput";
+import { updateExam } from "@/server/actions";
 
-export default function EditAssignmentDialog() {
-  //Sends formdata to createAssignment server action
-  const [assignment, formAction] = useFormState(updateAssignment, null);
+export default function EditExamDialog() {
+  const [assignment, formAction] = useFormState(updateExam, null);
   const [courses, setCourses] = useState<CourseType[]>([]);
   const searchParams = useSearchParams();
-  const assignmentId = searchParams.get("assignment");
+  const examId = searchParams.get("exam");
 
-  const { data, error, isLoading } = useQuery<Assignment>({
-    queryKey: ["assignment", assignmentId],
-    enabled: assignmentId != null,
-    queryFn: () => getAssignment(assignmentId as unknown as number),
+  const { data, error, isLoading } = useQuery<Exam>({
+    queryKey: ["exam", examId],
+    enabled: examId != null,
+    queryFn: () => getExam(examId as unknown as number),
   });
-
-  //Gets courses from server and formats them for the CoursesInput component
   useEffect(() => {
     const fetchCourses = async () => {
       const coursesFromServer = await getCourses();
@@ -45,11 +41,11 @@ export default function EditAssignmentDialog() {
   }
 
   return (
-    <Dialog
-      title="Edit Assignment"
+    <EditEventDialog
+      title="Edit Exam"
       searchParamKey="edit"
       redirect="/dashboard"
-      type="assignment"
+      type="exam"
     >
       <form action={formAction}>
         <div className="grid gap-6 mb-6 grid-cols-2 ">
@@ -68,17 +64,14 @@ export default function EditAssignmentDialog() {
           </div>
           <div>
             <DateInput
-              type="assignment"
+              type="exam"
               edit
               currentDate={
-                data?.dueDate
-                  ? new Date(utcToZonedTime(data.dueDate, "Etc/UTC"))
+                data?.examDate
+                  ? new Date(utcToZonedTime(data.examDate, "Etc/UTC"))
                   : new Date()
               }
             />
-          </div>
-          <div>
-            <PriorityInput edit currentPriority={data?.priority} />
           </div>
           <div className="col-span-2">
             <NotesInput edit currentNotes={data?.notes} />
@@ -95,6 +88,6 @@ export default function EditAssignmentDialog() {
           </div>
         </div>
       </form>
-    </Dialog>
+    </EditEventDialog>
   );
 }

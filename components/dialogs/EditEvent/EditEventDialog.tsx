@@ -9,12 +9,14 @@ interface DialogProps {
   onClose?: () => void;
   onOk?: () => void;
   children: React.ReactNode;
+  type: string;
   searchParamKey: string;
   redirect: string;
 }
 
 const EditEventDialog: React.FC<DialogProps> = ({
   title,
+  type,
   onClose,
   onOk,
   children,
@@ -25,7 +27,7 @@ const EditEventDialog: React.FC<DialogProps> = ({
   const router = useRouter();
 
   const dialogRef = useRef<HTMLDialogElement | null>(null);
-  const showDialog = searchParams.has(searchParamKey);
+  const showDialog = searchParams.has(searchParamKey) && searchParams.has(type);
 
   useEffect(() => {
     if (showDialog) {
