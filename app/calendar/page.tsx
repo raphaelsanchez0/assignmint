@@ -1,4 +1,4 @@
-import PageTitle from "../_components/PageTitle";
+import PageTitle from "../../components/PageTitle";
 import "./calendar.scss";
 import AssignmentsList from "./ExamAndAssignmentList";
 import CalenderCard from "./CalendarCard";

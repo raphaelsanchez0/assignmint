@@ -1,7 +1,7 @@
 "use client";
 
-import iconEdit from "../_assets/icons/blackEdit.svg";
-import iconTrash from "../_assets/icons/trash.svg";
+import iconEdit from "@/public/icons/blackEdit.svg";
+import iconTrash from "@/public/icons/trash.svg";
 
 import { useState, useRef, useEffect } from "react";
 import useOnClickOutside from "../_hooks/useOnClickOutside";

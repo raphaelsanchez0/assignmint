@@ -1,6 +1,6 @@
 import Image from "next/image";
-import defaultImage from "../_assets/icons/default-image.jpg";
-import iconEdit from "../_assets/icons/blackEdit.svg";
+import defaultImage from "@/public/icons/default-image.jpg";
+import iconEdit from "@/public/icons/blackEdit.svg";
 
 export default function Account() {
   return (

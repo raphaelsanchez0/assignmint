@@ -1,9 +1,9 @@
 "use client";
 import useFormState from "react-dom";
-import Dialog from "../_components/dialogs/addEvent/AddEventDialog";
+import Dialog from "../../components/dialogs/addEvent/AddEventDialog";
 
 import React from "react";
-import TitleInput from "../_components/formInputs/TitleInput";
+import TitleInput from "../../components/formInputs/TitleInput";
 
 export default function DeleteCourseDialog() {
   //const [course, formAction] = useFormState(createCourse, null);

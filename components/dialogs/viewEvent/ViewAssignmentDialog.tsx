@@ -7,7 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import { utcToZonedTime } from "date-fns-tz";
 import { format } from "date-fns";
 
-import iconCheckMark from "@/app/_assets/icons/checkmark.svg";
+import iconCheckMark from "@/public/icons/checkmark.svg";
 import Image from "next/image";
 import DatePicker from "react-datepicker";
 import Link from "next/link";
