@@ -105,3 +105,12 @@ export async function getAssignment(id: number): Promise<Assignment> {
   //data[0] is there for type safety
   return data[0];
 }
+
+export async function deleteAssignment(id: string | number) {
+  const { error } = await supabase.from("assignments").delete().eq("id", id);
+
+  if (error) {
+    console.error("Error deleting assignment:", error);
+    throw error;
+  }
+}
