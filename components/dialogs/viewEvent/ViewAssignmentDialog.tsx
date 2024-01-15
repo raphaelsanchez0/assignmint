@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Dialog from "./ViewEventDialog";
 import { useSearchParams } from "next/navigation";
-import { getAssignment } from "@/server/apis/assignments";
+import { deleteAssignment, getAssignment } from "@/server/apis/assignments";
 import { useQuery } from "@tanstack/react-query";
 import { utcToZonedTime } from "date-fns-tz";
 import { format } from "date-fns";
@@ -12,9 +12,11 @@ import Image from "next/image";
 import DatePicker from "react-datepicker";
 import Link from "next/link";
 import LoadingListShorter from "../../Loading/LoadingListShorter";
+import { useRouter } from "next/navigation";
 
 export default function AssignmentDialog() {
   const searchParams = useSearchParams();
+  const router = useRouter();
 
   const assignmentId = searchParams.get("assignment");
 
@@ -41,6 +43,11 @@ export default function AssignmentDialog() {
         </Dialog>
       </>
     );
+  function handleDeleteAssignment() {
+    deleteAssignment(assignmentId as unknown as number).then(() => {
+      router.push("/dashboard");
+    });
+  }
 
   return (
     <div>
@@ -84,13 +91,11 @@ export default function AssignmentDialog() {
           <div>No notes</div>
         )}
         <div className="flex justify-center gap-3">
-          <button className="btn shadow-xl">
+          <button className="btn shadow-xl" onClick={handleDeleteAssignment}>
             <Image src={iconCheckMark} alt="Complete Assignment" width={20} />
           </button>
         </div>
       </Dialog>
     </div>
   );
-
-  //if (error) return <div>error</div>;
 }
