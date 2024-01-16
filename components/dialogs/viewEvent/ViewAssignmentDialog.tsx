@@ -35,11 +35,7 @@ export default function AssignmentDialog() {
   if (isLoading)
     return (
       <>
-        <Dialog
-          title="Assignment"
-          searchParamKey="assignment"
-          redirect="/dashboard"
-        >
+        <Dialog title="Assignment" searchParamKey="assignment">
           <LoadingListShorter />
         </Dialog>
       </>
@@ -51,11 +47,7 @@ export default function AssignmentDialog() {
 
   return (
     <div>
-      <Dialog
-        title="Assignment"
-        searchParamKey="assignment"
-        redirect="/dashboard"
-      >
+      <Dialog title="Assignment" searchParamKey="assignment">
         <div className="flex justify-between">
           <div className="flex flex-col text-off-black">
             <h2 className="text-3xl font-bold text-off-black">{data?.title}</h2>
