@@ -37,6 +37,7 @@ export default function ExamAndAssignmentList() {
         {exams?.map((exam) => (
           <Exam
             key={exam.id}
+            id={exam.id}
             name={exam.title}
             course={exam.course.title}
             color={exam.course.color}
@@ -48,6 +49,7 @@ export default function ExamAndAssignmentList() {
         {assignments?.map((assignment) => (
           <Assignment
             key={assignment.id}
+            id={assignment.id}
             title={assignment.title}
             course={assignment.course.title}
             color={assignment.course.color}

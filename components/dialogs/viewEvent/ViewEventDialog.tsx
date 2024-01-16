@@ -9,7 +9,6 @@ interface DialogProps {
   onOk?: () => void;
   children: React.ReactNode;
   searchParamKey: string;
-  redirect: string;
 }
 
 const ViewEventDialog: React.FC<DialogProps> = ({
