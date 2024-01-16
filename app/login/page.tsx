@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { twJoin } from "tailwind-merge";
+import { twMerge } from "tailwind-merge";
 
 export default function Login() {
   return (
@@ -32,14 +32,7 @@ export default function Login() {
                     type="password"
                   />
                 </div>
-                <Button
-                  className={twMerge(
-                    "btn font-semibold text-lg",
-                    "rounded-full",
-                  )}
-                >
-                  Login
-                </Button>
+                <Button className="btn font-semibold text-lg">Login</Button>
               </div>
             </form>
           </CardContent>
