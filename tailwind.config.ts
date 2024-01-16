@@ -1,23 +1,18 @@
-import type { Config } from "tailwindcss"
-import {fontFamily} from "tailwindcss/defaultTheme"
-
+import type { Config } from "tailwindcss";
+import { fontFamily } from "tailwindcss/defaultTheme";
 
 const config = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './components/**/*.{js,ts,jsx,tsx,mdx}',
-    './app/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/**/*.{ts,tsx}',
-    './@/**/*.{ts,tsx}',
-    
-    
-    
-
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/**/*.{ts,tsx}",
+    "./@/**/*.{ts,tsx}",
   ],
   prefix: "",
   theme: {
-    fontFamily:{
+    fontFamily: {
       poppins: ["var(--font-poppins)", ...fontFamily.sans],
     },
     container: {
@@ -29,14 +24,14 @@ const config = {
     },
     extend: {
       colors: {
-        'primary': '#0D664D',
-        'secondary': '#16b085',
+        primary: "#0D664D",
+        secondary: "#16b085",
 
-        "background": "#FAF9FF",
-        'off-black': '#353535',
+        background: "#FAF9FF",
+        "off-black": "#353535",
       },
       spacing: {
-        'sidebar-width': '4rem',
+        "sidebar-width": "4rem",
       },
       keyframes: {
         "accordion-down": {
@@ -55,6 +50,6 @@ const config = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-} satisfies Config
+} satisfies Config;
 
-export default config
+export default config;
