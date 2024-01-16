@@ -27,7 +27,6 @@ const ExamsCard: React.FC<ExamsListProps> = async ({ showAddExam = false }) => {
       <div>
         <ExamsList />
       </div>
-      <AddExamDialog />
     </div>
   );
 };

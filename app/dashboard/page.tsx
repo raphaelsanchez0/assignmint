@@ -9,11 +9,12 @@ import {
   HydrationBoundary,
   dehydrate,
 } from "@tanstack/react-query";
-import Assignment from "./_ThisWeek/Assignment";
+
 import ViewAssignmentDialog from "../../components/dialogs/viewEvent/ViewAssignmentDialog";
 import EditAssignmentDialog from "../../components/dialogs/EditEvent/EditAssignmentDialog";
 import ViewExamDialog from "@/components/dialogs/viewEvent/ViewExamDialog";
 import EditExamDialog from "@/components/dialogs/EditEvent/EditExamDialog";
+import AddExamDialog from "@/components/dialogs/addEvent/AddExamDialog";
 
 export default async function Dashboard() {
   const queryClient = new QueryClient();
@@ -42,6 +43,7 @@ export default async function Dashboard() {
         <AddAssignmentDialog />
         <ViewAssignmentDialog />
         <EditAssignmentDialog />
+        <AddExamDialog />
         <ViewExamDialog />
         <EditExamDialog />
       </div>

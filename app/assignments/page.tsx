@@ -5,7 +5,9 @@ import {
 } from "@tanstack/react-query";
 import AssignmentsList from "../../components/AssignmentsList/AssignmentsList";
 import AddAssignment from "./_AddAssignment/AddAssignment";
-import { getCourses } from "@/server/apis/api";
+import { getCourses } from "@/server/apis/courses";
+import ViewAssignmentDialog from "@/components/dialogs/viewEvent/ViewAssignmentDialog";
+import EditAssignmentDialog from "@/components/dialogs/EditEvent/EditAssignmentDialog";
 
 export default async function Assignments() {
   const queryClient = new QueryClient();
@@ -27,6 +29,8 @@ export default async function Assignments() {
           </HydrationBoundary>
         </div>
       </div>
+      <ViewAssignmentDialog />
+      <EditAssignmentDialog />
     </div>
   );
 }

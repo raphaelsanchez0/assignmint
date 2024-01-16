@@ -1,8 +1,7 @@
 "use client";
 
-import useOnClickOutside from "@/app/_hooks/useOnClickOutside";
-import { useSearchParams, useRouter } from "next/navigation";
-import { useRef, useEffect } from "react";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import { useRef, useEffect, use } from "react";
 
 interface DialogProps {
   title: string;
@@ -11,7 +10,6 @@ interface DialogProps {
   children: React.ReactNode;
   type: string;
   searchParamKey: string;
-  redirect: string;
 }
 
 const EditEventDialog: React.FC<DialogProps> = ({
@@ -21,11 +19,10 @@ const EditEventDialog: React.FC<DialogProps> = ({
   onOk,
   children,
   searchParamKey,
-  redirect,
 }) => {
   const searchParams = useSearchParams();
   const router = useRouter();
-
+  const redirect = usePathname();
   const dialogRef = useRef<HTMLDialogElement | null>(null);
   const showDialog = searchParams.has(searchParamKey) && searchParams.has(type);
 

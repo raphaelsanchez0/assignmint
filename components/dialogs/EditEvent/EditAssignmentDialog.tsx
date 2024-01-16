@@ -45,12 +45,7 @@ export default function EditAssignmentDialog() {
   }
 
   return (
-    <Dialog
-      title="Edit Assignment"
-      searchParamKey="edit"
-      redirect="/dashboard"
-      type="assignment"
-    >
+    <Dialog title="Edit Assignment" searchParamKey="edit" type="assignment">
       <form action={formAction}>
         <div className="grid gap-6 mb-6 grid-cols-2 ">
           <div className="assignment--input-container">

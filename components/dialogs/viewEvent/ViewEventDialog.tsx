@@ -1,6 +1,6 @@
 "use client";
 
-import { useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { useRef, useEffect } from "react";
 
 interface DialogProps {
@@ -18,10 +18,10 @@ const ViewEventDialog: React.FC<DialogProps> = ({
   onOk,
   children,
   searchParamKey,
-  redirect,
 }) => {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const redirect = usePathname();
 
   const dialogRef = useRef<HTMLDialogElement | null>(null);
   const showDialog =

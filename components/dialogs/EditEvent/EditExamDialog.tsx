@@ -2,7 +2,7 @@
 import { getCourses } from "@/server/apis/courses";
 import { getExam } from "@/server/apis/exams";
 import { useQuery } from "@tanstack/react-query";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useFormState } from "react-dom";
 import EditEventDialog from "./EditEventDialog";
@@ -41,12 +41,7 @@ export default function EditExamDialog() {
   }
 
   return (
-    <EditEventDialog
-      title="Edit Exam"
-      searchParamKey="edit"
-      redirect="/dashboard"
-      type="exam"
-    >
+    <EditEventDialog title="Edit Exam" searchParamKey="edit" type="exam">
       <form action={formAction}>
         <div className="grid gap-6 mb-6 grid-cols-2 ">
           <div className="assignment--input-container">
