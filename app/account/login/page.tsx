@@ -8,6 +8,14 @@ import { useState } from "react";
 
 export default function Login() {
   const [user, setUser] = useState({ email: "", password: "" });
+  const supabase = createClientComponentClient();
+
+  const handleLogin = async () => {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: user.email,
+      password: user.password,
+    });
+  };
   return (
     <Card>
       <CardHeader>Login</CardHeader>
@@ -48,7 +56,9 @@ export default function Login() {
                 }
               />
             </div>
-            <Button className="btn font-semibold text-lg">Login</Button>
+            <Button className="btn font-semibold text-lg" onClick={handleLogin}>
+              Login
+            </Button>
           </div>
         </form>
       </CardContent>

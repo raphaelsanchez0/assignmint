@@ -6,13 +6,23 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { useRouter } from "next/navigation";
 export default function SignUp() {
   const [newUser, setNewUser] = useState({ name: "", email: "", password: "" });
+  const router = useRouter();
 
   const supabase = createClientComponentClient();
 
   const handleSignUp = async () => {
-    await supabase.auth.signUp();
+    console.log(newUser);
+    const { data, error } = await supabase.auth.signUp({
+      email: newUser.email,
+      password: newUser.password,
+      options: {
+        emailRedirectTo: `${location.origin}/dashboard`,
+      },
+    });
+    router.refresh();
   };
   return (
     <Card>
@@ -71,7 +81,11 @@ export default function SignUp() {
                 }
               />
             </div>
-            <Button className="btn font-semibold text-lg" type="submit">
+            <Button
+              className="btn font-semibold text-lg"
+              type="submit"
+              onClick={handleSignUp}
+            >
               Sign Up
             </Button>
             <div className="text-center ">
