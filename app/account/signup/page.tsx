@@ -20,6 +20,9 @@ export default function SignUp() {
       password: newUser.password,
       options: {
         emailRedirectTo: `${location.origin}/dashboard`,
+        data: {
+          name: newUser.name,
+        },
       },
     });
     router.refresh();
