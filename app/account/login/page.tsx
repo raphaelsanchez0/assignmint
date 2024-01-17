@@ -6,9 +6,8 @@ import { Label } from "@/components/ui/label";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useState } from "react";
 
-export default function LoginPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+export default function Login() {
+  const [user, setUser] = useState({ email: "", password: "" });
   return (
     <Card>
       <CardHeader>Login</CardHeader>
@@ -23,8 +22,13 @@ export default function LoginPage() {
                 id="name"
                 placeholder="Enter Email"
                 type="text"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={user.email}
+                onChange={(e) =>
+                  setUser((prevUser) => ({
+                    ...prevUser,
+                    email: e.target.value,
+                  }))
+                }
               />
             </div>
             <div className="flex flex-col space-y-1.5">
@@ -35,8 +39,13 @@ export default function LoginPage() {
                 id="name"
                 placeholder="Enter Password"
                 type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={user.password}
+                onChange={(e) =>
+                  setUser((prevUser) => ({
+                    ...prevUser,
+                    password: e.target.value,
+                  }))
+                }
               />
             </div>
             <Button className="btn font-semibold text-lg">Login</Button>
