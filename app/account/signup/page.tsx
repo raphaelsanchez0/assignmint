@@ -23,14 +23,17 @@ export default function SignUp() {
       password: newUser.password,
       options: {
         emailRedirectTo: `${location.origin}/dashboard`,
-        // data: {
-        //   name: newUser.name,
-        // },
+        data: {
+          name: newUser.name,
+        },
       },
     });
     if (error) {
       console.log(error);
       return;
+    }
+    if (data) {
+      router.push("/account/verify-email");
     }
   };
   return (
