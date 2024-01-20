@@ -13,7 +13,10 @@ export default function SignUp() {
 
   const supabase = createClientComponentClient();
 
-  const handleSignUp = async () => {
+  const handleSignUp = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    e.preventDefault();
     console.log(newUser);
     const { data, error } = await supabase.auth.signUp({
       email: newUser.email,
@@ -25,6 +28,10 @@ export default function SignUp() {
         // },
       },
     });
+    if (error) {
+      console.log(error);
+      return;
+    }
   };
   return (
     <Card>
@@ -87,7 +94,7 @@ export default function SignUp() {
             <Button
               className="btn font-semibold text-lg"
               type="submit"
-              onClick={handleSignUp}
+              onClick={(e) => handleSignUp(e)}
             >
               Sign Up
             </Button>
