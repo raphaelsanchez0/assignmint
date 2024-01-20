@@ -1,5 +1,5 @@
 import Image from "next/image";
-import defaultImage from "@/public/images/default-image.jpg";
+import defaultImage from "@/public/icons/default-image.jpg";
 import iconEdit from "@/public/icons/blackEdit.svg";
 
 export default function Account() {

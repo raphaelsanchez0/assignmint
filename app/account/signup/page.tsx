@@ -20,12 +20,11 @@ export default function SignUp() {
       password: newUser.password,
       options: {
         emailRedirectTo: `${location.origin}/dashboard`,
-        data: {
-          name: newUser.name,
-        },
+        // data: {
+        //   name: newUser.name,
+        // },
       },
     });
-    router.refresh();
   };
   return (
     <Card>
@@ -84,6 +83,7 @@ export default function SignUp() {
                 }
               />
             </div>
+
             <Button
               className="btn font-semibold text-lg"
               type="submit"
@@ -91,6 +91,7 @@ export default function SignUp() {
             >
               Sign Up
             </Button>
+
             <div className="text-center ">
               <p className="text-gray-500">
                 Already have an account?
