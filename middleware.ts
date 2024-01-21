@@ -14,7 +14,10 @@ export async function middleware(req: NextRequest) {
   if (user && req.nextUrl.pathname === "/") {
     return NextResponse.redirect(new URL("/dashboard", req.url));
   }
-
+  //if user tries to go back to any account page after logging in, redirect to dashboard
+  if (user && req.nextUrl.pathname.startsWith("/account/")) {
+    return NextResponse.redirect(new URL("/dashboard", req.url));
+  }
   // if user is not signed in and the current path is not / redirect the user to /
   if (!user && req.nextUrl.pathname !== "/") {
     return NextResponse.redirect(new URL("/", req.url));
@@ -24,5 +27,11 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard", "/assignments", "/exams", "/calendar"],
+  matcher: [
+    "/dashboard",
+    "/assignments",
+    "/exams",
+    "/calendar",
+    "/account/:path*",
+  ],
 };

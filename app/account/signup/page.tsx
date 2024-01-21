@@ -33,7 +33,7 @@ export default function SignUp() {
       return;
     }
     if (data) {
-      router.push("/account/verify-email");
+      router.push("/account/check-email");
     }
   };
   return (

@@ -4,18 +4,26 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { MouseEvent, useState } from "react";
 
 export default function Login() {
   const [user, setUser] = useState({ email: "", password: "" });
+  const [invalidCredentials, setInvalidCredentials] = useState<boolean>(false); // [1
   const supabase = createClientComponentClient();
+  const router = useRouter();
 
-  const handleLogin = async () => {
+  const handleLogin = async (e: MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
     const { data, error } = await supabase.auth.signInWithPassword({
       email: user.email,
       password: user.password,
     });
     if (data) {
+      router.push("/dashboard");
+    }
+    if (error) {
+      console.log(error.cause);
     }
   };
   return (
@@ -58,7 +66,10 @@ export default function Login() {
                 }
               />
             </div>
-            <Button className="btn font-semibold text-lg" onClick={handleLogin}>
+            <Button
+              className="btn font-semibold text-lg"
+              onClick={(e) => handleLogin(e)}
+            >
               Login
             </Button>
           </div>
