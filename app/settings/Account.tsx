@@ -1,8 +1,16 @@
+"use client";
 import Image from "next/image";
 import defaultImage from "@/public/icons/default-image.jpg";
 import iconEdit from "@/public/icons/blackEdit.svg";
+import supabase from "@/server/supabase";
 
 export default function Account() {
+  async function handleLogout(
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) {
+    e.preventDefault();
+    const { error } = await supabase.auth.signOut();
+  }
   return (
     <div>
       <div className="flex justify-between">
@@ -21,6 +29,11 @@ export default function Account() {
           <h3 className="text-xl">Password: </h3>
         </div>
       </div>
+      <form action="/auth/signout" method="post">
+        <button className="btn w-full mt-2" type="submit">
+          Logout
+        </button>
+      </form>
     </div>
   );
 }

@@ -13,7 +13,7 @@ export default function Login() {
   const supabase = createClientComponentClient();
   const router = useRouter();
 
-  const handleLogin = async (e: MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleLogin = async (e: MouseEvent) => {
     e.preventDefault();
     const { data, error } = await supabase.auth.signInWithPassword({
       email: user.email,
