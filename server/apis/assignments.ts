@@ -1,8 +1,11 @@
 import supabase from "@/server/supabase";
 
-import { QueryClient } from "@tanstack/react-query";
+import { createServerClient, type CookieOptions } from "@supabase/ssr";
+import { cookies } from "next/headers";
 
-const queryClient = new QueryClient();
+import { QueryClient } from "@tanstack/react-query";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+
 export async function getAssignmentsDueOnDate(date: string) {
   const { data, error } = await supabase
     .from("assignments")
