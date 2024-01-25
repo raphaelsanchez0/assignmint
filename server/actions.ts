@@ -25,6 +25,10 @@ export async function createAssignment(prevState: any, formData: FormData) {
 
   const dueDate = new Date(parsedData.dueDate);
 
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   const { error } = await supabase.from("assignments").insert({
     ...parsedData,
     dueDate,
@@ -33,7 +37,7 @@ export async function createAssignment(prevState: any, formData: FormData) {
     queryKey: ["dueTodayAssignments", "assignments"],
   });
   if (error) {
-    throw error;
+    console.log(error);
   }
   return formData;
 }

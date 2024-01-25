@@ -13,6 +13,8 @@ export default function SignUp() {
 
   const supabase = createClientComponentClient();
 
+  const redirectURL = `${location.origin}/auth/callback`;
+
   const handleSignUp = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
@@ -22,7 +24,7 @@ export default function SignUp() {
       email: newUser.email,
       password: newUser.password,
       options: {
-        emailRedirectTo: `${location.origin}/dashboard`,
+        emailRedirectTo: ``,
         data: {
           name: newUser.name,
         },
