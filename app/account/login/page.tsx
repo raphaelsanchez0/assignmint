@@ -9,7 +9,6 @@ import { useRouter } from "next/navigation";
 import { MouseEvent, useState } from "react";
 
 export default function Login() {
-  const [user, setUser] = useState({ email: "", password: "" });
   const [invalidCredentials, setInvalidCredentials] = useState<boolean>(false); // [1
   const supabase = createSupabaseFrontendClient();
   const router = useRouter();
@@ -37,35 +36,13 @@ export default function Login() {
               <Label htmlFor="name" className="text-xl font-semibold">
                 Email
               </Label>
-              <Input
-                id="name"
-                placeholder="Enter Email"
-                type="text"
-                value={user.email}
-                onChange={(e) =>
-                  setUser((prevUser) => ({
-                    ...prevUser,
-                    email: e.target.value,
-                  }))
-                }
-              />
+              <Input id="name" placeholder="Enter Email" type="text" />
             </div>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="name" className="text-xl font-semibold">
                 Password
               </Label>
-              <Input
-                id="name"
-                placeholder="Enter Password"
-                type="password"
-                value={user.password}
-                onChange={(e) =>
-                  setUser((prevUser) => ({
-                    ...prevUser,
-                    password: e.target.value,
-                  }))
-                }
-              />
+              <Input id="name" placeholder="Enter Password" type="password" />
             </div>
             <Button
               className="btn font-semibold text-lg"
