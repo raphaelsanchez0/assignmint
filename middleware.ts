@@ -1,10 +1,11 @@
 import { createMiddlewareClient } from "@supabase/auth-helpers-nextjs";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { createSupabaseReqResClient } from "./server/supabaseReqResClient";
 
 export async function middleware(req: NextRequest) {
   const res = NextResponse.next();
-  const supabase = createMiddlewareClient({ req, res });
+  const supabase = createSupabaseReqResClient(req, res);
 
   const {
     data: { user },
@@ -22,6 +23,7 @@ export async function middleware(req: NextRequest) {
   }
   // if user is not signed in and the current path is not / redirect the user to /
   if (!user && req.nextUrl.pathname !== "/") {
+    console.log("user is not signed in and the current path is not /");
     return NextResponse.redirect(new URL("/", req.url));
   }
   return res;

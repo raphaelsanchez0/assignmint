@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { createSupabaseFrontendClient } from "@/server/supabaseFrontendClient";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
 import { MouseEvent, useState } from "react";
@@ -10,7 +11,7 @@ import { MouseEvent, useState } from "react";
 export default function Login() {
   const [user, setUser] = useState({ email: "", password: "" });
   const [invalidCredentials, setInvalidCredentials] = useState<boolean>(false); // [1
-  const supabase = createClientComponentClient();
+  const supabase = createSupabaseFrontendClient();
   const router = useRouter();
 
   const handleLogin = async (e: MouseEvent) => {
