@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { createSupabaseFrontendClient } from "@/server/supabaseFrontendClient";
+import { createSupabaseFrontendClient } from "@/utils/supabase/supabaseFrontendClient";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
 import { MouseEvent, useState } from "react";

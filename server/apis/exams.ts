@@ -1,6 +1,6 @@
 //import supabase from "@/server/supabase";
 import { QueryClient } from "@tanstack/react-query";
-import { createSupabaseFrontendClient } from "../supabaseFrontendClient";
+import { createSupabaseFrontendClient } from "../../utils/supabase/supabaseFrontendClient";
 
 const queryClient = new QueryClient();
 
