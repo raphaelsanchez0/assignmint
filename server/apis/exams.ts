@@ -1,7 +1,10 @@
-import supabase from "@/server/supabase";
+//import supabase from "@/server/supabase";
 import { QueryClient } from "@tanstack/react-query";
+import { createSupabaseFrontendClient } from "../supabaseClients";
 
 const queryClient = new QueryClient();
+
+const supabase = createSupabaseFrontendClient();
 export async function getExams() {
   const { data: exams, error } = await supabase.from("exams").select(`
       *,
@@ -15,6 +18,7 @@ export async function getExams() {
   exams.sort(
     (a, b) => new Date(a.examDate).getTime() - new Date(b.examDate).getTime(),
   );
+  console.log("test");
   return exams || [];
 }
 

@@ -1,10 +1,12 @@
-import supabase from "@/server/supabase";
+//import supabase from "@/server/supabase";
 
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
+
 import { cookies } from "next/headers";
 
-import { QueryClient } from "@tanstack/react-query";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import supabase from "@/server/supabase";
+
+import { createSupabaseFrontendClient } from "@/server/supabaseClients";
 
 export async function getAssignmentsDueOnDate(date: string) {
   const { data, error } = await supabase
@@ -70,6 +72,7 @@ export async function getDueTodayAssignments() {
   const currentDate = new Date();
   currentDate.setHours(0, 0, 0, 0);
   const currentDateIso = currentDate.toISOString();
+
   const { data, error } = await supabase
     .from("assignments")
     .select(
