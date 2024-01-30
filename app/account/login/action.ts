@@ -11,6 +11,8 @@ export async function login(formData: FormData) {
   
     // type-casting here for convenience
     // in practice, you should validate your inputs
+
+    console.log("action ran")
     const data = {
       email: formData.get('email') as string,
       password: formData.get('password') as string,
@@ -23,5 +25,5 @@ export async function login(formData: FormData) {
     }
   
     
-    redirect('/')
+    redirect('/dashboard')
   }

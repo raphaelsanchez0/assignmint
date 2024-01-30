@@ -7,49 +7,42 @@ import { createSupabaseFrontendClient } from "@/utils/supabase/supabaseFrontendC
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
 import { MouseEvent, useState } from "react";
+import { login } from "./action";
 
 export default function Login() {
   const [invalidCredentials, setInvalidCredentials] = useState<boolean>(false); // [1
   const supabase = createSupabaseFrontendClient();
   const router = useRouter();
 
-  const handleLogin = async (e: MouseEvent) => {
-    e.preventDefault();
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email: user.email,
-      password: user.password,
-    });
-    if (data) {
-      router.push("/dashboard");
-    }
-    if (error) {
-      console.log(error.cause);
-    }
-  };
   return (
     <Card>
       <CardHeader>Login</CardHeader>
       <CardContent>
-        <form>
+        <form action={login}>
           <div className="grid w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="name" className="text-xl font-semibold">
+              <Label htmlFor="email" className="text-xl font-semibold">
                 Email
               </Label>
-              <Input id="name" placeholder="Enter Email" type="text" />
+              <Input
+                id="email"
+                name="email"
+                placeholder="Enter Email"
+                type="text"
+              />
             </div>
             <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="name" className="text-xl font-semibold">
+              <Label htmlFor="password" className="text-xl font-semibold">
                 Password
               </Label>
-              <Input id="name" placeholder="Enter Password" type="password" />
+              <Input
+                id="password"
+                name="password"
+                placeholder="Enter Password"
+                type="password"
+              />
             </div>
-            <Button
-              className="btn font-semibold text-lg"
-              onClick={(e) => handleLogin(e)}
-            >
-              Login
-            </Button>
+            <Button className="btn font-semibold text-lg">Login</Button>
           </div>
         </form>
       </CardContent>
