@@ -2,9 +2,10 @@
 import Image from "next/image";
 import defaultImage from "@/public/icons/default-image.jpg";
 import iconEdit from "@/public/icons/blackEdit.svg";
-import supabase from "@/server/supabase";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 export default function Account() {
+  const supabase = createClientComponentClient();
   async function handleLogout(
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) {

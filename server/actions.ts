@@ -5,7 +5,6 @@ import { z } from "zod";
 import { QueryClient } from "@tanstack/react-query";
 import { createSupabaseActionClient } from "@/utils/supabase/supabaseActionClient";
 import { cookies } from "next/headers";
-import { createServerActionClient } from "@supabase/auth-helpers-nextjs";
 import { createSupabaseServerClient } from "@/utils/supabase/supabaseServerClient";
 
 const queryClient = new QueryClient();
@@ -19,7 +18,6 @@ const addAssignmentFormSchema = z.object({
 });
 
 export async function createAssignment(prevState: any, formData: FormData) {
-  const supabase = createSupabaseActionClient(cookies());
   const parsedData = addAssignmentFormSchema.parse({
     course: formData.get("course"),
     title: formData.get("title"),
