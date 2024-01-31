@@ -1,12 +1,6 @@
-//import supabase from "@/server/supabase";
-
-import { createServerClient, type CookieOptions } from "@supabase/ssr";
-
-import { cookies } from "next/headers";
-
-import supabase from "@/server/supabase";
-
 import { createSupabaseFrontendClient } from "@/utils/supabase/supabaseFrontendClient";
+
+const supabase = createSupabaseFrontendClient();
 
 export async function getAssignmentsDueOnDate(date: string) {
   const { data, error } = await supabase

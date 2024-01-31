@@ -1,6 +1,7 @@
-import supabase from "@/server/supabase";
+import { createSupabaseFrontendClient } from "@/utils/supabase/supabaseFrontendClient";
 import { z } from "zod";
 
+const supabase = createSupabaseFrontendClient();
 export async function getEventsOnDate(
   type: "assignments" | "exams",
   date: Date,

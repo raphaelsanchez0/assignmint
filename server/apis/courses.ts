@@ -1,6 +1,7 @@
+import { createSupabaseFrontendClient } from "@/utils/supabase/supabaseFrontendClient";
 import { z } from "zod";
-import supabase from "../supabase";
 
+const supabase = createSupabaseFrontendClient();
 const addCouseSchema = z.object({
   id: z
     .number()

@@ -1,11 +1,15 @@
 "use server";
 import { revalidatePath } from "next/cache";
-import supabase from "@/server/supabase";
+
 import { z } from "zod";
 import { QueryClient } from "@tanstack/react-query";
+import { createSupabaseActionClient } from "@/utils/supabase/supabaseActionClient";
+import { cookies } from "next/headers";
+import { createServerActionClient } from "@supabase/auth-helpers-nextjs";
+import { createSupabaseServerClient } from "@/utils/supabase/supabaseServerClient";
 
 const queryClient = new QueryClient();
-
+const supabase = createSupabaseServerClient();
 const addAssignmentFormSchema = z.object({
   course: z.string().min(1, "Course is required"),
   title: z.string().min(1, "Title is required"),
@@ -15,6 +19,7 @@ const addAssignmentFormSchema = z.object({
 });
 
 export async function createAssignment(prevState: any, formData: FormData) {
+  const supabase = createSupabaseActionClient(cookies());
   const parsedData = addAssignmentFormSchema.parse({
     course: formData.get("course"),
     title: formData.get("title"),
