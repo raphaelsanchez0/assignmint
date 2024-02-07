@@ -4,9 +4,8 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { createSupabaseFrontendClient } from "@/utils/supabase/supabaseFrontendClient";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
-import { MouseEvent, useState } from "react";
+import { useState } from "react";
 import { login } from "./action";
 
 export default function Login() {
