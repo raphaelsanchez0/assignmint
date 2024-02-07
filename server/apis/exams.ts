@@ -18,7 +18,6 @@ export async function getExams() {
   exams.sort(
     (a, b) => new Date(a.examDate).getTime() - new Date(b.examDate).getTime(),
   );
-  console.log("test");
   return exams || [];
 }
 

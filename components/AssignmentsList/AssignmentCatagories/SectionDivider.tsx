@@ -1,12 +1,5 @@
 interface SectionDividerProps {
-  title:
-    | "Overdue"
-    | "Priority"
-    | "Due Today"
-    | "Due Tomorrow"
-    | "Due This Week"
-    | "Due This Month"
-    | "Due Later";
+  title: string;
   color: string;
 }
 

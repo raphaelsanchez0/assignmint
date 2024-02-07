@@ -19,7 +19,7 @@ export default function SignUp() {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     e.preventDefault();
-    console.log(newUser);
+
     const { data, error } = await supabase.auth.signUp({
       email: newUser.email,
       password: newUser.password,

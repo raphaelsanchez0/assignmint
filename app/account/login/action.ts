@@ -21,8 +21,6 @@ export async function login(formData: FormData) {
 
   const session = await supabase.auth.getSession();
 
-  console.log("session", session.data.session?.user);
-
   if (error) {
     redirect("/error");
   }

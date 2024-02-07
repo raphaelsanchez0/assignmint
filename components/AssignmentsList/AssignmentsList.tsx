@@ -13,6 +13,7 @@ import OverdueAssignments from "./AssignmentCatagories/OverdueAssignments";
 import AddAssignmentBtn from "./AddAssignmentBtn";
 import PriorityAssignments from "./AssignmentCatagories/PriorityAssignments";
 import DueTodayAssignments from "./AssignmentCatagories/DueTodayAssignments";
+import DueTomorrowAssignments from "./AssignmentCatagories/DueTomorrowAssignments";
 
 interface AssignmentsListProps {
   showAddAssignment?: boolean;
@@ -57,6 +58,9 @@ const AssignmentsList: React.FC<AssignmentsListProps> = async ({
         </HydrationBoundary>
         <HydrationBoundary state={dehydrate(queryClient)}>
           <DueTodayAssignments />
+        </HydrationBoundary>
+        <HydrationBoundary>
+          <DueTomorrowAssignments />
         </HydrationBoundary>
       </ol>
     </div>

@@ -77,7 +77,55 @@ export async function getDueTodayAssignments() {
     )
     .eq("dueDate", currentDateIso) // Use ISO formatted date
     .order("dueDate", { ascending: true });
-  console.log(data);
+
+  if (error) {
+    console.error("Error getting assignments: ", error);
+    throw error;
+  }
+  return data;
+}
+
+export async function getDueTomorrowAssignments() {
+  const currentDate = new Date();
+  currentDate.setDate(currentDate.getDate() + 1);
+  currentDate.setHours(0, 0, 0, 0);
+  const currentDateIso = currentDate.toISOString();
+
+  const { data, error } = await supabase
+    .from("assignments")
+    .select(
+      `
+          *,
+          course(*)
+          `,
+    )
+    .eq("dueDate", currentDateIso) // Use ISO formatted date
+    .order("dueDate", { ascending: true });
+
+  if (error) {
+    console.error("Error getting assignments: ", error);
+    throw error;
+  }
+  return data;
+}
+
+export async function getThisWeekAssignments() {
+  const currentDate = new Date();
+  const currentDateIso = currentDate.toISOString();
+  const nextWeek = new Date(currentDate);
+  nextWeek.setDate(nextWeek.getDate() + 7);
+  const nextWeekIso = nextWeek.toISOString();
+  const { data, error } = await supabase
+    .from("assignments")
+    .select(
+      `
+          *,
+          course(*)
+          `,
+    )
+    .gte("dueDate", currentDateIso) // Use ISO formatted date
+    .lte("dueDate", nextWeekIso) // Use ISO formatted date
+    .order("dueDate", { ascending: true });
 
   if (error) {
     console.error("Error getting assignments: ", error);
