@@ -7,8 +7,11 @@ import { createSupabaseActionClient } from "@/utils/supabase/supabaseActionClien
 import { cookies } from "next/headers";
 import { createSupabaseServerClient } from "@/utils/supabase/supabaseServerClient";
 
-const queryClient = new QueryClient();
+const cookieStore = cookies();
 const supabase = createSupabaseServerClient();
+
+const queryClient = new QueryClient();
+
 const addAssignmentFormSchema = z.object({
   course: z.string().min(1, "Course is required"),
   title: z.string().min(1, "Title is required"),
@@ -28,11 +31,7 @@ export async function createAssignment(prevState: any, formData: FormData) {
 
   const dueDate = new Date(parsedData.dueDate);
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  const { error } = await supabase.from("assignments").insert({
+  const { data, error } = await supabase.from("assignments").insert({
     ...parsedData,
     dueDate,
   });
