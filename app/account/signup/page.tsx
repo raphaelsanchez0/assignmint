@@ -5,13 +5,14 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { createSupabaseServerClient } from "@/utils/supabase/supabaseServerClient";
 import { useRouter } from "next/navigation";
+
 export default function SignUp() {
   const [newUser, setNewUser] = useState({ name: "", email: "", password: "" });
   const router = useRouter();
 
-  const supabase = createClientComponentClient();
+  const supabase = createSupabaseServerClient();
 
   const redirectURL = `${location.origin}/auth/callback`;
 
