@@ -14,7 +14,14 @@ import { usePathname } from "next/navigation";
 
 const Sidebar = () => {
   const pathname = usePathname();
-  if (pathname === "/" || pathname.startsWith("/account/")) return <> </>;
+  if (
+    pathname === "/" ||
+    pathname.startsWith("/account/") ||
+    pathname === "/login"
+  ) {
+    return <> </>;
+  }
+
   const sideBarIconStyle = `relative flex items-center justify-center 
                               h-12 w-12 mt-2 mb-2 mx-auto hover:color-white`;
 
