@@ -12,6 +12,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 const FormSchema = z.object({
   email: z.string().email(),
@@ -30,43 +31,48 @@ export default function SignInForm() {
   });
   return (
     <Form {...form}>
-      <FormField
-        control={form.control}
-        name="email"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Email</FormLabel>
-            <FormControl>
-              <Input
-                placeholder="johndoe@gmail.com"
-                {...field}
-                type="email"
-                onChange={field.onChange}
-              />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <FormField
-        control={form.control}
-        name="password"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Password</FormLabel>
-            <FormControl>
-              <Input
-                placeholder="Password"
-                {...field}
-                type="password"
-                onChange={field.onChange}
-              />
-            </FormControl>
+      <div className="grid gap-2">
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder="johndoe@gmail.com"
+                  {...field}
+                  type="email"
+                  onChange={field.onChange}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="password"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Password</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder="Password"
+                  {...field}
+                  type="password"
+                  onChange={field.onChange}
+                />
+              </FormControl>
 
-            <FormMessage />
-          </FormItem>
-        )}
-      />
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button type="submit" className="btn w-full flex gap">
+          Sign In
+        </Button>
+      </div>
     </Form>
   );
 }

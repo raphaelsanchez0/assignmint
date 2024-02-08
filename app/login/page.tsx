@@ -7,7 +7,7 @@ export default function AuthForm() {
     <Card className="w-full p-4">
       <Tabs defaultValue="signin" className="w-full">
         <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="signin">SignIn</TabsTrigger>
+          <TabsTrigger value="signin">Sign In</TabsTrigger>
           <TabsTrigger value="register">Register</TabsTrigger>
         </TabsList>
         <TabsContent value="signin">
