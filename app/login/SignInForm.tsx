@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { signInWithEmailAndPassword } from "./authActions";
 
 const FormSchema = z.object({
   email: z.string().email(),
@@ -22,6 +23,9 @@ const FormSchema = z.object({
 });
 
 export default function SignInForm() {
+  function onSubmit(data: z.infer<typeof FormSchema>) {
+    signInWithEmailAndPassword(data);
+  }
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -31,7 +35,7 @@ export default function SignInForm() {
   });
   return (
     <Form {...form}>
-      <div className="grid gap-2">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-2">
         <FormField
           control={form.control}
           name="email"
@@ -72,7 +76,7 @@ export default function SignInForm() {
         <Button type="submit" className="btn w-full flex gap">
           Sign In
         </Button>
-      </div>
+      </form>
     </Form>
   );
 }
