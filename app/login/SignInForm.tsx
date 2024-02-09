@@ -14,6 +14,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { signInWithEmailAndPassword } from "./authActions";
+import { useToast } from "@/components/ui/use-toast";
+import { useRouter } from "next/navigation";
 
 const FormSchema = z.object({
   email: z.string().email(),
@@ -23,8 +25,18 @@ const FormSchema = z.object({
 });
 
 export default function SignInForm() {
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    signInWithEmailAndPassword(data);
+  const { toast } = useToast();
+  const router = useRouter();
+
+  async function onSubmit(credentials: z.infer<typeof FormSchema>) {
+    const { data, error } = await signInWithEmailAndPassword(credentials);
+    if (!error) {
+      router.push("/dashboard");
+    } else {
+      toast({
+        title: error.message,
+      });
+    }
   }
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
