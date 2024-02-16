@@ -14,9 +14,18 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
+import { useRouter } from "next/navigation";
+import { signUpWithEmailAndPassword } from "./authActions";
 
 const FormSchema = z
   .object({
+    firstName: z.string().min(1, {
+      message: "Name is required.",
+    }),
+    lastName: z.string().min(1, {
+      message: "Name is required.",
+    }),
     email: z.string().email(),
     password: z.string().min(6, {
       message: "Password is required.",
@@ -31,9 +40,28 @@ const FormSchema = z
   });
 
 export default function SignUpForm() {
+  const { toast } = useToast();
+  const router = useRouter();
+
+  async function onSubmit(credentials: z.infer<typeof FormSchema>) {
+    const { data, error } = await signUpWithEmailAndPassword(credentials);
+    if (!error) {
+      toast({
+        title: "Verify Email",
+        description:
+          "We have sent you a verification email. Please verify your email to continue.",
+      });
+    } else {
+      toast({
+        title: error.message,
+      });
+    }
+  }
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
+      firstName: "",
+      lastName: "",
       email: "",
       password: "",
       confirm: "",
@@ -42,7 +70,43 @@ export default function SignUpForm() {
 
   return (
     <Form {...form}>
-      <div className="grid gap-2">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-2">
+        <FormField
+          control={form.control}
+          name="firstName"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>First Name</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder="John"
+                  {...field}
+                  type="text"
+                  onChange={field.onChange}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="lastName"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Last Name</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder="Doe"
+                  {...field}
+                  type="text"
+                  onChange={field.onChange}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <FormField
           control={form.control}
           name="email"
@@ -101,7 +165,7 @@ export default function SignUpForm() {
         <Button type="submit" className="btn w-full flex gap">
           Sign Up
         </Button>
-      </div>
+      </form>
     </Form>
   );
 }
