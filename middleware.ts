@@ -35,5 +35,6 @@ export const config = {
     "/exams/:path*",
     "/calendar/:path*",
     "/settings/:path*",
+    "/auth/:path*",
   ],
 };
