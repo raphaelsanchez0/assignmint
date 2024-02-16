@@ -167,6 +167,60 @@ export async function getNextWeekAssignments() {
   return data;
 }
 
+interface FetchAssignmentsParams {
+  comparison?: "eq" | "lt" | "lte" | "gt" | "gte";
+  date?: Date;
+  priority?: boolean | null;
+  daysOffset?: number;
+  daysRange?: number | null;
+}
+
+export async function fetchAssignments({
+  comparison = "eq",
+  date = new Date(),
+  priority = null,
+  daysOffset = 0,
+  daysRange = null,
+}: FetchAssignmentsParams): Promise<Assignment[]> {
+  date.setDate(date.getDate() + daysOffset);
+  date.setHours(0, 0, 0, 0);
+
+  let query = supabase
+    .from("assignments")
+    .select(
+      `
+      *,
+      course(*)
+    `,
+    )
+    .order("dueDate", { ascending: true });
+
+  // If daysRange is specified, adjust the query to fetch assignments within a range
+  if (daysRange !== null) {
+    const endDate = new Date(date);
+    endDate.setDate(endDate.getDate() + daysRange);
+    query = query
+      .gte("dueDate", date.toISOString())
+      .lte("dueDate", endDate.toISOString());
+  } else {
+    // Apply comparison based on the provided parameters
+    query = query[comparison]("dueDate", date.toISOString());
+  }
+
+  if (priority !== null) {
+    query = query.eq("priority", priority);
+  }
+
+  const { data, error } = await query;
+
+  if (error) {
+    console.error("Error getting assignments:", error);
+    throw error;
+  }
+
+  return data;
+}
+
 export async function getAssignment(id: number): Promise<Assignment> {
   const { data, error } = await supabase
     .from("assignments")

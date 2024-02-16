@@ -12,6 +12,7 @@ interface GenericAssignmentsProps {
   queryKey: string;
   color: string;
 }
+
 const GenericAssignments: React.FC<GenericAssignmentsProps> = ({
   fetchAssignmentsFn,
   queryKey,
