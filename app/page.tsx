@@ -1,3 +1,9 @@
+import Landing from "@/components/landing/Landing";
+
 export default function Home() {
-  return <div className="flex ">Landing </div>;
+  return (
+    <div className="flex ">
+      <Landing />
+    </div>
+  );
 }

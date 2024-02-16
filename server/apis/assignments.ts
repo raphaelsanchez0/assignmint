@@ -110,10 +110,14 @@ export async function getDueTomorrowAssignments() {
 }
 
 export async function getThisWeekAssignments() {
-  const currentDate = new Date();
-  const currentDateIso = currentDate.toISOString();
-  const nextWeek = new Date(currentDate);
+  const afterTomorrow = new Date();
+  afterTomorrow.setDate(afterTomorrow.getDate() + 2);
+  afterTomorrow.setHours(0, 0, 0, 0);
+  const currentDateIso = afterTomorrow.toISOString();
+  const nextWeek = new Date();
+
   nextWeek.setDate(nextWeek.getDate() + 7);
+  nextWeek.setHours(0, 0, 0, 0);
   const nextWeekIso = nextWeek.toISOString();
   const { data, error } = await supabase
     .from("assignments")
@@ -124,7 +128,36 @@ export async function getThisWeekAssignments() {
           `,
     )
     .gte("dueDate", currentDateIso) // Use ISO formatted date
-    .lte("dueDate", nextWeekIso) // Use ISO formatted date
+    .lte("dueDate", nextWeekIso)
+    .order("dueDate", { ascending: true });
+
+  if (error) {
+    console.error("Error getting assignments: ", error);
+    throw error;
+  }
+  return data;
+}
+
+export async function getNextWeekAssignments() {
+  const nextWeek = new Date();
+  nextWeek.setDate(nextWeek.getDate() + 7);
+  nextWeek.setHours(0, 0, 0, 0);
+  const currentDateIso = nextWeek.toISOString();
+  const nextNextWeek = new Date();
+
+  nextNextWeek.setDate(nextNextWeek.getDate() + 14);
+  nextNextWeek.setHours(0, 0, 0, 0);
+  const nextNextWeekIso = nextNextWeek.toISOString();
+  const { data, error } = await supabase
+    .from("assignments")
+    .select(
+      `
+          *,
+          course(*)
+          `,
+    )
+    .gte("dueDate", currentDateIso) // Use ISO formatted date
+    .lte("dueDate", nextNextWeekIso)
     .order("dueDate", { ascending: true });
 
   if (error) {
