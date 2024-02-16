@@ -9,15 +9,17 @@ import LoadingSkeleton from "../../Loading/LoadingListShorter";
 interface GenericAssignmentsProps {
   fetchAssignmentsFn: () => Promise<any[]>;
   title: string;
+  queryKey: string;
   color: string;
 }
 const GenericAssignments: React.FC<GenericAssignmentsProps> = ({
   fetchAssignmentsFn,
+  queryKey,
   title,
   color,
 }) => {
   const { data, error, isLoading } = useQuery({
-    queryKey: [title],
+    queryKey: [queryKey],
     queryFn: fetchAssignmentsFn,
   });
 
