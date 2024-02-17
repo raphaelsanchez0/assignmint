@@ -166,24 +166,35 @@ export async function getNextWeekAssignments() {
   }
   return data;
 }
-
+/** */
 interface FetchAssignmentsParams {
   comparison?: "eq" | "lt" | "lte" | "gt" | "gte";
-  date?: Date;
+  baseDate?: Date;
   priority?: boolean | null;
-  daysOffset?: number;
+  offsetDays?: number;
   daysRange?: number | null;
 }
 
+/**
+ * Fetches a list of assignments based on the provided parameters.
+ *
+ * @param comparison - The comparison operator to use when querying the database. Defaults to "eq".
+ * @param baseDate - The date to base our calculations on. Defaults to the current date.
+ * @param priority - Whether to filter by priority. Defaults to null.
+ * @param daysOffset - The number of days to offset the base date by. Defaults to 0.
+ * @param daysRange - The range of days from the offset date. If specified, fetches assignments due within this range.
+ *
+ * @returns
+ */
 export async function fetchAssignments({
   comparison = "eq",
-  date = new Date(),
-  priority = null,
-  daysOffset = 0,
+  baseDate = new Date(),
+  priority = false,
+  offsetDays = 0,
   daysRange = null,
 }: FetchAssignmentsParams): Promise<Assignment[]> {
-  date.setDate(date.getDate() + daysOffset);
-  date.setHours(0, 0, 0, 0);
+  baseDate.setDate(baseDate.getDate() + offsetDays);
+  baseDate.setHours(0, 0, 0, 0);
 
   let query = supabase
     .from("assignments")
@@ -197,17 +208,17 @@ export async function fetchAssignments({
 
   // If daysRange is specified, adjust the query to fetch assignments within a range
   if (daysRange !== null) {
-    const endDate = new Date(date);
+    const endDate = new Date(baseDate);
     endDate.setDate(endDate.getDate() + daysRange);
     query = query
-      .gte("dueDate", date.toISOString())
+      .gte("dueDate", baseDate.toISOString())
       .lte("dueDate", endDate.toISOString());
   } else {
     // Apply comparison based on the provided parameters
-    query = query[comparison]("dueDate", date.toISOString());
+    query = query[comparison]("dueDate", baseDate.toISOString());
   }
 
-  if (priority !== null) {
+  if (priority) {
     query = query.eq("priority", priority);
   }
 

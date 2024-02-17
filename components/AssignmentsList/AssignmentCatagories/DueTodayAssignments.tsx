@@ -1,13 +1,15 @@
 "use client";
-import { useQuery } from "@tanstack/react-query";
+
+import { fetchAssignments } from "@/server/apis/assignments";
 import React from "react";
-import { getDueTodayAssignments } from "@/server/apis/assignments";
 import GenericAssignments from "./GenericAssignments";
 
 export default function DueTodayAssignments() {
   return (
     <GenericAssignments
-      fetchAssignmentsFn={getDueTodayAssignments}
+      fetchAssignmentsFn={() =>
+        fetchAssignments({ comparison: "eq", offsetDays: 0 })
+      }
       queryKey="dueTodayAssignments"
       color="#7DC672"
       title="Due Today"

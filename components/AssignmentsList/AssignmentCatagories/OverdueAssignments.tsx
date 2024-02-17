@@ -5,7 +5,7 @@ export default function OverdueAssignments() {
   return (
     <GenericAssignments
       fetchAssignmentsFn={() =>
-        fetchAssignments({ comparison: "lt", daysOffset: 0 })
+        fetchAssignments({ comparison: "lt", offsetDays: 0 })
       }
       queryKey="overDueAssignments"
       title="Overdue"
