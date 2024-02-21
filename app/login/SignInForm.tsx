@@ -36,6 +36,7 @@ export default function SignInForm() {
       toast({
         title: error.message,
       });
+      console.log(error);
     }
   }
   const form = useForm<z.infer<typeof FormSchema>>({
