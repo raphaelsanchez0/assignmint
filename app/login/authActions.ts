@@ -28,7 +28,7 @@ export async function signUpWithEmailAndPassword(credentials: {
     email: credentials.email,
     password: credentials.password,
     options: {
-      emailRedirectTo: `${getURL}/auth/confirm`,
+      emailRedirectTo: `${getURL}/dashboard`,
       data: {
         first_name: credentials.firstName,
         last_name: credentials.lastName,

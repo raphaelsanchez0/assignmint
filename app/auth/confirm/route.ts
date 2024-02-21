@@ -1,35 +1,49 @@
-import { type EmailOtpType } from "@supabase/supabase-js";
-import { cookies } from "next/headers";
-import { type NextRequest, NextResponse } from "next/server";
-import { createSupabaseActionClient } from "@/utils/supabase/supabaseActionClient";
+import { createServerClient, type CookieOptions } from '@supabase/ssr'
+import { type EmailOtpType } from '@supabase/supabase-js'
+import { cookies } from 'next/headers'
+import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(request: NextRequest) {
-  const cookieStore = cookies();
-
-  const { searchParams } = new URL(request.url);
-  const token_hash = searchParams.get("token_hash");
-  const type = searchParams.get("type") as EmailOtpType | null;
-  const next = searchParams.get("next") ?? "/";
-
-  const redirectTo = request.nextUrl.clone();
-  redirectTo.pathname = next;
-  redirectTo.searchParams.delete("token_hash");
-  redirectTo.searchParams.delete("type");
+  const { searchParams } = new URL(request.url)
+  const token_hash = searchParams.get('token_hash')
+  const type = searchParams.get('type') as EmailOtpType | null
+  const next = searchParams.get('next') ?? '/'
+  const redirectTo = request.nextUrl.clone()
+  redirectTo.pathname = next
 
   if (token_hash && type) {
-    const supabase = await createSupabaseActionClient(cookieStore);
+    const cookieStore = cookies()
+    const supabase = createServerClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      {
+        cookies: {
+          get(name: string) {
+            return cookieStore.get(name)?.value
+          },
+          set(name: string, value: string, options: CookieOptions) {
+            cookieStore.set({ name, value, ...options })
+          },
+          remove(name: string, options: CookieOptions) {
+            cookieStore.delete({ name, ...options })
+          },
+        },
+      }
+    )
 
     const { error } = await supabase.auth.verifyOtp({
       type,
       token_hash,
-    });
+    })
+    
     if (!error) {
-      redirectTo.searchParams.delete("next");
+      redirectTo.pathname = "/dashboard"
       return NextResponse.redirect(redirectTo);
     }
+    console.log(error)
   }
 
   // return the user to an error page with some instructions
-  redirectTo.pathname = "/error";
-  return NextResponse.redirect(redirectTo);
+  redirectTo.pathname = '/auth/auth-code-error'
+  return NextResponse.redirect(redirectTo)
 }
