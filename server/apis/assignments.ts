@@ -85,26 +85,23 @@ export async function getThisWeekAssignments() {
   const today = startOfDay(new Date());
 
   const startDate = addDays(today, 2);
-  const daysRange = 5;
+  const daysRange = 4;
 
   return await fetchAssignments({
-    baseDate: startDate, // Start from the day after tomorrow
-    daysRange: daysRange, // Next 5 days
-    comparison: "gte", // Greater than or equal to start date
+    baseDate: startDate,
+    daysRange: daysRange,
+    comparison: "gte",
   });
 }
 
 export async function getNextWeekAssignments() {
-  const startOfThisWeek = startOfWeek(new Date(), { weekStartsOn: 0 });
-  const endOfNextWeek = endOfWeek(addWeeks(new Date(), 1), { weekStartsOn: 0 });
+  const today = new Date();
+  const startOfNextWeek = startOfWeek(addWeeks(today, 1), { weekStartsOn: 1 });
 
-  const daysRange = differenceInDays(endOfNextWeek, startOfThisWeek) + 1;
+  // Calculate the end of next week
+  const endOfNextWeek = endOfWeek(addWeeks(today, 1), { weekStartsOn: 1 });
 
-  return await fetchAssignments({
-    comparison: "gte",
-    baseDate: startOfThisWeek,
-    daysRange: daysRange,
-  });
+  return await fetchAssignmentsInRange(startOfNextWeek, endOfNextWeek);
 }
 /** */
 interface FetchAssignmentsParams {
@@ -169,6 +166,31 @@ export async function fetchAssignments({
     throw error;
   }
 
+  return data;
+}
+
+export async function fetchAssignmentsInRange(startDate: Date, endDate: Date) {
+  startDate.setHours(0, 0, 0, 0);
+  endDate.setHours(23, 59, 59, 999);
+  const startIsoDate = startDate.toISOString();
+  const endIsoDate = endDate.toISOString();
+
+  const { data, error } = await supabase
+    .from("assignments")
+    .select(
+      `
+      *,
+      course(*)
+    `,
+    )
+    .gte("dueDate", startIsoDate)
+    .lte("dueDate", endIsoDate)
+    .order("dueDate", { ascending: true });
+
+  if (error) {
+    console.log(error);
+    throw error;
+  }
   return data;
 }
 

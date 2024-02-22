@@ -15,6 +15,7 @@ import PriorityAssignments from "./AssignmentCatagories/PriorityAssignments";
 import DueTodayAssignments from "./AssignmentCatagories/DueTodayAssignments";
 import DueTomorrowAssignments from "./AssignmentCatagories/DueTomorrowAssignments";
 import ThisWeekAssignments from "./AssignmentCatagories/ThisWeekAssignments";
+import NextWeekAssignments from "./AssignmentCatagories/NextWeekAssignments";
 
 interface AssignmentsListProps {
   showAddAssignment?: boolean;
@@ -65,6 +66,9 @@ const AssignmentsList: React.FC<AssignmentsListProps> = async ({
         </HydrationBoundary>
         <HydrationBoundary>
           <ThisWeekAssignments />
+        </HydrationBoundary>
+        <HydrationBoundary>
+          <NextWeekAssignments />
         </HydrationBoundary>
       </ol>
     </div>
