@@ -63,50 +63,11 @@ export async function getPriorityAssignments() {
 }
 
 export async function getDueTodayAssignments() {
-  const currentDate = new Date();
-  currentDate.setHours(0, 0, 0, 0);
-  const currentDateIso = currentDate.toISOString();
-
-  const { data, error } = await supabase
-    .from("assignments")
-    .select(
-      `
-          *,
-          course(*)
-          `,
-    )
-    .eq("dueDate", currentDateIso) // Use ISO formatted date
-    .order("dueDate", { ascending: true });
-
-  if (error) {
-    console.error("Error getting assignments: ", error);
-    throw error;
-  }
-  return data;
+  return fetchAssignments({});
 }
 
 export async function getDueTomorrowAssignments() {
-  const currentDate = new Date();
-  currentDate.setDate(currentDate.getDate() + 1);
-  currentDate.setHours(0, 0, 0, 0);
-  const currentDateIso = currentDate.toISOString();
-
-  const { data, error } = await supabase
-    .from("assignments")
-    .select(
-      `
-          *,
-          course(*)
-          `,
-    )
-    .eq("dueDate", currentDateIso) // Use ISO formatted date
-    .order("dueDate", { ascending: true });
-
-  if (error) {
-    console.error("Error getting assignments: ", error);
-    throw error;
-  }
-  return data;
+  return fetchAssignments({ offsetDays: 1 });
 }
 
 export async function getThisWeekAssignments() {
