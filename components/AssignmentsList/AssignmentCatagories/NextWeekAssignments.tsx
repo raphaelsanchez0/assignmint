@@ -8,7 +8,7 @@ export default function NextWeekAssignments() {
       fetchAssignmentsFn={getNextWeekAssignments}
       queryKey="nextWeekAssignments"
       title="Next Week"
-      color="#A11692"
+      color="#fcba03"
     />
   );
 }
