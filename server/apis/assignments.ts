@@ -1,5 +1,15 @@
 import { createSupabaseFrontendClient } from "@/utils/supabase/supabaseFrontendClient";
-import { addDays, startOfDay, startOfToday, sub, subDays } from "date-fns";
+import {
+  addDays,
+  addWeeks,
+  differenceInDays,
+  endOfWeek,
+  startOfDay,
+  startOfToday,
+  startOfWeek,
+  sub,
+  subDays,
+} from "date-fns";
 
 const supabase = createSupabaseFrontendClient();
 
@@ -50,15 +60,27 @@ export async function getPriorityAssignments() {
   }
   return data;
 }
-
+/**
+ * Gets assignments due today
+ * @returns Assignments due today
+ */
 export async function getDueTodayAssignments() {
   return await fetchAssignments({});
 }
 
+/**
+ * Gets assignments due tomorrow
+ * @returns Assignments due tomorrow
+ */
 export async function getDueTomorrowAssignments() {
   return await fetchAssignments({ offsetDays: 1 });
 }
 
+/**
+ * Gets assignments due this week, but excludes assignments due today and
+ * tomorrow, as they are already shown.
+ * @returns
+ */
 export async function getThisWeekAssignments() {
   const today = startOfDay(new Date());
 
@@ -73,32 +95,16 @@ export async function getThisWeekAssignments() {
 }
 
 export async function getNextWeekAssignments() {
-  const nextWeek = new Date();
-  nextWeek.setDate(nextWeek.getDate() + 7);
-  nextWeek.setHours(0, 0, 0, 0);
-  const currentDateIso = nextWeek.toISOString();
-  const nextNextWeek = new Date();
+  const startOfThisWeek = startOfWeek(new Date(), { weekStartsOn: 0 });
+  const endOfNextWeek = endOfWeek(addWeeks(new Date(), 1), { weekStartsOn: 0 });
 
-  nextNextWeek.setDate(nextNextWeek.getDate() + 14);
-  nextNextWeek.setHours(0, 0, 0, 0);
-  const nextNextWeekIso = nextNextWeek.toISOString();
-  const { data, error } = await supabase
-    .from("assignments")
-    .select(
-      `
-          *,
-          course(*)
-          `,
-    )
-    .gte("dueDate", currentDateIso) // Use ISO formatted date
-    .lte("dueDate", nextNextWeekIso)
-    .order("dueDate", { ascending: true });
+  const daysRange = differenceInDays(endOfNextWeek, startOfThisWeek) + 1;
 
-  if (error) {
-    console.error("Error getting assignments: ", error);
-    throw error;
-  }
-  return data;
+  return await fetchAssignments({
+    comparison: "gte",
+    baseDate: startOfThisWeek,
+    daysRange: daysRange,
+  });
 }
 /** */
 interface FetchAssignmentsParams {
