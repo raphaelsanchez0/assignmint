@@ -1,4 +1,5 @@
 import { createSupabaseFrontendClient } from "@/utils/supabase/supabaseFrontendClient";
+import { addDays, startOfDay, startOfToday, sub, subDays } from "date-fns";
 
 const supabase = createSupabaseFrontendClient();
 
@@ -22,25 +23,13 @@ export async function getAssignmentsDueOnDate(date: string) {
 //Catagories
 
 export async function getOverdueAssignments() {
-  const currentDate = new Date();
-  currentDate.setHours(0, 0, 0, 0);
-  const currentDateIso = currentDate.toISOString();
-  const { data, error } = await supabase
-    .from("assignments")
-    .select(
-      `
-          *,
-          course(*)
-          `,
-    )
-    .lt("dueDate", currentDateIso) // Use ISO formatted date
-    .order("dueDate", { ascending: true });
+  const today = startOfToday();
+  const year = 365;
 
-  if (error) {
-    console.error("Error getting assignments: ", error);
-    throw error;
-  }
-  return data;
+  return await fetchAssignments({
+    comparison: "lt",
+    baseDate: today,
+  });
 }
 
 export async function getPriorityAssignments() {
@@ -63,40 +52,24 @@ export async function getPriorityAssignments() {
 }
 
 export async function getDueTodayAssignments() {
-  return fetchAssignments({});
+  return await fetchAssignments({});
 }
 
 export async function getDueTomorrowAssignments() {
-  return fetchAssignments({ offsetDays: 1 });
+  return await fetchAssignments({ offsetDays: 1 });
 }
 
 export async function getThisWeekAssignments() {
-  const afterTomorrow = new Date();
-  afterTomorrow.setDate(afterTomorrow.getDate() + 2);
-  afterTomorrow.setHours(0, 0, 0, 0);
-  const currentDateIso = afterTomorrow.toISOString();
-  const nextWeek = new Date();
+  const today = startOfDay(new Date());
 
-  nextWeek.setDate(nextWeek.getDate() + 7);
-  nextWeek.setHours(0, 0, 0, 0);
-  const nextWeekIso = nextWeek.toISOString();
-  const { data, error } = await supabase
-    .from("assignments")
-    .select(
-      `
-          *,
-          course(*)
-          `,
-    )
-    .gte("dueDate", currentDateIso) // Use ISO formatted date
-    .lte("dueDate", nextWeekIso)
-    .order("dueDate", { ascending: true });
+  const startDate = addDays(today, 2);
+  const daysRange = 5;
 
-  if (error) {
-    console.error("Error getting assignments: ", error);
-    throw error;
-  }
-  return data;
+  return await fetchAssignments({
+    baseDate: startDate, // Start from the day after tomorrow
+    daysRange: daysRange, // Next 5 days
+    comparison: "gte", // Greater than or equal to start date
+  });
 }
 
 export async function getNextWeekAssignments() {
