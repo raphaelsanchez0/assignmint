@@ -10,7 +10,9 @@ const PageTitle: React.FC<PageTitleProps> = ({ title }) => {
 
   return (
     <div className="p-8 flex flex-col w-full">
-      <h2 className="section-title">{title}</h2>
+      <title>
+        <h2 className="section-title">{title}</h2>
+      </title>
       <h3 className="text-2xl font-semibold">{date}</h3>
     </div>
   );
