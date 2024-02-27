@@ -4,24 +4,25 @@
 
 * {
   box-sizing: border-box;
+  @apply text-off-black dark:text-zinc-50;
 }
 body {
-  @apply bg-background overflow-x-hidden;
+  @apply bg-background dark:bg-zinc-950 overflow-x-hidden;
 }
 
 /* Global Styles */
 
 .section-title {
-  @apply text-5xl font-extrabold text-off-black;
+  @apply text-5xl font-extrabold;
 }
 
 /*  card styles */
 .card {
-  @apply bg-white rounded-xl shadow-lg w-full p-8 z-0;
+  @apply m-0;
 }
 
 .card-title {
-  @apply text-2xl font-bold text-off-black;
+  @apply text-2xl font-bold text-off-black dark:text-zinc-50;
 }
 
 /*  button styles */
@@ -34,7 +35,7 @@ body {
 /* Assignment Page Styles */
 
 .assignment--input-header {
-  @apply text-xl text-off-black font-semibold  block my-2;
+  @apply text-xl text-off-black dark:bg-zinc-50 font-semibold  block my-2;
 }
 
 input[type="checkbox"] {
