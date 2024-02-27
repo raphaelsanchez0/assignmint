@@ -1,18 +1,19 @@
 import { format } from "date-fns";
 import Day from "./Day";
 import add from "date-fns/add";
+import { Card } from "@/components/ui/card";
 export default function ThisWeek() {
   const daysThisWeek = getNextSevenDays();
 
   return (
-    <div className="card">
+    <Card>
       <h3 className="card-title ">This Week</h3>
       <div className="mt-4">
         {daysThisWeek.map((day) => (
           <Day key={day.toString()} date={day} />
         ))}
       </div>
-    </div>
+    </Card>
   );
 }
 

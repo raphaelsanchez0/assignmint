@@ -5,6 +5,7 @@ import { format } from "date-fns";
 import { useRouter } from "next/navigation";
 
 import "./MiniCalendar.scss";
+import { Card } from "@/components/ui/card";
 
 export default function MiniCalender() {
   const router = useRouter();
@@ -17,13 +18,13 @@ export default function MiniCalender() {
     }
   };
   return (
-    <div className="card">
+    <Card>
       <Calendar
         next2Label={null}
         prev2Label={null}
         calendarType="gregory"
         onChange={handleDateChange as any}
       />
-    </div>
+    </Card>
   );
 }
