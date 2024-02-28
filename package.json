@@ -40,6 +40,7 @@
     "react": "^18",
     "react-calendar": "^4.7.0",
     "react-datepicker": "^4.25.0",
+    "react-day-picker": "^8.10.0",
     "react-dom": "^18",
     "react-hook-form": "^7.50.1",
     "react-icons": "^4.12.0",
