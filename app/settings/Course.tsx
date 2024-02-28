@@ -10,6 +10,7 @@ import Image from "next/image";
 import { Sketch } from "@uiw/react-color";
 import Link from "next/link";
 import { createOrUpdateCourse, deleteCourse } from "../../server/apis/courses";
+import { twJoin } from "tailwind-merge";
 
 interface CourseProps {
   id: string;
@@ -75,6 +76,10 @@ const Course: React.FC<CourseProps> = ({
     await deleteCourse(id);
   };
 
+  const editStyle = {
+    color: "red",
+  };
+
   return (
     <>
       <hr className="h-px w-full bg-gray-400 border-0" />
@@ -94,7 +99,7 @@ const Course: React.FC<CourseProps> = ({
               />
             )}
           </div>
-          <div className="flex justify-between w-full">
+          <div className="flex justify-between w-full align-middle">
             {/* <h4 className="text-xl font-semibold ml-2">{name}</h4> */}
             {isEditing ? (
               <input
@@ -115,17 +120,19 @@ const Course: React.FC<CourseProps> = ({
             ) : (
               <h4 className="text-xl font-semibold ml-2">{courseName}</h4>
             )}
-            {!isEditing ? (
-              <button onClick={handleEditClick}>
-                <Image src={iconEdit} alt="edit" width={20} />
-              </button>
-            ) : (
-              <Link href="/settings?removecourse=y">
-                <button onMouseDown={handleTrashClick}>
-                  <Image src={iconTrash} alt="delete" width={30} />
+            <div className="">
+              {!isEditing ? (
+                <button onClick={handleEditClick} className="font-semibold">
+                  Edit
                 </button>
-              </Link>
-            )}
+              ) : (
+                <Link href="/settings?removecourse=y">
+                  <button onMouseDown={handleTrashClick}>
+                    <Image src={iconTrash} alt="delete" width={30} />
+                  </button>
+                </Link>
+              )}
+            </div>
           </div>
         </div>
       </div>
