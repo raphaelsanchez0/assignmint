@@ -5,6 +5,7 @@ import { getEventsOnDate } from "@/server/apis/api";
 import { useQuery } from "@tanstack/react-query";
 import Exam from "../../components/ExamsList/Exam";
 import Assignment from "../../components/AssignmentsList/Assignment";
+import { Card } from "@/components/ui/card";
 
 export default function ExamAndAssignmentList() {
   const searchParams = useSearchParams();
@@ -28,7 +29,7 @@ export default function ExamAndAssignmentList() {
   });
 
   return (
-    <div className="card">
+    <Card>
       <div className="flex items-center justify-between">
         <h3 className="card-title mb-2">{formatedDate}</h3>
       </div>
@@ -56,7 +57,7 @@ export default function ExamAndAssignmentList() {
           />
         ))}
       </ol>
-    </div>
+    </Card>
   );
 }
 
