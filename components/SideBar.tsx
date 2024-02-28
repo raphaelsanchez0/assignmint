@@ -29,7 +29,7 @@ const Sidebar = () => {
     <div
       className="fixed md:top-0 md:left-0 md:h-screen md:w-sidebar-width
                         md:flex md:flex-col
-                        bg-primary text-white shadow-lg
+                        bg-primary  text-white shadow-lg dark:bg-zinc-950 dark:border-2
                         z-10"
     >
       <SideBarIcon
