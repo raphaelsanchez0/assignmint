@@ -3,6 +3,7 @@ import Image from "next/image";
 import defaultImage from "@/public/icons/default-image.jpg";
 import iconEdit from "@/public/icons/blackEdit.svg";
 import { createSupabaseFrontendClient } from "@/utils/supabase/supabaseFrontendClient";
+import { Card } from "@/components/ui/card";
 
 export default function Account() {
   const supabase = createSupabaseFrontendClient();
@@ -13,7 +14,7 @@ export default function Account() {
     const { error } = await supabase.auth.signOut();
   }
   return (
-    <div>
+    <Card>
       <div className="flex justify-between">
         <h3 className="card-title ">Account</h3>
         <Image src={iconEdit} alt="edit" width={20} />
@@ -35,6 +36,6 @@ export default function Account() {
           Logout
         </button>
       </form>
-    </div>
+    </Card>
   );
 }
