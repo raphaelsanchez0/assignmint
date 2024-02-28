@@ -11,6 +11,7 @@ import { createExam } from "../../server/actions";
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getCourses } from "@/server/apis/courses";
+import { Card } from "@/components/ui/card";
 
 type CourseType = {
   value: string;
@@ -42,7 +43,7 @@ export default function AddExam() {
     }
   };
   return (
-    <div className="card">
+    <Card>
       <h3 className="card-title my-4">Add Exam</h3>
       <hr className="h-px w-full bg-gray-400 border-0" />
       <form action={formAction} ref={formRef} onSubmit={handleSubmit}>
@@ -66,6 +67,6 @@ export default function AddExam() {
           </div>
         </div>
       </form>
-    </div>
+    </Card>
   );
 }

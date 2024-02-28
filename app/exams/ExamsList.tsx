@@ -7,6 +7,7 @@ import { getExams } from "@/server/apis/exams";
 import { utcToZonedTime } from "date-fns-tz";
 import { useQuery } from "@tanstack/react-query";
 import LoadingListShorter from "../../components/Loading/LoadingListShorter";
+import { Card } from "@/components/ui/card";
 
 interface ExamsListProps {
   showAddExam?: boolean;
@@ -25,7 +26,7 @@ const ExamsList: React.FC<ExamsListProps> = ({ showAddExam = false }) => {
   if (error) return <div>An error has occured: {error.message}</div>;
 
   return (
-    <div className="card">
+    <Card>
       <div className="flex items-center justify-between mb-4">
         <h3 className="card-title">Exams</h3>
         {showAddExam && (
@@ -46,7 +47,7 @@ const ExamsList: React.FC<ExamsListProps> = ({ showAddExam = false }) => {
           />
         ))}
       </div>
-    </div>
+    </Card>
   );
 };
 
