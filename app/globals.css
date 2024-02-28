@@ -9,6 +9,9 @@
 body {
   @apply bg-background dark:bg-zinc-950 overflow-x-hidden;
 }
+label {
+  background: inherit;
+}
 
 /* Global Styles */
 
@@ -35,7 +38,7 @@ body {
 /* Assignment Page Styles */
 
 .assignment--input-header {
-  @apply text-xl text-off-black dark:bg-zinc-50 font-semibold  block my-2;
+  @apply text-xl   font-semibold  block my-2;
 }
 
 input[type="checkbox"] {
