@@ -10,16 +10,7 @@ import React from "react";
 import { SelectSingleEventHandler } from "react-day-picker";
 
 export default function MiniCalender() {
-  const [selectedDate, setSelectedDate] = React.useState<Date>();
   const router = useRouter();
-
-  const handleDateChange = (value: Date, event: any) => {
-    if (Array.isArray(value)) {
-      router.push(`/calendar?date=${format(value[0], "yyyy-MM-dd")}`);
-    } else {
-      router.push(`/calendar?date=${format(value, "yyyy-MM-dd")}`);
-    }
-  };
 
   const handleDateSelect: SelectSingleEventHandler = (
     day: Date | undefined,
@@ -28,6 +19,7 @@ export default function MiniCalender() {
       router.push(`/calendar?date=${format(day, "yyyy-MM-dd")}`);
     }
   };
+
   return (
     <Card>
       <Calendar

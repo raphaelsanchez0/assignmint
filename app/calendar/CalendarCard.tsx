@@ -2,9 +2,11 @@
 import { format } from "date-fns";
 import { useRouter, useSearchParams } from "next/navigation";
 import React from "react";
-import Calendar from "react-calendar";
+import { Calendar } from "@/components/ui/calendar";
+
 import "./calendar.scss";
 import { Card } from "@/components/ui/card";
+import { SelectSingleEventHandler } from "react-day-picker";
 export default function CalenderCard() {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -21,13 +23,20 @@ export default function CalenderCard() {
     }
   };
 
+  const handleDateSelect: SelectSingleEventHandler = (
+    day: Date | undefined,
+  ) => {
+    if (day) {
+      router.push(`/calendar?date=${format(day, "yyyy-MM-dd")}`);
+    }
+  };
+
   return (
     <Card>
       <Calendar
-        next2Label={null}
-        prev2Label={null}
-        value={selectedDate}
-        onChange={handleDateChange as any}
+        mode="single"
+        selected={selectedDate}
+        onSelect={handleDateSelect}
       />
     </Card>
   );
