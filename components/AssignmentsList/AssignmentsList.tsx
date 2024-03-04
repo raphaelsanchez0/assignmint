@@ -53,7 +53,6 @@ const AssignmentsList: React.FC<AssignmentsListProps> = async ({
         <h3 className="card-title">Assignments</h3>
         {showAddAssignment && (
           <div>
-            <AddAssignmentBtn />
             <AddAssignmentDialog />
           </div>
         )}
