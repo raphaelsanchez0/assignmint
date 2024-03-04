@@ -39,17 +39,18 @@ import { Calendar } from "@/components/ui/calendar";
 import { Checkbox } from "@/components/ui/checkbox";
 import { getCourses } from "@/server/apis/courses";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { createAssignment } from "@/server/actions";
-import { Textarea } from "@/components/ui/textarea";
-import { addAssignmentFormSchema as formSchema } from "@/lib/schemas";
 
-export default function AddAssignmentDialog() {
+import { Textarea } from "@/components/ui/textarea";
+import { addExamFormSchema as formSchema } from "@/lib/schemas";
+import { createExam } from "@/server/actions";
+
+export default function AddExamDialog() {
   const [open, setOpen] = useState(false);
   const queryClient = useQueryClient();
-  const createAssignmentMutation = useMutation({
-    mutationFn: createAssignment,
+  const createExamMutation = useMutation({
+    mutationFn: createExam,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["assignments"] });
+      queryClient.invalidateQueries({ queryKey: ["exams"] });
       setOpen(false);
       form.reset();
     },
@@ -59,14 +60,13 @@ export default function AddAssignmentDialog() {
     defaultValues: {
       course: "",
       title: "",
-      dueDate: new Date(),
-      priority: false,
+      examDate: new Date(),
       notes: "",
     },
   });
 
   function onSubmit(input: z.infer<typeof formSchema>) {
-    createAssignmentMutation.mutate(input);
+    createExamMutation.mutate(input);
   }
 
   const {
@@ -128,10 +128,10 @@ export default function AddAssignmentDialog() {
               />
               <FormField
                 control={form.control}
-                name="dueDate"
+                name="examDate"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Due Date</FormLabel>
+                    <FormLabel>Exam Date</FormLabel>
                     <Popover>
                       <PopoverTrigger asChild>
                         <FormControl>
@@ -163,27 +163,7 @@ export default function AddAssignmentDialog() {
                   </FormItem>
                 )}
               />
-              <FormField
-                control={form.control}
-                name="priority"
-                render={({ field }) => (
-                  <FormItem className="h-full">
-                    <FormLabel></FormLabel>
-                    <div className="flex items-center justify-center space-x-2 h-full">
-                      <FormControl>
-                        <Checkbox
-                          checked={field.value}
-                          onChange={field.onChange}
-                          onCheckedChange={() => field.onChange(!field.value)}
-                        />
-                      </FormControl>
-                      <div className="space-x-1 leading-none">
-                        <FormLabel className="text-lg">Priority</FormLabel>
-                      </div>
-                    </div>
-                  </FormItem>
-                )}
-              />
+
               <FormField
                 control={form.control}
                 name="notes"

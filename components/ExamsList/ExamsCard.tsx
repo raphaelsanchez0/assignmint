@@ -1,10 +1,10 @@
 import Link from "next/link";
 
-import AddExamDialog from "@/components/dialogs/addEvent/AddExamDialog";
 import { utcToZonedTime } from "date-fns-tz";
 import { QueryClient } from "@tanstack/react-query";
 import ExamsList from "./ExamsList";
 import { Card } from "../ui/card";
+import AddExamDialog from "../event-dialogs/exams/AddExamDialog";
 
 interface ExamsListProps {
   showAddExam?: boolean;
@@ -20,9 +20,12 @@ const ExamsCard: React.FC<ExamsListProps> = async ({ showAddExam = false }) => {
       <div className="flex items-center justify-between mb-4">
         <h3 className="card-title">Exams</h3>
         {showAddExam && (
-          <Link href="/dashboard?addexam=y">
-            <button className="btn">Add</button>
-          </Link>
+          <>
+            <Link href="/dashboard?addexam=y">
+              <button className="btn">Add</button>
+            </Link>
+            <AddExamDialog />
+          </>
         )}
       </div>
       <div>
