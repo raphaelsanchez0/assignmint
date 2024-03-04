@@ -104,7 +104,7 @@ const SideBarIcon: React.FC<SideBarIconProps> = ({
                               text-xs font-bold
                               transition-all duration-100 scale-0 origin-left
                               group-hover:scale-100
-                              bg-primary
+                              bg-primary dark:bg-zinc-900 
                               z-10`;
   return (
     <div className={`${className} group`}>
