@@ -172,7 +172,7 @@ export default function AddAssignmentDialog() {
                         />
                       </FormControl>
                       <div className="space-x-1 leading-none">
-                        <FormLabel>Priority</FormLabel>
+                        <FormLabel className="text-lg">Priority</FormLabel>
                       </div>
                     </div>
                   </FormItem>
