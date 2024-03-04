@@ -50,7 +50,7 @@ export default function AddAssignmentDialog() {
   const createAssignmentMutation = useMutation({
     mutationFn: createAssignment,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["dueTodayAssignments"] });
+      queryClient.invalidateQueries({ queryKey: ["assignments"] });
       setOpen(false);
     },
   });

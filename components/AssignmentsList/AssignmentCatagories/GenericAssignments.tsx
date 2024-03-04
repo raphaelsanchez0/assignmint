@@ -20,7 +20,7 @@ const GenericAssignments: React.FC<GenericAssignmentsProps> = ({
   color,
 }) => {
   const { data, error, isLoading } = useQuery({
-    queryKey: [queryKey],
+    queryKey: ["assignments", { queryKey }],
     queryFn: fetchAssignmentsFn,
   });
 
