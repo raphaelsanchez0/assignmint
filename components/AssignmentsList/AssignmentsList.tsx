@@ -17,6 +17,7 @@ import DueTomorrowAssignments from "./AssignmentCatagories/DueTomorrowAssignment
 import ThisWeekAssignments from "./AssignmentCatagories/ThisWeekAssignments";
 import NextWeekAssignments from "./AssignmentCatagories/NextWeekAssignments";
 import { Card } from "../ui/card";
+import AddAssignmentDialog from "../event-dialogs/assignments/AddAssignmentDialog";
 
 interface AssignmentsListProps {
   showAddAssignment?: boolean;
@@ -50,7 +51,12 @@ const AssignmentsList: React.FC<AssignmentsListProps> = async ({
       {/* // <div> */}
       <div className="flex items-center justify-between">
         <h3 className="card-title">Assignments</h3>
-        {showAddAssignment && <AddAssignmentBtn />}
+        {showAddAssignment && (
+          <div>
+            <AddAssignmentBtn />
+            <AddAssignmentDialog />
+          </div>
+        )}
       </div>
 
       <ol>
