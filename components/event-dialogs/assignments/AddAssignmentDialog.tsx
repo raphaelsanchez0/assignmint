@@ -44,6 +44,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createAssignment } from "@/server/actions";
 import { Textarea } from "@/components/ui/textarea";
 import { addAssignmentFormSchema as formSchema } from "@/lib/schemas";
+
 export default function AddAssignmentDialog() {
   const [open, setOpen] = useState(false);
   const queryClient = useQueryClient();
@@ -62,6 +63,7 @@ export default function AddAssignmentDialog() {
       title: "",
       dueDate: new Date(),
       priority: false,
+      notes: "",
     },
   });
 
