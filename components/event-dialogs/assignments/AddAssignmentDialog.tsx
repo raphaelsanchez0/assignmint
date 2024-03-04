@@ -37,6 +37,8 @@ import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { Checkbox } from "@/components/ui/checkbox";
+import { getCourses } from "@/server/apis/courses";
+import { useQuery } from "@tanstack/react-query";
 
 export default function AddAssignmentDialog() {
   const formSchema = z.object({
@@ -60,6 +62,15 @@ export default function AddAssignmentDialog() {
     console.log(input);
   }
 
+  const {
+    data: courses,
+    error,
+    isLoading,
+  } = useQuery<Course[]>({
+    queryKey: ["courses"],
+    queryFn: getCourses,
+  });
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -82,13 +93,15 @@ export default function AddAssignmentDialog() {
                     <Select onValueChange={field.onChange} value={field.value}>
                       <FormControl>
                         <SelectTrigger>
-                          <SelectValue placeholder>Select a course</SelectValue>
+                          <SelectValue placeholder {...field}></SelectValue>
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="1">Math</SelectItem>
-                        <SelectItem value="2">Science</SelectItem>
-                        <SelectItem value="3">English</SelectItem>
+                        {courses?.map((course) => (
+                          <SelectItem key={course.id} value={course.id}>
+                            {course.title}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                   </FormItem>
@@ -136,9 +149,6 @@ export default function AddAssignmentDialog() {
                           mode="single"
                           selected={field.value}
                           onSelect={field.onChange}
-                          disabled={(date) =>
-                            date > new Date() || date < new Date("1900-01-01")
-                          }
                           initialFocus
                         />
                       </PopoverContent>
