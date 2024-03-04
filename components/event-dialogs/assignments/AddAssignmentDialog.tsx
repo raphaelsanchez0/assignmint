@@ -2,7 +2,9 @@
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -11,7 +13,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-import React from "react";
+import React, { useState } from "react";
 import {
   Form,
   FormControl,
@@ -38,11 +40,20 @@ import { CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { Checkbox } from "@/components/ui/checkbox";
 import { getCourses } from "@/server/apis/courses";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createAssignment } from "@/server/actions";
 import { Textarea } from "@/components/ui/textarea";
 import { addAssignmentFormSchema as formSchema } from "@/lib/schemas";
 export default function AddAssignmentDialog() {
+  const [open, setOpen] = useState(false);
+  const queryClient = useQueryClient();
+  const createAssignmentMutation = useMutation({
+    mutationFn: createAssignment,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["dueTodayAssignments"] });
+      setOpen(false);
+    },
+  });
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -54,7 +65,7 @@ export default function AddAssignmentDialog() {
   });
 
   function onSubmit(input: z.infer<typeof formSchema>) {
-    createAssignment(input);
+    createAssignmentMutation.mutate(input);
   }
 
   const {
@@ -67,7 +78,7 @@ export default function AddAssignmentDialog() {
   });
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <button className="btn">Add</button>
       </DialogTrigger>
