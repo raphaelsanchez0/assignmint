@@ -41,16 +41,8 @@ import { getCourses } from "@/server/apis/courses";
 import { useQuery } from "@tanstack/react-query";
 import { createAssignment } from "@/server/actions";
 import { Textarea } from "@/components/ui/textarea";
-
+import { addAssignmentFormSchema as formSchema } from "@/lib/schemas";
 export default function AddAssignmentDialog() {
-  const formSchema = z.object({
-    course: z.string({ required_error: "Course is required" }),
-    title: z.string({ required_error: "Title is required" }).min(2).max(50),
-    dueDate: z.date(),
-    priority: z.boolean(),
-    notes: z.string().min(0).max(500),
-  });
-
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -61,7 +53,9 @@ export default function AddAssignmentDialog() {
     },
   });
 
-  function onSubmit(input: z.infer<typeof formSchema>) {}
+  function onSubmit(input: z.infer<typeof formSchema>) {
+    createAssignment(input);
+  }
 
   const {
     data: courses,

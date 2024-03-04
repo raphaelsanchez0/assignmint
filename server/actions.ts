@@ -6,28 +6,21 @@ import { QueryClient } from "@tanstack/react-query";
 import { createSupabaseActionClient } from "@/utils/supabase/supabaseActionClient";
 import { cookies } from "next/headers";
 import { createSupabaseServerClient } from "@/utils/supabase/supabaseServerClient";
+import { addAssignmentFormSchema } from "@/lib/schemas";
 
 const cookieStore = cookies();
 const supabase = createSupabaseServerClient();
 
 const queryClient = new QueryClient();
 
-const addAssignmentFormSchema = z.object({
-  course: z.string().min(1, "Course is required"),
-  title: z.string().min(1, "Title is required"),
-  dueDate: z.string().min(1, "Due date is required"),
-  priority: z.boolean(),
-  notes: z.string().optional(),
-});
+export async function createAssignment(input: any) {
+  const result = addAssignmentFormSchema.safeParse(input);
 
-export async function createAssignment(prevState: any, formData: FormData) {
-  const parsedData = addAssignmentFormSchema.parse({
-    course: formData.get("course"),
-    title: formData.get("title"),
-    dueDate: formData.get("dueDate"),
-    priority: formData.get("priority") === "on",
-    notes: formData.get("notes"),
-  });
+  if (!result.success) {
+    console.error("Validation failed", result.error);
+    return { error: result.error };
+  }
+  const parsedData = result.data;
 
   const dueDate = new Date(parsedData.dueDate);
 
@@ -41,7 +34,6 @@ export async function createAssignment(prevState: any, formData: FormData) {
   if (error) {
     console.log(error);
   }
-  return formData;
 }
 
 const updateAssignmentFormSchema = z.object({
