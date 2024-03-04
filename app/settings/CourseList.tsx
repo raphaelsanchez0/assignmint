@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Course from "./Course";
 import { getCourses } from "../../server/apis/courses";
 import { v4 as uuidv4 } from "uuid";
+import { Card } from "@/components/ui/card";
 
 export default function CourseList() {
   const [courses, setCourses] = useState<Course[]>([]);
@@ -25,7 +26,7 @@ export default function CourseList() {
   };
 
   return (
-    <>
+    <Card>
       <div className="flex justify-between items-center mb-2">
         <h3 className="card-title">Courses</h3>
 
@@ -44,6 +45,6 @@ export default function CourseList() {
           />
         ))}
       </div>
-    </>
+    </Card>
   );
 }

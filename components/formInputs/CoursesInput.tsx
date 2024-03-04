@@ -20,7 +20,7 @@ const CourseInput: React.FC<CoursesInputProps> = ({
         id="course"
         options={courses}
         name="course"
-        className="w-full border-slate-400 bg-slate-50"
+        className="w-full border-slate-400 bg-slate-50 dark:bg-zinc-900"
         required
         defaultValue={edit ? currentCourse : null}
       ></Select>

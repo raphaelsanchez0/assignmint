@@ -16,6 +16,7 @@ import DueTodayAssignments from "./AssignmentCatagories/DueTodayAssignments";
 import DueTomorrowAssignments from "./AssignmentCatagories/DueTomorrowAssignments";
 import ThisWeekAssignments from "./AssignmentCatagories/ThisWeekAssignments";
 import NextWeekAssignments from "./AssignmentCatagories/NextWeekAssignments";
+import { Card } from "../ui/card";
 
 interface AssignmentsListProps {
   showAddAssignment?: boolean;
@@ -45,7 +46,8 @@ const AssignmentsList: React.FC<AssignmentsListProps> = async ({
   // });
 
   return (
-    <div className="card">
+    <Card>
+      {/* // <div> */}
       <div className="flex items-center justify-between">
         <h3 className="card-title">Assignments</h3>
         {showAddAssignment && <AddAssignmentBtn />}
@@ -71,7 +73,8 @@ const AssignmentsList: React.FC<AssignmentsListProps> = async ({
           <NextWeekAssignments />
         </HydrationBoundary>
       </ol>
-    </div>
+      {/* </div> */}
+    </Card>
   );
 };
 

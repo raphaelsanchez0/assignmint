@@ -21,7 +21,8 @@ const TitleInput: React.FC<TitleInputProps> = ({
         className="bg-slate-50 border border-gray-300 
                           text-gray-900 text-sm rounded-lg
                           block w-full p-2.5  
-                        caret-gray-500"
+                        caret-gray-500
+                        dark:bg-zinc-900"
         placeholder={placeholder}
         required
         defaultValue={edit ? currentTitle : ""}

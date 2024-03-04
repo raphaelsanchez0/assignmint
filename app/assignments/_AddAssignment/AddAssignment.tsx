@@ -12,6 +12,7 @@ import { createAssignment } from "@/server/actions";
 import { useQuery } from "@tanstack/react-query";
 import { getCourses } from "@/server/apis/courses";
 import PriorityInput from "@/components/formInputs/PriorityInput";
+import { Card } from "@/components/ui/card";
 
 export default function AddAssignment() {
   //Sends formdata to createAssignment server action
@@ -40,7 +41,7 @@ export default function AddAssignment() {
   };
 
   return (
-    <div className="card">
+    <Card>
       <h3 className="card-title my-4">Add Assignment</h3>
       <hr className="h-px w-full bg-gray-400 border-0" />
       <form action={formAction} onSubmit={handleSubmit} ref={formRef}>
@@ -67,6 +68,6 @@ export default function AddAssignment() {
           </div>
         </div>
       </form>
-    </div>
+    </Card>
   );
 }

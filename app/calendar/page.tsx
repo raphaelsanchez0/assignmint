@@ -12,6 +12,7 @@ import ViewAssignmentDialog from "@/components/dialogs/viewEvent/ViewAssignmentD
 import EditAssignmentDialog from "@/components/dialogs/EditEvent/EditAssignmentDialog";
 import ViewExamDialog from "@/components/dialogs/viewEvent/ViewExamDialog";
 import EditExamDialog from "@/components/dialogs/EditEvent/EditExamDialog";
+import { Card } from "@/components/ui/card";
 
 export default async function CalendarPage() {
   const queryClient = new QueryClient();
@@ -32,7 +33,7 @@ export default async function CalendarPage() {
       <div className="ml-sidebar-width">
         <PageTitle title="Calendar" />
         <div className="flex gap-4 p-4">
-          <div className="card basis-7/12 h-min">
+          <div className="basis-7/12 h-min">
             <CalenderCard />
           </div>
           <div className="basis-5/12">

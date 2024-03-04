@@ -27,20 +27,18 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={cn(poppins.variable)}>
-        <Sidebar />
-        <main>
-          <Provider>
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="system"
-              enableSystem
-              disableTransitionOnChange
-            >
-              {children}
-            </ThemeProvider>
-          </Provider>
-        </main>
-        <Toaster />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Sidebar />
+          <main>
+            <Provider>{children}</Provider>
+          </main>
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   );

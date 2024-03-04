@@ -27,10 +27,6 @@ const AddEventDialog: React.FC<DialogProps> = ({
   const dialogRef = useRef<HTMLDialogElement | null>(null);
   const showDialog = searchParams.get(searchParamKey);
 
-  // useOnClickOutside([dialogRef], () => {
-  //   closeDialog();
-  // });
-
   useEffect(() => {
     if (showDialog === "y") {
       dialogRef.current?.showModal();
@@ -53,9 +49,9 @@ const AddEventDialog: React.FC<DialogProps> = ({
     showDialog === "y" ? (
       <dialog
         ref={dialogRef}
-        className="fixed top-50 left-50 -translate-x-50 -translate-y-50 z-10  backdrop:bg-gray-800/50 bg-white rounded-xl w-1/2"
+        className="fixed top-50 left-50 -translate-x-50 -translate-y-50 z-10  backdrop:bg-gray-800/50 bg-white  rounded-xl w-1/2"
       >
-        <div className="max-w-full bg-gray-100 flex flex-col">
+        <div className="max-w-full bg-gray-100 flex flex-col dark:bg-zinc-900">
           <div className="flex flex-row justify-between mb-4 pt-2 px-5 bg-primary ">
             <h1 className="text-2xl text-white">{title}</h1>
             <button

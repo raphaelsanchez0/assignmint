@@ -29,7 +29,7 @@ const Sidebar = () => {
     <div
       className="fixed md:top-0 md:left-0 md:h-screen md:w-sidebar-width
                         md:flex md:flex-col
-                        bg-primary text-white shadow-lg
+                        bg-primary  text-white shadow-lg dark:bg-zinc-950 dark:border-r-[1px] dark:border-gray-400
                         z-10"
     >
       <SideBarIcon
@@ -104,7 +104,7 @@ const SideBarIcon: React.FC<SideBarIconProps> = ({
                               text-xs font-bold
                               transition-all duration-100 scale-0 origin-left
                               group-hover:scale-100
-                              bg-primary
+                              bg-primary dark:bg-zinc-900 
                               z-10`;
   return (
     <div className={`${className} group`}>
