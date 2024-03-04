@@ -52,6 +52,7 @@ export default function AddAssignmentDialog() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["assignments"] });
       setOpen(false);
+      form.reset();
     },
   });
   const form = useForm<z.infer<typeof formSchema>>({
