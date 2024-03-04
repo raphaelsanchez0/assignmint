@@ -39,6 +39,8 @@ import { Calendar } from "@/components/ui/calendar";
 import { Checkbox } from "@/components/ui/checkbox";
 import { getCourses } from "@/server/apis/courses";
 import { useQuery } from "@tanstack/react-query";
+import { createAssignment } from "@/server/actions";
+import { Textarea } from "@/components/ui/textarea";
 
 export default function AddAssignmentDialog() {
   const formSchema = z.object({
@@ -46,6 +48,7 @@ export default function AddAssignmentDialog() {
     title: z.string({ required_error: "Title is required" }).min(2).max(50),
     dueDate: z.date(),
     priority: z.boolean(),
+    notes: z.string().min(0).max(500),
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -58,9 +61,7 @@ export default function AddAssignmentDialog() {
     },
   });
 
-  function onSubmit(input: z.infer<typeof formSchema>) {
-    console.log(input);
-  }
+  function onSubmit(input: z.infer<typeof formSchema>) {}
 
   const {
     data: courses,
@@ -173,6 +174,24 @@ export default function AddAssignmentDialog() {
                       <div className="space-x-1 leading-none">
                         <FormLabel>Priority</FormLabel>
                       </div>
+                    </div>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="notes"
+                render={({ field }) => (
+                  <FormItem className="col-span-2">
+                    <div>
+                      <FormLabel>Notes</FormLabel>
+                      <FormControl>
+                        <Textarea
+                          placeholder="Notes"
+                          className="resize-none"
+                          {...field}
+                        ></Textarea>
+                      </FormControl>
                     </div>
                   </FormItem>
                 )}
