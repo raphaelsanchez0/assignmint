@@ -85,7 +85,7 @@ export default function AddExamDialog() {
       </DialogTrigger>
       <DialogContent className="w-1/2">
         <DialogHeader>
-          <DialogTitle>Add Assignment</DialogTitle>
+          <DialogTitle>Add Exam</DialogTitle>
         </DialogHeader>
 
         <Form {...form}>
@@ -121,7 +121,7 @@ export default function AddExamDialog() {
                   <FormItem>
                     <FormLabel>Title</FormLabel>
                     <FormControl>
-                      <Input placeholder="Title" {...field} />
+                      <Input placeholder="CHEM Midterm" {...field} />
                     </FormControl>
                   </FormItem>
                 )}
@@ -185,7 +185,7 @@ export default function AddExamDialog() {
             </div>
             <div className="flex justify-center">
               <button type="submit" className="btn mt-4">
-                Create Assignment
+                Create Exam
               </button>
             </div>
           </form>
