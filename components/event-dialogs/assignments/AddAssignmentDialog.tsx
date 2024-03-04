@@ -27,12 +27,22 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
+import { format } from "date-fns";
+import { CalendarIcon } from "lucide-react";
+import { Calendar } from "@/components/ui/calendar";
+import { Checkbox } from "@/components/ui/checkbox";
 
 export default function AddAssignmentDialog() {
   const formSchema = z.object({
     course: z.string({ required_error: "Course is required" }),
     title: z.string({ required_error: "Title is required" }).min(2).max(50),
-    dueDate: z.date({ required_error: "Due date is required" }),
+    dueDate: z.date(),
     priority: z.boolean(),
   });
 
@@ -62,7 +72,7 @@ export default function AddAssignmentDialog() {
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            <div className="grid grid-cols-2 items-center gap-4">
+            <div className="grid grid-cols-2 grid-rows-2 items-center gap-4">
               <FormField
                 control={form.control}
                 name="course"
@@ -72,9 +82,7 @@ export default function AddAssignmentDialog() {
                     <Select onValueChange={field.onChange} value={field.value}>
                       <FormControl>
                         <SelectTrigger>
-                          <SelectValue placeholder>
-                            "Select a course"
-                          </SelectValue>
+                          <SelectValue placeholder>Select a course</SelectValue>
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
@@ -98,6 +106,72 @@ export default function AddAssignmentDialog() {
                   </FormItem>
                 )}
               />
+              <FormField
+                control={form.control}
+                name="dueDate"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Due Date</FormLabel>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant={"outline"}
+                            className={cn(
+                              "w-full pl-3 text-left font-normal",
+                              !field.value && "text-muted-foreground",
+                            )}
+                          >
+                            {field.value ? (
+                              format(field.value, "PPP")
+                            ) : (
+                              <span>Pick a date</span>
+                            )}
+                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={field.value}
+                          onSelect={field.onChange}
+                          disabled={(date) =>
+                            date > new Date() || date < new Date("1900-01-01")
+                          }
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="priority"
+                render={({ field }) => (
+                  <FormItem className="h-full">
+                    <FormLabel></FormLabel>
+                    <div className="flex items-center justify-center space-x-2 h-full">
+                      <FormControl>
+                        <Checkbox
+                          checked={field.value}
+                          onChange={field.onChange}
+                          onCheckedChange={() => field.onChange(!field.value)}
+                        />
+                      </FormControl>
+                      <div className="space-x-1 leading-none">
+                        <FormLabel>Priority</FormLabel>
+                      </div>
+                    </div>
+                  </FormItem>
+                )}
+              />
+            </div>
+            <div className="flex justify-center">
+              <button type="submit" className="btn mt-4">
+                Create Assignment
+              </button>
             </div>
           </form>
         </Form>

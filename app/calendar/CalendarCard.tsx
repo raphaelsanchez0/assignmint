@@ -2,7 +2,7 @@
 import { format } from "date-fns";
 import { useRouter, useSearchParams } from "next/navigation";
 import React from "react";
-import { Calendar } from "@/components/ui/calendar";
+import { Calendar } from "@/components/ui/card-calendar";
 
 import "./calendar.scss";
 import { Card } from "@/components/ui/card";

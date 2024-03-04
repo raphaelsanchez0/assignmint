@@ -1,6 +1,6 @@
 "use client";
 
-import { Calendar } from "@/components/ui/calendar";
+import { Calendar } from "@/components/ui/card-calendar";
 import { format } from "date-fns";
 import { useRouter } from "next/navigation";
 
