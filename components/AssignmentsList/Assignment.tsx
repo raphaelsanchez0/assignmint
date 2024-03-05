@@ -10,6 +10,9 @@ import {
 } from "../ui/context-menu";
 import { deleteAssignment } from "@/server/actions";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
+import EditAssignmentDialog from "../event-dialogs/assignments/EditAssignmentDialog";
+
 interface AssignmentProps {
   title: string;
   course: string;
@@ -50,6 +53,7 @@ const Assignment: React.FC<AssignmentProps> = ({
   return (
     <>
       <hr className="h-px w-full bg-gray-400 border-0" />
+
       <ContextMenu>
         <ContextMenuTrigger>
           <Link href={`${path}?assignment=${id}`}>
@@ -76,7 +80,15 @@ const Assignment: React.FC<AssignmentProps> = ({
           <ContextMenuItem>
             <button onClick={handleDeleteAssignment}>Complete</button>
           </ContextMenuItem>
-          <ContextMenuItem>Edit</ContextMenuItem>
+
+          <Dialog>
+            <DialogTrigger asChild>
+              <ContextMenuItem onSelect={(e) => e.preventDefault()}>
+                Edit
+              </ContextMenuItem>
+            </DialogTrigger>
+            <EditAssignmentDialog />
+          </Dialog>
           <ContextMenuItem>View</ContextMenuItem>
         </ContextMenuContent>
       </ContextMenu>
