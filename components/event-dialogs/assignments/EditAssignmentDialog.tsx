@@ -44,10 +44,14 @@ import { updateAssignment } from "@/server/actions";
 
 interface EditAssignmentDialogProps {
   assignment: Assignment;
+  open: boolean;
+  setOpen: (open: boolean) => void;
 }
 
 const EditAssignmentDialog: React.FC<EditAssignmentDialogProps> = ({
   assignment,
+  open,
+  setOpen,
 }) => {
   const queryClient = useQueryClient();
   const updateAssignmentMutation = useMutation({
@@ -55,6 +59,7 @@ const EditAssignmentDialog: React.FC<EditAssignmentDialogProps> = ({
 
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["assignments"] });
+      setOpen(false);
       form.reset();
     },
   });

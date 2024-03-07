@@ -14,6 +14,7 @@ import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
 import EditAssignmentDialog from "../event-dialogs/assignments/EditAssignmentDialog";
 import { format } from "date-fns";
 import { utcToZonedTime } from "date-fns-tz";
+import { useState } from "react";
 
 interface AssignmentProps {
   assignment: Assignment;
@@ -29,6 +30,7 @@ interface AssignmentProps {
  *
  */
 const Assignment: React.FC<AssignmentProps> = ({ assignment }) => {
+  const [openEditDialog, setOpenEditDialog] = useState(false);
   const path = usePathname();
   const queryClient = useQueryClient();
   const deleteAssignmentMutation = useMutation({
@@ -80,13 +82,17 @@ const Assignment: React.FC<AssignmentProps> = ({ assignment }) => {
             <button onClick={handleDeleteAssignment}>Complete</button>
           </ContextMenuItem>
 
-          <Dialog>
+          <Dialog open={openEditDialog} onOpenChange={setOpenEditDialog}>
             <DialogTrigger asChild>
               <ContextMenuItem onSelect={(e) => e.preventDefault()}>
                 Edit
               </ContextMenuItem>
             </DialogTrigger>
-            <EditAssignmentDialog assignment={assignment} />
+            <EditAssignmentDialog
+              assignment={assignment}
+              open={openEditDialog}
+              setOpen={setOpenEditDialog}
+            />
           </Dialog>
           <ContextMenuItem>View</ContextMenuItem>
         </ContextMenuContent>
