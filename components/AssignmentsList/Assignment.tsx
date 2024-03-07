@@ -31,8 +31,10 @@ interface AssignmentProps {
  */
 const Assignment: React.FC<AssignmentProps> = ({ assignment }) => {
   const [openEditDialog, setOpenEditDialog] = useState(false);
+  const [menuKey, setMenuKey] = useState(0);
   const path = usePathname();
   const queryClient = useQueryClient();
+
   const deleteAssignmentMutation = useMutation({
     mutationFn: deleteAssignment,
     onSuccess: () => {
@@ -44,11 +46,18 @@ const Assignment: React.FC<AssignmentProps> = ({ assignment }) => {
     deleteAssignmentMutation.mutate(assignment.id as unknown as number);
   }
 
+  function handleDialogItemOpenChange(open: boolean) {
+    setOpenEditDialog(open);
+    if (open == false) {
+      setMenuKey((prev) => prev + 1);
+    }
+  }
+
   return (
     <>
       <hr className="h-px w-full bg-gray-400 border-0" />
 
-      <ContextMenu>
+      <ContextMenu key={menuKey}>
         <ContextMenuTrigger>
           <Link href={`${path}?assignment=${assignment.id}`}>
             <div className="h-16 flex flex-row w-full hover:bg-gray-100 dark:hover:bg-zinc-800">
@@ -77,12 +86,15 @@ const Assignment: React.FC<AssignmentProps> = ({ assignment }) => {
             </div>
           </Link>
         </ContextMenuTrigger>
-        <ContextMenuContent>
+        <ContextMenuContent hidden={openEditDialog}>
           <ContextMenuItem>
             <button onClick={handleDeleteAssignment}>Complete</button>
           </ContextMenuItem>
 
-          <Dialog open={openEditDialog} onOpenChange={setOpenEditDialog}>
+          <Dialog
+            open={openEditDialog}
+            onOpenChange={handleDialogItemOpenChange}
+          >
             <DialogTrigger asChild>
               <ContextMenuItem onSelect={(e) => e.preventDefault()}>
                 Edit
