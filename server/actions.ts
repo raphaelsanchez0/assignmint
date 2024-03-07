@@ -6,7 +6,7 @@ import { QueryClient } from "@tanstack/react-query";
 import { createSupabaseActionClient } from "@/utils/supabase/supabaseActionClient";
 import { cookies } from "next/headers";
 import { createSupabaseServerClient } from "@/utils/supabase/supabaseServerClient";
-import { addAssignmentFormSchema, addExamFormSchema } from "@/lib/schemas";
+import { assignmentFormSchema, addExamFormSchema } from "@/lib/schemas";
 
 const cookieStore = cookies();
 const supabase = createSupabaseServerClient();
@@ -14,7 +14,7 @@ const supabase = createSupabaseServerClient();
 const queryClient = new QueryClient();
 
 export async function createAssignment(input: any) {
-  const result = addAssignmentFormSchema.safeParse(input);
+  const result = assignmentFormSchema.safeParse(input);
 
   if (!result.success) {
     console.error("Validation failed", result.error);
@@ -68,7 +68,29 @@ const updateAssignmentFormSchema = z.object({
   notes: z.string().optional(),
 });
 
-export async function updateAssignment(prevState: any, formData: FormData) {
+export async function updateAssignment(variables: { input: any; id: string }) {
+  const result = assignmentFormSchema.safeParse(variables.input);
+
+  if (!result.success) {
+    console.error("Validation failed", result.error);
+    return { error: result.error };
+  }
+  const parsedData = result.data;
+  const dueDate = new Date(parsedData.dueDate);
+  const { error } = await supabase
+    .from("assignments")
+    .update({
+      ...parsedData,
+      dueDate,
+    })
+    .eq("id", variables.id);
+
+  if (error) {
+    throw error;
+  }
+}
+
+export async function updateAssignmentDep(prevState: any, formData: FormData) {
   const parsedData = updateAssignmentFormSchema.parse({
     course: formData.get("course"),
     title: formData.get("title"),
@@ -98,7 +120,7 @@ const updateExamFormSchema = z.object({
   notes: z.string().optional(),
 });
 
-export async function updateExam(prevState: any, formData: FormData) {
+export async function updateExamDep(prevState: any, formData: FormData) {
   const parsedData = updateExamFormSchema.parse({
     course: formData.get("course"),
     title: formData.get("title"),

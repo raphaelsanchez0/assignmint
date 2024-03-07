@@ -5,11 +5,11 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import React, { useEffect } from "react";
-import { addAssignmentFormSchema as formSchema } from "@/lib/schemas";
+import { assignmentFormSchema as formSchema } from "@/lib/schemas";
 import { useFieldArray, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getAssignment } from "@/server/apis/assignments";
 
 import {
@@ -40,6 +40,7 @@ import { format } from "date-fns";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
+import { updateAssignment } from "@/server/actions";
 
 interface EditAssignmentDialogProps {
   assignment: Assignment;
@@ -48,16 +49,15 @@ interface EditAssignmentDialogProps {
 const EditAssignmentDialog: React.FC<EditAssignmentDialogProps> = ({
   assignment,
 }) => {
-  // const {
-  //   data: assignment,
-  //   error: assignmentError,
-  //   isLoading: assignmentIsLoading,
-  //   isFetched: assignmentIsFetched,
-  // } = useQuery<Assignment>({
-  //   queryKey: ["assignment", assignmentId],
-  //   queryFn: () => getAssignment(assignmentId),
-  // });
+  const queryClient = useQueryClient();
+  const updateAssignmentMutation = useMutation({
+    mutationFn: updateAssignment,
 
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["assignments"] });
+      form.reset();
+    },
+  });
   const {
     data: courses,
     error: coursesError,
@@ -79,7 +79,7 @@ const EditAssignmentDialog: React.FC<EditAssignmentDialogProps> = ({
   });
 
   function onSubmit(input: z.infer<typeof formSchema>) {
-    console.log(input);
+    updateAssignmentMutation.mutate({ input, id: assignment.id });
   }
   return (
     <DialogContent className="w-1/2">
@@ -204,7 +204,7 @@ const EditAssignmentDialog: React.FC<EditAssignmentDialogProps> = ({
           </div>
           <div className="flex justify-center">
             <button type="submit" className="btn mt-4">
-              Create Assignment
+              Edit Assignment
             </button>
           </div>
         </form>
