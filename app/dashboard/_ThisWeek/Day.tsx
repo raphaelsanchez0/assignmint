@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import iconArrow from "@/public/icons/arrow.svg";
-import Assignment from "@/components/AssignmentsList/Assignment";
+
 import { format } from "date-fns";
 import { useQuery } from "@tanstack/react-query";
 import { getEventsOnDate } from "@/server/apis/api";
@@ -35,8 +35,6 @@ const Day: React.FC<DayProps> = ({ date }) => {
     queryKey: [dayString, "thisWeek", "assignments"],
     queryFn: () => getEventsOnDate("assignments", date),
   });
-
-  // if (ExamsIsLoading || assignmentsIsLoading) return <LoadingItem />;
 
   const handleClick = () => {
     setExpanded(!expanded);

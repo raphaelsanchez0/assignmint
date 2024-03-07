@@ -22,8 +22,3 @@ export default function ExamsList() {
   }
   return <div>{data?.map((exam) => <Exam key={exam.id} exam={exam} />)}</div>;
 }
-// id={exam.id}
-//           name={exam.title}
-//           course={exam.course.title}
-//           color={exam.course.color}
-//           date={format(utcToZonedTime(exam.examDate, "Etc/UTC"), "MMM d")}
