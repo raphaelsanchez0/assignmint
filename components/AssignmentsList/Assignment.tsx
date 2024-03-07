@@ -50,8 +50,6 @@ const Assignment: React.FC<AssignmentProps> = ({
     deleteAssignmentMutation.mutate(id);
   }
 
-  
-
   return (
     <>
       <hr className="h-px w-full bg-gray-400 border-0" />
@@ -89,7 +87,7 @@ const Assignment: React.FC<AssignmentProps> = ({
                 Edit
               </ContextMenuItem>
             </DialogTrigger>
-            <EditAssignmentDialog />
+            <EditAssignmentDialog assignmentId={id} title={title} />
           </Dialog>
           <ContextMenuItem>View</ContextMenuItem>
         </ContextMenuContent>
