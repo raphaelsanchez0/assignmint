@@ -15,14 +15,6 @@ export default function CalenderCard() {
     ? new Date(`${selectedDateString}T00:00`)
     : new Date();
 
-  const handleDateChange = (value: Date, event: any) => {
-    if (Array.isArray(value)) {
-      router.push(`/calendar?date=${format(value[0], "yyyy-MM-dd")}`);
-    } else {
-      router.push(`/calendar?date=${format(value, "yyyy-MM-dd")}`);
-    }
-  };
-
   const handleDateSelect: SelectSingleEventHandler = (
     day: Date | undefined,
   ) => {
