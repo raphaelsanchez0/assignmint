@@ -46,8 +46,9 @@ const Assignment: React.FC<AssignmentProps> = ({ assignment }) => {
     deleteAssignmentMutation.mutate(assignment.id as unknown as number);
   }
 
-  function handleDialogItemOpenChange(open: boolean) {
+  function handleDialogOpenChange(open: boolean) {
     setOpenEditDialog(open);
+
     if (open == false) {
       setMenuKey((prev) => prev + 1);
     }
@@ -91,10 +92,7 @@ const Assignment: React.FC<AssignmentProps> = ({ assignment }) => {
             <button onClick={handleDeleteAssignment}>Complete</button>
           </ContextMenuItem>
 
-          <Dialog
-            open={openEditDialog}
-            onOpenChange={handleDialogItemOpenChange}
-          >
+          <Dialog open={openEditDialog} onOpenChange={handleDialogOpenChange}>
             <DialogTrigger asChild>
               <ContextMenuItem onSelect={(e) => e.preventDefault()}>
                 Edit
@@ -104,6 +102,7 @@ const Assignment: React.FC<AssignmentProps> = ({ assignment }) => {
               assignment={assignment}
               open={openEditDialog}
               setOpen={setOpenEditDialog}
+              handleDialogOpenChangeFn={handleDialogOpenChange}
             />
           </Dialog>
           <ContextMenuItem>View</ContextMenuItem>
@@ -113,8 +112,3 @@ const Assignment: React.FC<AssignmentProps> = ({ assignment }) => {
   );
 };
 export default Assignment;
-// id={assignment.id}
-// title={assignment.title}
-// course={assignment.course.title}
-// due={format(utcToZonedTime(assignment.dueDate, "Etc/UTC"), "MMM d")}
-// color={assignment.course.color}
