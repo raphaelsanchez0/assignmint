@@ -86,10 +86,7 @@ const Assignment: React.FC<AssignmentProps> = ({ assignment }) => {
                 Edit
               </ContextMenuItem>
             </DialogTrigger>
-            <EditAssignmentDialog
-              assignmentId={assignment.id as unknown as number}
-              title={assignment.title}
-            />
+            <EditAssignmentDialog assignment={assignment} />
           </Dialog>
           <ContextMenuItem>View</ContextMenuItem>
         </ContextMenuContent>

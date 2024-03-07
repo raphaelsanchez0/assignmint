@@ -42,24 +42,21 @@ import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 
 interface EditAssignmentDialogProps {
-  assignmentId: number;
-  courseID: string;
-  title: string;
+  assignment: Assignment;
 }
 
 const EditAssignmentDialog: React.FC<EditAssignmentDialogProps> = ({
-  assignmentId,
-  title,
+  assignment,
 }) => {
-  const {
-    data: assignment,
-    error: assignmentError,
-    isLoading: assignmentIsLoading,
-    isFetched: assignmentIsFetched,
-  } = useQuery<Assignment>({
-    queryKey: ["assignment", assignmentId],
-    queryFn: () => getAssignment(assignmentId),
-  });
+  // const {
+  //   data: assignment,
+  //   error: assignmentError,
+  //   isLoading: assignmentIsLoading,
+  //   isFetched: assignmentIsFetched,
+  // } = useQuery<Assignment>({
+  //   queryKey: ["assignment", assignmentId],
+  //   queryFn: () => getAssignment(assignmentId),
+  // });
 
   const {
     data: courses,
@@ -69,10 +66,6 @@ const EditAssignmentDialog: React.FC<EditAssignmentDialogProps> = ({
     queryKey: ["courses"],
     queryFn: getCourses,
   });
-
-  useEffect(() => {
-    form.setValue("title", title);
-  }, []);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -85,23 +78,13 @@ const EditAssignmentDialog: React.FC<EditAssignmentDialogProps> = ({
     },
   });
 
-  // useEffect(() => {
-  //   form.reset({
-  //     // course: assignment?.course.id,
-  //     title: title,
-  //     // dueDate: new Date(assignment?.dueDate || Date.now()),
-  //     // priority: assignment?.priority,
-  //     // notes: assignment?.notes,
-  //   });
-  // }, []);
-
   function onSubmit(input: z.infer<typeof formSchema>) {
     console.log(input);
   }
   return (
     <DialogContent className="w-1/2">
       <DialogHeader>
-        <DialogTitle>Add Assignment</DialogTitle>
+        <DialogTitle>Edit Assignment</DialogTitle>
       </DialogHeader>
 
       <Form {...form}>
