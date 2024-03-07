@@ -60,32 +60,30 @@ const Assignment: React.FC<AssignmentProps> = ({ assignment }) => {
 
       <ContextMenu key={menuKey}>
         <ContextMenuTrigger>
-          <Link href={`${path}?assignment=${assignment.id}`}>
-            <div className="h-16 flex flex-row w-full hover:bg-gray-100 dark:hover:bg-zinc-800">
-              <div
-                className="w-1 h-full"
-                style={{ backgroundColor: assignment.course.color }}
-              ></div>
-              <div className="p-2 flex justify-between w-full">
-                <div>
-                  <h4 className="text-md font-medium text-off-black">
-                    {assignment.title}
-                  </h4>
-                  <h5 className="text-sm text-gray-500">
-                    {assignment.course.title}
-                  </h5>
-                </div>
-                <div>
-                  <h5 className="text-sm text-off-black">
-                    {format(
-                      utcToZonedTime(assignment.dueDate, "Etc/UTC"),
-                      "MMM d",
-                    )}
-                  </h5>
-                </div>
+          <div className="flex flex-row w-full hover:bg-gray-100 dark:hover:bg-zinc-800">
+            <div
+              className="w-1"
+              style={{ backgroundColor: assignment.course.color }}
+            ></div>
+            <div className="p-2 flex justify-between w-full">
+              <div>
+                <h4 className="text-md font-medium text-off-black">
+                  {assignment.title}
+                </h4>
+                <h5 className="text-sm text-gray-500">
+                  {assignment.course.title}
+                </h5>
+              </div>
+              <div>
+                <h5 className="text-sm text-off-black text-nowrap">
+                  {format(
+                    utcToZonedTime(assignment.dueDate, "Etc/UTC"),
+                    "MMM d",
+                  )}
+                </h5>
               </div>
             </div>
-          </Link>
+          </div>
         </ContextMenuTrigger>
         <ContextMenuContent hidden={openEditDialog}>
           <ContextMenuItem>
