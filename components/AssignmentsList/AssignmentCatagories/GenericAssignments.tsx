@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import Assignment from "../Assignment";
 import { format } from "date-fns";
@@ -29,19 +29,13 @@ const GenericAssignments: React.FC<GenericAssignmentsProps> = ({
   if (data?.length === 0) {
     return null;
   }
+  console.log(data);
 
   return (
     <>
       <SectionDivider title={title} color={color} />
       {data?.map((assignment) => (
-        <Assignment
-          key={assignment.id}
-          id={assignment.id}
-          title={assignment.title}
-          course={assignment.course.title}
-          due={format(utcToZonedTime(assignment.dueDate, "Etc/UTC"), "MMM d")}
-          color={assignment.course.color}
-        />
+        <Assignment key={assignment.id} assignment={assignment} />
       ))}
     </>
   );

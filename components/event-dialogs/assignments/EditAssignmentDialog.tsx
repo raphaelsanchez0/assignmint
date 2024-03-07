@@ -45,7 +45,6 @@ interface EditAssignmentDialogProps {
   assignmentId: number;
   courseID: string;
   title: string;
-  dueDate: string;
 }
 
 const EditAssignmentDialog: React.FC<EditAssignmentDialogProps> = ({

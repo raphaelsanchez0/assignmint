@@ -12,13 +12,11 @@ import { deleteAssignment } from "@/server/actions";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
 import EditAssignmentDialog from "../event-dialogs/assignments/EditAssignmentDialog";
+import { format } from "date-fns";
+import { utcToZonedTime } from "date-fns-tz";
 
 interface AssignmentProps {
-  title: string;
-  course: string;
-  due?: string;
-  color: string;
-  id: number;
+  assignment: Assignment;
 }
 /**
  * Represents an assignment
@@ -30,13 +28,7 @@ interface AssignmentProps {
  * @param {string} due - The due date of the assignment. If not provided, no due date is rendered
  *
  */
-const Assignment: React.FC<AssignmentProps> = ({
-  title,
-  course,
-  due,
-  color,
-  id,
-}) => {
+const Assignment: React.FC<AssignmentProps> = ({ assignment }) => {
   const path = usePathname();
   const queryClient = useQueryClient();
   const deleteAssignmentMutation = useMutation({
@@ -47,7 +39,7 @@ const Assignment: React.FC<AssignmentProps> = ({
   });
 
   function handleDeleteAssignment() {
-    deleteAssignmentMutation.mutate(id);
+    deleteAssignmentMutation.mutate(assignment.id as unknown as number);
   }
 
   return (
@@ -56,21 +48,28 @@ const Assignment: React.FC<AssignmentProps> = ({
 
       <ContextMenu>
         <ContextMenuTrigger>
-          <Link href={`${path}?assignment=${id}`}>
+          <Link href={`${path}?assignment=${assignment.id}`}>
             <div className="h-16 flex flex-row w-full hover:bg-gray-100 dark:hover:bg-zinc-800">
               <div
                 className="w-1 h-full"
-                style={{ backgroundColor: color }}
+                style={{ backgroundColor: assignment.course.color }}
               ></div>
               <div className="p-2 flex justify-between w-full">
                 <div>
                   <h4 className="text-md font-medium text-off-black">
-                    {title}
+                    {assignment.title}
                   </h4>
-                  <h5 className="text-sm text-gray-500">{course}</h5>
+                  <h5 className="text-sm text-gray-500">
+                    {assignment.course.title}
+                  </h5>
                 </div>
                 <div>
-                  <h5 className="text-sm text-off-black">{due}</h5>
+                  <h5 className="text-sm text-off-black">
+                    {format(
+                      utcToZonedTime(assignment.dueDate, "Etc/UTC"),
+                      "MMM d",
+                    )}
+                  </h5>
                 </div>
               </div>
             </div>
@@ -87,7 +86,10 @@ const Assignment: React.FC<AssignmentProps> = ({
                 Edit
               </ContextMenuItem>
             </DialogTrigger>
-            <EditAssignmentDialog assignmentId={id} title={title} />
+            <EditAssignmentDialog
+              assignmentId={assignment.id as unknown as number}
+              title={assignment.title}
+            />
           </Dialog>
           <ContextMenuItem>View</ContextMenuItem>
         </ContextMenuContent>
@@ -96,3 +98,8 @@ const Assignment: React.FC<AssignmentProps> = ({
   );
 };
 export default Assignment;
+// id={assignment.id}
+// title={assignment.title}
+// course={assignment.course.title}
+// due={format(utcToZonedTime(assignment.dueDate, "Etc/UTC"), "MMM d")}
+// color={assignment.course.color}
