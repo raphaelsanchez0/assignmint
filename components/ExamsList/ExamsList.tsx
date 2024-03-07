@@ -13,24 +13,17 @@ export default function ExamsList() {
     queryFn: getExams,
     refetchOnWindowFocus: false,
   });
+  console.log(data);
 
   if (isLoading) return <LoadingListShorter />;
 
   if (data?.length === 0) {
     return null;
   }
-  return (
-    <div>
-      {data?.map((exam) => (
-        <Exam
-          key={exam.id}
-          id={exam.id}
-          name={exam.title}
-          course={exam.course.title}
-          color={exam.course.color}
-          date={format(utcToZonedTime(exam.examDate, "Etc/UTC"), "MMM d")}
-        />
-      ))}
-    </div>
-  );
+  return <div>{data?.map((exam) => <Exam key={exam.id} exam={exam} />)}</div>;
 }
+// id={exam.id}
+//           name={exam.title}
+//           course={exam.course.title}
+//           color={exam.course.color}
+//           date={format(utcToZonedTime(exam.examDate, "Etc/UTC"), "MMM d")}
