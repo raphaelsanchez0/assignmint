@@ -98,7 +98,6 @@ const Assignment: React.FC<AssignmentProps> = ({ assignment }) => {
             </DialogTrigger>
             <EditAssignmentDialog
               assignment={assignment}
-              open={openEditDialog}
               setOpen={setOpenEditDialog}
               handleDialogOpenChangeFn={handleDialogOpenChange}
             />

@@ -4,7 +4,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { assignmentFormSchema as formSchema } from "@/lib/schemas";
+import { examFormSchema as formSchema } from "@/lib/schemas";
 import { useFieldArray, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -38,34 +38,25 @@ import { format } from "date-fns";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
-import { updateAssignment } from "@/server/actions";
+import { updateExam } from "@/server/actions";
 
-interface EditAssignmentDialogProps {
-  assignment: Assignment;
+interface EditExamDialogProps {
+  exam: Exam;
   setOpen: (open: boolean) => void;
   handleDialogOpenChangeFn: (open: boolean) => void;
 }
 
-const EditAssignmentDialog: React.FC<EditAssignmentDialogProps> = ({
-  assignment,
+const EditExamDialog: React.FC<EditExamDialogProps> = ({
+  exam,
   setOpen,
   handleDialogOpenChangeFn,
 }) => {
   const queryClient = useQueryClient();
-  const updateAssignmentMutation = useMutation({
-    mutationFn: updateAssignment,
 
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["assignments"] });
-      setOpen(false);
-      form.reset();
-      handleDialogOpenChangeFn(false);
-    },
-  });
   const {
     data: courses,
-    error: coursesError,
-    isLoading: coursesIsLoading,
+    error,
+    isLoading,
   } = useQuery<Course[]>({
     queryKey: ["courses"],
     queryFn: getCourses,
@@ -74,21 +65,31 @@ const EditAssignmentDialog: React.FC<EditAssignmentDialogProps> = ({
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      course: assignment.course.id,
-      title: assignment.title,
-      dueDate: new Date(assignment.dueDate),
-      priority: assignment.priority,
-      notes: assignment.notes,
+      course: exam.course.id,
+      title: exam.title,
+      examDate: new Date(exam.examDate),
+      notes: exam.notes,
+    },
+  });
+
+  const updateExamMutation = useMutation({
+    mutationFn: updateExam,
+
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["exams"] });
+      setOpen(false);
+      form.reset();
+      handleDialogOpenChangeFn(false);
     },
   });
 
   function onSubmit(input: z.infer<typeof formSchema>) {
-    updateAssignmentMutation.mutate({ input, id: assignment.id });
+    updateExamMutation.mutate({ input, id: exam.id });
   }
   return (
     <DialogContent className="w-1/2">
       <DialogHeader>
-        <DialogTitle>Edit Assignment</DialogTitle>
+        <DialogTitle>Edit Exam</DialogTitle>
       </DialogHeader>
 
       <Form {...form}>
@@ -124,17 +125,17 @@ const EditAssignmentDialog: React.FC<EditAssignmentDialogProps> = ({
                 <FormItem>
                   <FormLabel>Title</FormLabel>
                   <FormControl>
-                    <Input placeholder="Title" {...field} />
+                    <Input placeholder="CHEM Midterm" {...field} />
                   </FormControl>
                 </FormItem>
               )}
             />
             <FormField
               control={form.control}
-              name="dueDate"
+              name="examDate"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Due Date</FormLabel>
+                  <FormLabel>Exam Date</FormLabel>
                   <Popover>
                     <PopoverTrigger asChild>
                       <FormControl>
@@ -166,27 +167,7 @@ const EditAssignmentDialog: React.FC<EditAssignmentDialogProps> = ({
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="priority"
-              render={({ field }) => (
-                <FormItem className="h-full">
-                  <FormLabel></FormLabel>
-                  <div className="flex items-center justify-center space-x-2 h-full">
-                    <FormControl>
-                      <Checkbox
-                        checked={field.value}
-                        onChange={field.onChange}
-                        onCheckedChange={() => field.onChange(!field.value)}
-                      />
-                    </FormControl>
-                    <div className="space-x-1 leading-none">
-                      <FormLabel className="text-lg">Priority</FormLabel>
-                    </div>
-                  </div>
-                </FormItem>
-              )}
-            />
+
             <FormField
               control={form.control}
               name="notes"
@@ -208,7 +189,7 @@ const EditAssignmentDialog: React.FC<EditAssignmentDialogProps> = ({
           </div>
           <div className="flex justify-center">
             <button type="submit" className="btn mt-4">
-              Edit Assignment
+              Edit Exam
             </button>
           </div>
         </form>
@@ -216,5 +197,4 @@ const EditAssignmentDialog: React.FC<EditAssignmentDialogProps> = ({
     </DialogContent>
   );
 };
-
-export default EditAssignmentDialog;
+export default EditExamDialog;

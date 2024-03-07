@@ -41,7 +41,7 @@ import { getCourses } from "@/server/apis/courses";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { Textarea } from "@/components/ui/textarea";
-import { addExamFormSchema as formSchema } from "@/lib/schemas";
+import { examFormSchema as formSchema } from "@/lib/schemas";
 import { createExam } from "@/server/actions";
 
 export default function AddExamDialog() {
