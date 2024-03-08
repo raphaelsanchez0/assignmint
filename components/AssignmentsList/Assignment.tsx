@@ -1,12 +1,23 @@
 "use client";
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuTrigger,
+} from "../ui/context-menu";
+import { deleteAssignment } from "@/server/actions";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
+import EditAssignmentDialog from "../event-dialogs/assignments/EditAssignmentDialog";
+import { format } from "date-fns";
+import { utcToZonedTime } from "date-fns-tz";
+import { useState } from "react";
+
 interface AssignmentProps {
-  title: string;
-  course: string;
-  due?: string;
-  color: string;
-  id: number;
+  assignment: Assignment;
 }
 /**
  * Represents an assignment
@@ -18,31 +29,82 @@ interface AssignmentProps {
  * @param {string} due - The due date of the assignment. If not provided, no due date is rendered
  *
  */
-const Assignment: React.FC<AssignmentProps> = ({
-  title,
-  course,
-  due,
-  color,
-  id,
-}) => {
+const Assignment: React.FC<AssignmentProps> = ({ assignment }) => {
+  const [openEditDialog, setOpenEditDialog] = useState(false);
+  const [menuKey, setMenuKey] = useState(0);
   const path = usePathname();
+  const queryClient = useQueryClient();
+
+  const deleteAssignmentMutation = useMutation({
+    mutationFn: deleteAssignment,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["assignments"] });
+    },
+  });
+
+  function handleDeleteAssignment() {
+    deleteAssignmentMutation.mutate(assignment.id as unknown as number);
+  }
+
+  function handleDialogOpenChange(open: boolean) {
+    setOpenEditDialog(open);
+
+    if (open == false) {
+      setMenuKey((prev) => prev + 1);
+    }
+  }
+
   return (
     <>
       <hr className="h-px w-full bg-gray-400 border-0" />
-      <Link href={`${path}?assignment=${id}`}>
-        <div className="h-16 flex flex-row w-full hover:bg-gray-100 dark:hover:bg-zinc-800">
-          <div className="w-1 h-full" style={{ backgroundColor: color }}></div>
-          <div className="p-2 flex justify-between w-full">
-            <div>
-              <h4 className="text-md font-medium text-off-black">{title}</h4>
-              <h5 className="text-sm text-gray-500">{course}</h5>
-            </div>
-            <div>
-              <h5 className="text-sm text-off-black">{due}</h5>
+
+      <ContextMenu key={menuKey}>
+        <ContextMenuTrigger>
+          <div className="flex flex-row w-full hover:bg-gray-100 dark:hover:bg-zinc-800">
+            <div
+              className="w-1"
+              style={{ backgroundColor: assignment.course.color }}
+            ></div>
+            <div className="p-2 flex justify-between w-full">
+              <div>
+                <h4 className="text-md font-medium text-off-black">
+                  {assignment.title}
+                </h4>
+                <h5 className="text-sm text-gray-500">
+                  {assignment.course.title}
+                </h5>
+              </div>
+              <div>
+                <h5 className="text-sm text-off-black text-nowrap">
+                  {format(
+                    utcToZonedTime(assignment.dueDate, "Etc/UTC"),
+                    "MMM d",
+                  )}
+                </h5>
+              </div>
             </div>
           </div>
-        </div>
-      </Link>
+        </ContextMenuTrigger>
+        <ContextMenuContent hidden={openEditDialog}>
+          <ContextMenuItem>
+            <button onClick={handleDeleteAssignment}>Complete</button>
+          </ContextMenuItem>
+
+          <Dialog open={openEditDialog} onOpenChange={handleDialogOpenChange}>
+            <DialogTrigger asChild>
+              <ContextMenuItem onSelect={(e) => e.preventDefault()}>
+                Edit
+              </ContextMenuItem>
+            </DialogTrigger>
+            <EditAssignmentDialog
+              assignment={assignment}
+              setOpen={setOpenEditDialog}
+              handleDialogOpenChangeFn={handleDialogOpenChange}
+            />
+          </Dialog>
+          <ContextMenuItem>View</ContextMenuItem>
+        </ContextMenuContent>
+      </ContextMenu>
     </>
   );
 };

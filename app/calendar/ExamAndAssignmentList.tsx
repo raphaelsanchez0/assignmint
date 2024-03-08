@@ -34,27 +34,11 @@ export default function ExamAndAssignmentList() {
         <h3 className="card-title mb-2">{formatedDate}</h3>
       </div>
       <h4 className="font-semibold my-1 text-xl">Exams</h4>
-      <ol>
-        {exams?.map((exam) => (
-          <Exam
-            key={exam.id}
-            id={exam.id}
-            name={exam.title}
-            course={exam.course.title}
-            color={exam.course.color}
-          />
-        ))}
-      </ol>
+      <ol>{exams?.map((exam) => <Exam key={exam.id} exam={exam} />)}</ol>
       <h4 className="font-semibold my-1 text-xl">Assignments</h4>
       <ol>
         {assignments?.map((assignment) => (
-          <Assignment
-            key={assignment.id}
-            id={assignment.id}
-            title={assignment.title}
-            course={assignment.course.title}
-            color={assignment.course.color}
-          />
+          <Assignment key={assignment.id} assignment={assignment} />
         ))}
       </ol>
     </Card>
