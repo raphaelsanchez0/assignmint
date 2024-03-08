@@ -7,8 +7,8 @@ import { createSupabaseActionClient } from "@/utils/supabase/supabaseActionClien
 import { cookies } from "next/headers";
 import { createSupabaseServerClient } from "@/utils/supabase/supabaseServerClient";
 import { assignmentFormSchema, examFormSchema } from "@/lib/schemas";
+import { User } from "@supabase/supabase-js";
 
-const cookieStore = cookies();
 const supabase = createSupabaseServerClient();
 
 const queryClient = new QueryClient();
@@ -28,9 +28,7 @@ export async function createAssignment(input: any) {
     ...parsedData,
     dueDate,
   });
-  queryClient.invalidateQueries({
-    queryKey: ["dueTodayAssignments", "assignments"],
-  });
+
   if (error) {
     console.log(error);
   }
@@ -294,4 +292,13 @@ export async function deleteAssignment(id: number) {
     console.error("Error deleting assignment: ", error);
     throw error;
   }
+}
+
+export async function getUserInfo(): Promise<User> {
+  const { data, error } = await supabase.auth.getUser();
+  if (error) {
+    console.log(error.message);
+    throw error;
+  }
+  return data.user;
 }

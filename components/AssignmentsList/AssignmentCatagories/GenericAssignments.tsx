@@ -29,7 +29,6 @@ const GenericAssignments: React.FC<GenericAssignmentsProps> = ({
   if (data?.length === 0) {
     return null;
   }
-  console.log(data);
 
   return (
     <>
