@@ -13,7 +13,6 @@ export default function ExamsList() {
     queryFn: getExams,
     refetchOnWindowFocus: false,
   });
-  console.log(data);
 
   if (isLoading) return <LoadingListShorter />;
 
