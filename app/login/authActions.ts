@@ -36,3 +36,14 @@ export async function signUpWithEmailAndPassword(credentials: {
     },
   });
 }
+
+export async function signInWithOAuth() {
+  const supabase = await createSupabaseActionClient(cookieStore);
+
+  return await supabase.auth.signInWithOAuth({
+    provider: "google",
+    options: {
+      redirectTo: `${getURL}/dashboard`,
+    },
+  });
+}

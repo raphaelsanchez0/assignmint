@@ -13,9 +13,12 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { signInWithEmailAndPassword } from "./authActions";
+import { signInWithEmailAndPassword, signInWithOAuth } from "./authActions";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
+import { createSupabaseFrontendClient } from "@/utils/supabase/supabaseFrontendClient";
+import getURL from "@/utils/getURL";
+import OAuthForm from "./OAuthForm";
 
 const FormSchema = z.object({
   email: z.string().email(),
@@ -27,6 +30,7 @@ const FormSchema = z.object({
 export default function SignInForm() {
   const { toast } = useToast();
   const router = useRouter();
+  const supabase = createSupabaseFrontendClient();
 
   async function onSubmit(credentials: z.infer<typeof FormSchema>) {
     const { data, error } = await signInWithEmailAndPassword(credentials);
@@ -39,6 +43,22 @@ export default function SignInForm() {
       console.log(error);
     }
   }
+
+  async function signInWithGoogle() {
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: `${getURL}/auth/callback`,
+      },
+    });
+    if (error) {
+      console.log(error);
+    }
+    if (data) {
+      console.log(data);
+    }
+  }
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -95,6 +115,7 @@ export default function SignInForm() {
           </Button>
         </form>
       </Form>
+      <OAuthForm />
     </div>
   );
 }
