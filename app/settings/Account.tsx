@@ -17,9 +17,9 @@ export default function Account() {
 
   const logoutRoute = "/auth/signout";
 
-  const firstName = data?.data.user?.user_metadata.first_name;
-  const lastName = data?.data.user?.user_metadata.last_name;
+  const fullName = data?.data.user?.user_metadata.full_name;
   const email = data?.data.user?.email;
+  console.log(data);
 
   if (isLoading)
     return (
@@ -39,7 +39,7 @@ export default function Account() {
           <Image src={defaultImage} alt="Profle image" width={120} />
         </div>
         <div className="flex flex-col justify-center items-center gap-1">
-          <h3 className="text-xl font-semibold">{`${firstName} ${lastName}`}</h3>
+          <h3 className="text-xl font-semibold">{fullName}</h3>
           <h3 className="text-sm">{email}</h3>
         </div>
       </div>

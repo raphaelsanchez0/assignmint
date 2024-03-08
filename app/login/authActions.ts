@@ -32,6 +32,7 @@ export async function signUpWithEmailAndPassword(credentials: {
       data: {
         first_name: credentials.firstName,
         last_name: credentials.lastName,
+        full_name: `${credentials.firstName} ${credentials.lastName}`,
       },
     },
   });
