@@ -16,7 +16,7 @@ export default function OAuthForm() {
   };
 
   return (
-    <Button className="w-full" onClick={loginWithGoogle}>
+    <Button className="w-full btn" onClick={loginWithGoogle}>
       Login with Google
     </Button>
   );

@@ -40,22 +40,6 @@ export default function SignInForm() {
       toast({
         title: error.message,
       });
-      console.log(error);
-    }
-  }
-
-  async function signInWithGoogle() {
-    const { data, error } = await supabase.auth.signInWithOAuth({
-      provider: "google",
-      options: {
-        redirectTo: `${getURL}/auth/callback`,
-      },
-    });
-    if (error) {
-      console.log(error);
-    }
-    if (data) {
-      console.log(data);
     }
   }
 
