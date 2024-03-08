@@ -49,7 +49,10 @@ export default function SignInForm() {
   return (
     <div>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-2">
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="grid gap-4 py-2"
+        >
           <FormField
             control={form.control}
             name="email"
