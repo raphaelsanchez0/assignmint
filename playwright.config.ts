@@ -33,13 +33,23 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
-    { name: "setup", testMatch: /.*\.setup\.ts/ },
     {
-      name: "chromium",
+      name: "setup-auth",
+      testMatch: /global\.setup\.ts/,
+    },
+    {
+      name: "chromium-auth",
       use: {
         ...devices["Desktop Chrome"],
       },
-      dependencies: ["setup"],
+      dependencies: ["setup-auth"],
+    },
+    {
+      name: "firefox-auth",
+      use: {
+        ...devices["Desktop Firefox"],
+      },
+      dependencies: ["setup-auth"],
     },
 
     {
