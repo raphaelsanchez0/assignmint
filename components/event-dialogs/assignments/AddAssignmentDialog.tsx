@@ -43,6 +43,7 @@ import { createAssignment } from "@/server/actions";
 import { Textarea } from "@/components/ui/textarea";
 import { assignmentFormSchema as formSchema } from "@/lib/schemas";
 import useAssignmentForm from "@/app/_hooks/useAssignmentForm";
+import { CourseSelect } from "@/components/forms/form-fields/course-select";
 
 export default function AddAssignmentDialog() {
   const [open, setOpen] = useState(false);
@@ -62,29 +63,7 @@ export default function AddAssignmentDialog() {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <div className="grid grid-cols-2 grid-rows-2 items-center gap-4">
-              <FormField
-                control={form.control}
-                name="course"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Course</FormLabel>
-                    <Select onValueChange={field.onChange} value={field.value}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder {...field}></SelectValue>
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {courses?.map((course) => (
-                          <SelectItem key={course.id} value={course.id}>
-                            {course.title}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </FormItem>
-                )}
-              />
+              <CourseSelect form={form} courses={courses} />
               <FormField
                 control={form.control}
                 name="title"
