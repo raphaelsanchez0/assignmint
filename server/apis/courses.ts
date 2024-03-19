@@ -54,3 +54,7 @@ export async function deleteCourse(courseID: string) {
     throw error;
   }
 }
+
+export async function deleteAllCourses() {
+  const { error } = await supabase.from("courses").delete().gt("id", 0);
+}

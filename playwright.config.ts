@@ -36,11 +36,17 @@ export default defineConfig({
     {
       name: "setup-auth",
       testMatch: /global\.setup\.ts/,
+      teardown: "teardown",
+    },
+    {
+      name: "teardown",
+      testMatch: /global\.teardown\.ts/,
     },
     {
       name: "chromium-auth",
       use: {
         ...devices["Desktop Chrome"],
+        storageState: "playwright/.auth/user.json",
       },
       dependencies: ["setup-auth"],
     },
@@ -48,6 +54,7 @@ export default defineConfig({
       name: "firefox-auth",
       use: {
         ...devices["Desktop Firefox"],
+        storageState: "playwright/.auth/user.json",
       },
       dependencies: ["setup-auth"],
     },
