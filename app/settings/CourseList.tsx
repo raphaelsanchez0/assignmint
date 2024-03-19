@@ -7,6 +7,7 @@ import { Card } from "@/components/ui/card";
 
 export default function CourseList() {
   const [courses, setCourses] = useState<Course[]>([]);
+
   useEffect(() => {
     const fetchCourses = async () => {
       const coursesFromServer = await getCourses();

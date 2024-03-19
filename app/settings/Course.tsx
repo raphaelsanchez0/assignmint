@@ -11,6 +11,7 @@ import { Sketch } from "@uiw/react-color";
 import Link from "next/link";
 import { createOrUpdateCourse, deleteCourse } from "../../server/apis/courses";
 import { twJoin } from "tailwind-merge";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface CourseProps {
   id: string;
@@ -31,6 +32,8 @@ const Course: React.FC<CourseProps> = ({
   const [colorPickerValue, setColorPickerValue] = useState(color);
   const colorPickerRef = useRef(null);
 
+  const queryClient = useQueryClient();
+
   //Color Picker Functions
   const handleColorClick = () => {
     setIsColorPickerOpen(true);
@@ -43,6 +46,7 @@ const Course: React.FC<CourseProps> = ({
   useOnClickOutside([colorPickerRef], () => {
     setIsColorPickerOpen(false);
     createOrUpdateCourse(id, courseName, colorPickerValue);
+    queryClient.invalidateQueries({ queryKey: ["courses"] });
   });
 
   //Course name change functions
@@ -55,6 +59,7 @@ const Course: React.FC<CourseProps> = ({
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCourseName(event.target.value);
+    queryClient.invalidateQueries({ queryKey: ["courses"] });
   };
 
   const handleNameSubmit = () => {
@@ -62,6 +67,7 @@ const Course: React.FC<CourseProps> = ({
       setIsEditing(false);
       createOrUpdateCourse(id, courseName, colorPickerValue);
     }
+    queryClient.invalidateQueries({ queryKey: ["courses"] });
   };
 
   const handleBlur = () => {
@@ -74,6 +80,7 @@ const Course: React.FC<CourseProps> = ({
     event.preventDefault();
     setCourses((courses) => courses.filter((course) => course.id !== id));
     await deleteCourse(id);
+    queryClient.invalidateQueries({ queryKey: ["courses"] });
   };
 
   const editStyle = {
