@@ -42,19 +42,21 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createAssignment } from "@/server/actions";
 import { Textarea } from "@/components/ui/textarea";
 import { assignmentFormSchema as formSchema } from "@/lib/schemas";
-import useAssignmentForm from "@/app/_hooks/useAssignmentForm";
+import useAddAssignmentForm from "@/app/_hooks/useAddAssignmentForm";
 
 export default function AddAssignmentDialog() {
   const [open, setOpen] = useState(false);
 
-  const { form, courses, onSubmit } = useAssignmentForm(() => setOpen(false));
+  const { form, courses, onSubmit } = useAddAssignmentForm(() =>
+    setOpen(false),
+  );
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <button className="btn">Add</button>
       </DialogTrigger>
-      <DialogContent className="w-1/2">
+      <DialogContent className="lg:max-w-[800px]">
         <DialogHeader>
           <DialogTitle>Add Assignment</DialogTitle>
         </DialogHeader>

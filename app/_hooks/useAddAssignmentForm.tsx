@@ -6,7 +6,7 @@ import { getCourses, createAssignment } from "@/server/actions";
 import { assignmentFormSchema } from "@/lib/schemas";
 import { assignmentFormSchema as formSchema } from "@/lib/schemas";
 
-export default function useAssignmentForm(onSuccessCallback?: () => void) {
+export default function useAddAssignmentForm(onSuccessCallback?: () => void) {
   const queryClient = useQueryClient();
 
   const form = useForm<z.infer<typeof formSchema>>({

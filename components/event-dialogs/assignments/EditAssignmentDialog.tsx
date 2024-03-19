@@ -86,7 +86,7 @@ const EditAssignmentDialog: React.FC<EditAssignmentDialogProps> = ({
     updateAssignmentMutation.mutate({ input, id: assignment.id });
   }
   return (
-    <DialogContent className="w-1/2">
+    <DialogContent className="lg:max-w-[800px]">
       <DialogHeader>
         <DialogTitle>Edit Assignment</DialogTitle>
       </DialogHeader>
