@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 
 import { Card } from "@/components/ui/card";
 import useAddAssignmentForm from "@/app/_hooks/useAddAssignmentForm";
@@ -31,9 +31,22 @@ import { format } from "date-fns";
 import { Calendar } from "@/components/ui/calendar";
 import { Button } from "@/components/ui/button";
 import { CalendarIcon } from "lucide-react";
+import { getCourses } from "@/server/actions";
 
 export default function AddAssignment() {
-  const { form, courses, onSubmit } = useAddAssignmentForm();
+  const { form, courses, onSubmit, error } = useAddAssignmentForm();
+  if (error) {
+    console.log(error);
+  }
+
+  useEffect(() => {
+    async function gC() {
+      const courses = await getCourses();
+      console.log(courses);
+    }
+    gC();
+  }, []);
+
   return (
     <Card>
       <h3 className="card-title my-4">Add Assignment</h3>
