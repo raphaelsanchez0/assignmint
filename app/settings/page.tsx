@@ -1,6 +1,5 @@
 import CourseList from "./CourseList";
 import Account from "./Account";
-import AddCourseDialog from "./DeleteCourseDialog";
 
 export default function Settings() {
   return (
@@ -15,7 +14,6 @@ export default function Settings() {
         <div></div>
       </div>
       {/* Dialog */}
-      <AddCourseDialog />
     </div>
   );
 }

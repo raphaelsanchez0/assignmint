@@ -33,13 +33,30 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
-    { name: "setup", testMatch: /.*\.setup\.ts/ },
     {
-      name: "chromium",
+      name: "setup-auth",
+      testMatch: /global\.setup\.ts/,
+      teardown: "teardown",
+    },
+    {
+      name: "teardown",
+      testMatch: /global\.teardown\.ts/,
+    },
+    {
+      name: "chromium-auth",
       use: {
         ...devices["Desktop Chrome"],
+        storageState: "playwright/.auth/user.json",
       },
-      dependencies: ["setup"],
+      dependencies: ["setup-auth"],
+    },
+    {
+      name: "firefox-auth",
+      use: {
+        ...devices["Desktop Firefox"],
+        storageState: "playwright/.auth/user.json",
+      },
+      dependencies: ["setup-auth"],
     },
 
     {
