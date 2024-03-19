@@ -39,6 +39,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { updateAssignment } from "@/server/actions";
+import { useEditAssignmentForm } from "@/app/_hooks/useEditAssignmentForm";
 
 interface EditAssignmentDialogProps {
   assignment: Assignment;
@@ -51,40 +52,11 @@ const EditAssignmentDialog: React.FC<EditAssignmentDialogProps> = ({
   setOpen,
   handleDialogOpenChangeFn,
 }) => {
-  const queryClient = useQueryClient();
-  const updateAssignmentMutation = useMutation({
-    mutationFn: updateAssignment,
-
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["assignments"] });
-      setOpen(false);
-      form.reset();
-      handleDialogOpenChangeFn(false);
-    },
-  });
-  const {
-    data: courses,
-    error: coursesError,
-    isLoading: coursesIsLoading,
-  } = useQuery<Course[]>({
-    queryKey: ["courses"],
-    queryFn: getCourses,
+  const { form, courses, onSubmit } = useEditAssignmentForm(assignment, () => {
+    setOpen(false);
+    handleDialogOpenChangeFn(false);
   });
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      course: assignment.course.id,
-      title: assignment.title,
-      dueDate: new Date(assignment.dueDate),
-      priority: assignment.priority,
-      notes: assignment.notes,
-    },
-  });
-
-  function onSubmit(input: z.infer<typeof formSchema>) {
-    updateAssignmentMutation.mutate({ input, id: assignment.id });
-  }
   return (
     <DialogContent className="lg:max-w-[800px]">
       <DialogHeader>
