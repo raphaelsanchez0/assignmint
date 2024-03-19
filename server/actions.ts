@@ -104,7 +104,7 @@ export async function updateExam(variables: { input: any; id: string }) {
   }
 }
 
-export async function getCourses() {
+export async function getCourses(): Promise<Course[]> {
   const { data: courseList, error } = await supabase
     .from("courses")
     .select("id, title, color");

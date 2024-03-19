@@ -34,18 +34,7 @@ import { CalendarIcon } from "lucide-react";
 import { getCourses } from "@/server/actions";
 
 export default function AddAssignment() {
-  const { form, courses, onSubmit, error } = useAddAssignmentForm();
-  if (error) {
-    console.log(error);
-  }
-
-  useEffect(() => {
-    async function gC() {
-      const courses = await getCourses();
-      console.log(courses);
-    }
-    gC();
-  }, []);
+  const { form, courses, onSubmit } = useAddAssignmentForm();
 
   return (
     <Card>

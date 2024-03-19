@@ -5,6 +5,7 @@ import { z } from "zod";
 import { getCourses, createAssignment } from "@/server/actions";
 import { assignmentFormSchema } from "@/lib/schemas";
 import { assignmentFormSchema as formSchema } from "@/lib/schemas";
+import { useEffect, useState } from "react";
 
 export default function useAddAssignmentForm(onSuccessCallback?: () => void) {
   const queryClient = useQueryClient();
@@ -29,14 +30,14 @@ export default function useAddAssignmentForm(onSuccessCallback?: () => void) {
     },
   });
 
-  const {
-    data: courses,
-    error,
-    isLoading,
-  } = useQuery<Course[]>({
-    queryKey: ["courses"],
-    queryFn: getCourses,
-  });
+  const [courses, setCourses] = useState<Course[]>([]);
+
+  useEffect(() => {
+    getCourses().then((courseData) => {
+      setCourses(courseData);
+    });
+    console.log("useEffect");
+  }, []);
 
   function onSubmit(input: z.infer<typeof formSchema>) {
     createAssignmentMutation.mutate(input);
@@ -45,8 +46,6 @@ export default function useAddAssignmentForm(onSuccessCallback?: () => void) {
   return {
     form,
     courses,
-    error,
-    isLoading,
     onSubmit,
     createAssignmentMutation,
   };
