@@ -15,31 +15,6 @@ import PriorityInput from "@/components/formInputs/PriorityInput";
 import { Card } from "@/components/ui/card";
 
 export default function AddAssignment() {
-  //Sends formdata to createAssignment server action
-  const [formState, formAction] = useFormState(createAssignment, null);
-  const formRef = React.useRef<HTMLFormElement>(null);
-
-  const { data, error, isFetched } = useQuery({
-    queryKey: ["courses"],
-    queryFn: getCourses,
-  });
-
-  const formattedCourses = data?.map((course) => ({
-    label: course.title,
-    value: course.id,
-  }));
-
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-
-    // waits for form to be submitted before clearing
-    if (formRef.current) {
-      const formData = new FormData(formRef.current);
-      formAction(formData);
-      formRef.current.reset();
-    }
-  };
-
   return (
     <Card>
       <h3 className="card-title my-4">Add Assignment</h3>

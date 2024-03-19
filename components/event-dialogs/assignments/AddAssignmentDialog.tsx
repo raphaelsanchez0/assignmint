@@ -42,41 +42,12 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createAssignment } from "@/server/actions";
 import { Textarea } from "@/components/ui/textarea";
 import { assignmentFormSchema as formSchema } from "@/lib/schemas";
+import useAssignmentForm from "@/app/_hooks/useAssignmentForm";
 
 export default function AddAssignmentDialog() {
   const [open, setOpen] = useState(false);
-  const queryClient = useQueryClient();
-  const createAssignmentMutation = useMutation({
-    mutationFn: createAssignment,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["assignments"] });
-      setOpen(false);
-      form.reset();
-    },
-  });
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      course: "",
-      title: "",
-      dueDate: new Date(),
-      priority: false,
-      notes: "",
-    },
-  });
 
-  function onSubmit(input: z.infer<typeof formSchema>) {
-    createAssignmentMutation.mutate(input);
-  }
-
-  const {
-    data: courses,
-    error,
-    isLoading,
-  } = useQuery<Course[]>({
-    queryKey: ["courses"],
-    queryFn: getCourses,
-  });
+  const { form, courses, onSubmit } = useAssignmentForm(() => setOpen(false));
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
