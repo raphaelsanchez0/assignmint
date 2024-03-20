@@ -38,10 +38,7 @@ import { CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { Checkbox } from "@/components/ui/checkbox";
 import { getCourses } from "@/server/apis/courses";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { createAssignment } from "@/server/actions";
 import { Textarea } from "@/components/ui/textarea";
-import { assignmentFormSchema as formSchema } from "@/lib/schemas";
 import useAddAssignmentForm from "@/app/_hooks/forms/useAddAssignmentForm";
 
 export default function AddAssignmentDialog() {
@@ -56,7 +53,7 @@ export default function AddAssignmentDialog() {
       <DialogTrigger asChild>
         <button className="btn">Add</button>
       </DialogTrigger>
-      <DialogContent className="lg:max-w-[800px]">
+      <DialogContent>
         <DialogHeader>
           <DialogTitle>Add Assignment</DialogTitle>
         </DialogHeader>

@@ -58,7 +58,7 @@ const EditAssignmentDialog: React.FC<EditAssignmentDialogProps> = ({
   });
 
   return (
-    <DialogContent className="lg:max-w-[800px]">
+    <DialogContent>
       <DialogHeader>
         <DialogTitle>Edit Assignment</DialogTitle>
       </DialogHeader>
