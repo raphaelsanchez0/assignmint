@@ -8,10 +8,6 @@ import {
   dehydrate,
 } from "@tanstack/react-query";
 import { getEventsOnDate } from "@/server/apis/api";
-import ViewAssignmentDialog from "@/components/dialogs/viewEvent/ViewAssignmentDialog";
-import EditAssignmentDialog from "@/components/dialogs/EditEvent/EditAssignmentDialog";
-import ViewExamDialog from "@/components/dialogs/viewEvent/ViewExamDialog";
-import EditExamDialog from "@/components/dialogs/EditEvent/EditExamDialog";
 import { Card } from "@/components/ui/card";
 
 export default async function CalendarPage() {
@@ -43,12 +39,6 @@ export default async function CalendarPage() {
           </div>
         </div>
       </div>
-
-      <ViewAssignmentDialog />
-      <EditAssignmentDialog />
-
-      <ViewExamDialog />
-      <EditExamDialog />
     </>
   );
 }
