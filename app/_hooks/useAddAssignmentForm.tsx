@@ -36,7 +36,6 @@ export default function useAddAssignmentForm(onSuccessCallback?: () => void) {
     getCourses().then((courseData) => {
       setCourses(courseData);
     });
-    console.log("useEffect");
   }, []);
 
   function onSubmit(input: z.infer<typeof formSchema>) {

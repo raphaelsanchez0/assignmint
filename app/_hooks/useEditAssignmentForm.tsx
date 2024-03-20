@@ -2,6 +2,7 @@ import { assignmentFormSchema } from "@/lib/schemas";
 import { getCourses, updateAssignment } from "@/server/actions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -32,14 +33,13 @@ export function useEditAssignmentForm(
     },
   });
 
-  const {
-    data: courses,
-    error,
-    isLoading,
-  } = useQuery({
-    queryKey: ["courses"],
-    queryFn: getCourses,
-  });
+  const [courses, setCourses] = useState<Course[]>([]);
+
+  useEffect(() => {
+    getCourses().then((courseData) => {
+      setCourses(courseData);
+    });
+  }, []);
 
   function onSubmit(input: z.infer<typeof assignmentFormSchema>) {
     updateAssignmentMutation.mutate({ input, id: assignment.id });
@@ -48,8 +48,6 @@ export function useEditAssignmentForm(
   return {
     form,
     courses,
-    error,
-    isLoading,
     onSubmit,
     updateAssignmentMutation,
   };
