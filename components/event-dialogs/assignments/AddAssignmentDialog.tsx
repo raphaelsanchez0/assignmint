@@ -42,7 +42,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createAssignment } from "@/server/actions";
 import { Textarea } from "@/components/ui/textarea";
 import { assignmentFormSchema as formSchema } from "@/lib/schemas";
-import useAddAssignmentForm from "@/app/_hooks/useAddAssignmentForm";
+import useAddAssignmentForm from "@/app/_hooks/forms/useAddAssignmentForm";
 
 export default function AddAssignmentDialog() {
   const [open, setOpen] = useState(false);

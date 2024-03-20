@@ -43,7 +43,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Textarea } from "@/components/ui/textarea";
 import { examFormSchema as formSchema } from "@/lib/schemas";
 import { createExam } from "@/server/actions";
-import useAddExamForm from "@/app/_hooks/useAddExamForm";
+import useAddExamForm from "@/app/_hooks/forms/useAddExamForm";
 
 export default function AddExamDialog() {
   const [open, setOpen] = useState(false);

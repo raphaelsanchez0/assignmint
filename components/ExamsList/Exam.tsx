@@ -35,6 +35,7 @@ const Exam: React.FC<ExamProps> = ({ exam }) => {
 
   function handleDeleteExam() {
     deleteExamMutation.mutate(exam.id as unknown as number);
+    console.log("delete exam");
   }
 
   function handleDialogOpenChange(open: boolean) {

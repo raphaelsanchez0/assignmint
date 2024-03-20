@@ -3,7 +3,7 @@
 import React, { useEffect } from "react";
 
 import { Card } from "@/components/ui/card";
-import useAddAssignmentForm from "@/app/_hooks/useAddAssignmentForm";
+import useAddAssignmentForm from "@/app/_hooks/forms/useAddAssignmentForm";
 import {
   Form,
   FormField,
