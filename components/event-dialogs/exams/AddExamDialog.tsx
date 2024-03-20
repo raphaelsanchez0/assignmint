@@ -43,39 +43,12 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Textarea } from "@/components/ui/textarea";
 import { examFormSchema as formSchema } from "@/lib/schemas";
 import { createExam } from "@/server/actions";
+import useAddExamForm from "@/app/_hooks/useAddExamForm";
 
 export default function AddExamDialog() {
   const [open, setOpen] = useState(false);
-  const queryClient = useQueryClient();
-  const createExamMutation = useMutation({
-    mutationFn: createExam,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["exams"] });
-      setOpen(false);
-      form.reset();
-    },
-  });
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      course: "",
-      title: "",
-      examDate: new Date(),
-      notes: "",
-    },
-  });
-
-  function onSubmit(input: z.infer<typeof formSchema>) {
-    createExamMutation.mutate(input);
-  }
-
-  const {
-    data: courses,
-    error,
-    isLoading,
-  } = useQuery<Course[]>({
-    queryKey: ["courses"],
-    queryFn: getCourses,
+  const { form, courses, onSubmit } = useAddExamForm(() => {
+    setOpen(false);
   });
 
   return (
