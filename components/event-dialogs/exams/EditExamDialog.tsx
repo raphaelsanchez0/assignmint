@@ -39,6 +39,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { updateExam } from "@/server/actions";
+import { useEditExamForm } from "@/app/_hooks/forms/useEditExamForm";
 
 interface EditExamDialogProps {
   exam: Exam;
@@ -51,41 +52,14 @@ const EditExamDialog: React.FC<EditExamDialogProps> = ({
   setOpen,
   handleDialogOpenChangeFn,
 }) => {
-  const queryClient = useQueryClient();
-
-  const {
-    data: courses,
-    error,
-    isLoading,
-  } = useQuery<Course[]>({
-    queryKey: ["courses"],
-    queryFn: getCourses,
-  });
-
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      course: exam.course.id,
-      title: exam.title,
-      examDate: new Date(exam.examDate),
-      notes: exam.notes,
-    },
-  });
-
-  const updateExamMutation = useMutation({
-    mutationFn: updateExam,
-
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["exams"] });
+  const { form, courses, onSubmit, updateExamMutation } = useEditExamForm(
+    exam,
+    () => {
       setOpen(false);
-      form.reset();
       handleDialogOpenChangeFn(false);
     },
-  });
+  );
 
-  function onSubmit(input: z.infer<typeof formSchema>) {
-    updateExamMutation.mutate({ input, id: exam.id });
-  }
   return (
     <DialogContent className="w-1/2">
       <DialogHeader>
