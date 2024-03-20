@@ -15,6 +15,7 @@ import EditAssignmentDialog from "../event-dialogs/assignments/EditAssignmentDia
 import { format } from "date-fns";
 import { utcToZonedTime } from "date-fns-tz";
 import { useState } from "react";
+import ViewAssignmentDialog from "../event-dialogs/assignments/ViewAssignmentDialog";
 
 interface AssignmentProps {
   assignment: Assignment;
@@ -90,6 +91,7 @@ const Assignment: React.FC<AssignmentProps> = ({ assignment }) => {
             <button onClick={handleDeleteAssignment}>Complete</button>
           </ContextMenuItem>
 
+          {/* Edit Button */}
           <Dialog open={openEditDialog} onOpenChange={handleDialogOpenChange}>
             <DialogTrigger asChild>
               <ContextMenuItem onSelect={(e) => e.preventDefault()}>
@@ -102,7 +104,19 @@ const Assignment: React.FC<AssignmentProps> = ({ assignment }) => {
               handleDialogOpenChangeFn={handleDialogOpenChange}
             />
           </Dialog>
-          <ContextMenuItem>View</ContextMenuItem>
+          {/* View Button */}
+          <Dialog>
+            <DialogTrigger asChild>
+              <ContextMenuItem onSelect={(e) => e.preventDefault()}>
+                View
+              </ContextMenuItem>
+            </DialogTrigger>
+            <ViewAssignmentDialog
+              assignment={assignment}
+              setOpen={setOpenEditDialog}
+              handleDialogOpenChangeFn={handleDialogOpenChange}
+            />
+          </Dialog>
         </ContextMenuContent>
       </ContextMenu>
     </>
