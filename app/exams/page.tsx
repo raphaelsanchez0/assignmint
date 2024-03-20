@@ -6,8 +6,6 @@ import {
   dehydrate,
 } from "@tanstack/react-query";
 import ExamsCard from "@/components/ExamsList/ExamsCard";
-import ViewExamDialog from "@/components/dialogs/viewEvent/ViewExamDialog";
-import EditExamDialog from "@/components/dialogs/EditEvent/EditExamDialog";
 
 export default async function Exams() {
   const queryClient = new QueryClient();
@@ -31,8 +29,6 @@ export default async function Exams() {
           </div>
         </div>
       </div>
-      <ViewExamDialog />
-      <EditExamDialog />
     </>
   );
 }
