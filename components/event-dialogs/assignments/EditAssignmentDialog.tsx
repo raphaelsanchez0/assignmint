@@ -131,7 +131,6 @@ const EditAssignmentDialog: React.FC<EditAssignmentDialogProps> = ({
                         mode="single"
                         selected={field.value}
                         onSelect={field.onChange}
-                        initialFocus
                       />
                     </PopoverContent>
                   </Popover>
