@@ -4,7 +4,6 @@ import { useRouter, useSearchParams } from "next/navigation";
 import React from "react";
 import { Calendar } from "@/components/ui/card-calendar";
 
-import "./calendar.scss";
 import { Card } from "@/components/ui/card";
 import { SelectSingleEventHandler } from "react-day-picker";
 export default function CalenderCard() {

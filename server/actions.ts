@@ -107,7 +107,8 @@ export async function updateExam(variables: { input: any; id: string }) {
 export async function getCourses(): Promise<Course[]> {
   const { data: courseList, error } = await supabase
     .from("courses")
-    .select("id, title, color");
+    .select("id, title, color")
+    .order("id");
 
   if (error) {
     console.error("Error getting courses: ", error);
