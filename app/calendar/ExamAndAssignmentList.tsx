@@ -33,14 +33,22 @@ export default function ExamAndAssignmentList() {
       <div className="flex items-center justify-between">
         <h3 className="card-title mb-2">{formatedDate}</h3>
       </div>
-      <h4 className="font-semibold my-1 text-xl">Exams</h4>
-      <ol>{exams?.map((exam) => <Exam key={exam.id} exam={exam} />)}</ol>
-      <h4 className="font-semibold my-1 text-xl">Assignments</h4>
-      <ol>
-        {assignments?.map((assignment) => (
-          <Assignment key={assignment.id} assignment={assignment} />
-        ))}
-      </ol>
+      {exams && exams.length > 0 && (
+        <>
+          <h4 className="font-semibold my-1 text-xl">Exams</h4>
+          <ol>{exams?.map((exam) => <Exam key={exam.id} exam={exam} />)}</ol>
+        </>
+      )}
+      {assignments && assignments.length > 0 && (
+        <>
+          <h4 className="font-semibold my-1 text-xl">Assignments</h4>
+          <ol>
+            {assignments?.map((assignment) => (
+              <Assignment key={assignment.id} assignment={assignment} />
+            ))}
+          </ol>
+        </>
+      )}
     </Card>
   );
 }
