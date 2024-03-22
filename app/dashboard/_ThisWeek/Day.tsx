@@ -24,7 +24,7 @@ const Day: React.FC<DayProps> = ({ date }) => {
     error: examsThisWeekError,
     isLoading: ExamsIsLoading,
   } = useQuery<Exam[]>({
-    queryKey: [dayString, "thisWeek", "exams"],
+    queryKey: ["exams", "thisWeek", dayString],
     queryFn: () => getEventsOnDate("exams", date),
   });
 
@@ -33,7 +33,7 @@ const Day: React.FC<DayProps> = ({ date }) => {
     error: assignmentsThisWeekError,
     isLoading: assignmentsIsLoading,
   } = useQuery({
-    queryKey: [dayString, "thisWeek", "assignments"],
+    queryKey: ["assignments", "thisWeek", dayString],
     queryFn: () => getEventsOnDate("assignments", date),
   });
 

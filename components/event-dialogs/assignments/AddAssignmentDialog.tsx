@@ -126,7 +126,6 @@ export default function AddAssignmentDialog() {
                           mode="single"
                           selected={field.value}
                           onSelect={field.onChange}
-                          initialFocus
                         />
                       </PopoverContent>
                     </Popover>
