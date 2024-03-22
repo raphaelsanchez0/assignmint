@@ -14,7 +14,7 @@ import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
 import EditAssignmentDialog from "../event-dialogs/assignments/EditAssignmentDialog";
 import { format } from "date-fns";
 import { utcToZonedTime } from "date-fns-tz";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ViewAssignmentDialog from "../event-dialogs/assignments/ViewAssignmentDialog";
 
 interface AssignmentProps {
@@ -32,6 +32,7 @@ interface AssignmentProps {
  */
 const Assignment: React.FC<AssignmentProps> = ({ assignment }) => {
   const [openEditDialog, setOpenEditDialog] = useState(false);
+  const [openViewDialog, setOpenViewDialog] = useState(false);
   const [menuKey, setMenuKey] = useState(0);
   const path = usePathname();
   const queryClient = useQueryClient();
@@ -47,12 +48,36 @@ const Assignment: React.FC<AssignmentProps> = ({ assignment }) => {
     deleteAssignmentMutation.mutate(assignment.id as unknown as number);
   }
 
-  function handleDialogOpenChange(open: boolean) {
+  function handleEditDialogOpenChange(open: boolean, swapTo?: string) {
     setOpenEditDialog(open);
-
+    if (swapTo === "view") {
+      setOpenViewDialog(true);
+    }
     if (open == false) {
       setMenuKey((prev) => prev + 1);
     }
+  }
+
+  function handleViewDialogOpenChange(open: boolean, swapTo?: string) {
+    setOpenViewDialog(open);
+    if (swapTo === "edit") {
+      setOpenEditDialog(true);
+    }
+    if (open == false) {
+      setMenuKey((prev) => prev + 1);
+    }
+  }
+
+  function swapDialog(to: "edit" | "view") {
+    console.log("swapping to edit");
+    setOpenViewDialog(false);
+    if (to === "edit") {
+      console.log("swapping to edit");
+      setOpenEditDialog(true);
+    } else {
+      setOpenEditDialog(true);
+    }
+    //setMenuKey((prev) => prev + 1);
   }
 
   return (
@@ -92,7 +117,10 @@ const Assignment: React.FC<AssignmentProps> = ({ assignment }) => {
           </ContextMenuItem>
 
           {/* Edit Button */}
-          <Dialog open={openEditDialog} onOpenChange={handleDialogOpenChange}>
+          <Dialog
+            open={openEditDialog}
+            onOpenChange={handleEditDialogOpenChange}
+          >
             <DialogTrigger asChild>
               <ContextMenuItem onSelect={(e) => e.preventDefault()}>
                 Edit
@@ -101,11 +129,14 @@ const Assignment: React.FC<AssignmentProps> = ({ assignment }) => {
             <EditAssignmentDialog
               assignment={assignment}
               setOpen={setOpenEditDialog}
-              handleDialogOpenChangeFn={handleDialogOpenChange}
+              handleDialogOpenChangeFn={handleEditDialogOpenChange}
             />
           </Dialog>
           {/* View Button */}
-          <Dialog>
+          <Dialog
+            open={openViewDialog}
+            onOpenChange={handleViewDialogOpenChange}
+          >
             <DialogTrigger asChild>
               <ContextMenuItem onSelect={(e) => e.preventDefault()}>
                 View
@@ -113,8 +144,8 @@ const Assignment: React.FC<AssignmentProps> = ({ assignment }) => {
             </DialogTrigger>
             <ViewAssignmentDialog
               assignment={assignment}
-              setOpen={setOpenEditDialog}
-              handleDialogOpenChangeFn={handleDialogOpenChange}
+              setOpen={setOpenViewDialog}
+              swapDialogFn={() => swapDialog("edit")}
             />
           </Dialog>
         </ContextMenuContent>
