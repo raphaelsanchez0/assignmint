@@ -1,5 +1,6 @@
 import CourseList from "./CourseList";
 import Account from "./Account";
+import CanvasImports from "./CanvasImports";
 
 export default function Settings() {
   return (
@@ -11,9 +12,10 @@ export default function Settings() {
         <div className="basis-1/4">
           <CourseList />
         </div>
-        <div></div>
+        <div className="basis-1/4">
+          <CanvasImports />
+        </div>
       </div>
-      {/* Dialog */}
     </div>
   );
 }
