@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import Exam from "../../components/ExamsList/Exam";
 import Assignment from "../../components/AssignmentsList/Assignment";
 import { Card } from "@/components/ui/card";
+import LoadingItem from "@/components/Loading/LoadingItem";
 
 export default function ExamAndAssignmentList() {
   const searchParams = useSearchParams();
@@ -16,17 +17,33 @@ export default function ExamAndAssignmentList() {
     : new Date();
   let formatedDate = formatDate(selectedDate);
 
-  const { data: exams, error: examsTodayError } = useQuery<Exam[]>({
+  const {
+    data: exams,
+    error: examsTodayError,
+    isLoading: examsLoading,
+  } = useQuery<Exam[]>({
     queryKey: ["examsToday", formatedDate],
     queryFn: () => getEventsOnDate("exams", selectedDate),
   });
 
-  const { data: assignments, error: assignmentsTodayError } = useQuery<
-    Assignment[]
-  >({
+  const {
+    data: assignments,
+    error: assignmentsTodayError,
+    isLoading: assignmentsLoading,
+  } = useQuery<Assignment[]>({
     queryKey: ["assignmentsToday", formatedDate],
     queryFn: () => getEventsOnDate("assignments", selectedDate),
   });
+
+  if (examsLoading || assignmentsLoading)
+    return (
+      <Card>
+        <div className="flex items-center justify-between">
+          <h3 className="card-title mb-2">{formatedDate}</h3>
+        </div>
+        <LoadingItem />
+      </Card>
+    );
 
   return (
     <Card>
