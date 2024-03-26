@@ -26,6 +26,7 @@
     "@tanstack/react-query-devtools": "^5.17.9",
     "@testing-library/jest-dom": "^6.4.2",
     "@uiw/react-color": "^2.0.5",
+    "axios": "^1.6.8",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "cookies-next": "^4.1.1",
