@@ -14,3 +14,7 @@ export const examFormSchema = z.object({
   examDate: z.date(),
   notes: z.string().max(500).optional(),
 });
+
+export const canvasAPIFormSchema = z.object({
+  canvasAPIKey: z.string().max(100),
+});

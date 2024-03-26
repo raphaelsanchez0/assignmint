@@ -15,21 +15,20 @@ import { z } from "zod";
 import { Info } from "lucide-react";
 import InfoDialog from "@/components/info-dialogs/info-dialog";
 import HowToGetAPIKey from "./info/HowToGetAPIKey";
+import { canvasAPIFormSchema } from "@/lib/schemas";
+import { setCanvasKey } from "@/server/actions";
 
 export default function CanvasImports() {
-  const formSchema = z.object({
-    canvasAPIKey: z.string().max(100),
-  });
-
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof canvasAPIFormSchema>>({
+    resolver: zodResolver(canvasAPIFormSchema),
     defaultValues: {
       canvasAPIKey: "",
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  function onSubmit(values: z.infer<typeof canvasAPIFormSchema>) {
     console.log(values);
+    setCanvasKey(values);
   }
 
   return (
@@ -55,12 +54,13 @@ export default function CanvasImports() {
               </FormItem>
             )}
           />
+
+          <div className="flex justify-center">
+            <button type="submit" className="btn mt-4">
+              Save
+            </button>
+          </div>
         </form>
-        <div className="flex justify-center">
-          <button type="submit" className="btn mt-4">
-            Save
-          </button>
-        </div>
       </Form>
     </Card>
   );

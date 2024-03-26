@@ -6,7 +6,11 @@ import { QueryClient } from "@tanstack/react-query";
 import { createSupabaseActionClient } from "@/utils/supabase/supabaseActionClient";
 import { cookies } from "next/headers";
 import { createSupabaseServerClient } from "@/utils/supabase/supabaseServerClient";
-import { assignmentFormSchema, examFormSchema } from "@/lib/schemas";
+import {
+  assignmentFormSchema,
+  canvasAPIFormSchema,
+  examFormSchema,
+} from "@/lib/schemas";
 import { User } from "@supabase/supabase-js";
 
 const supabase = createSupabaseServerClient();
@@ -302,4 +306,25 @@ export async function getUserInfo(): Promise<User> {
     throw error;
   }
   return data.user;
+}
+
+export async function setCanvasKey(input: any) {
+  const result = canvasAPIFormSchema.safeParse(input);
+
+  if (!result.success) {
+    console.error("Validation failed", result.error);
+    return { error: result.error };
+  }
+
+  const key = result.data.canvasAPIKey;
+  const userID = (await supabase.auth.getUser()).data.user?.id;
+
+  const { error } = await supabase
+    .from("profiles")
+    .update({ canvas_key: key })
+    .eq("id", userID);
+  if (error) {
+    console.log(error);
+    throw error;
+  }
 }
