@@ -2,15 +2,13 @@
 import { canvasAPIFormSchema } from "@/lib/schemas";
 import { createSupabaseServerClient } from "@/utils/supabase/supabaseServerClient";
 import axios from "axios";
-import { string } from "zod";
+import { error } from "console";
 
 const supabase = createSupabaseServerClient();
 
 const canvasAPI = axios.create({
   baseURL: "https://canvas.instructure.com/api/v1",
 });
-
-export async function getCanvasKey() {}
 
 export async function validateCanvasKey(key: string) {
   const url = "users/self";
@@ -33,7 +31,7 @@ export async function validateCanvasKey(key: string) {
   }
 }
 
-async function setCanvasKey(key: string) {
+export async function setCanvasKey(key: string) {
   const userID = (await supabase.auth.getUser()).data.user?.id;
 
   const { error } = await supabase
@@ -46,12 +44,32 @@ async function setCanvasKey(key: string) {
   }
 }
 
+async function getCanvasKey() {
+  const { data, error } = await supabase.from("profiles").select("canvas_key");
+
+  if (data) {
+    const key = data[0].canvas_key;
+
+    if (key === null) {
+      return false;
+    } else {
+      return key;
+    }
+  }
+}
+
 export async function getCanvasCourses() {
   const url = "users/self/courses";
 
-  // try{
-  //   const response = await canvasAPI.get(url,{
-
-  //   })
-  // }
+  const key = await getCanvasKey();
+  try {
+    const response = await canvasAPI.get(url, {
+      headers: {
+        Authorization: `Bearer ${key}`,
+      },
+    });
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+  }
 }
