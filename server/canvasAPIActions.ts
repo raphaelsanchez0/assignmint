@@ -10,15 +10,30 @@ const canvasAPI = axios.create({
   baseURL: "https://canvas.instructure.com/api/v1",
 });
 
-export async function setCanvasKey(input: any) {
-  const result = canvasAPIFormSchema.safeParse(input);
+export async function getCanvasKey() {}
 
-  if (!result.success) {
-    console.error("Validation failed", result.error);
-    return { error: result.error };
+export async function validateCanvasKey(key: string) {
+  const url = "users/self";
+  try {
+    const response = await canvasAPI.get(url, {
+      headers: {
+        Authorization: `Bearer ${key}`,
+      },
+    });
+    if (response.status === 200) {
+      await setCanvasKey(key);
+      return true;
+    }
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      if (error.response?.status === 401) {
+        return { message: "Invalid API Key. Make sure the key is correct" };
+      }
+    }
   }
+}
 
-  const key = result.data.canvasAPIKey;
+async function setCanvasKey(key: string) {
   const userID = (await supabase.auth.getUser()).data.user?.id;
 
   const { error } = await supabase
@@ -31,22 +46,12 @@ export async function setCanvasKey(input: any) {
   }
 }
 
-export async function validateCanvasKey(key: string) {
-  try {
-    const response = await canvasAPI.get("users/self", {
-      headers: {
-        Authorization: `Bearer ${key}`,
-      },
-    });
-    if (response.status === 200) {
-      await setCanvasKey(string);
-      return true;
-    }
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      if (error.response?.status === 401) {
-        return { message: "Invalid API Key. Make sure the key is correct" };
-      }
-    }
-  }
+export async function getCanvasCourses() {
+  const url = "users/self/courses";
+
+  // try{
+  //   const response = await canvasAPI.get(url,{
+
+  //   })
+  // }
 }

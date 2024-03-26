@@ -16,7 +16,7 @@ import { Info } from "lucide-react";
 import InfoDialog from "@/components/info-dialogs/info-dialog";
 import HowToGetAPIKey from "./info/HowToGetAPIKey";
 import { canvasAPIFormSchema } from "@/lib/schemas";
-import { setCanvasKey, validateCanvasKey } from "@/server/canvasAPIActions";
+import { validateCanvasKey } from "@/server/canvasAPIActions";
 import { useToast } from "@/components/ui/use-toast";
 import axios from "axios";
 
@@ -43,29 +43,6 @@ export default function CanvasImports() {
         description: validKey?.message,
       });
     }
-    // try {
-    //   await validateCanvasKey(values.canvasAPIKey);
-    //   setCanvasKey(values);
-    // } catch (error) {
-    //   let errorMessage = "An error occurred";
-
-    //   if (axios.isAxiosError(error)) {
-    //     if (error.response?.status === 401) {
-    //       console.log("Invalid API key");
-    //       errorMessage =
-    //         "You have entered an invalid API key. Please check your key.";
-    //     } else {
-    //       errorMessage = error.response?.data?.message || error.message;
-    //     }
-    //   } else if (error instanceof Error) {
-    //     errorMessage = error.message;
-    //   }
-
-    //   toast({
-    //     title: "Error",
-    //     description: errorMessage,
-    //   });
-    // }
   }
 
   return (
