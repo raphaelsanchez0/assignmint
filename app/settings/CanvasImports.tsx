@@ -33,7 +33,6 @@ export default function CanvasImports() {
   async function onSubmit(values: z.infer<typeof canvasAPIFormSchema>) {
     const validKey = await validateCanvasKey(values.canvasAPIKey);
     if (validKey === true) {
-      setCanvasKey(values);
       toast({
         title: "Success",
         description: "Canvas API Key saved",
