@@ -31,29 +31,42 @@ export default function CanvasImports() {
   });
 
   async function onSubmit(values: z.infer<typeof canvasAPIFormSchema>) {
-    try {
-      await validateCanvasKey(values.canvasAPIKey);
+    const validKey = await validateCanvasKey(values.canvasAPIKey);
+    if (validKey === true) {
       setCanvasKey(values);
-    } catch (error) {
-      let errorMessage = "An error occurred";
-
-      if (axios.isAxiosError(error)) {
-        if (error.response?.status === 401) {
-          console.log("Invalid API key");
-          errorMessage =
-            "You have entered an invalid API key. Please check your key.";
-        } else {
-          errorMessage = error.response?.data?.message || error.message;
-        }
-      } else if (error instanceof Error) {
-        errorMessage = error.message;
-      }
-
+      toast({
+        title: "Success",
+        description: "Canvas API Key saved",
+      });
+    } else {
       toast({
         title: "Error",
-        description: errorMessage,
+        description: validKey?.message,
       });
     }
+    // try {
+    //   await validateCanvasKey(values.canvasAPIKey);
+    //   setCanvasKey(values);
+    // } catch (error) {
+    //   let errorMessage = "An error occurred";
+
+    //   if (axios.isAxiosError(error)) {
+    //     if (error.response?.status === 401) {
+    //       console.log("Invalid API key");
+    //       errorMessage =
+    //         "You have entered an invalid API key. Please check your key.";
+    //     } else {
+    //       errorMessage = error.response?.data?.message || error.message;
+    //     }
+    //   } else if (error instanceof Error) {
+    //     errorMessage = error.message;
+    //   }
+
+    //   toast({
+    //     title: "Error",
+    //     description: errorMessage,
+    //   });
+    // }
   }
 
   return (

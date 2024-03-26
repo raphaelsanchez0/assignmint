@@ -39,10 +39,30 @@ export async function validateCanvasKey(key: string) {
         Authorization: `Bearer ${key}`,
       },
     });
-    return response;
+    if (response.status === 200) {
+      return true;
+    }
   } catch (error) {
+    let message = "";
     if (axios.isAxiosError(error)) {
-      throw error;
+      if (error.response?.status === 401) {
+        return { message: "Invalid API Key. Make sure the key is correct" };
+      }
     }
   }
+
+  //if(response.status === 200)
+
+  // try {
+  //   const response = await canvasAPI.get("users/self", {
+  //     headers: {
+  //       Authorization: `Bearer ${key}`,
+  //     },
+  //   });
+  //   return response;
+  // } catch (error) {
+  //   if (axios.isAxiosError(error)) {
+  //     throw error;
+  //   }
+  // }
 }
