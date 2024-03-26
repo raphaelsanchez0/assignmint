@@ -16,7 +16,7 @@ import { Info } from "lucide-react";
 import InfoDialog from "@/components/info-dialogs/info-dialog";
 import HowToGetAPIKey from "./info/HowToGetAPIKey";
 import { canvasAPIFormSchema } from "@/lib/schemas";
-import { setCanvasKey } from "@/server/actions";
+import { setCanvasKey } from "@/server/canvasAPIActions";
 
 export default function CanvasImports() {
   const form = useForm<z.infer<typeof canvasAPIFormSchema>>({
