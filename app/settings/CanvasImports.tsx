@@ -17,9 +17,9 @@ import InfoDialog from "@/components/info-dialogs/info-dialog";
 import HowToGetAPIKey from "./info/HowToGetAPIKey";
 import { canvasAPIFormSchema } from "@/lib/schemas";
 import {
-  getCanvasCourses,
   getEnrollmentTerms,
   validateCanvasKey,
+  getAllCanvasCourses,
 } from "@/server/canvasAPIActions";
 import { useToast } from "@/components/ui/use-toast";
 import axios from "axios";
@@ -41,7 +41,8 @@ export default function CanvasImports() {
         title: "Success",
         description: "Canvas API Key saved",
       });
-      await getCanvasCourses();
+      const courses = await getAllCanvasCourses();
+      console.log(courses);
     } else {
       toast({
         title: "Error",
@@ -52,7 +53,7 @@ export default function CanvasImports() {
 
   return (
     <Card className="flex flex-col gap-2">
-      <h3 className="card-title ">Canvas</h3>
+      <h3 className="card-title">Canvas</h3>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <FormField

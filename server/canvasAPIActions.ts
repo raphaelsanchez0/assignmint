@@ -57,21 +57,58 @@ async function getCanvasKey() {
   }
 }
 
-export async function getCanvasCourses() {
-  const url = "users/self/courses";
+export async function getAllCanvasCourses() {
+  const courses = [];
+  let nextPageUrl: string | null = "users/self/courses?per_page=10";
 
   const key = await getCanvasKey();
-  try {
-    const response = await canvasAPI.get(url, {
-      headers: {
-        Authorization: `Bearer ${key}`,
-      },
-    });
-    console.log(response);
-    console.log(response.data[0].enrollments);
-  } catch (error) {
-    console.log(error);
+
+  while (nextPageUrl) {
+    try {
+      const response = await canvasAPI.get(nextPageUrl, {
+        headers: {
+          Authorization: `Bearer ${key}`,
+        },
+      });
+
+      courses.push(...response.data);
+
+      const linkHeader = response.headers.link;
+      const links = parseLinkHeader(linkHeader);
+
+      if (links.next) {
+        // If there's a next page, update nextPageUrl to fetch the next page in the next iteration
+        nextPageUrl = links.next;
+      } else {
+        // If there's no next page, break the loop
+        nextPageUrl = null;
+      }
+    } catch (error) {
+      console.error("Failed to fetch courses:", error);
+      break;
+    }
   }
+
+  return courses;
+}
+
+function parseLinkHeader(header: any) {
+  if (!header || header.length === 0) {
+    return {};
+  }
+
+  return header
+    .split(",")
+    .reduce((acc: { [key: string]: string }, part: string) => {
+      const section = part.split(";");
+      if (section.length !== 2) {
+        throw new Error("section could not be split on ';'");
+      }
+      const url = section[0].replace(/<(.*)>/, "$1").trim();
+      const name = section[1].replace(/rel="(.*)"/, "$1").trim();
+      acc[name] = url;
+      return acc;
+    }, {});
 }
 
 export async function getEnrollmentTerms() {
