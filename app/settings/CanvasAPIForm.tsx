@@ -84,9 +84,8 @@ export default function CanvasAPIForm() {
           </div>
         </form>
       </Form>
-
       <Dialog>
-        <DialogTrigger>
+        <DialogTrigger asChild>
           <button className="btn mt-4 ml-4">Import Courses</button>
         </DialogTrigger>
         <ImportCanvasCourses />
