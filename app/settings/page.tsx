@@ -1,6 +1,6 @@
 import CourseList from "./CourseList";
 import Account from "./Account";
-import CanvasImports from "./CanvasImports";
+import CanvasAPIForm from "./CanvasImports";
 
 export default function Settings() {
   return (
@@ -13,7 +13,7 @@ export default function Settings() {
           <CourseList />
         </div>
         <div className="basis-1/4">
-          <CanvasImports />
+          <CanvasAPIForm />
         </div>
       </div>
     </div>

@@ -23,8 +23,10 @@ import {
 } from "@/server/canvasAPIActions";
 import { useToast } from "@/components/ui/use-toast";
 import axios from "axios";
+import { Dialog, DialogTrigger } from "@/components/ui/dialog";
+import ImportCanvasCourses from "./ImportCanvasCourses";
 
-export default function CanvasImports() {
+export default function CanvasAPIForm() {
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof canvasAPIFormSchema>>({
@@ -82,6 +84,13 @@ export default function CanvasImports() {
           </div>
         </form>
       </Form>
+
+      <Dialog>
+        <DialogTrigger>
+          <button className="btn mt-4 ml-4">Import Courses</button>
+        </DialogTrigger>
+        <ImportCanvasCourses />
+      </Dialog>
     </Card>
   );
 }
