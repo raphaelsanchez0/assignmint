@@ -69,15 +69,12 @@ const Assignment: React.FC<AssignmentProps> = ({ assignment }) => {
   }
 
   function swapDialog(to: "edit" | "view") {
-    console.log("swapping to edit");
     setOpenViewDialog(false);
     if (to === "edit") {
-      console.log("swapping to edit");
       setOpenEditDialog(true);
     } else {
       setOpenEditDialog(true);
     }
-    //setMenuKey((prev) => prev + 1);
   }
 
   return (
