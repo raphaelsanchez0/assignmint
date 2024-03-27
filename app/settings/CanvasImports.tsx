@@ -16,7 +16,11 @@ import { Info } from "lucide-react";
 import InfoDialog from "@/components/info-dialogs/info-dialog";
 import HowToGetAPIKey from "./info/HowToGetAPIKey";
 import { canvasAPIFormSchema } from "@/lib/schemas";
-import { getCanvasCourses, validateCanvasKey } from "@/server/canvasAPIActions";
+import {
+  getCanvasCourses,
+  getEnrollmentTerms,
+  validateCanvasKey,
+} from "@/server/canvasAPIActions";
 import { useToast } from "@/components/ui/use-toast";
 import axios from "axios";
 
@@ -37,7 +41,6 @@ export default function CanvasImports() {
         title: "Success",
         description: "Canvas API Key saved",
       });
-
       await getCanvasCourses();
     } else {
       toast({

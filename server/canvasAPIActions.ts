@@ -39,7 +39,6 @@ export async function setCanvasKey(key: string) {
     .update({ canvas_key: key })
     .eq("id", userID);
   if (error) {
-    console.log(error);
     throw error;
   }
 }
@@ -60,6 +59,23 @@ async function getCanvasKey() {
 
 export async function getCanvasCourses() {
   const url = "users/self/courses";
+
+  const key = await getCanvasKey();
+  try {
+    const response = await canvasAPI.get(url, {
+      headers: {
+        Authorization: `Bearer ${key}`,
+      },
+    });
+    console.log(response);
+    console.log(response.data[0].enrollments);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getEnrollmentTerms() {
+  const url = "accounts/self/terms";
 
   const key = await getCanvasKey();
   try {
