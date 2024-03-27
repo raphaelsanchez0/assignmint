@@ -1,6 +1,6 @@
 import CourseList from "./CourseList";
 import Account from "./Account";
-import CanvasAPIForm from "./CanvasImports";
+import CanvasAPIForm from "./CanvasAPIForm";
 
 export default function Settings() {
   return (
