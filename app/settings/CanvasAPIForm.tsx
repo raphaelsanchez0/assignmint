@@ -24,7 +24,7 @@ import {
 import { useToast } from "@/components/ui/use-toast";
 import axios from "axios";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
-import ImportCanvasCourses from "./canvas-import-dialog/ImportCanvasCourses";
+import ImportCanvasCoursesDialog from "./canvas-import-dialog/ImportCanvasCoursesDialog";
 
 export default function CanvasAPIForm() {
   const { toast } = useToast();
@@ -88,7 +88,7 @@ export default function CanvasAPIForm() {
         <DialogTrigger asChild>
           <button className="btn mt-4 ml-4">Import Courses</button>
         </DialogTrigger>
-        <ImportCanvasCourses />
+        <ImportCanvasCoursesDialog />
       </Dialog>
     </Card>
   );
