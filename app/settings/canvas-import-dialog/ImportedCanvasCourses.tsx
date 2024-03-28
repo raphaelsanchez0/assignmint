@@ -4,6 +4,7 @@ import { getAllCanvasCourses } from "@/server/canvasAPIActions";
 import { useQuery } from "@tanstack/react-query";
 import { CoursesDataTable } from "./CoursesDataTable";
 import { columns } from "./columns";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface ImportedCanvasCoursesProps {
   courses: any[];

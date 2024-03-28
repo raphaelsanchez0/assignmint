@@ -10,7 +10,7 @@ export interface CanvasCourses {
 
 export const columns: ColumnDef<CanvasCourses>[] = [
   {
-    accessorKey: "id",
+    accessorKey: "name",
     header: ({ column }) => {
       return (
         <Button
