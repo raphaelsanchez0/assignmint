@@ -1,6 +1,7 @@
 import { createSupabaseFrontendClient } from "@/utils/supabase/supabaseFrontendClient";
 import { createSupabaseServerClient } from "@/utils/supabase/supabaseServerClient";
 import axios from "axios";
+import { getUser, getUserID } from "./apis/user";
 
 const supabase = createSupabaseFrontendClient();
 
@@ -9,16 +10,20 @@ const canvasAPI = axios.create({
 });
 
 export async function getCanvasKey() {
-  const { data, error } = await supabase.from("profiles").select("canvas_key");
-
-  if (data) {
-    const key = data[0].canvas_key;
-
-    if (key === null) {
-      return false;
-    } else {
-      return key;
+  try {
+    const userID = await getUserID();
+    const { data, error } = await supabase
+      .from("profiles")
+      .select("canvas_key")
+      .eq("id", userID)
+      .single();
+    if (error) {
+      throw error;
     }
+    console.log(data?.canvas_key);
+    return data?.canvas_key || false;
+  } catch (error) {
+    return false;
   }
 }
 
