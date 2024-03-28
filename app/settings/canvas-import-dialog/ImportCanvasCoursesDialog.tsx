@@ -20,6 +20,7 @@ export default async function ImportCanvasCoursesDialog() {
   const courses = await getAllCanvasCourses();
   return (
     <DialogContent>
+      <DialogHeader>Import Canvas Courses</DialogHeader>
       <ImportedCanvasCourses courses={courses} />
     </DialogContent>
   );
