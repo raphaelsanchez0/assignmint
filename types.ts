@@ -25,3 +25,13 @@ interface CourseType {
   value: string;
   label: string;
 }
+
+interface CanvasCourse {
+  id: number;
+  name: string;
+}
+
+interface ModifiedCanvasCourse extends CanvasCourse {
+  import: boolean;
+  assignmintID: string | null;
+}

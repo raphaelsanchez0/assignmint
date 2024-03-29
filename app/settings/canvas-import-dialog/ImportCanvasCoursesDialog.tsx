@@ -6,7 +6,6 @@ import {
   useQuery,
 } from "@tanstack/react-query";
 import { CoursesDataTable } from "./CoursesDataTable";
-import { CanvasCourses, columns } from "./columns";
 
 import {
   fetchAssignments,
@@ -15,13 +14,15 @@ import {
 import { getCourses } from "@/server/actions";
 import ImportedCanvasCourses from "./ImportedCanvasCourses";
 import { getAllCanvasCourses } from "@/server/canvasAPIActions";
+import { addAttributesToCanvasCourse } from "@/utils/canvas-imports/canvas-imports-helper";
 
 export default async function ImportCanvasCoursesDialog() {
   const courses = await getAllCanvasCourses();
+  const modifiedCourses = addAttributesToCanvasCourse(courses);
   return (
     <DialogContent>
       <DialogHeader>Import Canvas Courses</DialogHeader>
-      <ImportedCanvasCourses courses={courses} />
+      <ImportedCanvasCourses courses={modifiedCourses} />
     </DialogContent>
   );
 }

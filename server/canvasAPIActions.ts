@@ -2,7 +2,6 @@
 import { canvasAPIFormSchema } from "@/lib/schemas";
 import { createSupabaseServerClient } from "@/utils/supabase/supabaseServerClient";
 import axios from "axios";
-import { error } from "console";
 
 const supabase = createSupabaseServerClient();
 
@@ -57,7 +56,7 @@ export async function getCanvasKey() {
   }
 }
 
-export async function getAllCanvasCourses() {
+export async function getAllCanvasCourses(): Promise<CanvasCourse[]> {
   const courses = [];
   let nextPageUrl: string | null = "users/self/courses?per_page=10";
 
