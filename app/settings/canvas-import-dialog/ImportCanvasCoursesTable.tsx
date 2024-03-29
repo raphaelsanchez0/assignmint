@@ -2,7 +2,9 @@
 
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useState } from "react";
-import ImportedCanvasCourse from "./ImportedCanvasCourse";
+import ImportedCanvasCourse from "./ImportedCanvasCourseRow";
+import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/ui/separator";
 
 interface ImportedCanvasCourseTableProps {
   modifiedCanvasCourses: ModifiedCanvasCourse[];
@@ -16,6 +18,12 @@ export default function ImportedCanvasCoursesTable({
   const [courses, setCourses] = useState<ModifiedCanvasCourse[]>(
     modifiedCanvasCourses,
   );
+
+  const [query, setQuery] = useState("");
+
+  const filteredByQueryCanvasCourses = courses.filter((course) => {
+    return course.name.toLowerCase().includes(query.toLowerCase());
+  });
 
   const handleToggleImport = (courseId: number) => {
     setCourses((currentCourses) =>
@@ -59,19 +67,32 @@ export default function ImportedCanvasCoursesTable({
 
   return (
     <div className="w-full">
-      <ScrollArea>
-        {courses.map((course) => (
-          <ImportedCanvasCourse
-            key={course.id}
-            course={course}
-            assignmintCourses={getUnselectedCourses(course.id)}
-            onToggleImport={() => handleToggleImport(course.id)}
-            onAssignmintCourseChange={(newCourseID) =>
-              handleLinkedAssignmentCourseChange(course.id, newCourseID)
-            }
-          />
-        ))}
-      </ScrollArea>
+      <div className="mb-4">
+        <Input
+          placeholder="Search Your Canvas Courses"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
+      </div>
+      <div>
+        <ScrollArea className="h-96">
+          {filteredByQueryCanvasCourses.map((course) => (
+            <ImportedCanvasCourse
+              key={course.id}
+              course={course}
+              assignmintCourses={getUnselectedCourses(course.id)}
+              onToggleImport={() => handleToggleImport(course.id)}
+              onAssignmintCourseChange={(newCourseID) =>
+                handleLinkedAssignmentCourseChange(course.id, newCourseID)
+              }
+            />
+          ))}
+          <Separator />
+        </ScrollArea>
+      </div>
+      <div className="flex justify-center mt-4">
+        <button className="btn">Link Assignments</button>
+      </div>
     </div>
   );
 }

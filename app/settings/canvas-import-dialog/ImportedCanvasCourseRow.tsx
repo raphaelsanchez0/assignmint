@@ -17,7 +17,7 @@ interface ImportedCanvasCourseProps {
   onAssignmintCourseChange: (newCourseID: string) => void;
 }
 
-const ImportedCanvasCourse = ({
+const ImportedCanvasCourseRow = ({
   course,
   assignmintCourses,
   onToggleImport,
@@ -27,7 +27,7 @@ const ImportedCanvasCourse = ({
   return (
     <div className="w-full h-18">
       <Separator />
-      <div className="grid grid-cols-10 items-center">
+      <div className="grid grid-cols-10 items-center py-2">
         <div className="col-span-1 flex items-center ">
           <Checkbox checked={course.import} onCheckedChange={onToggleImport} />
         </div>
@@ -60,4 +60,4 @@ const ImportedCanvasCourse = ({
   );
 };
 
-export default memo(ImportedCanvasCourse);
+export default ImportedCanvasCourseRow;

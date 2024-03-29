@@ -1,4 +1,8 @@
-import { DialogContent, DialogHeader } from "@/components/ui/dialog";
+import {
+  DialogContent,
+  DialogHeader,
+  DialogOverlay,
+} from "@/components/ui/dialog";
 import {
   HydrationBoundary,
   QueryClient,
