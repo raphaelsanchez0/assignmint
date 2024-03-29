@@ -1,7 +1,5 @@
 "use client";
 
-import { getAllCanvasCourses } from "@/server/canvasAPIActions";
-import { useQuery } from "@tanstack/react-query";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useState } from "react";
 import ImportedCanvasCourse from "./ImportedCanvasCourse";
@@ -22,7 +20,13 @@ export default function ImportedCanvasCoursesTable({
   const handleToggleImport = (courseId: number) => {
     setCourses((currentCourses) =>
       currentCourses.map((course) =>
-        course.id === courseId ? { ...course, import: !course.import } : course,
+        course.id === courseId
+          ? {
+              ...course,
+              import: !course.import,
+              assignmintID: !course.import ? course.assignmintID : undefined,
+            }
+          : course,
       ),
     );
   };
@@ -40,6 +44,19 @@ export default function ImportedCanvasCoursesTable({
     );
   };
 
+  const getUnselectedCourses = (currentCourseID: number) => {
+    const selectedAssignmintCoursesIDs = new Set(
+      courses.map((course) => course.assignmintID),
+    );
+
+    return assignmintCourses.filter(
+      (course) =>
+        !selectedAssignmintCoursesIDs.has(course.id) ||
+        courses.find((c) => c.id === currentCourseID)?.assignmintID ===
+          course.id,
+    );
+  };
+
   return (
     <div className="w-full">
       <ScrollArea>
@@ -47,7 +64,7 @@ export default function ImportedCanvasCoursesTable({
           <ImportedCanvasCourse
             key={course.id}
             course={course}
-            assignmintCourses={assignmintCourses}
+            assignmintCourses={getUnselectedCourses(course.id)}
             onToggleImport={() => handleToggleImport(course.id)}
             onAssignmintCourseChange={(newCourseID) =>
               handleLinkedAssignmentCourseChange(course.id, newCourseID)
