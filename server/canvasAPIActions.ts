@@ -110,18 +110,27 @@ function parseLinkHeader(header: any) {
     }, {});
 }
 
-export async function getEnrollmentTerms() {
-  const url = "accounts/self/terms";
+export async function linkCanvasCoursesToAssignmintCourses(
+  canvasCourses: ModifiedCanvasCourse[],
+) {
+  canvasCourses.map(async (canvasCourse) => {
+    if (canvasCourse.assignmintID != undefined) {
+      await linkCourses(canvasCourse);
+    }
+  });
+}
 
-  const key = await getCanvasKey();
-  try {
-    const response = await canvasAPI.get(url, {
-      headers: {
-        Authorization: `Bearer ${key}`,
-      },
-    });
-    console.log(response);
-  } catch (error) {
-    console.log(error);
+async function linkCourses(canvasCourse: ModifiedCanvasCourse) {
+  const canvasCourseID = canvasCourse.id;
+  const assignmintID = canvasCourse.assignmintID;
+
+  const { error } = await supabase
+    .from("courses")
+    .update({ canvas_course_id: canvasCourseID })
+    .eq("id", assignmintID);
+
+  if (error) {
+    console.error(error);
+    throw error;
   }
 }

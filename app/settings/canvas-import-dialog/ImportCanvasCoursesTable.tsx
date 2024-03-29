@@ -6,6 +6,8 @@ import ImportedCanvasCourse from "./ImportedCanvasCourseRow";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import ImportCanvasTableHeader from "./ImportCanvasTableHeader";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { linkCanvasCoursesToAssignmintCourses } from "@/server/canvasAPIActions";
 
 interface ImportedCanvasCourseTableProps {
   modifiedCanvasCourses: ModifiedCanvasCourse[];
@@ -16,6 +18,8 @@ export default function ImportedCanvasCoursesTable({
   modifiedCanvasCourses,
   assignmintCourses,
 }: ImportedCanvasCourseTableProps) {
+  const queryClient = useQueryClient();
+
   const [courses, setCourses] = useState<ModifiedCanvasCourse[]>(
     modifiedCanvasCourses,
   );
@@ -66,6 +70,14 @@ export default function ImportedCanvasCoursesTable({
     );
   };
 
+  const linkCoursesMutation = useMutation({
+    mutationFn: linkCanvasCoursesToAssignmintCourses,
+  });
+
+  function handleLinkCourses() {
+    linkCoursesMutation.mutate(courses);
+  }
+
   return (
     <div className="w-full">
       <div>
@@ -93,7 +105,9 @@ export default function ImportedCanvasCoursesTable({
         </ScrollArea>
       </div>
       <div className="flex justify-center mt-4">
-        <button className="btn">Link Assignments</button>
+        <button className="btn" onClick={handleLinkCourses}>
+          Link Assignments
+        </button>
       </div>
     </div>
   );

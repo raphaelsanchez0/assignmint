@@ -23,7 +23,6 @@ const ImportedCanvasCourseRow = ({
   onToggleImport,
   onAssignmintCourseChange,
 }: ImportedCanvasCourseProps) => {
-  console.log(course);
   return (
     <div className="w-full h-18">
       <div className="grid grid-cols-10 items-center py-2">
