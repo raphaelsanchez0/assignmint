@@ -7,14 +7,38 @@ import { useState } from "react";
 import ImportedCanvasCourse from "./ImportedCanvasCourse";
 
 interface ImportedCanvasCourseTableProps {
-  modifiedCourses: ModifiedCanvasCourse[];
+  modifiedCanvasCourses: ModifiedCanvasCourse[];
+  assignmintCourses: Course[];
 }
 
 export default function ImportedCanvasCoursesTable({
-  modifiedCourses,
+  modifiedCanvasCourses,
+  assignmintCourses,
 }: ImportedCanvasCourseTableProps) {
-  const [courses, setCourses] =
-    useState<ModifiedCanvasCourse[]>(modifiedCourses);
+  const [courses, setCourses] = useState<ModifiedCanvasCourse[]>(
+    modifiedCanvasCourses,
+  );
+
+  const handleToggleImport = (courseId: number) => {
+    setCourses((currentCourses) =>
+      currentCourses.map((course) =>
+        course.id === courseId ? { ...course, import: !course.import } : course,
+      ),
+    );
+  };
+
+  const handleLinkedAssignmentCourseChange = (
+    courseId: number,
+    newAssignmintID: string,
+  ) => {
+    setCourses((currentCourses) =>
+      currentCourses.map((course) =>
+        course.id === courseId
+          ? { ...course, assignmintID: newAssignmintID }
+          : course,
+      ),
+    );
+  };
 
   return (
     <div className="w-full">
@@ -23,7 +47,11 @@ export default function ImportedCanvasCoursesTable({
           <ImportedCanvasCourse
             key={course.id}
             course={course}
-            setCourses={setCourses}
+            assignmintCourses={assignmintCourses}
+            onToggleImport={() => handleToggleImport(course.id)}
+            onAssignmintCourseChange={(newCourseID) =>
+              handleLinkedAssignmentCourseChange(course.id, newCourseID)
+            }
           />
         ))}
       </ScrollArea>

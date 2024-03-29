@@ -20,29 +20,35 @@ const mockData: ModifiedCanvasCourse[] = [
     id: 1,
     name: "Course 1",
     import: false,
-    assignmintID: null,
+    assignmintID: undefined,
   },
   {
     id: 2,
     name: "Course 2",
     import: false,
-    assignmintID: null,
+    assignmintID: undefined,
   },
   {
     id: 3,
     name: "Course 3",
     import: false,
-    assignmintID: null,
+    assignmintID: undefined,
   },
 ];
 
 export default async function ImportCanvasCoursesDialog() {
-  const courses = await getAllCanvasCourses();
-  const modifiedCourses = addAttributesToCanvasCourse(courses);
+  const canvasCourses = await getAllCanvasCourses();
+  const assignmintCourses = await getCourses();
+
+  const modifiedCanvasCourses = addAttributesToCanvasCourse(canvasCourses);
+
   return (
     <DialogContent>
       <DialogHeader>Import Canvas Courses</DialogHeader>
-      <ImportedCanvasCourses modifiedCourses={mockData} />
+      <ImportedCanvasCourses
+        modifiedCanvasCourses={mockData}
+        assignmintCourses={assignmintCourses}
+      />
     </DialogContent>
   );
 }

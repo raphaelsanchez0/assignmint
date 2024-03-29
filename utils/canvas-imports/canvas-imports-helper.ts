@@ -4,6 +4,6 @@ export function addAttributesToCanvasCourse(
   return originalCourses.map((originalCourse) => ({
     ...originalCourse,
     import: false,
-    assignmintID: null,
+    assignmintID: undefined,
   }));
 }

@@ -33,5 +33,5 @@ interface CanvasCourse {
 
 interface ModifiedCanvasCourse extends CanvasCourse {
   import: boolean;
-  assignmintID: string | null;
+  assignmintID: string | undefined;
 }
