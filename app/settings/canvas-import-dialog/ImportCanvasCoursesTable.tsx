@@ -5,6 +5,7 @@ import { useState } from "react";
 import ImportedCanvasCourse from "./ImportedCanvasCourseRow";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
+import ImportCanvasTableHeader from "./ImportCanvasTableHeader";
 
 interface ImportedCanvasCourseTableProps {
   modifiedCanvasCourses: ModifiedCanvasCourse[];
@@ -67,13 +68,15 @@ export default function ImportedCanvasCoursesTable({
 
   return (
     <div className="w-full">
-      <div className="mb-4">
+      <div>
         <Input
           placeholder="Search Your Canvas Courses"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
       </div>
+      <ImportCanvasTableHeader />
+      <Separator />
       <div>
         <ScrollArea className="h-96">
           {filteredByQueryCanvasCourses.map((course) => (
@@ -87,7 +90,6 @@ export default function ImportedCanvasCoursesTable({
               }
             />
           ))}
-          <Separator />
         </ScrollArea>
       </div>
       <div className="flex justify-center mt-4">

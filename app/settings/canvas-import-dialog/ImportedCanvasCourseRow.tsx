@@ -26,13 +26,18 @@ const ImportedCanvasCourseRow = ({
   console.log(course);
   return (
     <div className="w-full h-18">
-      <Separator />
       <div className="grid grid-cols-10 items-center py-2">
-        <div className="col-span-1 flex items-center ">
-          <Checkbox checked={course.import} onCheckedChange={onToggleImport} />
+        <div className="col-span-1 flex items-center justify-center">
+          <Checkbox
+            id={`import-${course.id}`}
+            checked={course.import}
+            onCheckedChange={onToggleImport}
+          />
         </div>
         <div className="col-span-5">
-          <h3>{course.name}</h3>
+          <label htmlFor={`import-${course.id}`}>
+            <h3>{course.name}</h3>
+          </label>
         </div>
         <div className="col-span-4">
           <Select
@@ -56,6 +61,7 @@ const ImportedCanvasCourseRow = ({
           </Select>
         </div>
       </div>
+      <Separator />
     </div>
   );
 };
