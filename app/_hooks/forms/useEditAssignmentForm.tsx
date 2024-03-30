@@ -2,6 +2,7 @@ import { assignmentFormSchema } from "@/lib/schemas";
 import { getCourses, updateAssignment } from "@/server/actions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { utcToZonedTime } from "date-fns-tz";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -17,7 +18,7 @@ export function useEditAssignmentForm(
     defaultValues: {
       course: assignment.course.id,
       title: assignment.title,
-      dueDate: new Date(assignment.dueDate),
+      dueDate: utcToZonedTime(assignment.dueDate, "UTC"),
       priority: assignment.priority,
       notes: assignment.notes,
     },
