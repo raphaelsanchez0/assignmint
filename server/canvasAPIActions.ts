@@ -134,3 +134,5 @@ async function linkCourses(canvasCourse: ModifiedCanvasCourse) {
     throw error;
   }
 }
+
+async function getCourseAssignmentsFromCanvas(course: Course) {}
