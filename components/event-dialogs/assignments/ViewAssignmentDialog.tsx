@@ -1,11 +1,9 @@
 "use client";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
-  Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { format } from "date-fns";
