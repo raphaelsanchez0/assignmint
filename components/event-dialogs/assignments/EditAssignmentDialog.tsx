@@ -33,7 +33,6 @@ import { format } from "date-fns";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
-import { updateAssignment } from "@/server/actions";
 import { useEditAssignmentForm } from "@/app/_hooks/forms/useEditAssignmentForm";
 
 interface EditAssignmentDialogProps {

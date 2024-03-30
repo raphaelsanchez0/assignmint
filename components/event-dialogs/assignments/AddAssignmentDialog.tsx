@@ -34,7 +34,6 @@ import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { Checkbox } from "@/components/ui/checkbox";
-import { getCourses } from "@/server/apis/courses";
 import { Textarea } from "@/components/ui/textarea";
 import useAddAssignmentForm from "@/app/_hooks/forms/useAddAssignmentForm";
 

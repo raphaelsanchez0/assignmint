@@ -7,10 +7,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-
 import React, { useState } from "react";
 import {
   Form,
@@ -36,13 +32,8 @@ import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
-import { Checkbox } from "@/components/ui/checkbox";
-import { getCourses } from "@/server/apis/courses";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { Textarea } from "@/components/ui/textarea";
-import { examFormSchema as formSchema } from "@/lib/schemas";
-import { createExam } from "@/server/actions";
 import useAddExamForm from "@/app/_hooks/forms/useAddExamForm";
 
 export default function AddExamDialog() {
