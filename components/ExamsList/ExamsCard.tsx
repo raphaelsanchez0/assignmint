@@ -4,7 +4,7 @@ import { utcToZonedTime } from "date-fns-tz";
 import { QueryClient } from "@tanstack/react-query";
 import ExamsList from "./ExamsList";
 import { Card } from "../ui/card";
-import AddExamDialog from "../event-dialogs/exams/AddExamDialog";
+import AddExamDialog from "../dialogs/exams/AddExamDialog";
 
 interface ExamsListProps {
   showAddExam?: boolean;

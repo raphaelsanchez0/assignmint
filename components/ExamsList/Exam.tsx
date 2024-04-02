@@ -13,7 +13,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Dialog, DialogTrigger } from "../ui/dialog";
-import EditExamDialog from "../event-dialogs/exams/EditExamDialog";
+import EditExamDialog from "@/components/dialogs/exams/EditExamDialog";
 
 interface ExamProps {
   exam: Exam;
