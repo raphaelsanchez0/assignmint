@@ -10,11 +10,8 @@ export default function Settings() {
         <div className="basis-1/4">
           <Account />
         </div>
-        <div className="basis-1/4">
+        <div className="basis-2/5">
           <CourseList />
-        </div>
-        <div className="basis-1/4">
-          <NewCourseList />
         </div>
         <div className="basis-1/4">
           <CanvasAPICard />

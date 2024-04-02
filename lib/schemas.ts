@@ -18,3 +18,8 @@ export const examFormSchema = z.object({
 export const canvasAPIFormSchema = z.object({
   canvasAPIKey: z.string().max(100),
 });
+
+export const assignmintCourseFormSchema = z.object({
+  title: z.string({ required_error: "Title is required" }).min(2).max(50),
+  color: z.string().max(20),
+});

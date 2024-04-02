@@ -4,9 +4,12 @@ import Course from "./Course";
 import { getCourses } from "../../server/apis/courses";
 import { v4 as uuidv4 } from "uuid";
 import { Card } from "@/components/ui/card";
+import LinkCoursesDialog from "@/components/dialogs/courses/LinkCoursesDialog";
 
 export default function CourseList() {
   const [courses, setCourses] = useState<Course[]>([]);
+
+  const [linkDialogOpen, setLinkDialogOpen] = useState(false);
 
   useEffect(() => {
     const fetchCourses = async () => {
@@ -43,6 +46,7 @@ export default function CourseList() {
             key={course.id}
             id={course.id}
             setCourses={setCourses}
+            openLinkDialogFn={() => setLinkDialogOpen(true)}
           />
         ))}
       </div>

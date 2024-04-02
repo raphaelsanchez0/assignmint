@@ -2,16 +2,23 @@
 
 import iconEdit from "@/public/icons/blackEdit.svg";
 import iconTrash from "@/public/icons/trash.svg";
-
+``;
 import { useState, useRef, useEffect } from "react";
 import useOnClickOutside from "../_hooks/useOnClickOutside";
 import Image from "next/image";
 
 import { Sketch } from "@uiw/react-color";
-import Link from "next/link";
+import { Link, Trash } from "lucide-react";
 import { createOrUpdateCourse, deleteCourse } from "../../server/apis/courses";
 import { twJoin } from "tailwind-merge";
 import { useQueryClient } from "@tanstack/react-query";
+import LinkCoursesDialog from "@/components/dialogs/courses/LinkCoursesDialog";
+
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 
 interface CourseProps {
   id: string;
@@ -19,6 +26,7 @@ interface CourseProps {
   color: string;
   editEnabled?: boolean;
   setCourses: React.Dispatch<React.SetStateAction<Course[]>>;
+  openLinkDialogFn: (course: Course) => void;
 }
 
 const Course: React.FC<CourseProps> = ({
@@ -31,6 +39,7 @@ const Course: React.FC<CourseProps> = ({
   const [isColorPickerOpen, setIsColorPickerOpen] = useState(false);
   const [colorPickerValue, setColorPickerValue] = useState(color);
   const colorPickerRef = useRef(null);
+  const courseRef = useRef(null);
 
   const queryClient = useQueryClient();
 
@@ -49,9 +58,15 @@ const Course: React.FC<CourseProps> = ({
     queryClient.invalidateQueries({ queryKey: ["courses"] });
   });
 
+  useOnClickOutside([courseRef], () => {
+    setCollapsibleOpen(false);
+  });
+
   //Course name change functions
   const [isEditing, setIsEditing] = useState(editEnabled);
   const [courseName, setCourseName] = useState(name);
+
+  const [collapsibleOpen, setCollapsibleOpen] = useState(false);
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -83,13 +98,19 @@ const Course: React.FC<CourseProps> = ({
     queryClient.invalidateQueries({ queryKey: ["courses"] });
   };
 
-  const editStyle = {
-    color: "red",
+  const handleLinkClick = (event: React.MouseEvent) => {
+    event.preventDefault();
+    setCollapsibleOpen(!collapsibleOpen);
   };
 
   return (
-    <>
+    <Collapsible
+      open={collapsibleOpen}
+      onOpenChange={setCollapsibleOpen}
+      ref={courseRef}
+    >
       <hr className="h-px w-full bg-gray-400 border-0" />
+
       <div className="h-16 flex flex-row w-full">
         <div className="p-2 flex  items-center w-full">
           <div
@@ -133,17 +154,22 @@ const Course: React.FC<CourseProps> = ({
                   Edit
                 </button>
               ) : (
-                <Link href="/settings?removecourse=y">
-                  <button onMouseDown={handleTrashClick}>
-                    <Image src={iconTrash} alt="delete" width={30} />
+                <div className="flex gap-2 ml-2">
+                  <button onMouseDown={handleLinkClick}>
+                    <Link size={24} />
                   </button>
-                </Link>
+
+                  <button onMouseDown={handleTrashClick}>
+                    <Trash size={24} color="red" />
+                  </button>
+                </div>
               )}
             </div>
           </div>
         </div>
       </div>
-    </>
+      <CollapsibleContent className="px-2">Linked To:</CollapsibleContent>
+    </Collapsible>
   );
 };
 
