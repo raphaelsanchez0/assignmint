@@ -21,18 +21,14 @@ import {
 } from "@/components/ui/collapsible";
 
 interface CourseProps {
-  id: string;
-  name: string;
-  color: string;
+  course: Course;
   editEnabled?: boolean;
   setCourses: React.Dispatch<React.SetStateAction<Course[]>>;
   openLinkDialogFn: (course: Course) => void;
 }
 
 const Course: React.FC<CourseProps> = ({
-  id,
-  name,
-  color,
+  course: { id, title, color },
   editEnabled = false,
   setCourses,
 }) => {
@@ -54,17 +50,19 @@ const Course: React.FC<CourseProps> = ({
 
   useOnClickOutside([colorPickerRef], () => {
     setIsColorPickerOpen(false);
-    createOrUpdateCourse(id, courseName, colorPickerValue);
+    createOrUpdateCourse(id, title, colorPickerValue);
     queryClient.invalidateQueries({ queryKey: ["courses"] });
   });
 
   useOnClickOutside([courseRef], () => {
     setCollapsibleOpen(false);
+    createOrUpdateCourse(id, title, colorPickerValue);
+    queryClient.invalidateQueries({ queryKey: ["courses"] });
   });
 
   //Course name change functions
   const [isEditing, setIsEditing] = useState(editEnabled);
-  const [courseName, setCourseName] = useState(name);
+  const [courseTitle, setCourseTitle] = useState(title);
 
   const [collapsibleOpen, setCollapsibleOpen] = useState(false);
 
@@ -73,20 +71,20 @@ const Course: React.FC<CourseProps> = ({
   };
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCourseName(event.target.value);
+    setCourseTitle(event.target.value);
     queryClient.invalidateQueries({ queryKey: ["courses"] });
   };
 
   const handleNameSubmit = () => {
-    if (courseName.trim() !== "") {
+    if (courseTitle.trim() !== "") {
       setIsEditing(false);
-      createOrUpdateCourse(id, courseName, colorPickerValue);
+      createOrUpdateCourse(id, courseTitle, colorPickerValue);
     }
     queryClient.invalidateQueries({ queryKey: ["courses"] });
   };
 
   const handleBlur = () => {
-    if (courseName.trim() !== "") {
+    if (courseTitle.trim() !== "") {
       setIsEditing(false);
     }
   };
@@ -132,7 +130,7 @@ const Course: React.FC<CourseProps> = ({
             {isEditing ? (
               <input
                 type="text"
-                value={courseName}
+                value={courseTitle}
                 onChange={handleNameChange}
                 onBlur={handleBlur}
                 autoFocus
@@ -146,7 +144,7 @@ const Course: React.FC<CourseProps> = ({
                 className="text-xl font-semibold ml-2 w-full"
               />
             ) : (
-              <h4 className="text-xl font-semibold ml-2">{courseName}</h4>
+              <h4 className="text-xl font-semibold ml-2">{courseTitle}</h4>
             )}
             <div className="">
               {!isEditing ? (
@@ -168,7 +166,7 @@ const Course: React.FC<CourseProps> = ({
           </div>
         </div>
       </div>
-      <CollapsibleContent className="px-2">Linked To:</CollapsibleContent>
+      <CollapsibleContent className="px-2">Linked To: </CollapsibleContent>
     </Collapsible>
   );
 };

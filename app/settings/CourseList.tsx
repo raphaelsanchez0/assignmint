@@ -41,10 +41,8 @@ export default function CourseList() {
       <div>
         {courses.map((course) => (
           <Course
-            name={course.title}
-            color={course.color}
+            course={course}
             key={course.id}
-            id={course.id}
             setCourses={setCourses}
             openLinkDialogFn={() => setLinkDialogOpen(true)}
           />
