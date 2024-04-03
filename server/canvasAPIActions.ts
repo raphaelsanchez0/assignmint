@@ -126,7 +126,10 @@ async function linkCourses(canvasCourse: ModifiedCanvasCourse) {
 
   const { error } = await supabase
     .from("courses")
-    .update({ canvasCourseID: canvasCourseID })
+    .update({
+      canvasCourseID: canvasCourseID,
+      canvasCourseName: canvasCourse.name,
+    })
     .eq("id", assignmintID);
 
   if (error) {

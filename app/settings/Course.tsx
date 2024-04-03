@@ -1,5 +1,4 @@
 "use client";
-``;
 import { useState, useRef, useEffect } from "react";
 import useOnClickOutside from "../_hooks/useOnClickOutside";
 import Image from "next/image";
@@ -8,13 +7,8 @@ import { Sketch } from "@uiw/react-color";
 import { Link, Trash } from "lucide-react";
 import { createOrUpdateCourse, deleteCourse } from "../../server/apis/courses";
 import { useQueryClient } from "@tanstack/react-query";
-import LinkCoursesDialog from "@/components/dialogs/courses/LinkCoursesDialog";
 
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
+import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible";
 
 interface CourseProps {
   course: Course;
@@ -88,7 +82,7 @@ const Course: React.FC<CourseProps> = ({
   const handleTrashClick = async (event: React.MouseEvent) => {
     event.preventDefault();
     setCourses((courses) =>
-      courses.filter((course) => course.id !== course.id),
+      courses.filter((currentCourse) => currentCourse.id !== course.id),
     );
     await deleteCourse(course.id);
     queryClient.invalidateQueries({ queryKey: ["courses"] });
@@ -150,12 +144,11 @@ const Course: React.FC<CourseProps> = ({
                 </button>
               ) : (
                 <div className="flex gap-2 ml-2">
-                  <button onMouseDown={handleLinkClick}>
-                    <Link size={24} />
-                  </button>
-
                   <button onMouseDown={handleTrashClick}>
-                    <Trash size={24} color="red" />
+                    <Trash size={30} color="red" />
+                  </button>
+                  <button onMouseDown={handleLinkClick}>
+                    <Link size={30} />
                   </button>
                 </div>
               )}
@@ -164,7 +157,6 @@ const Course: React.FC<CourseProps> = ({
         </div>
       </div>
       <CollapsibleContent className="px-2">
-        <p>Linked to:</p>{" "}
         {course.canvasCourseID ? (
           <p>Canvas Course ID: {course.canvasCourseID}</p>
         ) : (

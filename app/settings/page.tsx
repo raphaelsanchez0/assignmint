@@ -10,7 +10,7 @@ export default function Settings() {
         <div className="basis-1/4">
           <Account />
         </div>
-        <div className="basis-2/5">
+        <div className="basis-1/4">
           <CourseList />
         </div>
         <div className="basis-1/4">
