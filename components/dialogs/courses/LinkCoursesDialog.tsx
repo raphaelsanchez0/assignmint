@@ -7,6 +7,7 @@ import {
 
 interface LinkCourseDialogProps {
   children: React.ReactNode;
+  course: Course;
 }
 
 export default function LinkCoursesDialog({ children }: LinkCourseDialogProps) {

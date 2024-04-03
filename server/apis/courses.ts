@@ -36,7 +36,8 @@ export async function createOrUpdateCourse(
 export async function getCourses() {
   const { data: courseList, error } = await supabase
     .from("courses")
-    .select("id, title, color");
+    .select("id, title, color, canvasCourseID")
+    .order("id");
 
   if (error) {
     console.error("Error getting courses: ", error);

@@ -1,7 +1,4 @@
 "use client";
-
-import iconEdit from "@/public/icons/blackEdit.svg";
-import iconTrash from "@/public/icons/trash.svg";
 ``;
 import { useState, useRef, useEffect } from "react";
 import useOnClickOutside from "../_hooks/useOnClickOutside";
@@ -10,7 +7,6 @@ import Image from "next/image";
 import { Sketch } from "@uiw/react-color";
 import { Link, Trash } from "lucide-react";
 import { createOrUpdateCourse, deleteCourse } from "../../server/apis/courses";
-import { twJoin } from "tailwind-merge";
 import { useQueryClient } from "@tanstack/react-query";
 import LinkCoursesDialog from "@/components/dialogs/courses/LinkCoursesDialog";
 
@@ -28,12 +24,12 @@ interface CourseProps {
 }
 
 const Course: React.FC<CourseProps> = ({
-  course: { id, title, color },
+  course,
   editEnabled = false,
   setCourses,
 }) => {
   const [isColorPickerOpen, setIsColorPickerOpen] = useState(false);
-  const [colorPickerValue, setColorPickerValue] = useState(color);
+  const [colorPickerValue, setColorPickerValue] = useState(course.color);
   const colorPickerRef = useRef(null);
   const courseRef = useRef(null);
 
@@ -50,19 +46,19 @@ const Course: React.FC<CourseProps> = ({
 
   useOnClickOutside([colorPickerRef], () => {
     setIsColorPickerOpen(false);
-    createOrUpdateCourse(id, title, colorPickerValue);
+    createOrUpdateCourse(course.id, course.title, colorPickerValue);
     queryClient.invalidateQueries({ queryKey: ["courses"] });
   });
 
   useOnClickOutside([courseRef], () => {
     setCollapsibleOpen(false);
-    createOrUpdateCourse(id, title, colorPickerValue);
+    createOrUpdateCourse(course.id, course.title, colorPickerValue);
     queryClient.invalidateQueries({ queryKey: ["courses"] });
   });
 
   //Course name change functions
   const [isEditing, setIsEditing] = useState(editEnabled);
-  const [courseTitle, setCourseTitle] = useState(title);
+  const [courseTitle, setCourseTitle] = useState(course.title);
 
   const [collapsibleOpen, setCollapsibleOpen] = useState(false);
 
@@ -78,7 +74,7 @@ const Course: React.FC<CourseProps> = ({
   const handleNameSubmit = () => {
     if (courseTitle.trim() !== "") {
       setIsEditing(false);
-      createOrUpdateCourse(id, courseTitle, colorPickerValue);
+      createOrUpdateCourse(course.id, courseTitle, colorPickerValue);
     }
     queryClient.invalidateQueries({ queryKey: ["courses"] });
   };
@@ -91,8 +87,10 @@ const Course: React.FC<CourseProps> = ({
 
   const handleTrashClick = async (event: React.MouseEvent) => {
     event.preventDefault();
-    setCourses((courses) => courses.filter((course) => course.id !== id));
-    await deleteCourse(id);
+    setCourses((courses) =>
+      courses.filter((course) => course.id !== course.id),
+    );
+    await deleteCourse(course.id);
     queryClient.invalidateQueries({ queryKey: ["courses"] });
   };
 
@@ -119,14 +117,13 @@ const Course: React.FC<CourseProps> = ({
             {isColorPickerOpen && (
               <Sketch
                 style={{ marginLeft: 20 }}
-                color={color}
+                color={course.color}
                 onChange={handleColorChange}
                 ref={colorPickerRef}
               />
             )}
           </div>
           <div className="flex justify-between w-full align-middle">
-            {/* <h4 className="text-xl font-semibold ml-2">{name}</h4> */}
             {isEditing ? (
               <input
                 type="text"
@@ -166,7 +163,14 @@ const Course: React.FC<CourseProps> = ({
           </div>
         </div>
       </div>
-      <CollapsibleContent className="px-2">Linked To: </CollapsibleContent>
+      <CollapsibleContent className="px-2">
+        <p>Linked to:</p>{" "}
+        {course.canvasCourseID ? (
+          <p>Canvas Course ID: {course.canvasCourseID}</p>
+        ) : (
+          <p>Not linked to any Canvas course</p>
+        )}
+      </CollapsibleContent>
     </Collapsible>
   );
 };
