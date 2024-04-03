@@ -4,11 +4,12 @@ import useOnClickOutside from "../_hooks/useOnClickOutside";
 import Image from "next/image";
 
 import { Sketch } from "@uiw/react-color";
-import { Link, Trash } from "lucide-react";
+import { Link, Trash, Pencil } from "lucide-react";
 import { createOrUpdateCourse, deleteCourse } from "../../server/apis/courses";
 import { useQueryClient } from "@tanstack/react-query";
 
 import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible";
+import LinkCoursesDialog from "@/components/dialogs/courses/LinkCoursesDialog";
 
 interface CourseProps {
   course: Course;
@@ -156,12 +157,19 @@ const Course: React.FC<CourseProps> = ({
           </div>
         </div>
       </div>
-      <CollapsibleContent className="px-2 text-center font-bold">
+      <CollapsibleContent className="px-2 text-center">
         {course.canvasCourseID && course.canvasCourseName ? (
-          <p>
-            Canvas Course ID: {course.canvasCourseID}
-            {course.canvasCourseName}
-          </p>
+          <div className="flex justify-center items-center">
+            <p>
+              Linked to:
+              <span className="font-bold">{` ${course.canvasCourseName}`}</span>
+            </p>
+            <LinkCoursesDialog course={course}>
+              <button className="btn ml-2">
+                <Pencil size={20} />
+              </button>
+            </LinkCoursesDialog>
+          </div>
         ) : (
           <p>Not linked to any Canvas course</p>
         )}
