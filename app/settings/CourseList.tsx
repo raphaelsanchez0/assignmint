@@ -5,20 +5,23 @@ import { getCourses } from "../../server/apis/courses";
 import { v4 as uuidv4 } from "uuid";
 import { Card } from "@/components/ui/card";
 import LinkCoursesDialog from "@/components/dialogs/courses/LinkCoursesDialog";
+import { useQuery } from "@tanstack/react-query";
 
 export default function CourseList() {
   const [courses, setCourses] = useState<Course[]>([]);
 
   const [linkDialogOpen, setLinkDialogOpen] = useState(false);
 
-  useEffect(() => {
-    const fetchCourses = async () => {
-      const coursesFromServer = await getCourses();
-      setCourses(coursesFromServer);
-    };
+  const { data } = useQuery<Course[]>({
+    queryKey: ["courses"],
+    queryFn: getCourses,
+  });
 
-    fetchCourses();
-  }, []);
+  useEffect(() => {
+    if (data) {
+      setCourses(data);
+    }
+  }, [data]);
 
   const addCourse = () => {
     const newCourse = {

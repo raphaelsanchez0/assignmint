@@ -33,10 +33,10 @@ export async function createOrUpdateCourse(
   }
 }
 
-export async function getCourses() {
+export async function getCourses(): Promise<Course[]> {
   const { data: courseList, error } = await supabase
     .from("courses")
-    .select("id, title, color, canvasCourseID")
+    .select("id, title, color, canvasCourseID, canvasCourseName")
     .order("id");
 
   if (error) {

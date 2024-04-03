@@ -157,8 +157,11 @@ const Course: React.FC<CourseProps> = ({
         </div>
       </div>
       <CollapsibleContent className="px-2 text-center font-bold">
-        {course.canvasCourseID ? (
-          <p>Canvas Course ID: {course.canvasCourseID}</p>
+        {course.canvasCourseID && course.canvasCourseName ? (
+          <p>
+            Canvas Course ID: {course.canvasCourseID}
+            {course.canvasCourseName}
+          </p>
         ) : (
           <p>Not linked to any Canvas course</p>
         )}

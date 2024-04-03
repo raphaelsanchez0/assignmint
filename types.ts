@@ -20,6 +20,7 @@ interface Course {
   title: string;
   color: string;
   canvasCourseID?: number;
+  canvasCourseName?: string;
 }
 
 interface CourseType {

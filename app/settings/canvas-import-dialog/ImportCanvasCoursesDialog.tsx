@@ -21,7 +21,6 @@ import { addAttributesToCanvasCourse } from "@/utils/canvas-imports/canvas-impor
 
 export default async function ImportCanvasCoursesDialog() {
   const canvasCourses = await getAllCanvasCourses();
-  const assignmintCourses = await getCourses();
 
   const modifiedCanvasCourses = addAttributesToCanvasCourse(canvasCourses);
 
