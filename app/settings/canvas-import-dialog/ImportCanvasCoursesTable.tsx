@@ -1,24 +1,28 @@
 "use client";
 
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useState } from "react";
+import { use, useEffect, useState } from "react";
 import ImportedCanvasCourse from "./ImportedCanvasCourseRow";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import ImportCanvasTableHeader from "./ImportCanvasTableHeader";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { linkCanvasCoursesToAssignmintCourses } from "@/server/canvasAPIActions";
+import { getCourses } from "@/server/apis/courses";
 
 interface ImportedCanvasCourseTableProps {
   modifiedCanvasCourses: ModifiedCanvasCourse[];
-  assignmintCourses: Course[];
 }
 
 export default function ImportedCanvasCoursesTable({
   modifiedCanvasCourses,
-  assignmintCourses,
 }: ImportedCanvasCourseTableProps) {
   const queryClient = useQueryClient();
+
+  const { data: assignmintCourses } = useQuery<Course[]>({
+    queryKey: ["courses"],
+    queryFn: getCourses,
+  });
 
   const [courses, setCourses] = useState<ModifiedCanvasCourse[]>(
     modifiedCanvasCourses,
@@ -62,12 +66,15 @@ export default function ImportedCanvasCoursesTable({
       courses.map((course) => course.assignmintID),
     );
 
-    return assignmintCourses.filter(
-      (course) =>
-        !selectedAssignmintCoursesIDs.has(course.id) ||
-        courses.find((c) => c.id === currentCourseID)?.assignmintID ===
-          course.id,
-    );
+    if (assignmintCourses) {
+      return assignmintCourses.filter(
+        (course) =>
+          !selectedAssignmintCoursesIDs.has(course.id) ||
+          courses.find((c) => c.id === currentCourseID)?.assignmintID ===
+            course.id,
+      );
+    }
+    return [];
   };
 
   const linkCoursesMutation = useMutation({

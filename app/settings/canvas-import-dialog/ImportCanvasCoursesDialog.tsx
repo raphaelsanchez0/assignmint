@@ -28,10 +28,7 @@ export default async function ImportCanvasCoursesDialog() {
   return (
     <DialogContent>
       <DialogHeader>Import Canvas Courses</DialogHeader>
-      <ImportedCanvasCourses
-        modifiedCanvasCourses={modifiedCanvasCourses}
-        assignmintCourses={assignmintCourses}
-      />
+      <ImportedCanvasCourses modifiedCanvasCourses={modifiedCanvasCourses} />
     </DialogContent>
   );
 }
