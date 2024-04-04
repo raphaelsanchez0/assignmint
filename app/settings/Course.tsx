@@ -9,7 +9,6 @@ import { createOrUpdateCourse, deleteCourse } from "../../server/apis/courses";
 import { useQueryClient } from "@tanstack/react-query";
 
 import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible";
-import LinkCoursesDialog from "@/components/dialogs/courses/LinkCoursesDialog";
 
 interface CourseProps {
   course: Course;
@@ -89,17 +88,8 @@ const Course: React.FC<CourseProps> = ({
     queryClient.invalidateQueries({ queryKey: ["courses"] });
   };
 
-  const handleLinkClick = (event: React.MouseEvent) => {
-    event.preventDefault();
-    setCollapsibleOpen(!collapsibleOpen);
-  };
-
   return (
-    <Collapsible
-      open={collapsibleOpen}
-      onOpenChange={setCollapsibleOpen}
-      ref={courseRef}
-    >
+    <>
       <hr className="h-px w-full bg-gray-400 border-0" />
 
       <div className="h-16 flex flex-row w-full">
@@ -148,28 +138,13 @@ const Course: React.FC<CourseProps> = ({
                   <button onMouseDown={handleTrashClick}>
                     <Trash size={30} color="red" />
                   </button>
-                  <button onMouseDown={handleLinkClick}>
-                    <Link size={30} />
-                  </button>
                 </div>
               )}
             </div>
           </div>
         </div>
       </div>
-      <CollapsibleContent className="px-2 text-center">
-        {course.canvasCourseID && course.canvasCourseName ? (
-          <div className="flex justify-center items-center">
-            <p>
-              Linked to:
-              <span className="font-bold">{` ${course.canvasCourseName}`}</span>
-            </p>
-          </div>
-        ) : (
-          <p>Not linked to any Canvas course</p>
-        )}
-      </CollapsibleContent>
-    </Collapsible>
+    </>
   );
 };
 
