@@ -164,11 +164,6 @@ const Course: React.FC<CourseProps> = ({
               Linked to:
               <span className="font-bold">{` ${course.canvasCourseName}`}</span>
             </p>
-            <LinkCoursesDialog course={course}>
-              <button className="btn ml-2">
-                <Pencil size={20} />
-              </button>
-            </LinkCoursesDialog>
           </div>
         ) : (
           <p>Not linked to any Canvas course</p>

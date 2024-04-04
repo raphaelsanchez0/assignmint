@@ -54,7 +54,7 @@ export default function LinkCoursesDialog({
                 key={currentCourse.id}
                 value={currentCourse.id.toString()}
               >
-                {currentCourse.canvasCourseName}
+                {currentCourse.title}
               </SelectItem>
             ))}
           </SelectContent>

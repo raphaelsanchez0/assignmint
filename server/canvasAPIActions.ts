@@ -57,39 +57,64 @@ export async function getCanvasKey() {
 }
 
 export async function getAllCanvasCourses(): Promise<CanvasCourse[]> {
-  const courses = [];
-  let nextPageUrl: string | null = "users/self/courses?per_page=10";
+  const initialUrl = "users/self/courses";
+  return fetchAllPages(initialUrl, fetchCourses);
+}
 
+/**
+ * A specific fetch function for getting courses.
+ * @param {string} url The URL to fetch courses from.
+ * @returns {Promise<any>} The response from the fetch operation.
+ */
+async function fetchCourses(url: string) {
+  const key = await getCanvasKey(); // Assume this function gets your API key
+  return canvasAPI.get(url, {
+    headers: {
+      Authorization: `Bearer ${key}`,
+    },
+  });
+}
+
+export async function getCourseAssignmentsFromCanvas(course: Course) {
+  const initialUrl = `users/self/courses/${course.canvasCourseID}/assignments`;
+  return fetchAllPages(initialUrl, fetchAssignmentsForCourse);
+}
+
+async function fetchAssignmentsForCourse(url: string) {
   const key = await getCanvasKey();
+  return canvasAPI.get(url, {
+    headers: {
+      Authorization: `Bearer ${key}`,
+    },
+  });
+}
+
+/**
+ * Fetches all pages of data from a paginated API, automatically applying a limit of 10 items per page.
+ * @param {string} initialUrl The initial URL to fetch from, without per_page parameter.
+ * @param {function(string): Promise<any>} fetchFunction A function that performs the fetch operation.
+ * @returns {Promise<any[]>} A promise that resolves to an array containing all fetched data.
+ */
+const fetchAllPages = async (
+  initialUrl: string,
+  fetchFunction: (url: string) => any,
+) => {
+  let nextPageUrl = initialUrl.includes("?")
+    ? `${initialUrl}&per_page=10`
+    : `${initialUrl}?per_page=10`;
+  const allData = [];
 
   while (nextPageUrl) {
-    try {
-      const response = await canvasAPI.get(nextPageUrl, {
-        headers: {
-          Authorization: `Bearer ${key}`,
-        },
-      });
+    const response = await fetchFunction(nextPageUrl);
+    allData.push(...response.data);
 
-      courses.push(...response.data);
-
-      const linkHeader = response.headers.link;
-      const links = parseLinkHeader(linkHeader);
-
-      if (links.next) {
-        // If there's a next page, update nextPageUrl to fetch the next page in the next iteration
-        nextPageUrl = links.next;
-      } else {
-        // If there's no next page, break the loop
-        nextPageUrl = null;
-      }
-    } catch (error) {
-      console.error("Failed to fetch courses:", error);
-      break;
-    }
+    const linkHeader = response.headers.link;
+    const links = parseLinkHeader(linkHeader);
+    nextPageUrl = links.next ? links.next : null;
   }
 
-  return courses;
-}
+  return allData;
+};
 
 function parseLinkHeader(header: any) {
   if (!header || header.length === 0) {
@@ -115,27 +140,44 @@ export async function linkCanvasCoursesToAssignmintCourses(
 ) {
   canvasCourses.map(async (canvasCourse) => {
     if (canvasCourse.assignmintID != undefined) {
-      await linkCourses(canvasCourse);
+      await linkCourses(canvasCourse, true);
+    } else {
+      await linkCourses(canvasCourse, false);
     }
   });
 }
 
-async function linkCourses(canvasCourse: ModifiedCanvasCourse) {
+async function linkCourses(
+  canvasCourse: ModifiedCanvasCourse,
+  isLinking: boolean,
+) {
   const canvasCourseID = canvasCourse.id;
   const assignmintID = canvasCourse.assignmintID;
+  if (isLinking) {
+    const { error } = await supabase
+      .from("courses")
+      .update({
+        canvasCourseID: canvasCourseID,
+        canvasCourseName: canvasCourse.name,
+      })
+      .eq("id", assignmintID);
 
-  const { error } = await supabase
-    .from("courses")
-    .update({
-      canvasCourseID: canvasCourseID,
-      canvasCourseName: canvasCourse.name,
-    })
-    .eq("id", assignmintID);
+    if (error) {
+      console.error(error);
+      throw error;
+    }
+  } else {
+    const { error } = await supabase
+      .from("courses")
+      .update({
+        canvasCourseID: null,
+        canvasCourseName: null,
+      })
+      .eq("canvasCourseID", canvasCourseID);
 
-  if (error) {
-    console.error(error);
-    throw error;
+    if (error) {
+      console.error(error);
+      throw error;
+    }
   }
 }
-
-async function getCourseAssignmentsFromCanvas(course: Course) {}
