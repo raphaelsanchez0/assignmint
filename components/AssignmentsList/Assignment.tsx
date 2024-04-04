@@ -11,11 +11,11 @@ import {
 import { deleteAssignment } from "@/server/actions";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
-import EditAssignmentDialog from "../event-dialogs/assignments/EditAssignmentDialog";
+import EditAssignmentDialog from "@/components/dialogs/assignments/EditAssignmentDialog";
 import { format } from "date-fns";
 import { utcToZonedTime } from "date-fns-tz";
 import { useEffect, useState } from "react";
-import ViewAssignmentDialog from "../event-dialogs/assignments/ViewAssignmentDialog";
+import ViewAssignmentDialog from "@/components/dialogs/assignments/ViewAssignmentDialog";
 
 interface AssignmentProps {
   assignment: Assignment;
@@ -69,15 +69,12 @@ const Assignment: React.FC<AssignmentProps> = ({ assignment }) => {
   }
 
   function swapDialog(to: "edit" | "view") {
-    console.log("swapping to edit");
     setOpenViewDialog(false);
     if (to === "edit") {
-      console.log("swapping to edit");
       setOpenEditDialog(true);
     } else {
       setOpenEditDialog(true);
     }
-    //setMenuKey((prev) => prev + 1);
   }
 
   return (

@@ -11,9 +11,8 @@ export default function Settings() {
         <div className="basis-1/4">
           <CourseList />
         </div>
-        <div></div>
+        <div className="basis-1/4"></div>
       </div>
-      {/* Dialog */}
     </div>
   );
 }

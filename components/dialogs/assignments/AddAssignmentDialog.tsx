@@ -7,9 +7,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 
 import React, { useState } from "react";
 import {
@@ -37,28 +34,24 @@ import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { Checkbox } from "@/components/ui/checkbox";
-import { getCourses } from "@/server/apis/courses";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-
 import { Textarea } from "@/components/ui/textarea";
-import { examFormSchema as formSchema } from "@/lib/schemas";
-import { createExam } from "@/server/actions";
-import useAddExamForm from "@/app/_hooks/forms/useAddExamForm";
+import useAddAssignmentForm from "@/app/_hooks/forms/useAddAssignmentForm";
 
-export default function AddExamDialog() {
+export default function AddAssignmentDialog() {
   const [open, setOpen] = useState(false);
-  const { form, courses, onSubmit } = useAddExamForm(() => {
-    setOpen(false);
-  });
+
+  const { form, courses, onSubmit } = useAddAssignmentForm(() =>
+    setOpen(false),
+  );
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <button className="btn">Add</button>
       </DialogTrigger>
-      <DialogContent className="w-1/2">
+      <DialogContent>
         <DialogHeader>
-          <DialogTitle>Add Exam</DialogTitle>
+          <DialogTitle>Add Assignment</DialogTitle>
         </DialogHeader>
 
         <Form {...form}>
@@ -94,17 +87,17 @@ export default function AddExamDialog() {
                   <FormItem>
                     <FormLabel>Title</FormLabel>
                     <FormControl>
-                      <Input placeholder="CHEM Midterm" {...field} />
+                      <Input placeholder="Title" {...field} />
                     </FormControl>
                   </FormItem>
                 )}
               />
               <FormField
                 control={form.control}
-                name="examDate"
+                name="dueDate"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Exam Date</FormLabel>
+                    <FormLabel>Due Date</FormLabel>
                     <Popover>
                       <PopoverTrigger asChild>
                         <FormControl>
@@ -129,14 +122,33 @@ export default function AddExamDialog() {
                           mode="single"
                           selected={field.value}
                           onSelect={field.onChange}
-                          initialFocus
                         />
                       </PopoverContent>
                     </Popover>
                   </FormItem>
                 )}
               />
-
+              <FormField
+                control={form.control}
+                name="priority"
+                render={({ field }) => (
+                  <FormItem className="h-full">
+                    <FormLabel></FormLabel>
+                    <div className="flex items-center justify-center space-x-2 h-full">
+                      <FormControl>
+                        <Checkbox
+                          checked={field.value}
+                          onChange={field.onChange}
+                          onCheckedChange={() => field.onChange(!field.value)}
+                        />
+                      </FormControl>
+                      <div className="space-x-1 leading-none">
+                        <FormLabel className="text-lg">Priority</FormLabel>
+                      </div>
+                    </div>
+                  </FormItem>
+                )}
+              />
               <FormField
                 control={form.control}
                 name="notes"
@@ -158,7 +170,7 @@ export default function AddExamDialog() {
             </div>
             <div className="flex justify-center">
               <button type="submit" className="btn mt-4">
-                Create Exam
+                Create Assignment
               </button>
             </div>
           </form>

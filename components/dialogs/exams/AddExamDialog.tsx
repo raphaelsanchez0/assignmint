@@ -7,10 +7,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-
 import React, { useState } from "react";
 import {
   Form,
@@ -36,26 +32,24 @@ import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
-import { Checkbox } from "@/components/ui/checkbox";
-import { getCourses } from "@/server/apis/courses";
+
 import { Textarea } from "@/components/ui/textarea";
-import useAddAssignmentForm from "@/app/_hooks/forms/useAddAssignmentForm";
+import useAddExamForm from "@/app/_hooks/forms/useAddExamForm";
 
-export default function AddAssignmentDialog() {
+export default function AddExamDialog() {
   const [open, setOpen] = useState(false);
-
-  const { form, courses, onSubmit } = useAddAssignmentForm(() =>
-    setOpen(false),
-  );
+  const { form, courses, onSubmit } = useAddExamForm(() => {
+    setOpen(false);
+  });
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <button className="btn">Add</button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="w-1/2">
         <DialogHeader>
-          <DialogTitle>Add Assignment</DialogTitle>
+          <DialogTitle>Add Exam</DialogTitle>
         </DialogHeader>
 
         <Form {...form}>
@@ -91,17 +85,17 @@ export default function AddAssignmentDialog() {
                   <FormItem>
                     <FormLabel>Title</FormLabel>
                     <FormControl>
-                      <Input placeholder="Title" {...field} />
+                      <Input placeholder="CHEM Midterm" {...field} />
                     </FormControl>
                   </FormItem>
                 )}
               />
               <FormField
                 control={form.control}
-                name="dueDate"
+                name="examDate"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Due Date</FormLabel>
+                    <FormLabel>Exam Date</FormLabel>
                     <Popover>
                       <PopoverTrigger asChild>
                         <FormControl>
@@ -126,33 +120,14 @@ export default function AddAssignmentDialog() {
                           mode="single"
                           selected={field.value}
                           onSelect={field.onChange}
+                          initialFocus
                         />
                       </PopoverContent>
                     </Popover>
                   </FormItem>
                 )}
               />
-              <FormField
-                control={form.control}
-                name="priority"
-                render={({ field }) => (
-                  <FormItem className="h-full">
-                    <FormLabel></FormLabel>
-                    <div className="flex items-center justify-center space-x-2 h-full">
-                      <FormControl>
-                        <Checkbox
-                          checked={field.value}
-                          onChange={field.onChange}
-                          onCheckedChange={() => field.onChange(!field.value)}
-                        />
-                      </FormControl>
-                      <div className="space-x-1 leading-none">
-                        <FormLabel className="text-lg">Priority</FormLabel>
-                      </div>
-                    </div>
-                  </FormItem>
-                )}
-              />
+
               <FormField
                 control={form.control}
                 name="notes"
@@ -174,7 +149,7 @@ export default function AddAssignmentDialog() {
             </div>
             <div className="flex justify-center">
               <button type="submit" className="btn mt-4">
-                Create Assignment
+                Create Exam
               </button>
             </div>
           </form>

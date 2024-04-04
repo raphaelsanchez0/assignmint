@@ -6,7 +6,11 @@ import { QueryClient } from "@tanstack/react-query";
 import { createSupabaseActionClient } from "@/utils/supabase/supabaseActionClient";
 import { cookies } from "next/headers";
 import { createSupabaseServerClient } from "@/utils/supabase/supabaseServerClient";
-import { assignmentFormSchema, examFormSchema } from "@/lib/schemas";
+import {
+  assignmentFormSchema,
+  canvasAPIFormSchema,
+  examFormSchema,
+} from "@/lib/schemas";
 import { User } from "@supabase/supabase-js";
 
 const supabase = createSupabaseServerClient();

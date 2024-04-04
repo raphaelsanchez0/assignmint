@@ -17,7 +17,7 @@ import DueTomorrowAssignments from "./AssignmentCatagories/DueTomorrowAssignment
 import ThisWeekAssignments from "./AssignmentCatagories/ThisWeekAssignments";
 import NextWeekAssignments from "./AssignmentCatagories/NextWeekAssignments";
 import { Card } from "../ui/card";
-import AddAssignmentDialog from "../event-dialogs/assignments/AddAssignmentDialog";
+import AddAssignmentDialog from "@/components/dialogs/assignments/AddAssignmentDialog";
 
 interface AssignmentsListProps {
   showAddAssignment?: boolean;
@@ -30,7 +30,6 @@ const AssignmentsList: React.FC<AssignmentsListProps> = async ({
 
   return (
     <Card>
-      {/* // <div> */}
       <div className="flex items-center justify-between">
         <h3 className="card-title">Assignments</h3>
         {showAddAssignment && (
@@ -39,28 +38,14 @@ const AssignmentsList: React.FC<AssignmentsListProps> = async ({
           </div>
         )}
       </div>
-
       <ol>
-        <HydrationBoundary state={dehydrate(queryClient)}>
-          <OverdueAssignments />
-        </HydrationBoundary>
-        <HydrationBoundary state={dehydrate(queryClient)}>
-          <PriorityAssignments />
-        </HydrationBoundary>
-        <HydrationBoundary state={dehydrate(queryClient)}>
-          <DueTodayAssignments />
-        </HydrationBoundary>
-        <HydrationBoundary>
-          <DueTomorrowAssignments />
-        </HydrationBoundary>
-        <HydrationBoundary>
-          <ThisWeekAssignments />
-        </HydrationBoundary>
-        <HydrationBoundary>
-          <NextWeekAssignments />
-        </HydrationBoundary>
+        <OverdueAssignments />
+        <PriorityAssignments />
+        <DueTodayAssignments />
+        <DueTomorrowAssignments />
+        <ThisWeekAssignments />
+        <NextWeekAssignments />
       </ol>
-      {/* </div> */}
     </Card>
   );
 };

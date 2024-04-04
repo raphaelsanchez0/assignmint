@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { examFormSchema } from "@/lib/schemas";
 import { getCourses, updateExam } from "@/server/actions";
+import utcToZonedTime from "date-fns-tz/utcToZonedTime";
 
 export function useEditExamForm(exam: Exam, onSuccessCallback?: () => void) {
   const queryClient = useQueryClient();
@@ -16,7 +17,7 @@ export function useEditExamForm(exam: Exam, onSuccessCallback?: () => void) {
     defaultValues: {
       course: exam.course.id,
       title: exam.title,
-      examDate: new Date(exam.examDate),
+      examDate: utcToZonedTime(exam.examDate, "UTC"),
       notes: exam.notes,
     },
   });

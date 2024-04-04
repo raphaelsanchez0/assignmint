@@ -19,7 +19,6 @@ export default function Account() {
 
   const fullName = data?.data.user?.user_metadata.full_name;
   const email = data?.data.user?.email;
-  console.log(data);
 
   if (isLoading)
     return (
