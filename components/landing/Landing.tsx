@@ -1,12 +1,12 @@
 import React from "react";
 import { MacbookScrollHero } from "./MacbookScrollHero";
 import Hero from "./Hero";
-import Header from "./Header";
+import Navbar from "./Navbar";
 
 export default function Landing() {
   return (
     <div>
-      <Header />
+      <Navbar />
       <Hero />
     </div>
   );

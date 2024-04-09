@@ -15,6 +15,12 @@ label {
 
 /* Global Styles */
 
+/* Landing Styles */
+
+.landing-section {
+  @apply lg:max-w-screen-lg lg:mx-auto;
+}
+
 .section-title {
   @apply text-5xl font-extrabold;
 }
