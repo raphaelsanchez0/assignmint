@@ -5,9 +5,11 @@ import Navbar from "./Navbar";
 
 export default function Landing() {
   return (
-    <div>
-      <Navbar />
-      <Hero />
-    </div>
+    <>
+      <div className="h-screen">
+        <Navbar />
+        <Hero />
+      </div>
+    </>
   );
 }
