@@ -5,7 +5,7 @@ export default function Navbar() {
   return (
     <nav
       className="p-6 flex items-center justify-center 
-         lg:justify-between lg:max-w-screen-lg lg:mx-auto"
+         lg:justify-between "
     >
       <a className="flex items-center">
         <Image src="/logo.png" alt="logo" width={48} height={48} />
