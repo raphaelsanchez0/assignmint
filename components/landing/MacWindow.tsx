@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function MacWindow() {
   return (
-    <div className="flex flex-col rounded-xl overflow-hidden shadow-2xl hidden md:block">
+    <div className="flex-col rounded-xl overflow-hidden shadow-2xl hidden md:block">
       <div className="dark:bg-[#1E1E1E] p-2 w-full flex items-center gap-1.5">
         <div className="bg-[#FF5E57] h-3 w-3 rounded-full"></div>
         <div className="bg-[#FFBB2E] h-3 w-3 rounded-full"></div>
