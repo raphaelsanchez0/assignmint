@@ -12,6 +12,7 @@ import {
   examFormSchema,
 } from "@/lib/schemas";
 import { User } from "@supabase/supabase-js";
+import { formatISO, parseISO } from "date-fns";
 
 const supabase = createSupabaseServerClient();
 
@@ -25,8 +26,9 @@ export async function createAssignment(input: any) {
     return { error: result.error };
   }
   const parsedData = result.data;
-
-  const dueDate = new Date(parsedData.dueDate);
+  console.log("predate: " + parsedData.dueDate);
+  const dueDate = formatISO(parsedData.dueDate);
+  console.log(dueDate);
 
   const { data, error } = await supabase.from("assignments").insert({
     ...parsedData,
@@ -47,7 +49,7 @@ export async function createExam(input: any) {
   }
   const parsedData = result.data;
 
-  const examDate = new Date(parsedData.examDate);
+  const examDate = formatISO(parsedData.examDate);
 
   const { error } = await supabase.from("exams").insert({
     ...parsedData,
@@ -70,7 +72,7 @@ export async function updateAssignment(variables: { input: any; id: string }) {
     return { error: result.error };
   }
   const parsedData = result.data;
-  const dueDate = new Date(parsedData.dueDate);
+  const dueDate = formatISO(parsedData.dueDate);
   const { error } = await supabase
     .from("assignments")
     .update({
