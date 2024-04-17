@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 export default function Navbar() {
@@ -18,14 +19,15 @@ export default function Navbar() {
           AssignMint
         </h1>
       </a>
-
-      <button
-        type="button"
-        className="bg-gradient-to-r from-teal-500 to-green-500 rounded-full px-6 py-2 text-white font-semibold shadow-md hover:shadow-lg transition duration-200 ease-in-out
+      <Link href="/login">
+        <button
+          type="button"
+          className="bg-gradient-to-r from-teal-500 to-green-500 rounded-full px-6 py-2 text-white font-semibold shadow-md hover:shadow-lg transition duration-200 ease-in-out
           hidden lg:block"
-      >
-        Sign Up
-      </button>
+        >
+          Sign Up
+        </button>
+      </Link>
     </nav>
   );
 }

@@ -1,6 +1,7 @@
 import React from "react";
 import { TextGenerateEffect } from "../ui/text-generate-effect";
 import MacWindow from "./MacWindow";
+import Link from "next/link";
 
 export default function Hero() {
   return (
@@ -12,13 +13,15 @@ export default function Hero() {
         <h2 className="text-3xl text-center font-light">
           The Assignment Tracker that Just Makes Sense
         </h2>
-        <button
-          type="button"
-          className="bg-gradient-to-r from-teal-500 to-green-500 rounded-full px-6 py-2 text-white font-semibold shadow-md hover:shadow-lg transition duration-200 ease-in-out
+        <Link href="/login">
+          <button
+            type="button"
+            className="bg-gradient-to-r from-teal-500 to-green-500 rounded-full px-6 py-2 text-white font-semibold shadow-md hover:shadow-lg transition duration-200 ease-in-out
            lg:hidden"
-        >
-          Sign Up
-        </button>
+          >
+            Sign Up
+          </button>
+        </Link>
         <MacWindow />
       </div>
     </>
