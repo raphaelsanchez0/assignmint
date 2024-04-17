@@ -8,8 +8,15 @@ export default function Navbar() {
          lg:justify-between "
     >
       <a className="flex items-center">
-        <Image src="/logo.png" alt="logo" width={48} height={48} />
-        <h1 className="text-2xl font-semibold ml-2">AssignMint</h1>
+        <div className="hidden dark:block">
+          <Image src="/logos/white.png" alt="logo" width={48} height={48} />
+        </div>
+        <div className="dark:hidden">
+          <Image src="/logos/black.png" alt="logo" width={48} height={48} />
+        </div>
+        <h1 className="text-2xl font-bold dark:font-semibold ml-2">
+          AssignMint
+        </h1>
       </a>
 
       <button

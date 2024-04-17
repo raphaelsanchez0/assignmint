@@ -10,7 +10,7 @@ export default function Hero() {
           Study Smarter, Not Harder
         </h1>
         <h2 className="text-3xl text-center font-light">
-          The Assignment Tracker that just makes sense
+          The Assignment Tracker that Just Makes Sense
         </h2>
         <button
           type="button"
