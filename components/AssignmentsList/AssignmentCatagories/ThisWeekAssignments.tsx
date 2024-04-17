@@ -1,5 +1,4 @@
 "use client";
-import { useQuery } from "@tanstack/react-query";
 import React, { Suspense } from "react";
 import {
   fetchAssignments,
@@ -13,7 +12,7 @@ export default function ThisWeekAssignments() {
       fetchAssignmentsFn={getThisWeekAssignments}
       queryKey="thisWeekAssignments"
       title="This Week"
-      color="#A11692"
+      color="#6366f1"
     />
   );
 }

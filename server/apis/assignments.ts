@@ -118,7 +118,6 @@ export async function getNextWeekAssignments() {
     startOfDay(addWeeks(startOfNextWeek, oneWeek)),
     oneDay,
   );
-  console.log(startOfNextWeek, endOfNextWeek);
 
   const { data, error } = await supabase
     .from("assignments")
@@ -130,6 +129,29 @@ export async function getNextWeekAssignments() {
     )
     .gte("dueDate", formatISO(startOfNextWeek))
     .lte("dueDate", formatISO(endOfNextWeek))
+    .order("dueDate", { ascending: true });
+
+  if (error) {
+    console.log(error);
+    throw error;
+  }
+
+  return data;
+}
+
+export async function getFutureAssignments() {
+  const twoWeeks = 2;
+  const startDate = startOfDay(addWeeks(new Date(), twoWeeks));
+
+  const { data, error } = await supabase
+    .from("assignments")
+    .select(
+      `
+      *,
+      course(*)
+    `,
+    )
+    .gte("dueDate", formatISO(startDate))
     .order("dueDate", { ascending: true });
 
   if (error) {

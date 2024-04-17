@@ -18,6 +18,7 @@ import ThisWeekAssignments from "./AssignmentCatagories/ThisWeekAssignments";
 import NextWeekAssignments from "./AssignmentCatagories/NextWeekAssignments";
 import { Card } from "../ui/card";
 import AddAssignmentDialog from "@/components/dialogs/assignments/AddAssignmentDialog";
+import FutureAssignments from "./AssignmentCatagories/FutureAssignments";
 
 interface AssignmentsListProps {
   showAddAssignment?: boolean;
@@ -45,6 +46,7 @@ const AssignmentsList: React.FC<AssignmentsListProps> = async ({
         <DueTomorrowAssignments />
         <ThisWeekAssignments />
         <NextWeekAssignments />
+        <FutureAssignments />
       </ol>
     </Card>
   );
