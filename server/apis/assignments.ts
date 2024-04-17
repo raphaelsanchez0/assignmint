@@ -85,8 +85,8 @@ export async function getDueTomorrowAssignments() {
 export async function getThisWeekAssignments(): Promise<Assignment[]> {
   const todayAndTomorrowOffset = 2;
   const startDate = startOfDay(addDays(new Date(), todayAndTomorrowOffset));
-  const endOfWeekOffset = 5;
 
+  const endOfWeekOffset = 4;
   const endDate = startOfDay(addDays(startDate, endOfWeekOffset));
 
   const { data, error } = await supabase
@@ -110,13 +110,34 @@ export async function getThisWeekAssignments(): Promise<Assignment[]> {
 }
 
 export async function getNextWeekAssignments() {
-  const today = new Date();
-  const startOfNextWeek = startOfWeek(addWeeks(today, 1), { weekStartsOn: 1 });
+  const oneWeek = 1;
+  const startOfNextWeek = startOfDay(addWeeks(new Date(), oneWeek));
 
-  // Calculate the end of next week
-  const endOfNextWeek = endOfWeek(addWeeks(today, 1), { weekStartsOn: 1 });
+  const oneDay = 1;
+  const endOfNextWeek = subDays(
+    startOfDay(addWeeks(startOfNextWeek, oneWeek)),
+    oneDay,
+  );
+  console.log(startOfNextWeek, endOfNextWeek);
 
-  return await fetchAssignmentsInRange(startOfNextWeek, endOfNextWeek);
+  const { data, error } = await supabase
+    .from("assignments")
+    .select(
+      `
+      *,
+      course(*)
+    `,
+    )
+    .gte("dueDate", formatISO(startOfNextWeek))
+    .lte("dueDate", formatISO(endOfNextWeek))
+    .order("dueDate", { ascending: true });
+
+  if (error) {
+    console.log(error);
+    throw error;
+  }
+
+  return data;
 }
 /** */
 interface FetchAssignmentsParams {
