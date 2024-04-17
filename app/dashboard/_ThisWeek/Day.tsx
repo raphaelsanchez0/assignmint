@@ -45,6 +45,10 @@ const Day: React.FC<DayProps> = ({ date }) => {
   if (exams && assignments) {
     subtitle = createDaySubheader(exams.length, assignments.length);
   }
+
+  const showArrow =
+    (exams && exams.length > 0) || (assignments && assignments.length > 0);
+
   return (
     <>
       <hr className="h-px w-full bg-gray-400 border-0 my-4" />
@@ -55,10 +59,7 @@ const Day: React.FC<DayProps> = ({ date }) => {
             {subtitle}
           </h5>
         </div>
-        {(exams && exams.length > 0) ||
-          (assignments && assignments.length > 0 && (
-            <ExpandComponentToggleArrow expanded={expanded} />
-          ))}
+        {showArrow ? <ExpandComponentToggleArrow expanded={expanded} /> : <></>}
       </div>
       {expanded && (
         <ExpandedDay exams={exams || []} assignments={assignments || []} />

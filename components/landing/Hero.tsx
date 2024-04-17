@@ -10,8 +10,7 @@ export default function Hero() {
           Study Smarter, Not Harder
         </h1>
         <h2 className="text-3xl text-center font-light">
-          Streamline your academic life with intuitive tracking, automated
-          reminders, and personalized study plans.
+          The Assignment Tracker that just makes sense
         </h2>
         <button
           type="button"
