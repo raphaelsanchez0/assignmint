@@ -26,9 +26,7 @@ export async function createAssignment(input: any) {
     return { error: result.error };
   }
   const parsedData = result.data;
-  console.log("predate: " + parsedData.dueDate);
   const dueDate = formatISO(parsedData.dueDate);
-  console.log(dueDate);
 
   const { data, error } = await supabase.from("assignments").insert({
     ...parsedData,
