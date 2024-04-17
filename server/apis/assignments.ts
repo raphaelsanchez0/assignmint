@@ -4,6 +4,7 @@ import {
   addWeeks,
   differenceInDays,
   endOfWeek,
+  formatISO,
   startOfDay,
   startOfToday,
   startOfWeek,
@@ -81,17 +82,31 @@ export async function getDueTomorrowAssignments() {
  * tomorrow, as they are already shown.
  * @returns
  */
-export async function getThisWeekAssignments() {
-  const today = startOfDay(new Date());
+export async function getThisWeekAssignments(): Promise<Assignment[]> {
+  const todayAndTomorrowOffset = 2;
+  const startDate = startOfDay(addDays(new Date(), todayAndTomorrowOffset));
+  const endOfWeekOffset = 5;
 
-  const startDate = addDays(today, 2);
-  const daysRange = 4;
+  const endDate = startOfDay(addDays(startDate, endOfWeekOffset));
 
-  return await fetchAssignments({
-    baseDate: startDate,
-    daysRange: daysRange,
-    comparison: "gte",
-  });
+  const { data, error } = await supabase
+    .from("assignments")
+    .select(
+      `
+      *,
+      course(*)
+    `,
+    )
+    .gte("dueDate", formatISO(startDate))
+    .lte("dueDate", formatISO(endDate))
+    .order("dueDate", { ascending: true });
+
+  if (error) {
+    console.log(error);
+    throw error;
+  }
+
+  return data;
 }
 
 export async function getNextWeekAssignments() {
