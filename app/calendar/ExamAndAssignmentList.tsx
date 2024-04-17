@@ -66,6 +66,12 @@ export default function ExamAndAssignmentList() {
           </ol>
         </>
       )}
+      {(!exams || exams.length === 0) &&
+        (!assignments || assignments.length === 0) && (
+          <p className="text-gray-500 dark:text-gray-600 text-sm text-center italic">
+            No exams or assignments today
+          </p>
+        )}
     </Card>
   );
 }

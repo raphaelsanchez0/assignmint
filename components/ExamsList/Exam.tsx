@@ -61,7 +61,9 @@ const Exam: React.FC<ExamProps> = ({ exam }) => {
                 <h4 className="text-md font-medium text-off-black">
                   {exam.title}
                 </h4>
-                <h5 className="text-sm text-gray-500">{exam.course.title}</h5>
+                <h5 className="text-sm text-gray-500 dark:text-gray-400">
+                  {exam.course.title}
+                </h5>
               </div>
               <div>
                 <h5 className="text-sm text-gray text-off-black">

@@ -51,9 +51,14 @@ const Day: React.FC<DayProps> = ({ date }) => {
       <div className="flex justify-between items-center" onClick={handleClick}>
         <div>
           <h3 className="text-xl font-semibold text-off-black">{dayString}</h3>
-          <h5 className="text-sm text-gray-500">{subtitle}</h5>
+          <h5 className="text-sm text-gray-500 dark:text-gray-400">
+            {subtitle}
+          </h5>
         </div>
-        <ExpandComponentToggleArrow expanded={expanded} />
+        {(exams && exams.length > 0) ||
+          (assignments && assignments.length > 0 && (
+            <ExpandComponentToggleArrow expanded={expanded} />
+          ))}
       </div>
       {expanded && (
         <ExpandedDay exams={exams || []} assignments={assignments || []} />

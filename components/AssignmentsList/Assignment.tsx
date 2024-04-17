@@ -93,7 +93,7 @@ const Assignment: React.FC<AssignmentProps> = ({ assignment }) => {
                 <h4 className="text-md font-medium text-off-black">
                   {assignment.title}
                 </h4>
-                <h5 className="text-sm text-gray-500">
+                <h5 className="text-sm text-gray-500 dark:text-gray-400">
                   {assignment.course.title}
                 </h5>
               </div>
