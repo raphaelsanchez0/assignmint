@@ -34,6 +34,7 @@
     "axios": "^1.6.8",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "cmdk": "^1.0.0",
     "cookies-next": "^4.1.1",
     "date-and-time": "^3.0.3",
     "date-fns": "^2.30.0",
