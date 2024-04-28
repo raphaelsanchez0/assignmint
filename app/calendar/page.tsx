@@ -1,11 +1,11 @@
 import PageTitle from "../../components/PageTitle";
 import AssignmentsList from "./ExamAndAssignmentList";
 import CalenderCard from "./CalendarCard";
-import {
-  QueryClient,
-} from "@tanstack/react-query";
+import { QueryClient } from "@tanstack/react-query";
 import { getEventsOnDate } from "@/server/apis/api";
 import { Card } from "@/components/ui/card";
+import { Suspense } from "react";
+import LoadingListShorter from "@/components/Loading/LoadingListShorter";
 
 export default async function CalendarPage() {
   const queryClient = new QueryClient();
@@ -27,11 +27,12 @@ export default async function CalendarPage() {
         <PageTitle title="Calendar" />
         <div className="flex gap-4 p-4">
           <div className="basis-7/12 h-min">
-            <CalenderCard />
+            <Suspense fallback={<LoadingListShorter />}>
+              <CalenderCard />
+            </Suspense>
           </div>
           <div className="basis-5/12">
-            
-              <AssignmentsList />
+            <AssignmentsList />
           </div>
         </div>
       </div>

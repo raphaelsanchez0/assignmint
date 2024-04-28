@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import type { NextRequest, NextResponse } from "next/server";
 import { getCookie, setCookie } from "cookies-next";
 
-export function createSupabaseReqResClient(
+export async function createSupabaseReqResClient(
   req: NextRequest,
   res: NextResponse,
 ) {

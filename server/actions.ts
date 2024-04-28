@@ -14,11 +14,12 @@ import {
 import { User } from "@supabase/supabase-js";
 import { formatISO, parseISO } from "date-fns";
 
-const supabase = createSupabaseServerClient();
+
 
 const queryClient = new QueryClient();
 
 export async function createAssignment(input: any) {
+  const supabase = await createSupabaseServerClient();
   const result = assignmentFormSchema.safeParse(input);
 
   if (!result.success) {
@@ -39,6 +40,7 @@ export async function createAssignment(input: any) {
 }
 
 export async function createExam(input: any) {
+  const supabase = await createSupabaseServerClient();
   const result = examFormSchema.safeParse(input);
 
   if (!result.success) {
@@ -63,6 +65,7 @@ export async function createExam(input: any) {
 }
 
 export async function updateAssignment(variables: { input: any; id: string }) {
+  const supabase = await createSupabaseServerClient();
   const result = assignmentFormSchema.safeParse(variables.input);
 
   if (!result.success) {
@@ -85,6 +88,7 @@ export async function updateAssignment(variables: { input: any; id: string }) {
 }
 
 export async function updateExam(variables: { input: any; id: string }) {
+  const supabase = await createSupabaseServerClient();
   const result = examFormSchema.safeParse(variables.input);
   if (!result.success) {
     console.error("Validation failed", result.error);
@@ -109,6 +113,7 @@ export async function updateExam(variables: { input: any; id: string }) {
 }
 
 export async function getCourses(): Promise<Course[]> {
+  const supabase = await createSupabaseServerClient();
   const { data: courseList, error } = await supabase
     .from("courses")
     .select("id, title, color")
@@ -123,6 +128,7 @@ export async function getCourses(): Promise<Course[]> {
 }
 
 export async function deleteCourse(courseID: string) {
+  const supabase = await createSupabaseServerClient();
   const { error } = await supabase.from("courses").delete().eq("id", courseID);
 
   if (error) {
@@ -131,6 +137,7 @@ export async function deleteCourse(courseID: string) {
   }
 }
 export async function getExams() {
+  const supabase = await createSupabaseServerClient();
   const { data: exams, error } = await supabase.from("exams").select(`
     *,
     course(*)
@@ -161,6 +168,7 @@ export async function createOrUpdateCourse(
   courseName: string,
   courseColor: string,
 ) {
+  const supabase = await createSupabaseServerClient();
   const validatedCourse = addCouseSchema.parse({
     id: courseID,
     title: courseName,
@@ -178,6 +186,7 @@ export async function createOrUpdateCourse(
 }
 
 export async function getAssignments() {
+  const supabase = await createSupabaseServerClient();
   const { data: assignments, error } = await supabase.from("assignments")
     .select(`
     *,
@@ -198,6 +207,7 @@ interface Assignments {
   dueToday: Assignment[];
 }
 export async function getCategorizedAssignments() {
+  const supabase = await createSupabaseServerClient();
   "use server";
   let assignments: Assignments = {
     priority: [],
@@ -257,6 +267,7 @@ export async function getCategorizedAssignments() {
 }
 
 export async function getOverdueAssignments() {
+  const supabase = await createSupabaseServerClient();
   const currentDate = new Date();
   currentDate.setHours(0, 0, 0, 0);
   const currentDateIso = currentDate.toISOString();
@@ -279,6 +290,7 @@ export async function getOverdueAssignments() {
 }
 
 export async function deleteExam(id: number) {
+  const supabase = await createSupabaseServerClient();
   const { data, error } = await supabase.from("exams").delete().eq("id", id);
 
   if (error) {
@@ -288,6 +300,7 @@ export async function deleteExam(id: number) {
 }
 
 export async function deleteAssignment(id: number) {
+  const supabase = await createSupabaseServerClient();
   const { data, error } = await supabase
     .from("assignments")
     .delete()
@@ -300,6 +313,7 @@ export async function deleteAssignment(id: number) {
 }
 
 export async function getUserInfo(): Promise<User> {
+  const supabase = await createSupabaseServerClient();
   const { data, error } = await supabase.auth.getUser();
   if (error) {
     console.log(error.message);

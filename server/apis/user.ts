@@ -2,7 +2,7 @@ import { createSupabaseServerClient } from "@/utils/supabase/supabaseServerClien
 import { createClient } from "@supabase/supabase-js";
 
 export async function getUser() {
-  const supabase = createSupabaseServerClient();
+  const supabase = await createSupabaseServerClient();
 
   const { data, error } = await supabase.auth.getUser();
   if (error || !data?.user) {
@@ -12,7 +12,7 @@ export async function getUser() {
 }
 
 export async function getUserID() {
-  const supabase = createSupabaseServerClient();
+  const supabase = await createSupabaseServerClient();
 
   const { data, error } = await supabase.auth.getUser();
   if (error || !data?.user) {

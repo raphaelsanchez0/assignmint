@@ -1,11 +1,9 @@
 import { createSupabaseServerClient } from "@/utils/supabase/supabaseServerClient";
 import { createServerClient } from "@supabase/ssr";
-import { createServer } from "http";
-import { cookies } from "next/headers";
 import { type NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
-  const supabase = createSupabaseServerClient();
+  const supabase = await createSupabaseServerClient();
 
   // Check if we have a session
   const {

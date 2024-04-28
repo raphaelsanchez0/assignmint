@@ -2,10 +2,8 @@
 import { QueryClient } from "@tanstack/react-query";
 import { createSupabaseFrontendClient } from "../../utils/supabase/supabaseFrontendClient";
 
-const queryClient = new QueryClient();
-
-const supabase = createSupabaseFrontendClient();
 export async function getExams() {
+  const supabase = createSupabaseFrontendClient();
   const { data: exams, error } = await supabase.from("exams").select(`
       *,
       course(*)
@@ -22,6 +20,7 @@ export async function getExams() {
 }
 
 export async function getExam(id: number): Promise<Exam> {
+  const supabase = createSupabaseFrontendClient();
   const { data, error } = await supabase
     .from("exams")
     .select(
@@ -40,6 +39,7 @@ export async function getExam(id: number): Promise<Exam> {
 }
 
 export async function deleteExam(id: number) {
+  const supabase = createSupabaseFrontendClient();
   const { data, error } = await supabase.from("exams").delete().eq("id", id);
 
   if (error) {
