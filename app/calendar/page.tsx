@@ -8,19 +8,6 @@ import { Suspense } from "react";
 import LoadingListShorter from "@/components/Loading/LoadingListShorter";
 
 export default async function CalendarPage() {
-  const queryClient = new QueryClient();
-
-  //Prefetching exams and assignments for today
-  await queryClient.prefetchQuery({
-    queryKey: ["examsToday"],
-    queryFn: () => getEventsOnDate("exams", new Date()),
-  });
-
-  await queryClient.prefetchQuery({
-    queryKey: ["assignmentsToday"],
-    queryFn: () => getEventsOnDate("assignments", new Date()),
-  });
-
   return (
     <>
       <div className="ml-sidebar-width">
@@ -32,7 +19,9 @@ export default async function CalendarPage() {
             </Suspense>
           </div>
           <div className="basis-5/12">
-            <AssignmentsList />
+            <Suspense fallback={<LoadingListShorter />}>
+              <AssignmentsList />
+            </Suspense>
           </div>
         </div>
       </div>

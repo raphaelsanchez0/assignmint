@@ -8,13 +8,6 @@ import {
 import ExamsCard from "@/components/ExamsList/ExamsCard";
 
 export default async function Exams() {
-  const queryClient = new QueryClient();
-
-  await queryClient.prefetchQuery({
-    queryKey: ["courses"],
-    queryFn: getCourses,
-  });
-
   return (
     <>
       <div className="ml-sidebar-width">
@@ -23,9 +16,7 @@ export default async function Exams() {
             <ExamsCard />
           </div>
           <div className="basis-1/2">
-            <HydrationBoundary state={dehydrate(queryClient)}>
-              <AddExam />
-            </HydrationBoundary>
+            <AddExam />
           </div>
         </div>
       </div>

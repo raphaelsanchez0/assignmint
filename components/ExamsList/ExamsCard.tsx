@@ -13,8 +13,6 @@ interface ExamsListProps {
 //Tells nextjs to not rely on cache
 
 const ExamsCard: React.FC<ExamsListProps> = async ({ showAddExam = false }) => {
-  const queryClient = new QueryClient();
-
   return (
     <Card>
       <div className="flex items-center justify-between mb-4">
