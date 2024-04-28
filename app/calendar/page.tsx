@@ -2,9 +2,7 @@ import PageTitle from "../../components/PageTitle";
 import AssignmentsList from "./ExamAndAssignmentList";
 import CalenderCard from "./CalendarCard";
 import {
-  HydrationBoundary,
   QueryClient,
-  dehydrate,
 } from "@tanstack/react-query";
 import { getEventsOnDate } from "@/server/apis/api";
 import { Card } from "@/components/ui/card";
@@ -32,9 +30,8 @@ export default async function CalendarPage() {
             <CalenderCard />
           </div>
           <div className="basis-5/12">
-            <HydrationBoundary state={dehydrate(queryClient)}>
+            
               <AssignmentsList />
-            </HydrationBoundary>
           </div>
         </div>
       </div>

@@ -5,12 +5,13 @@ import { createSupabaseActionClient } from "@/utils/supabase/supabaseActionClien
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-const cookieStore = cookies();
+
 
 export async function signInWithEmailAndPassword(credentials: {
   email: string;
   password: string;
 }) {
+  const cookieStore = cookies();
   const supabase = await createSupabaseActionClient(cookieStore);
 
   return await supabase.auth.signInWithPassword(credentials);
@@ -22,6 +23,7 @@ export async function signUpWithEmailAndPassword(credentials: {
   email: string;
   password: string;
 }) {
+  const cookieStore = cookies();
   const supabase = await createSupabaseActionClient(cookieStore);
 
   return await supabase.auth.signUp({
@@ -39,6 +41,7 @@ export async function signUpWithEmailAndPassword(credentials: {
 }
 
 export async function signInWithOAuth() {
+  const cookieStore = cookies();
   const supabase = await createSupabaseActionClient(cookieStore);
 
   return await supabase.auth.signInWithOAuth({
