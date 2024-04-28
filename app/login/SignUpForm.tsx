@@ -49,7 +49,7 @@ export default function SignUpForm() {
       toast({
         title: "Verify Email",
         description:
-          "We have sent you a verification email. Please verify your email to continue.",
+          "We have sent you a verification email. Please verify your email to continue. Check your spam/junk folder if you don't see the email in your inbox.",
       });
     } else {
       toast({
