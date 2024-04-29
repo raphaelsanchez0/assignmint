@@ -11,7 +11,7 @@ export default function MacWindow() {
       <div className="dark:bg-[#282828]">
         <div className="hidden dark:block">
           <Image
-            src="/images/macbook_img_dark.png"
+            src="/images/macbook_img_dark.PNG"
             width={2541}
             height={1309}
             quality={100}
@@ -25,7 +25,7 @@ export default function MacWindow() {
         </div>
         <div className="dark:hidden">
           <Image
-            src="/images/macbook_img_light.png"
+            src="/images/macbook_img_light.PNG"
             width={2542}
             height={1311}
             alt="ui"
