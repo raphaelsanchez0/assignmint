@@ -45,7 +45,6 @@ const Assignment: React.FC<AssignmentProps> = ({ assignment }) => {
   });
 
   function handleDeleteAssignment() {
-    console.log("Deleting assignment", assignment.id);
     deleteAssignmentMutation.mutate(assignment.id as unknown as number);
   }
 
