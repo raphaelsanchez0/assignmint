@@ -45,6 +45,7 @@ const Assignment: React.FC<AssignmentProps> = ({ assignment }) => {
   });
 
   function handleDeleteAssignment() {
+    console.log("Deleting assignment", assignment.id);
     deleteAssignmentMutation.mutate(assignment.id as unknown as number);
   }
 
@@ -109,8 +110,8 @@ const Assignment: React.FC<AssignmentProps> = ({ assignment }) => {
           </div>
         </ContextMenuTrigger>
         <ContextMenuContent hidden={openEditDialog}>
-          <ContextMenuItem>
-            <button onClick={handleDeleteAssignment}>Complete</button>
+          <ContextMenuItem onSelect={handleDeleteAssignment}>
+            Complete
           </ContextMenuItem>
 
           {/* Edit Button */}

@@ -14,8 +14,6 @@ import {
 import { User } from "@supabase/supabase-js";
 import { formatISO, parseISO } from "date-fns";
 
-
-
 const queryClient = new QueryClient();
 
 export async function createAssignment(input: any) {
@@ -208,7 +206,7 @@ interface Assignments {
 }
 export async function getCategorizedAssignments() {
   const supabase = await createSupabaseServerClient();
-  "use server";
+  ("use server");
   let assignments: Assignments = {
     priority: [],
     overdue: [],
@@ -301,10 +299,7 @@ export async function deleteExam(id: number) {
 
 export async function deleteAssignment(id: number) {
   const supabase = await createSupabaseServerClient();
-  const { data, error } = await supabase
-    .from("assignments")
-    .delete()
-    .eq("id", id);
+  const { error } = await supabase.from("assignments").delete().eq("id", id);
 
   if (error) {
     console.error("Error deleting assignment: ", error);
