@@ -15,8 +15,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { signUpWithEmailAndPassword } from "./authActions";
+import { createSupabaseFrontendClient } from "@/utils/supabase/supabaseFrontendClient";
+import getURL from "@/utils/getURL";
 
 const FormSchema = z
   .object({
@@ -44,14 +46,30 @@ export default function SignUpForm() {
   const router = useRouter();
 
   async function onSubmit(credentials: z.infer<typeof FormSchema>) {
-    const { data, error } = await signUpWithEmailAndPassword(credentials);
-    if (!error) {
+    const supabase = await createSupabaseFrontendClient();
+
+    const { data, error } = await supabase.auth.signUp({
+      email: credentials.email,
+      password: credentials.password,
+      options: {
+        emailRedirectTo: `${getURL("/dashboard")}`,
+        data: {
+          first_name: credentials.firstName,
+          last_name: credentials.lastName,
+          full_name: `${credentials.firstName} ${credentials.lastName}`,
+        },
+      },
+    });
+
+    if (data) {
       toast({
         title: "Verify Email",
         description:
           "We have sent you a verification email. Please verify your email to continue. Check your spam/junk folder if you don't see the email in your inbox.",
       });
-    } else {
+    }
+    if (error) {
+      console.log(error);
       toast({
         title: error.message,
       });
