@@ -25,7 +25,7 @@ export async function signUpWithEmailAndPassword(
   const cookieStore = cookies();
   const supabase = await createSupabaseActionClient(cookieStore);
 
-  return await supabase.auth.signUp({
+  const { data, error } = await supabase.auth.signUp({
     email: email,
     password: password,
     options: {
@@ -37,6 +37,21 @@ export async function signUpWithEmailAndPassword(
       },
     },
   });
+  console.log(data);
+  console.log(error);
+  if (data) {
+    return {
+      status: "success",
+      message: "Signup successful.",
+    };
+  }
+
+  if (error) {
+    return {
+      status: "error",
+      message: error.message || "An unknown error occurred.",
+    };
+  }
 }
 
 export async function signInWithOAuth() {
