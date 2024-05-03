@@ -44,7 +44,12 @@ export default function SignUpForm() {
   const router = useRouter();
 
   async function onSubmit(credentials: z.infer<typeof FormSchema>) {
-    const { data, error } = await signUpWithEmailAndPassword(credentials);
+    const { data, error } = await signUpWithEmailAndPassword(
+      credentials.firstName,
+      credentials.lastName,
+      credentials.email,
+      credentials.password,
+    );
     if (!error) {
       toast({
         title: "Verify Email",
