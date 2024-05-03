@@ -17,7 +17,8 @@ const Sidebar = () => {
   if (
     pathname === "/" ||
     pathname.startsWith("/account/") ||
-    pathname === "/login"
+    pathname === "/login" ||
+    pathname === "/privacy-policy"
   ) {
     return <> </>;
   }
