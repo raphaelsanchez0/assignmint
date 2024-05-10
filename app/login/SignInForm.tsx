@@ -102,7 +102,8 @@ export default function SignInForm() {
           </Button>
         </form>
       </Form>
-      <OAuthForm />
+      {/* Implement Google OAuth when approved by Google Cloud */}
+      {/* <OAuthForm /> */}
     </div>
   );
 }
