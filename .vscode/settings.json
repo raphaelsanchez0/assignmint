@@ -1,3 +1,15 @@
 {
-  "cSpell.words": ["assignmint", "nextjs", "supabase"]
+  "[typescript]": {
+    "editor.defaultFormatter": "denoland.vscode-deno"
+  },
+  "cSpell.words": [
+    "assignmint",
+    "nextjs",
+    "supabase"
+  ],
+  "deno.enablePaths": [
+    "supabase/functions"
+  ],
+  "deno.lint": true,
+  "deno.unstable": true
 }
