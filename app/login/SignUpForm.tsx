@@ -62,11 +62,7 @@ export default function SignUpForm() {
     });
 
     if (data) {
-      toast({
-        title: "Verify Email",
-        description:
-          "We have sent you a verification email. Please verify your email to continue. Check your spam/junk folder if you don't see the email in your inbox.",
-      });
+      router.push("/dashboard");
     }
     if (error) {
       console.log(error);
