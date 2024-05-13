@@ -22,9 +22,7 @@ export default async function Assignments() {
           <AssignmentsList />
         </div>
         <div className="basis-1/2">
-          <HydrationBoundary state={dehydrate(queryClient)}>
-            <AddAssignment />
-          </HydrationBoundary>
+          <AddAssignment />
         </div>
       </div>
     </div>
