@@ -77,6 +77,11 @@ const Assignment: React.FC<AssignmentProps> = ({ assignment }) => {
     }
   }
 
+  function handleDeleteAssignmentFromDialog() {
+    setOpenViewDialog(false);
+    handleDeleteAssignment();
+  }
+
   return (
     <>
       <hr className="h-px w-full bg-gray-400 border-0" />
@@ -141,8 +146,8 @@ const Assignment: React.FC<AssignmentProps> = ({ assignment }) => {
             </DialogTrigger>
             <ViewAssignmentDialog
               assignment={assignment}
-              setOpen={setOpenViewDialog}
               swapDialogFn={() => swapDialog("edit")}
+              handleDeleteAssignment={handleDeleteAssignmentFromDialog}
             />
           </Dialog>
         </ContextMenuContent>

@@ -11,13 +11,14 @@ import utcToZonedTime from "date-fns-tz/utcToZonedTime";
 
 interface ViewAssignmentDialogProps {
   assignment: Assignment;
-  setOpen: (open: boolean, swapTo?: string) => void;
   swapDialogFn: (to: "edit" | "view") => void;
+  handleDeleteAssignment: () => void;
 }
 
 const ViewAssignmentDialog: React.FC<ViewAssignmentDialogProps> = ({
   assignment,
   swapDialogFn,
+  handleDeleteAssignment,
 }) => {
   const labelStyle = "font-light";
   const pStyle = "text-lg font-medium";
@@ -59,6 +60,9 @@ const ViewAssignmentDialog: React.FC<ViewAssignmentDialogProps> = ({
       <div className="flex justify-center">
         <button className="btn mt-4" onClick={handleEditAssignment}>
           Edit
+        </button>
+        <button className="btn mt-4 ml-4" onClick={handleDeleteAssignment}>
+          Complete
         </button>
       </div>
     </DialogContent>
