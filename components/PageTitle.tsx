@@ -15,7 +15,7 @@ const PageTitle: React.FC<PageTitleProps> = ({ title }) => {
         <h2 className="section-title">{title}</h2>
         <h3 className="text-2xl font-semibold">{date}</h3>
       </div>
-      <div>
+      <div className="hidden md:block">
         <ModeToggle />
       </div>
     </div>

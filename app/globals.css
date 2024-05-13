@@ -58,3 +58,7 @@ input[type="checkbox"] {
 [data-theme="dark"] .lucide {
   color: white;
 }
+
+.hide-when-mobile {
+  @apply hidden md:block;
+}
