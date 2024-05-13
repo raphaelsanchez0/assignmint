@@ -31,10 +31,8 @@ interface AssignmentProps {
  *
  */
 const Assignment: React.FC<AssignmentProps> = ({ assignment }) => {
-  const [openEditDialog, setOpenEditDialog] = useState(false);
   const [openViewDialog, setOpenViewDialog] = useState(false);
 
-  const path = usePathname();
   const queryClient = useQueryClient();
 
   const deleteAssignmentMutation = useMutation({
@@ -90,7 +88,7 @@ const Assignment: React.FC<AssignmentProps> = ({ assignment }) => {
             />
           </Dialog>
         </ContextMenuTrigger>
-        <ContextMenuContent hidden={openEditDialog}>
+        <ContextMenuContent>
           <ContextMenuItem onSelect={handleDeleteAssignment}>
             Complete
           </ContextMenuItem>
