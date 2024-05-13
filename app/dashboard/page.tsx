@@ -18,9 +18,7 @@ export default async function Dashboard() {
         <PageTitle title="Dashboard" />
         <div className="flex flex-col md:flex-row p-4 gap-4 ">
           <div className="basis-1/3 ">
-            <HydrationBoundary state={dehydrate(queryClient)}>
-              <AssignmentsList showAddAssignment />
-            </HydrationBoundary>
+            <AssignmentsList showAddAssignment />
           </div>
           <div className="basis-1/3">
             <ThisWeek />
