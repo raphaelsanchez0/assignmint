@@ -37,19 +37,15 @@ import { useEditAssignmentForm } from "@/app/_hooks/forms/useEditAssignmentForm"
 
 interface EditAssignmentDialogProps {
   assignment: Assignment;
-  setOpen: (open: boolean) => void;
-  handleDialogOpenChangeFn: (open: boolean) => void;
 }
 
 const EditAssignmentDialog: React.FC<EditAssignmentDialogProps> = ({
   assignment,
-  setOpen,
-  handleDialogOpenChangeFn,
 }) => {
-  const { form, courses, onSubmit } = useEditAssignmentForm(assignment, () => {
-    setOpen(false);
-    handleDialogOpenChangeFn(false);
-  });
+  const { form, courses, onSubmit } = useEditAssignmentForm(
+    assignment,
+    () => {},
+  );
 
   return (
     <DialogContent>
