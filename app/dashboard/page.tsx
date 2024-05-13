@@ -10,8 +10,6 @@ import {
 } from "@tanstack/react-query";
 
 export default async function Dashboard() {
-  const queryClient = new QueryClient();
-
   return (
     <>
       <div className="mb-sidebar-width md:ml-sidebar-width">
