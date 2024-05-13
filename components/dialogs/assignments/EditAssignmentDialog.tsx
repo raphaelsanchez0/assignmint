@@ -34,19 +34,33 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { useEditAssignmentForm } from "@/app/_hooks/forms/useEditAssignmentForm";
+import { useState } from "react";
+import useAssignment from "./useAssignment";
+import LoadingListShorter from "@/components/Loading/LoadingListShorter";
 
 interface EditAssignmentDialogProps {
-  assignment: Assignment;
+  assignmentID: string;
+  closeDialog: () => void;
 }
 
 const EditAssignmentDialog: React.FC<EditAssignmentDialogProps> = ({
-  assignment,
+  assignmentID,
+  closeDialog,
 }) => {
-  const { form, courses, onSubmit } = useEditAssignmentForm(
-    assignment,
-    () => {},
-  );
+  const { assignment, assignmentError, assignmentLoading } =
+    useAssignment(assignmentID);
 
+  if (assignmentLoading || !assignment)
+    return (
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Edit Assignment</DialogTitle>
+        </DialogHeader>
+        <LoadingListShorter />
+      </DialogContent>
+    );
+
+  const { form, courses, onSubmit } = useEditAssignmentForm(assignment);
   return (
     <DialogContent>
       <DialogHeader>
@@ -168,7 +182,11 @@ const EditAssignmentDialog: React.FC<EditAssignmentDialogProps> = ({
             />
           </div>
           <div className="flex justify-center">
-            <button type="submit" className="btn mt-4">
+            <button
+              type="submit"
+              className="btn mt-4"
+              onClick={() => closeDialog()}
+            >
               Edit Assignment
             </button>
           </div>

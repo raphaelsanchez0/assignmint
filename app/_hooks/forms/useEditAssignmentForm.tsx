@@ -29,6 +29,9 @@ export function useEditAssignmentForm(
 
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["assignments"] });
+      queryClient.invalidateQueries({
+        queryKey: ["assignment", assignment.id],
+      });
       form.reset();
       if (onSuccessCallback) onSuccessCallback();
     },

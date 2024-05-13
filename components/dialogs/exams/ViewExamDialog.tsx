@@ -24,9 +24,11 @@ export default function ViewExamDialog({
 }: ViewExamDialogProps) {
   const labelStyle = "font-light";
   const pStyle = "text-lg font-medium";
+
   function handleEditExam() {
     swapDialogFn("edit");
   }
+
   return (
     <DialogContent className="lg:max-w-[500px]">
       <DialogHeader>

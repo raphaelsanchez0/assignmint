@@ -206,7 +206,7 @@ interface Assignments {
 }
 export async function getCategorizedAssignments() {
   const supabase = await createSupabaseServerClient();
-  ("use server");
+  "use server";
   let assignments: Assignments = {
     priority: [],
     overdue: [],
@@ -297,7 +297,7 @@ export async function deleteExam(id: number) {
   }
 }
 
-export async function deleteAssignment(id: number) {
+export async function deleteAssignment(id: string) {
   const supabase = await createSupabaseServerClient();
   const { error } = await supabase.from("assignments").delete().eq("id", id);
 
