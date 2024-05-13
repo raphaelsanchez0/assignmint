@@ -28,10 +28,12 @@ const Sidebar = () => {
 
   return (
     <div
-      className="fixed md:top-0 md:left-0 md:h-screen md:w-sidebar-width
+      className="fixed flex flex-row items-center justify-center bottom-0 left-0 h-16 w-full 
+                        md:top-0 md:left-0 md:h-screen md:w-sidebar-width
                         md:flex md:flex-col
                         bg-primary  text-white shadow-lg dark:bg-zinc-950 dark:border-r-[1px] dark:border-gray-400
-                        z-10"
+                        z-10
+                        "
     >
       <SideBarIcon
         icon={iconLogo}

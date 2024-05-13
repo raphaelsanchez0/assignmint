@@ -36,6 +36,7 @@ const config = {
       },
       spacing: {
         "sidebar-width": "4rem",
+        "sidebar-height": "4rem",
       },
       keyframes: {
         "accordion-down": {
