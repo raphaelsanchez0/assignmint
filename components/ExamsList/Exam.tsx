@@ -14,6 +14,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Dialog, DialogTrigger } from "../ui/dialog";
 import EditExamDialog from "@/components/dialogs/exams/EditExamDialog";
+import ViewExamDialog from "../dialogs/exams/ViewExamDialog";
 
 interface ExamProps {
   exam: Exam;
@@ -23,6 +24,7 @@ const Exam: React.FC<ExamProps> = ({ exam }) => {
   const queryClient = useQueryClient();
 
   const [openEditDialog, setOpenEditDialog] = useState(false);
+  const [openViewDialog, setOpenViewDialog] = useState(false);
   const [menuKey, setMenuKey] = useState(0);
 
   const deleteExamMutation = useMutation({
@@ -42,6 +44,30 @@ const Exam: React.FC<ExamProps> = ({ exam }) => {
     if (open == false) {
       setMenuKey((prev) => prev + 1);
     }
+  }
+
+  function swapDialog(to: "edit" | "view") {
+    setOpenViewDialog(false);
+    if (to === "edit") {
+      setOpenEditDialog(true);
+    } else {
+      setOpenEditDialog(true);
+    }
+  }
+
+  function handleViewDialogOpenChange(open: boolean, swapTo?: string) {
+    setOpenViewDialog(open);
+    if (swapTo === "edit") {
+      setOpenEditDialog(true);
+    }
+    if (open == false) {
+      setMenuKey((prev) => prev + 1);
+    }
+  }
+
+  function handleDeleteExamFromDialog() {
+    setOpenViewDialog(false);
+    handleDeleteExam();
   }
 
   return (
@@ -74,10 +100,8 @@ const Exam: React.FC<ExamProps> = ({ exam }) => {
         </ContextMenuTrigger>
 
         <ContextMenuContent hidden={openEditDialog}>
-          <ContextMenuItem>
-            <button onClick={handleDeleteExam}>Delete</button>
-          </ContextMenuItem>
-
+          <ContextMenuItem onSelect={handleDeleteExam}>Delete</ContextMenuItem>
+          {/*Edit Button*/}
           <Dialog open={openEditDialog} onOpenChange={handleDialogOpenChange}>
             <DialogTrigger asChild>
               <ContextMenuItem onSelect={(e) => e.preventDefault()}>
@@ -88,6 +112,22 @@ const Exam: React.FC<ExamProps> = ({ exam }) => {
               exam={exam}
               setOpen={setOpenEditDialog}
               handleDialogOpenChangeFn={handleDialogOpenChange}
+            />
+          </Dialog>
+          {/* View Button */}
+          <Dialog
+            open={openViewDialog}
+            onOpenChange={handleViewDialogOpenChange}
+          >
+            <DialogTrigger asChild>
+              <ContextMenuItem onSelect={(e) => e.preventDefault()}>
+                View
+              </ContextMenuItem>
+            </DialogTrigger>
+            <ViewExamDialog
+              exam={exam}
+              swapDialogFn={() => swapDialog("edit")}
+              handleDeleteExam={handleDeleteExamFromDialog}
             />
           </Dialog>
         </ContextMenuContent>
