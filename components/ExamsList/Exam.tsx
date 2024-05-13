@@ -20,7 +20,6 @@ interface ExamProps {
 }
 
 const Exam: React.FC<ExamProps> = ({ exam }) => {
-  const path = usePathname();
   const queryClient = useQueryClient();
 
   const [openEditDialog, setOpenEditDialog] = useState(false);
