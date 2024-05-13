@@ -27,8 +27,6 @@ interface AssignmentsListProps {
 const AssignmentsList: React.FC<AssignmentsListProps> = async ({
   showAddAssignment = false,
 }) => {
-  const queryClient = new QueryClient();
-
   return (
     <Card>
       <div className="flex items-center justify-between">
