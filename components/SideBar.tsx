@@ -108,7 +108,7 @@ const SideBarIcon: React.FC<SideBarIconProps> = ({
                               transition-all duration-100 scale-0 origin-left
                               group-hover:scale-100
                               bg-primary dark:bg-zinc-900 
-                              z-10`;
+                              z-10 hide-when-mobile`;
   return (
     <div className={`${className} group`}>
       <Link href={href}>
