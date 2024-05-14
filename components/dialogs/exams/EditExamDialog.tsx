@@ -33,25 +33,29 @@ import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { updateExam } from "@/server/actions";
 import { useEditExamForm } from "@/app/_hooks/forms/useEditExamForm";
+import useExam from "./useExam";
+import LoadingDialogContent from "../LoadingDialogContent";
+import ErrorDialogContent from "../ErrorDialogContent";
 
 interface EditExamDialogProps {
-  exam: Exam;
-  setOpen: (open: boolean) => void;
-  handleDialogOpenChangeFn: (open: boolean) => void;
+  examID: string;
+  closeDialog: () => void;
 }
 
 const EditExamDialog: React.FC<EditExamDialogProps> = ({
-  exam,
-  setOpen,
-  handleDialogOpenChangeFn,
+  examID,
+  closeDialog,
 }) => {
-  const { form, courses, onSubmit, updateExamMutation } = useEditExamForm(
-    exam,
-    () => {
-      setOpen(false);
-      handleDialogOpenChangeFn(false);
-    },
-  );
+  const { exam, examError, examLoading } = useExam(examID);
+
+  if (!exam && examLoading) return <LoadingDialogContent title="Edit Exam" />;
+
+  if (!exam && examError)
+    return <ErrorDialogContent title="Edit Exam" type="exam" />;
+
+  if (!exam) return null;
+
+  const { form, courses, onSubmit } = useEditExamForm(exam);
 
   return (
     <DialogContent className="w-1/2">
@@ -154,7 +158,11 @@ const EditExamDialog: React.FC<EditExamDialogProps> = ({
             />
           </div>
           <div className="flex justify-center">
-            <button type="submit" className="btn mt-4">
+            <button
+              type="submit"
+              className="btn mt-4"
+              onClick={() => closeDialog()}
+            >
               Edit Exam
             </button>
           </div>

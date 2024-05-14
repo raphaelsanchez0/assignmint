@@ -41,23 +41,13 @@ const ViewAssignmentDialog: React.FC<ViewAssignmentDialogProps> = ({
   const { assignment, assignmentError, assignmentLoading } =
     useAssignment(assignmentID);
 
-  if (assignmentLoading || !assignment) {
-    return (
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>View Assignment</DialogTitle>
-        </DialogHeader>
-        <LoadingListShorter />
-      </DialogContent>
-    );
-  }
-
   if (!assignment && assignmentLoading) {
     return <LoadingDialogContent title="View Assignment" />;
   }
   if (!assignment && assignmentError) {
     return <ErrorDialogContent title="View Assignment" type="assignment" />;
   }
+  if (!assignment) return null;
 
   function handleCompleteAssignment() {
     deleteAssignmentMutation.mutate(assignmentID);

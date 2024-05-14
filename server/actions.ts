@@ -287,7 +287,7 @@ export async function getOverdueAssignments() {
   return data;
 }
 
-export async function deleteExam(id: number) {
+export async function deleteExam(id: string) {
   const supabase = await createSupabaseServerClient();
   const { data, error } = await supabase.from("exams").delete().eq("id", id);
 

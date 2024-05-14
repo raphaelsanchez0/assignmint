@@ -1,9 +1,11 @@
 "use client";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
+  Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { deleteExam } from "@/server/actions";
@@ -18,14 +20,14 @@ interface ViewExamDialogProps {
 
 import React, { useState } from "react";
 import useExam from "./useExam";
+import LoadingDialogContent from "../LoadingDialogContent";
+import ErrorDialogContent from "../ErrorDialogContent";
+import EditExamDialog from "./EditExamDialog";
 
 export default function ViewExamDialog({
   examID,
   closeDialog,
 }: ViewExamDialogProps) {
-  const labelStyle = "font-light";
-  const pStyle = "text-lg font-medium";
-
   const [openEditDialog, setOpenEditDialog] = useState(false);
 
   const queryClient = useQueryClient();
@@ -38,6 +40,23 @@ export default function ViewExamDialog({
 
   const { exam, examError, examLoading } = useExam(examID);
 
+  if (!exam && examLoading) {
+    return <LoadingDialogContent title="View Exam" />;
+  }
+
+  if (!exam && examError) {
+    return <ErrorDialogContent title="View Exam" type="exam" />;
+  }
+
+  if (!exam) return null;
+
+  function handleDeleteExam() {
+    deleteExamMutation.mutate(examID);
+    closeDialog();
+  }
+
+  const labelStyle = "font-light";
+  const pStyle = "text-lg font-medium";
   return (
     <DialogContent className="lg:max-w-[500px]">
       <DialogHeader>
@@ -62,11 +81,20 @@ export default function ViewExamDialog({
         </div>
       </div>
       <div className="flex justify-center">
-        <button className="btn mt-4" onClick={handleEditExam}>
-          Edit
-        </button>
+        <Dialog
+          open={openEditDialog}
+          onOpenChange={(open) => setOpenEditDialog(open)}
+        >
+          <DialogTrigger asChild>
+            <button className="btn mt-4">Edit</button>
+          </DialogTrigger>
+          <EditExamDialog
+            examID={examID}
+            closeDialog={() => setOpenEditDialog(false)}
+          />
+        </Dialog>
         <button className="btn mt-4 ml-4" onClick={handleDeleteExam}>
-          Complete
+          Delete
         </button>
       </div>
     </DialogContent>
