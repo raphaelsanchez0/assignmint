@@ -48,14 +48,12 @@ const EditExamDialog: React.FC<EditExamDialogProps> = ({
 }) => {
   const { exam, examError, examLoading } = useExam(examID);
 
+  const { form, courses, onSubmit } = useEditExamForm(examID);
+
   if (!exam && examLoading) return <LoadingDialogContent title="Edit Exam" />;
 
   if (!exam && examError)
     return <ErrorDialogContent title="Edit Exam" type="exam" />;
-
-  if (!exam) return null;
-
-  const { form, courses, onSubmit } = useEditExamForm(exam);
 
   return (
     <DialogContent>
