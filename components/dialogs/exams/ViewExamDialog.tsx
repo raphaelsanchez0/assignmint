@@ -6,28 +6,37 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
+import { deleteExam } from "@/server/actions";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import utcToZonedTime from "date-fns-tz/utcToZonedTime";
 
 interface ViewExamDialogProps {
-  exam: Exam;
-  swapDialogFn: (to: "edit" | "view") => void;
-  handleDeleteExam: () => void;
+  examID: string;
+  closeDialog: () => void;
 }
 
-import React from "react";
+import React, { useState } from "react";
+import useExam from "./useExam";
 
 export default function ViewExamDialog({
-  exam,
-  swapDialogFn,
-  handleDeleteExam,
+  examID,
+  closeDialog,
 }: ViewExamDialogProps) {
   const labelStyle = "font-light";
   const pStyle = "text-lg font-medium";
 
-  function handleEditExam() {
-    swapDialogFn("edit");
-  }
+  const [openEditDialog, setOpenEditDialog] = useState(false);
+
+  const queryClient = useQueryClient();
+  const deleteExamMutation = useMutation({
+    mutationFn: deleteExam,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["exams"] });
+    },
+  });
+
+  const { exam, examError, examLoading } = useExam(examID);
 
   return (
     <DialogContent className="lg:max-w-[500px]">

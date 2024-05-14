@@ -16,6 +16,8 @@ import { deleteAssignment, getAssignment } from "@/server/apis/assignments";
 import LoadingListShorter from "@/components/Loading/LoadingListShorter";
 import useAssignment from "./useAssignment";
 import { useState } from "react";
+import LoadingDialogContent from "../LoadingDialogContent";
+import ErrorDialogContent from "../ErrorDialogContent";
 
 interface ViewAssignmentDialogProps {
   assignmentID: string;
@@ -48,6 +50,13 @@ const ViewAssignmentDialog: React.FC<ViewAssignmentDialogProps> = ({
         <LoadingListShorter />
       </DialogContent>
     );
+  }
+
+  if (!assignment && assignmentLoading) {
+    return <LoadingDialogContent title="View Assignment" />;
+  }
+  if (!assignment && assignmentError) {
+    return <ErrorDialogContent title="View Assignment" type="assignment" />;
   }
 
   function handleCompleteAssignment() {

@@ -37,6 +37,8 @@ import { useEditAssignmentForm } from "@/app/_hooks/forms/useEditAssignmentForm"
 import { useState } from "react";
 import useAssignment from "./useAssignment";
 import LoadingListShorter from "@/components/Loading/LoadingListShorter";
+import LoadingDialogContent from "../LoadingDialogContent";
+import ErrorDialogContent from "../ErrorDialogContent";
 
 interface EditAssignmentDialogProps {
   assignmentID: string;
@@ -50,15 +52,13 @@ const EditAssignmentDialog: React.FC<EditAssignmentDialogProps> = ({
   const { assignment, assignmentError, assignmentLoading } =
     useAssignment(assignmentID);
 
-  if (assignmentLoading || !assignment)
-    return (
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Edit Assignment</DialogTitle>
-        </DialogHeader>
-        <LoadingListShorter />
-      </DialogContent>
-    );
+  if (!assignment && assignmentLoading)
+    return <LoadingDialogContent title="Edit Assignment" />;
+
+  if (!assignment && assignmentError)
+    return <ErrorDialogContent title="Edit Assignment" type="assignment" />;
+
+  if (!assignment) return null;
 
   const { form, courses, onSubmit } = useEditAssignmentForm(assignment);
   return (
