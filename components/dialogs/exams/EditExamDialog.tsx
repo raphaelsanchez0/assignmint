@@ -58,7 +58,7 @@ const EditExamDialog: React.FC<EditExamDialogProps> = ({
   const { form, courses, onSubmit } = useEditExamForm(exam);
 
   return (
-    <DialogContent className="w-1/2">
+    <DialogContent>
       <DialogHeader>
         <DialogTitle>Edit Exam</DialogTitle>
       </DialogHeader>
