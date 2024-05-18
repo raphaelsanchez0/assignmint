@@ -14,6 +14,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
+import EditCourseDialog from "./EditCourseDialog";
 
 interface CourseProps {
   courseID: string;
@@ -31,6 +32,8 @@ const Course: React.FC<CourseProps> = ({
     queryKey: ["course", courseID],
     queryFn: () => getCourse(courseID),
   });
+
+  const [editCourseDialogOpen, setEditCourseDialogOpen] = useState(false);
 
   // const [isColorPickerOpen, setIsColorPickerOpen] = useState(false);
   // const [colorPickerValue, setColorPickerValue] = useState(course.color);
@@ -113,11 +116,17 @@ const Course: React.FC<CourseProps> = ({
             <h4 className="text-xl font-semibold ml-2">{course.title}</h4>
 
             <div>
-              <Dialog>
+              <Dialog
+                open={editCourseDialogOpen}
+                onOpenChange={setEditCourseDialogOpen}
+              >
                 <DialogTrigger asChild>
                   <button className="font-semibold">Edit</button>
                 </DialogTrigger>
-                <EditCourseDialog courseID={courseID} />
+                <EditCourseDialog
+                  course={course}
+                  closeDialog={() => setEditCourseDialogOpen(false)}
+                />
               </Dialog>
             </div>
           </div>

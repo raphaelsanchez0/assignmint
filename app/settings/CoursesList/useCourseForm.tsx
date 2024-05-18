@@ -1,6 +1,10 @@
 import useOnClickOutside from "@/app/_hooks/useOnClickOutside";
 import { courseFormSchema } from "@/lib/schemas";
-import { createCourse, updateCourse } from "@/server/apis/courses";
+import {
+  createCourse,
+  deleteCourse,
+  updateCourse,
+} from "@/server/apis/courses";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React, { useRef, useState } from "react";
@@ -63,6 +67,18 @@ export default function useCourseForm({
   const updateCourseMutation = useMutation({
     mutationFn: (courseUpdateData: CourseUpdateData) => {
       return updateCourse(courseUpdateData.id, courseUpdateData.newValues);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["courses"] });
+      queryClient.invalidateQueries({ queryKey: ["course", courseID] });
+      form.reset();
+      onSubmitCallback();
+    },
+  });
+
+  const deleteCourseMutation = useMutation({
+    mutationFn: (id: string) => {
+      return deleteCourse(id);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["courses"] });
