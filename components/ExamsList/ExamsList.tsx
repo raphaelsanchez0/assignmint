@@ -17,7 +17,11 @@ export default function ExamsList() {
   if (isLoading) return <LoadingListShorter />;
 
   if (data?.length === 0) {
-    return null;
+    return (
+      <p className="text-gray-500 dark:text-gray-600 text-sm italic text-center pt-2">
+        No Upcoming Exams
+      </p>
+    );
   }
   return <div>{data?.map((exam) => <Exam key={exam.id} exam={exam} />)}</div>;
 }

@@ -6,7 +6,7 @@ export default function ThisWeek() {
   const daysThisWeek = getNextSevenDays();
 
   return (
-    <Card>
+    <Card className="hide-when-mobile">
       <h3 className="card-title ">This Week</h3>
       <div className="mt-4">
         {daysThisWeek.map((day) => (

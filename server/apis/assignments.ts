@@ -252,7 +252,7 @@ export async function fetchAssignmentsInRange(startDate: Date, endDate: Date) {
   return data;
 }
 
-export async function getAssignment(id: number): Promise<Assignment> {
+export async function getAssignment(id: string): Promise<Assignment> {
   const { data, error } = await supabase
     .from("assignments")
     .select(
@@ -272,7 +272,7 @@ export async function getAssignment(id: number): Promise<Assignment> {
   return data[0];
 }
 
-export async function deleteAssignment(id: number) {
+export async function deleteAssignment(id: string) {
   const { data, error } = await supabase
     .from("assignments")
     .delete()
@@ -282,4 +282,17 @@ export async function deleteAssignment(id: number) {
     console.error("Error deleting assignment: ", error);
     throw error;
   }
+}
+
+export async function hasAssignments(): Promise<boolean> {
+  const { data, error } = await supabase
+    .from("assignments")
+    .select("id")
+    .limit(1);
+
+  if (error) {
+    throw error;
+  }
+
+  return data.length > 0;
 }

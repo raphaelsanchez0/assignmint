@@ -47,7 +47,7 @@ export default function AddExamDialog() {
       <DialogTrigger asChild>
         <button className="btn">Add</button>
       </DialogTrigger>
-      <DialogContent className="w-1/2">
+      <DialogContent>
         <DialogHeader>
           <DialogTitle>Add Exam</DialogTitle>
         </DialogHeader>

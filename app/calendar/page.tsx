@@ -10,9 +10,9 @@ import LoadingListShorter from "@/components/Loading/LoadingListShorter";
 export default async function CalendarPage() {
   return (
     <>
-      <div className="ml-sidebar-width">
+      <div className="mb-sidebar-width md:ml-sidebar-width">
         <PageTitle title="Calendar" />
-        <div className="flex gap-4 p-4">
+        <div className="flex gap-4 p-4 flex-col md:flex-row">
           <div className="basis-7/12 h-min">
             <Suspense fallback={<LoadingListShorter />}>
               <CalenderCard />

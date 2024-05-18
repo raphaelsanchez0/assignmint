@@ -19,7 +19,7 @@ export async function getExams() {
   return exams || [];
 }
 
-export async function getExam(id: number): Promise<Exam> {
+export async function getExam(id: string): Promise<Exam> {
   const supabase = createSupabaseFrontendClient();
   const { data, error } = await supabase
     .from("exams")

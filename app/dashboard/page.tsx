@@ -10,26 +10,24 @@ import {
 } from "@tanstack/react-query";
 
 export default async function Dashboard() {
-  const queryClient = new QueryClient();
-
   return (
     <>
-      <div className="ml-sidebar-width">
+      <div className="mb-sidebar-width md:ml-sidebar-width">
         <PageTitle title="Dashboard" />
-        <div className="flex p-4 gap-4">
+        <div className="flex flex-col md:flex-row p-4 gap-4 ">
           <div className="basis-1/3 ">
-            <HydrationBoundary state={dehydrate(queryClient)}>
-              <AssignmentsList showAddAssignment />
-            </HydrationBoundary>
+            <AssignmentsList showAddAssignment />
           </div>
           <div className="basis-1/3">
             <ThisWeek />
           </div>
           <div className="basis-1/3 flex flex-col gap-4">
-            <MiniCalender />
-            <HydrationBoundary state={dehydrate(queryClient)}>
+            <div className="hide-when-mobile">
+              <MiniCalender />
+            </div>
+            <div>
               <ExamsList showAddExam />
-            </HydrationBoundary>
+            </div>
           </div>
         </div>
       </div>

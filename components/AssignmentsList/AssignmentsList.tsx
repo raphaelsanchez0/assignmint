@@ -3,12 +3,9 @@ import {
   HydrationBoundary,
   QueryClient,
   dehydrate,
+  useQuery,
 } from "@tanstack/react-query";
-import {
-  getDueTodayAssignments,
-  getOverdueAssignments,
-  getPriorityAssignments,
-} from "@/server/apis/assignments";
+import { hasAssignments } from "@/server/apis/assignments";
 import OverdueAssignments from "./AssignmentCatagories/OverdueAssignments";
 import AddAssignmentBtn from "./AddAssignmentBtn";
 import PriorityAssignments from "./AssignmentCatagories/PriorityAssignments";
@@ -19,6 +16,7 @@ import NextWeekAssignments from "./AssignmentCatagories/NextWeekAssignments";
 import { Card } from "../ui/card";
 import AddAssignmentDialog from "@/components/dialogs/assignments/AddAssignmentDialog";
 import FutureAssignments from "./AssignmentCatagories/FutureAssignments";
+import AssignmentCatagories from "./AssignmentCatagories";
 
 interface AssignmentsListProps {
   showAddAssignment?: boolean;
@@ -27,8 +25,6 @@ interface AssignmentsListProps {
 const AssignmentsList: React.FC<AssignmentsListProps> = async ({
   showAddAssignment = false,
 }) => {
-  const queryClient = new QueryClient();
-
   return (
     <Card>
       <div className="flex items-center justify-between">
@@ -39,15 +35,7 @@ const AssignmentsList: React.FC<AssignmentsListProps> = async ({
           </div>
         )}
       </div>
-      <ol>
-        <OverdueAssignments />
-        <PriorityAssignments />
-        <DueTodayAssignments />
-        <DueTomorrowAssignments />
-        <ThisWeekAssignments />
-        <NextWeekAssignments />
-        <FutureAssignments />
-      </ol>
+      <AssignmentCatagories />
     </Card>
   );
 };

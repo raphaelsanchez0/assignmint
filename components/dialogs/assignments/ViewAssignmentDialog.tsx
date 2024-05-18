@@ -1,30 +1,61 @@
 "use client";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
+  Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { format } from "date-fns";
 import utcToZonedTime from "date-fns-tz/utcToZonedTime";
+import EditAssignmentDialog from "./EditAssignmentDialog";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { deleteAssignment, getAssignment } from "@/server/apis/assignments";
+import LoadingListShorter from "@/components/Loading/LoadingListShorter";
+import useAssignment from "./useAssignment";
+import { useState } from "react";
+import LoadingDialogContent from "../LoadingDialogContent";
+import ErrorDialogContent from "../ErrorDialogContent";
 
 interface ViewAssignmentDialogProps {
-  assignment: Assignment;
-  setOpen: (open: boolean, swapTo?: string) => void;
-  swapDialogFn: (to: "edit" | "view") => void;
+  assignmentID: string;
+  closeDialog: () => void;
 }
 
 const ViewAssignmentDialog: React.FC<ViewAssignmentDialogProps> = ({
-  assignment,
-  swapDialogFn,
+  assignmentID,
+  closeDialog,
 }) => {
+  const [openEditDialog, setOpenEditDialog] = useState(false);
+
+  const queryClient = useQueryClient();
+  const deleteAssignmentMutation = useMutation({
+    mutationFn: deleteAssignment,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["assignments"] });
+    },
+  });
+
+  const { assignment, assignmentError, assignmentLoading } =
+    useAssignment(assignmentID);
+
+  if (!assignment && assignmentLoading) {
+    return <LoadingDialogContent title="View Assignment" />;
+  }
+  if (!assignment && assignmentError) {
+    return <ErrorDialogContent title="View Assignment" type="assignment" />;
+  }
+  if (!assignment) return null;
+
+  function handleCompleteAssignment() {
+    deleteAssignmentMutation.mutate(assignmentID);
+    closeDialog();
+  }
+
   const labelStyle = "font-light";
   const pStyle = "text-lg font-medium";
-
-  function handleEditAssignment() {
-    swapDialogFn("edit");
-  }
 
   return (
     <DialogContent className="lg:max-w-[500px]">
@@ -57,8 +88,20 @@ const ViewAssignmentDialog: React.FC<ViewAssignmentDialogProps> = ({
         </div>
       </div>
       <div className="flex justify-center">
-        <button className="btn mt-4" onClick={handleEditAssignment}>
-          Edit
+        <Dialog
+          open={openEditDialog}
+          onOpenChange={(open) => setOpenEditDialog(open)}
+        >
+          <DialogTrigger asChild>
+            <button className="btn mt-4">Edit</button>
+          </DialogTrigger>
+          <EditAssignmentDialog
+            assignmentID={assignmentID}
+            closeDialog={() => setOpenEditDialog(false)}
+          />
+        </Dialog>
+        <button className="btn mt-4 ml-4" onClick={handleCompleteAssignment}>
+          Complete
         </button>
       </div>
     </DialogContent>

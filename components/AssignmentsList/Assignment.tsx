@@ -31,10 +31,8 @@ interface AssignmentProps {
  *
  */
 const Assignment: React.FC<AssignmentProps> = ({ assignment }) => {
-  const [openEditDialog, setOpenEditDialog] = useState(false);
   const [openViewDialog, setOpenViewDialog] = useState(false);
-  const [menuKey, setMenuKey] = useState(0);
-  const path = usePathname();
+
   const queryClient = useQueryClient();
 
   const deleteAssignmentMutation = useMutation({
@@ -45,106 +43,55 @@ const Assignment: React.FC<AssignmentProps> = ({ assignment }) => {
   });
 
   function handleDeleteAssignment() {
-    deleteAssignmentMutation.mutate(assignment.id as unknown as number);
-  }
-
-  function handleEditDialogOpenChange(open: boolean, swapTo?: string) {
-    setOpenEditDialog(open);
-    if (swapTo === "view") {
-      setOpenViewDialog(true);
-    }
-    if (open == false) {
-      setMenuKey((prev) => prev + 1);
-    }
-  }
-
-  function handleViewDialogOpenChange(open: boolean, swapTo?: string) {
-    setOpenViewDialog(open);
-    if (swapTo === "edit") {
-      setOpenEditDialog(true);
-    }
-    if (open == false) {
-      setMenuKey((prev) => prev + 1);
-    }
-  }
-
-  function swapDialog(to: "edit" | "view") {
-    setOpenViewDialog(false);
-    if (to === "edit") {
-      setOpenEditDialog(true);
-    } else {
-      setOpenEditDialog(true);
-    }
+    deleteAssignmentMutation.mutate(assignment.id);
   }
 
   return (
     <>
       <hr className="h-px w-full bg-gray-400 border-0" />
 
-      <ContextMenu key={menuKey}>
+      <ContextMenu>
         <ContextMenuTrigger>
-          <div className="flex flex-row w-full hover:bg-gray-100 dark:hover:bg-zinc-800">
-            <div
-              className="w-1"
-              style={{ backgroundColor: assignment.course.color }}
-            ></div>
-            <div className="p-2 flex justify-between w-full">
-              <div>
-                <h4 className="text-md font-medium text-off-black">
-                  {assignment.title}
-                </h4>
-                <h5 className="text-sm text-gray-500 dark:text-gray-400">
-                  {assignment.course.title}
-                </h5>
+          <Dialog
+            open={openViewDialog}
+            onOpenChange={(open) => setOpenViewDialog(open)}
+          >
+            <DialogTrigger asChild>
+              <div className="flex flex-row w-full hover:bg-gray-100 dark:hover:bg-zinc-800">
+                <div
+                  className="w-1"
+                  style={{ backgroundColor: assignment.course.color }}
+                ></div>
+                <div className="p-2 flex justify-between w-full">
+                  <div>
+                    <h4 className="text-md font-medium text-off-black">
+                      {assignment.title}
+                    </h4>
+                    <h5 className="text-sm text-gray-500 dark:text-gray-400">
+                      {assignment.course.title}
+                    </h5>
+                  </div>
+                  <div>
+                    <h5 className="text-sm text-off-black text-nowrap">
+                      {format(
+                        utcToZonedTime(assignment.dueDate, "Etc/UTC"),
+                        "MMM d",
+                      )}
+                    </h5>
+                  </div>
+                </div>
               </div>
-              <div>
-                <h5 className="text-sm text-off-black text-nowrap">
-                  {format(
-                    utcToZonedTime(assignment.dueDate, "Etc/UTC"),
-                    "MMM d",
-                  )}
-                </h5>
-              </div>
-            </div>
-          </div>
+            </DialogTrigger>
+            <ViewAssignmentDialog
+              assignmentID={assignment.id}
+              closeDialog={() => setOpenViewDialog(false)}
+            />
+          </Dialog>
         </ContextMenuTrigger>
-        <ContextMenuContent hidden={openEditDialog}>
+        <ContextMenuContent>
           <ContextMenuItem onSelect={handleDeleteAssignment}>
             Complete
           </ContextMenuItem>
-
-          {/* Edit Button */}
-          <Dialog
-            open={openEditDialog}
-            onOpenChange={handleEditDialogOpenChange}
-          >
-            <DialogTrigger asChild>
-              <ContextMenuItem onSelect={(e) => e.preventDefault()}>
-                Edit
-              </ContextMenuItem>
-            </DialogTrigger>
-            <EditAssignmentDialog
-              assignment={assignment}
-              setOpen={setOpenEditDialog}
-              handleDialogOpenChangeFn={handleEditDialogOpenChange}
-            />
-          </Dialog>
-          {/* View Button */}
-          <Dialog
-            open={openViewDialog}
-            onOpenChange={handleViewDialogOpenChange}
-          >
-            <DialogTrigger asChild>
-              <ContextMenuItem onSelect={(e) => e.preventDefault()}>
-                View
-              </ContextMenuItem>
-            </DialogTrigger>
-            <ViewAssignmentDialog
-              assignment={assignment}
-              setOpen={setOpenViewDialog}
-              swapDialogFn={() => swapDialog("edit")}
-            />
-          </Dialog>
         </ContextMenuContent>
       </ContextMenu>
     </>
