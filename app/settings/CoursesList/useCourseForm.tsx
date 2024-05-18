@@ -7,11 +7,17 @@ import React, { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-export default function useCourseForm(
-  initialValues: Partial<z.infer<typeof courseFormSchema>>,
-  onSubmitCallback: () => void,
-  courseID?: string,
-) {
+interface UseCourseFormOptions {
+  initialValues: Partial<z.infer<typeof courseFormSchema>>;
+  onSubmitCallback: () => void;
+  courseID?: string;
+}
+
+export default function useCourseForm({
+  initialValues,
+  onSubmitCallback,
+  courseID,
+}: UseCourseFormOptions) {
   const [colorPickerOpen, setColorPickerOpen] = useState(false);
   const colorPickerRef = useRef(null);
   const inputRef = useRef(null);
