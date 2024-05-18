@@ -283,3 +283,16 @@ export async function deleteAssignment(id: string) {
     throw error;
   }
 }
+
+export async function hasAssignments(): Promise<boolean> {
+  const { data, error } = await supabase
+    .from("assignments")
+    .select("id")
+    .limit(1);
+
+  if (error) {
+    throw error;
+  }
+
+  return data.length > 0;
+}
