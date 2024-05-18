@@ -1,3 +1,4 @@
+import { courseFormSchema } from "@/lib/schemas";
 import { createSupabaseFrontendClient } from "@/utils/supabase/supabaseFrontendClient";
 import { z } from "zod";
 
@@ -30,6 +31,27 @@ export async function createOrUpdateCourse(
   if (error) {
     console.error("Error creating or updating course: ", error);
     throw error; // or handle the error as needed
+  }
+}
+
+export async function createCourse(input: any) {
+  const result = courseFormSchema.safeParse(input);
+
+  if (!result.success) {
+    console.error("Validation failed", result.error);
+    return { error: result.error };
+  }
+  const parsedData = result.data;
+  console.log(parsedData);
+
+  const { data, error } = await supabase.from("courses").insert([{
+    title: parsedData.title,
+    color: parsedData.color,
+  }]).select();
+
+  if (error) {
+    console.log(error);
+    return error;
   }
 }
 

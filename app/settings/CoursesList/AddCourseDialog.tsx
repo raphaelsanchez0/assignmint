@@ -20,6 +20,8 @@ import { useRef, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { SketchPicker, TwitterPicker } from "react-color";
 import useOnClickOutside from "@/app/_hooks/useOnClickOutside";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { createCourse } from "@/server/apis/courses";
 
 export default function AddCourseDialog() {
   const [colorPickerOpen, setColorPickerOpen] = useState(false);
@@ -34,13 +36,9 @@ export default function AddCourseDialog() {
     resolver: zodResolver(courseFormSchema),
     defaultValues: {
       title: "",
-      color: "",
+      color: "#000000",
     },
   });
-
-  function onSubmit(input: z.infer<typeof courseFormSchema>) {
-    console.log(input);
-  }
 
   function handleColorChange({ hex }: { hex: string }) {
     setSelectColor(hex);
@@ -51,6 +49,19 @@ export default function AddCourseDialog() {
     const value = event.target.value;
     setSelectColor(value);
     form.setValue("color", value);
+  }
+  const queryClient = useQueryClient();
+
+  const createCourseMutation = useMutation({
+    mutationFn: createCourse,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["courses"] });
+      form.reset();
+    },
+  });
+
+  function onSubmit(input: z.infer<typeof courseFormSchema>) {
+    createCourseMutation.mutate(input);
   }
 
   return (
