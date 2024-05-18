@@ -1,5 +1,6 @@
 import { assignmentFormSchema } from "@/lib/schemas";
 import { getCourses, updateAssignment } from "@/server/actions";
+import { getAssignment } from "@/server/apis/assignments";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { utcToZonedTime } from "date-fns-tz";
@@ -8,19 +9,30 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 export function useEditAssignmentForm(
-  assignment: Assignment,
+  assignmentID: string,
   onSuccessCallback?: () => void,
 ) {
   const queryClient = useQueryClient();
 
+  const {
+    data: assignment,
+    error: assignmentError,
+    isLoading: assignmentLoading,
+  } = useQuery<Assignment>({
+    queryKey: ["assignment", assignmentID],
+    queryFn: () => getAssignment(assignmentID),
+  });
+
   const form = useForm({
     resolver: zodResolver(assignmentFormSchema),
     defaultValues: {
-      course: assignment.course.id,
-      title: assignment.title,
-      dueDate: utcToZonedTime(assignment.dueDate, "UTC"),
-      priority: assignment.priority,
-      notes: assignment.notes,
+      course: assignment?.course.id ?? "",
+      title: assignment?.title ?? "",
+      dueDate: assignment?.dueDate
+        ? utcToZonedTime(assignment.dueDate, "UTC")
+        : new Date(),
+      priority: assignment?.priority ?? false,
+      notes: assignment?.notes,
     },
   });
 
@@ -30,7 +42,7 @@ export function useEditAssignmentForm(
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["assignments"] });
       queryClient.invalidateQueries({
-        queryKey: ["assignment", assignment.id],
+        queryKey: ["assignment", assignmentID],
       });
       form.reset();
       if (onSuccessCallback) onSuccessCallback();
@@ -46,7 +58,7 @@ export function useEditAssignmentForm(
   }, []);
 
   function onSubmit(input: z.infer<typeof assignmentFormSchema>) {
-    updateAssignmentMutation.mutate({ input, id: assignment.id });
+    updateAssignmentMutation.mutate({ input, id: assignmentID });
   }
 
   return {

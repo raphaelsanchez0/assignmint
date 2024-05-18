@@ -52,9 +52,7 @@ const EditAssignmentDialog: React.FC<EditAssignmentDialogProps> = ({
   const { assignment, assignmentError, assignmentLoading } =
     useAssignment(assignmentID);
 
-  if (!assignment) return <></>;
-
-  const { form, courses, onSubmit } = useEditAssignmentForm(assignment);
+  const { form, courses, onSubmit } = useEditAssignmentForm(assignmentID);
   if (!assignment && assignmentLoading)
     return <LoadingDialogContent title="Edit Assignment" />;
 
