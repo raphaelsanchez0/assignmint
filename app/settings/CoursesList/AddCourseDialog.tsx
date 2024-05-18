@@ -29,7 +29,7 @@ interface AddCourseDialogProps {
 
 export default function AddCourseDialog({ closeDialog }: AddCourseDialogProps) {
   const [colorPickerOpen, setColorPickerOpen] = useState(false);
-  const [selectedColor, setSelectColor] = useState<string>("");
+
   const colorPickerRef = useRef(null);
   const inputRef = useRef(null);
   useOnClickOutside([colorPickerRef, inputRef], () => {
@@ -43,6 +43,9 @@ export default function AddCourseDialog({ closeDialog }: AddCourseDialogProps) {
       color: "#000000",
     },
   });
+  const [selectedColor, setSelectColor] = useState<string>(
+    form.getValues("color"),
+  );
 
   function handleColorChange({ hex }: { hex: string }) {
     setSelectColor(hex);
@@ -103,6 +106,7 @@ export default function AddCourseDialog({ closeDialog }: AddCourseDialogProps) {
                         value={selectedColor}
                         onChange={handleInputChange}
                         onFocus={() => setColorPickerOpen(true)}
+                        autoComplete="off"
                       />
                       {colorPickerOpen && (
                         <Card
