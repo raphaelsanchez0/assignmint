@@ -49,8 +49,10 @@ export function useEditExamForm(
     mutationFn: updateExam,
 
     onSuccess: () => {
-      ``;
       queryClient.invalidateQueries({ queryKey: ["exams"] });
+      queryClient.invalidateQueries({
+        queryKey: ["exam", examID],
+      });
       form.reset();
       if (onSuccessCallback) onSuccessCallback();
     },
