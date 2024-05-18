@@ -23,3 +23,8 @@ export const assignmintCourseFormSchema = z.object({
   title: z.string({ required_error: "Title is required" }).min(2).max(50),
   color: z.string().max(20),
 });
+
+export const courseFormSchema = z.object({
+  title: z.string({ required_error: "Title is required" }).min(2).max(50),
+  color: z.string().max(20),
+});

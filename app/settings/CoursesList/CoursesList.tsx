@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 import { Card } from "@/components/ui/card";
 import { useQuery } from "@tanstack/react-query";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import AddCourseDialog from "./AddCourseDialog";
 
 export default function CourseList() {
   //const [courses, setCourses] = useState<Course[]>([]);
@@ -37,7 +38,7 @@ export default function CourseList() {
           <DialogTrigger asChild>
             <button className="btn">Add</button>
           </DialogTrigger>
-          <DialogContent>test</DialogContent>
+          <AddCourseDialog />
         </Dialog>
       </div>
       <div>
