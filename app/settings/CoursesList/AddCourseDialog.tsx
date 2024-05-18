@@ -16,12 +16,20 @@ import {
   FormLabel,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Card } from "@/components/ui/card";
+import { SketchPicker, TwitterPicker } from "react-color";
+import useOnClickOutside from "@/app/_hooks/useOnClickOutside";
 
 export default function AddCourseDialog() {
   const [colorPickerOpen, setColorPickerOpen] = useState(false);
   const [selectedColor, setSelectColor] = useState<string>("");
+  const colorPickerRef = useRef(null);
+  const inputRef = useRef(null);
+  useOnClickOutside([colorPickerRef, inputRef], () => {
+    setColorPickerOpen(false);
+  });
+
   const form = useForm<z.infer<typeof courseFormSchema>>({
     resolver: zodResolver(courseFormSchema),
     defaultValues: {
@@ -32,6 +40,10 @@ export default function AddCourseDialog() {
 
   function onSubmit(input: z.infer<typeof courseFormSchema>) {
     console.log(input);
+  }
+  function handleColorChange({ hex }: { hex: any }) {
+    setSelectColor(hex);
+    form.setValue("color", hex);
   }
 
   return (
@@ -67,11 +79,16 @@ export default function AddCourseDialog() {
                         {...field}
                         value={selectedColor}
                         onFocus={() => setColorPickerOpen(true)}
-                        onBlur={() => setColorPickerOpen(false)}
                       />
                       {colorPickerOpen && (
-                        <Card className="absolute z-10 mt-2 w-full group-focus:w-full p-2 md:p-2">
-                          test
+                        <Card
+                          className="absolute z-10 mt-2 w-full group-focus:w-full p-2 md:p-2"
+                          ref={colorPickerRef}
+                        >
+                          <SketchPicker
+                            color={selectedColor}
+                            onChangeComplete={handleColorChange}
+                          />
                         </Card>
                       )}
                     </div>
