@@ -83,6 +83,7 @@ export default function useCourseForm({
     form,
     selectedColor,
     colorPickerOpen,
+    setColorPickerOpen,
     colorPickerRef,
     inputRef,
     handleColorChange,

@@ -22,55 +22,30 @@ import { SketchPicker, TwitterPicker } from "react-color";
 import useOnClickOutside from "@/app/_hooks/useOnClickOutside";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createCourse } from "@/server/apis/courses";
+import useCourseForm from "./useCourseForm";
 
 interface AddCourseDialogProps {
   closeDialog: () => void;
 }
 
 export default function AddCourseDialog({ closeDialog }: AddCourseDialogProps) {
-  const [colorPickerOpen, setColorPickerOpen] = useState(false);
-
-  const colorPickerRef = useRef(null);
-  const inputRef = useRef(null);
-  useOnClickOutside([colorPickerRef, inputRef], () => {
-    setColorPickerOpen(false);
-  });
-
-  const form = useForm<z.infer<typeof courseFormSchema>>({
-    resolver: zodResolver(courseFormSchema),
-    defaultValues: {
+  const {
+    form,
+    selectedColor,
+    colorPickerOpen,
+    colorPickerRef,
+    setColorPickerOpen,
+    inputRef,
+    handleColorChange,
+    handleInputChange,
+    onSubmit,
+  } = useCourseForm({
+    initialValues: {
       title: "",
       color: "#000000",
     },
+    onSubmitCallback: closeDialog,
   });
-  const [selectedColor, setSelectColor] = useState<string>(
-    form.getValues("color"),
-  );
-
-  function handleColorChange({ hex }: { hex: string }) {
-    setSelectColor(hex);
-    form.setValue("color", hex);
-  }
-
-  function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const value = event.target.value;
-    setSelectColor(value);
-    form.setValue("color", value);
-  }
-  const queryClient = useQueryClient();
-
-  const createCourseMutation = useMutation({
-    mutationFn: createCourse,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["courses"] });
-      form.reset();
-    },
-  });
-
-  function onSubmit(input: z.infer<typeof courseFormSchema>) {
-    createCourseMutation.mutate(input);
-    closeDialog();
-  }
 
   return (
     <DialogContent>
