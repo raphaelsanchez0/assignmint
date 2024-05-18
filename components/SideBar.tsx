@@ -56,7 +56,7 @@ const Sidebar = () => {
         alt="logo"
         width={40}
         href="/assignments"
-        className={`${sideBarIconStyle} md:order-2`}
+        className={`${sideBarIconStyle} md:order-3`}
       />
       <SideBarIcon
         name="Dashboard"
@@ -64,7 +64,7 @@ const Sidebar = () => {
         alt="logo"
         width={40}
         href="/dashboard"
-        className={`${sideBarIconStyle} md:order-3`}
+        className={`${sideBarIconStyle} md:order-2`}
       />
       <SideBarIcon
         name="Calendar"
