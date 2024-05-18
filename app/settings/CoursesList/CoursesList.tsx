@@ -12,6 +12,7 @@ export default function CourseList() {
   //const [courses, setCourses] = useState<Course[]>([]);
 
   const [linkDialogOpen, setLinkDialogOpen] = useState(false);
+  const [addCourseDialogOpen, setAddCourseDialogOpen] = useState(false);
 
   const { data: courses, isLoading: coursesLoading } = useQuery<Course[]>({
     queryKey: ["courses"],
@@ -34,11 +35,14 @@ export default function CourseList() {
     <Card>
       <div className="flex justify-between items-center mb-2">
         <h3 className="card-title">Courses</h3>
-        <Dialog>
+        <Dialog
+          open={addCourseDialogOpen}
+          onOpenChange={setAddCourseDialogOpen}
+        >
           <DialogTrigger asChild>
             <button className="btn">Add</button>
           </DialogTrigger>
-          <AddCourseDialog />
+          <AddCourseDialog closeDialog={() => setAddCourseDialogOpen(false)} />
         </Dialog>
       </div>
       <div>

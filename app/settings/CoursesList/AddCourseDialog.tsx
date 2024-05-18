@@ -23,7 +23,11 @@ import useOnClickOutside from "@/app/_hooks/useOnClickOutside";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createCourse } from "@/server/apis/courses";
 
-export default function AddCourseDialog() {
+interface AddCourseDialogProps {
+  closeDialog: () => void;
+}
+
+export default function AddCourseDialog({ closeDialog }: AddCourseDialogProps) {
   const [colorPickerOpen, setColorPickerOpen] = useState(false);
   const [selectedColor, setSelectColor] = useState<string>("");
   const colorPickerRef = useRef(null);
@@ -62,6 +66,7 @@ export default function AddCourseDialog() {
 
   function onSubmit(input: z.infer<typeof courseFormSchema>) {
     createCourseMutation.mutate(input);
+    closeDialog();
   }
 
   return (
