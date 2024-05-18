@@ -42,12 +42,36 @@ export async function createCourse(input: any) {
     return { error: result.error };
   }
   const parsedData = result.data;
-  console.log(parsedData);
 
-  const { data, error } = await supabase.from("courses").insert([{
-    title: parsedData.title,
-    color: parsedData.color,
-  }]).select();
+  const { data, error } = await supabase
+    .from("courses")
+    .insert([{
+      title: parsedData.title,
+      color: parsedData.color,
+    }])
+    .select();
+
+  if (error) {
+    console.log(error);
+    return error;
+  }
+}
+
+export async function updateCourse(id: string, newValues: any) {
+  const result = courseFormSchema.safeParse(newValues);
+
+  if (!result.success) {
+    console.error("Validation failed", result.error);
+    return { error: result.error };
+  }
+  const parsedData = result.data;
+  const { data: course, error } = await supabase
+    .from("courses")
+    .update([{
+      title: parsedData.title,
+      color: parsedData.color,
+    }])
+    .eq("id", id).select();
 
   if (error) {
     console.log(error);
