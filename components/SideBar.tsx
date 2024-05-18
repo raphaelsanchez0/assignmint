@@ -31,7 +31,7 @@ const Sidebar = () => {
       className="fixed flex flex-row items-center justify-center bottom-0 left-0 h-16 w-full 
                         md:top-0 md:left-0 md:h-screen md:w-sidebar-width
                         md:flex md:flex-col
-                        bg-primary  text-white shadow-lg dark:bg-zinc-950 dark:border-r-[1px] dark:border-gray-400
+                        bg-primary  text-white shadow-lg dark:bg-zinc-950 md:dark:border-r-[1px] md:dark:border-gray-400
                         z-10
                         "
     >
@@ -40,23 +40,7 @@ const Sidebar = () => {
         alt="logo"
         width={40}
         href="/dashboard"
-        className={sideBarIconStyle}
-      />
-      <SideBarIcon
-        name="Dashboard"
-        icon={iconHome}
-        alt="logo"
-        width={40}
-        href="/dashboard"
-        className={sideBarIconStyle}
-      />
-      <SideBarIcon
-        name="Assignments"
-        icon={iconPaper}
-        alt="logo"
-        width={40}
-        href="/assignments"
-        className={sideBarIconStyle}
+        className={`${sideBarIconStyle} hidden md:flex md:order-1`}
       />
       <SideBarIcon
         name="Exams"
@@ -64,7 +48,23 @@ const Sidebar = () => {
         alt="logo"
         width={50}
         href="/exams"
-        className={sideBarIconStyle}
+        className={`${sideBarIconStyle} md:order-4`}
+      />
+      <SideBarIcon
+        name="Assignments"
+        icon={iconPaper}
+        alt="logo"
+        width={40}
+        href="/assignments"
+        className={`${sideBarIconStyle} md:order-2`}
+      />
+      <SideBarIcon
+        name="Dashboard"
+        icon={iconHome}
+        alt="logo"
+        width={40}
+        href="/dashboard"
+        className={`${sideBarIconStyle} md:order-3`}
       />
       <SideBarIcon
         name="Calendar"
@@ -72,7 +72,7 @@ const Sidebar = () => {
         alt="logo"
         width={30}
         href={`/calendar?date=${format(new Date(), "yyyy-MM-dd")}`}
-        className={sideBarIconStyle}
+        className={`${sideBarIconStyle} md:order-5`}
       />
       <SideBarIcon
         name="Settings"
@@ -80,7 +80,7 @@ const Sidebar = () => {
         alt="logo"
         width={50}
         href="/settings"
-        className={sideBarIconStyle + " mt-auto"}
+        className={`${sideBarIconStyle} md:order-6 mt-auto`}
       />
     </div>
   );
