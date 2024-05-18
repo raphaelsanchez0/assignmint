@@ -95,13 +95,11 @@ export default function EditCourseDialog({
               )}
             />
           </div>
-          <div className="flex justify-center gap-4">
-            <button type="submit" className="btn mt-2">
+          <div className="flex justify-center gap-4 mt-4">
+            <button type="submit" className="btn">
               Edit
             </button>
-            <button className="mt-2 btn-neutral !text-red-500 border-2 border-red-500">
-              Delete
-            </button>
+            <button className="btn-alert">Delete</button>
           </div>
         </form>
       </Form>
