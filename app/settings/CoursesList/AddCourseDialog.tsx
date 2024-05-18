@@ -47,6 +47,12 @@ export default function AddCourseDialog() {
     form.setValue("color", hex);
   }
 
+  function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const value = event.target.value;
+    setSelectColor(value);
+    form.setValue("color", value);
+  }
+
   return (
     <DialogContent>
       <DialogHeader>
@@ -79,6 +85,7 @@ export default function AddCourseDialog() {
                         placeholder="Color"
                         {...field}
                         value={selectedColor}
+                        onChange={handleInputChange}
                         onFocus={() => setColorPickerOpen(true)}
                       />
                       {colorPickerOpen && (
