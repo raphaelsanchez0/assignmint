@@ -17,7 +17,7 @@ export default function AssignmentCatagories() {
   if (!assignmentsExist) {
     return (
       <p className="text-gray-500 dark:text-gray-600 text-sm italic text-center pt-4">
-        No Assignments Created
+        No Assignments Due
       </p>
     );
   }

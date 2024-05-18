@@ -15,7 +15,7 @@ interface ExamsListProps {
 const ExamsCard: React.FC<ExamsListProps> = async ({ showAddExam = false }) => {
   return (
     <Card>
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex items-center justify-between mb-2">
         <h3 className="card-title">Exams</h3>
         {showAddExam && <AddExamDialog />}
       </div>
