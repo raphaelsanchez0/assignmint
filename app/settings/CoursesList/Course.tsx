@@ -13,6 +13,7 @@ import {
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible";
+import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 
 interface CourseProps {
   courseID: string;
@@ -112,7 +113,12 @@ const Course: React.FC<CourseProps> = ({
             <h4 className="text-xl font-semibold ml-2">{course.title}</h4>
 
             <div>
-              <button className="font-semibold">Edit</button>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <button className="font-semibold">Edit</button>
+                </DialogTrigger>
+                <EditCourseDialog courseID={courseID} />
+              </Dialog>
             </div>
           </div>
         </div>
