@@ -1,4 +1,4 @@
-import CourseList from "./CourseList";
+import CourseList from "./CoursesList/CoursesList";
 import Account from "./Account";
 
 export default function Settings() {

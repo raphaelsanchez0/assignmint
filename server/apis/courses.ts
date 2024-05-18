@@ -47,6 +47,19 @@ export async function getCourses(): Promise<Course[]> {
   return courseList || [];
 }
 
+export async function getCourse(id: string): Promise<Course> {
+  const { data: course, error } = await supabase
+    .from("courses")
+    .select("*")
+    .eq("id", id);
+
+  if (error) {
+    throw error;
+  }
+
+  return course[0];
+}
+
 export async function deleteCourse(courseID: string) {
   const { error } = await supabase.from("courses").delete().eq("id", courseID);
 
