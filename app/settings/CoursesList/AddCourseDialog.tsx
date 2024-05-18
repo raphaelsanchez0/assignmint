@@ -82,7 +82,7 @@ export default function AddCourseDialog() {
                       />
                       {colorPickerOpen && (
                         <Card
-                          className="absolute z-10 mt-2 w-full group-focus:w-full p-2 md:p-2"
+                          className="absolute z-10 mt-2 w-full group-focus:w-full p-2 md:p-2 flex items-center justify-center"
                           ref={colorPickerRef}
                         >
                           <SketchPicker
