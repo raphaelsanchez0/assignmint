@@ -41,7 +41,8 @@ export default function AddCourseDialog() {
   function onSubmit(input: z.infer<typeof courseFormSchema>) {
     console.log(input);
   }
-  function handleColorChange({ hex }: { hex: any }) {
+
+  function handleColorChange({ hex }: { hex: string }) {
     setSelectColor(hex);
     form.setValue("color", hex);
   }
@@ -97,11 +98,11 @@ export default function AddCourseDialog() {
                 </FormItem>
               )}
             />
-            <div className="flex justify-center">
-              <button type="submit" className="btn mt-4">
-                Create Course
-              </button>
-            </div>
+          </div>
+          <div className="flex justify-center">
+            <button type="submit" className="btn mt-4">
+              Create Course
+            </button>
           </div>
         </form>
       </Form>
