@@ -111,7 +111,7 @@ const Course: React.FC<CourseProps> = ({
           <div className="flex justify-between w-full align-middle">
             <h4 className="text-xl font-semibold ml-2">{course.title}</h4>
 
-            <div className="">
+            <div>
               <button className="font-semibold">Edit</button>
             </div>
           </div>
