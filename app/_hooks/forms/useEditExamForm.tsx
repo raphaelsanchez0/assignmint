@@ -37,13 +37,10 @@ export function useEditExamForm(
     },
   });
 
-  const [courses, setCourses] = useState<Course[]>([]);
-
-  useEffect(() => {
-    getCourses().then((courseData) => {
-      setCourses(courseData);
-    });
-  }, []);
+  const { data: courses } = useQuery<Course[]>({
+    queryKey: ["courses"],
+    queryFn: getCourses,
+  });
 
   const updateExamMutation = useMutation({
     mutationFn: updateExam,
