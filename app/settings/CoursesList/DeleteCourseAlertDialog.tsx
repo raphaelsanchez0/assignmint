@@ -8,7 +8,13 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 
-export default function DeleteCourseAlertDialog() {
+interface DeleteCourseAlertDialogProps {
+  handleDeleteCourse: () => void;
+}
+
+export default function DeleteCourseAlertDialog({
+  handleDeleteCourse,
+}: DeleteCourseAlertDialogProps) {
   return (
     <AlertDialogContent>
       <AlertDialogHeader>
@@ -22,7 +28,9 @@ export default function DeleteCourseAlertDialog() {
       </AlertDialogDescription>
       <AlertDialogFooter>
         <AlertDialogCancel>Cancel</AlertDialogCancel>
-        <AlertDialogAction>Continue</AlertDialogAction>
+        <AlertDialogAction onClick={handleDeleteCourse}>
+          Continue
+        </AlertDialogAction>
       </AlertDialogFooter>
     </AlertDialogContent>
   );

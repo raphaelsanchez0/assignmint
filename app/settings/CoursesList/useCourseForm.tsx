@@ -95,6 +95,13 @@ export default function useCourseForm({
     }
   }
 
+  function handleDeleteCourse() {
+    if (courseID) {
+      deleteCourseMutation.mutate(courseID);
+    } else
+      throw new Error("CourseID must be defined (Must be an edit operation)");
+  }
+
   return {
     form,
     selectedColor,
@@ -104,6 +111,7 @@ export default function useCourseForm({
     inputRef,
     handleColorChange,
     handleInputChange,
+    handleDeleteCourse,
     onSubmit,
   };
 }

@@ -34,6 +34,7 @@ export default function EditCourseDialog({
     setColorPickerOpen,
     handleColorChange,
     handleInputChange,
+    handleDeleteCourse,
     onSubmit,
   } = useCourseForm({
     initialValues: {
@@ -105,7 +106,9 @@ export default function EditCourseDialog({
               <AlertDialogTrigger asChild>
                 <button className="btn-alert">Delete</button>
               </AlertDialogTrigger>
-              <DeleteCourseAlertDialog />
+              <DeleteCourseAlertDialog
+                handleDeleteCourse={() => handleDeleteCourse()}
+              />
             </AlertDialog>
           </div>
         </form>
