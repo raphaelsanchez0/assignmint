@@ -18,16 +18,9 @@ import EditCourseDialog from "./EditCourseDialog";
 
 interface CourseProps {
   courseID: string;
-  editEnabled?: boolean;
-  setCourses: React.Dispatch<React.SetStateAction<Course[]>>;
-  openLinkDialogFn: (course: Course) => void;
 }
 
-const Course: React.FC<CourseProps> = ({
-  courseID,
-  editEnabled = false,
-  setCourses,
-}) => {
+const Course: React.FC<CourseProps> = ({ courseID }) => {
   const { data: course } = useQuery<Course>({
     queryKey: ["course", courseID],
     queryFn: () => getCourse(courseID),
