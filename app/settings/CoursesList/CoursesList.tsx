@@ -24,34 +24,9 @@ export default function CourseList() {
   });
   if (!courses && coursesLoading) return <LoadingCoursesList />;
 
-  if (!courses && coursesError) {
-    return <ErrorCoursesList />;
-  }
+  if (!courses && coursesError) return <ErrorCoursesList />;
 
   if (!courses) return null;
-
-  if (courses.length === 0)
-    return (
-      <Card>
-        <div className="flex justify-between items-center mb-2">
-          <h3 className="card-title">Courses</h3>\
-          <Dialog
-            open={addCourseDialogOpen}
-            onOpenChange={setAddCourseDialogOpen}
-          >
-            <DialogTrigger asChild>
-              <button className="btn">Add</button>
-            </DialogTrigger>
-            <AddCourseDialog
-              closeDialog={() => setAddCourseDialogOpen(false)}
-            />
-          </Dialog>
-        </div>
-        <p className="text-gray-500 dark:text-gray-600 text-sm italic text-center pt-4">
-          No courses added yet
-        </p>
-      </Card>
-    );
 
   return (
     <Card>
@@ -68,9 +43,15 @@ export default function CourseList() {
         </Dialog>
       </div>
       <div>
-        {courses.map((course) => (
-          <Course courseID={course.id} key={course.id} />
-        ))}
+        {courses.length === 0 ? (
+          <p className="text-gray-500 dark:text-gray-600 text-sm italic text-center pt-4">
+            No courses added yet
+          </p>
+        ) : (
+          courses.map((course) => (
+            <Course courseID={course.id} key={course.id} />
+          ))
+        )}
       </div>
     </Card>
   );
