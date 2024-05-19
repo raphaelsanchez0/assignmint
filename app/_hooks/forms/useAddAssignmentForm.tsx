@@ -1,11 +1,9 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { z } from "zod";
 import { getCourses, createAssignment } from "@/server/actions";
-import { assignmentFormSchema } from "@/lib/schemas";
 import { assignmentFormSchema as formSchema } from "@/lib/schemas";
-import { useEffect, useState } from "react";
 
 export default function useAddAssignmentForm(onSuccessCallback?: () => void) {
   const queryClient = useQueryClient();
@@ -30,13 +28,10 @@ export default function useAddAssignmentForm(onSuccessCallback?: () => void) {
     },
   });
 
-  const [courses, setCourses] = useState<Course[]>([]);
-
-  useEffect(() => {
-    getCourses().then((courseData) => {
-      setCourses(courseData);
-    });
-  }, []);
+  const { data: courses } = useQuery<Course[]>({
+    queryKey: ["courses"],
+    queryFn: getCourses,
+  });
 
   function onSubmit(input: z.infer<typeof formSchema>) {
     createAssignmentMutation.mutate(input);

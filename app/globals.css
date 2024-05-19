@@ -37,6 +37,14 @@ label {
   transition-colors duration-200 ease-in-out;
 }
 
+.btn-neutral {
+  @apply font-bold py-2 px-4 rounded-lg;
+}
+
+.btn-alert {
+  @apply btn-neutral !text-red-500 border-2 border-red-500;
+}
+
 /* Assignment Page Styles */
 
 .assignment--input-header {

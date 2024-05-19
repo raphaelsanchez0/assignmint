@@ -1,3 +1,4 @@
+import { courseFormSchema } from "@/lib/schemas";
 import { createSupabaseFrontendClient } from "@/utils/supabase/supabaseFrontendClient";
 import { z } from "zod";
 
@@ -33,6 +34,51 @@ export async function createOrUpdateCourse(
   }
 }
 
+export async function createCourse(input: any) {
+  const result = courseFormSchema.safeParse(input);
+
+  if (!result.success) {
+    console.error("Validation failed", result.error);
+    return { error: result.error };
+  }
+  const parsedData = result.data;
+
+  const { data, error } = await supabase
+    .from("courses")
+    .insert([{
+      title: parsedData.title,
+      color: parsedData.color,
+    }])
+    .select();
+
+  if (error) {
+    console.log(error);
+    return error;
+  }
+}
+
+export async function updateCourse(id: string, newValues: any) {
+  const result = courseFormSchema.safeParse(newValues);
+
+  if (!result.success) {
+    console.error("Validation failed", result.error);
+    return { error: result.error };
+  }
+  const parsedData = result.data;
+  const { data: course, error } = await supabase
+    .from("courses")
+    .update([{
+      title: parsedData.title,
+      color: parsedData.color,
+    }])
+    .eq("id", id).select();
+
+  if (error) {
+    console.log(error);
+    return error;
+  }
+}
+
 export async function getCourses(): Promise<Course[]> {
   const { data: courseList, error } = await supabase
     .from("courses")
@@ -45,6 +91,19 @@ export async function getCourses(): Promise<Course[]> {
   }
 
   return courseList || [];
+}
+
+export async function getCourse(id: string): Promise<Course> {
+  const { data: course, error } = await supabase
+    .from("courses")
+    .select("*")
+    .eq("id", id);
+
+  if (error) {
+    throw error;
+  }
+
+  return course[0];
 }
 
 export async function deleteCourse(courseID: string) {

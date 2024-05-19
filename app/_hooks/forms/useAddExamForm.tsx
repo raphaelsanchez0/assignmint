@@ -1,10 +1,9 @@
 import { createExam, getCourses } from "@/server/actions";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { examFormSchema } from "@/lib/schemas";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useState, useEffect } from "react";
 
 export default function useAddExamForm(onSuccessCallback?: () => void) {
   const queryClient = useQueryClient();
@@ -31,13 +30,10 @@ export default function useAddExamForm(onSuccessCallback?: () => void) {
     createExamMutation.mutate(input);
   }
 
-  const [courses, setCourses] = useState<Course[]>([]);
-
-  useEffect(() => {
-    getCourses().then((courseData) => {
-      setCourses(courseData);
-    });
-  }, []);
+  const { data: courses } = useQuery<Course[]>({
+    queryKey: ["courses"],
+    queryFn: getCourses,
+  });
 
   return {
     form,

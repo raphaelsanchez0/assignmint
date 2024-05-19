@@ -11,7 +11,7 @@ import { hasAssignments } from "@/server/apis/assignments";
 
 export default function AssignmentCatagories() {
   const { data: assignmentsExist } = useQuery<boolean>({
-    queryKey: ["hasAssignments"],
+    queryKey: ["assignments"],
     queryFn: () => hasAssignments(),
   });
   if (!assignmentsExist) {
