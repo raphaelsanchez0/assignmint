@@ -14,6 +14,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { SketchPicker } from "react-color";
 import useCourseForm from "./useCourseForm";
+import { AlertDialog, AlertDialogTrigger } from "@/components/ui/alert-dialog";
+import DeleteCourseAlertDialog from "./DeleteCourseAlertDialog";
 
 interface EditCourseDialogProps {
   course: Course;
@@ -99,7 +101,12 @@ export default function EditCourseDialog({
             <button type="submit" className="btn">
               Edit
             </button>
-            <button className="btn-alert">Delete</button>
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <button className="btn-alert">Delete</button>
+              </AlertDialogTrigger>
+              <DeleteCourseAlertDialog />
+            </AlertDialog>
           </div>
         </form>
       </Form>
