@@ -3,9 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { z } from "zod";
 import { getCourses, createAssignment } from "@/server/actions";
-import { assignmentFormSchema } from "@/lib/schemas";
 import { assignmentFormSchema as formSchema } from "@/lib/schemas";
-import { useEffect, useState } from "react";
 
 export default function useAddAssignmentForm(onSuccessCallback?: () => void) {
   const queryClient = useQueryClient();

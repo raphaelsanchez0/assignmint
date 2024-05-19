@@ -20,16 +20,7 @@ import ViewAssignmentDialog from "@/components/dialogs/assignments/ViewAssignmen
 interface AssignmentProps {
   assignment: Assignment;
 }
-/**
- * Represents an assignment
- *
- * @param {string} title - The title of the assignment
- * @param {string} course - The course the assignment is for
- * @param {string} color  - The color of the course the assignment is for
- * @param {number} id - The id of the assignment
- * @param {string} due - The due date of the assignment. If not provided, no due date is rendered
- *
- */
+
 const Assignment: React.FC<AssignmentProps> = ({ assignment }) => {
   const [openViewDialog, setOpenViewDialog] = useState(false);
 

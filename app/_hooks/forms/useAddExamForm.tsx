@@ -4,7 +4,6 @@ import { examFormSchema } from "@/lib/schemas";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useState, useEffect } from "react";
 
 export default function useAddExamForm(onSuccessCallback?: () => void) {
   const queryClient = useQueryClient();
