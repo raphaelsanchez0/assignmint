@@ -16,6 +16,7 @@ export default function Features() {
           alt="Illustration of a person marking items off a checklist"
           width={200}
           height={200}
+          className="dark:hidden"
         />
       </div>
       <Separator className="hide-when-desktop" />
@@ -30,6 +31,7 @@ export default function Features() {
           alt="Illustration of a person working on a laptop with a thumbs up"
           width={200}
           height={200}
+          className="dark:hidden"
         />
       </div>
       <Separator className="hide-when-desktop" />
@@ -44,6 +46,7 @@ export default function Features() {
           alt="Illustration of a person looking at statistics"
           width={200}
           height={200}
+          className="dark:hidden"
         />
       </div>
     </div>
