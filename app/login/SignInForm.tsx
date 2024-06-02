@@ -21,7 +21,7 @@ import getURL from "@/utils/getURL";
 import OAuthForm from "./OAuthForm";
 import Link from "next/link";
 
-const FormSchema = z.object({
+const formSchema = z.object({
   email: z.string().email(),
   password: z.string().min(1, {
     message: "Password is required.",
@@ -33,7 +33,7 @@ export default function SignInForm() {
   const router = useRouter();
   const supabase = createSupabaseFrontendClient();
 
-  async function onSubmit(credentials: z.infer<typeof FormSchema>) {
+  async function onSubmit(credentials: z.infer<typeof formSchema>) {
     const { data, error } = await signInWithEmailAndPassword(
       credentials.email,
       credentials.password,
@@ -47,8 +47,8 @@ export default function SignInForm() {
     }
   }
 
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
       password: "",
