@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function Features() {
   return (
-    <div className="landing-section flex flex-col md:flex-row md:justify-around md items-start gap-4">
+    <div className="landing-section flex flex-col md:flex-row md:justify-around md items-start gap-4 mb-10">
       <div className="flex flex-col items-center gap-2 flex-1">
         <h5 className="font-medium">Never Miss Assignments</h5>
         <p className="text-center font-light px-4">
