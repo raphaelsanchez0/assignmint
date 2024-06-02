@@ -8,8 +8,8 @@ export default function Features() {
       <div className="flex flex-col items-center gap-2 flex-1">
         <h5 className="font-medium">Never Miss Assignments</h5>
         <p className="text-center font-light px-4">
-          With everything visible at a glance, you'll always know whats coming
-          up
+          With everything visible at a glance, you&apos;ll always know whats
+          coming up
         </p>
         <Image
           src={"/illustrations/checklist.png"}
@@ -23,8 +23,8 @@ export default function Features() {
       <div className="flex flex-col items-center gap-2 flex-1">
         <h5 className="font-medium">Keep track of whats Important</h5>
         <p className="text-center font-light px-4">
-          With features like priority assignments and exams, you'll never let
-          the important things slip through the cracks.
+          With features like priority assignments and exams, you&apos;ll never
+          let the important things slip through the cracks.
         </p>
         <Image
           src={"/illustrations/thumbs-up.png"}
