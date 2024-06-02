@@ -1,5 +1,11 @@
-import React from "react";
+import LoadingListShorter from "@/components/Loading/LoadingListShorter";
+import React, { Suspense } from "react";
+import ResetPasswordCard from "./ResetPasswordCard";
 
 export default function page() {
-  return <div>page</div>;
+  return (
+    <Suspense fallback={<LoadingListShorter />}>
+      <ResetPasswordCard />
+    </Suspense>
+  );
 }
