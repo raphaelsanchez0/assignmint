@@ -19,6 +19,7 @@ import { useRouter } from "next/navigation";
 import { createSupabaseFrontendClient } from "@/utils/supabase/supabaseFrontendClient";
 import getURL from "@/utils/getURL";
 import OAuthForm from "./OAuthForm";
+import Link from "next/link";
 
 const FormSchema = z.object({
   email: z.string().email(),
@@ -97,6 +98,12 @@ export default function SignInForm() {
               </FormItem>
             )}
           />
+          <Link
+            href="/login/reset-password"
+            className="text-sm text-gray-300 dark:text-gray-300"
+          >
+            Forgot Password
+          </Link>
           <Button type="submit" className="btn w-full flex gap">
             Sign In
           </Button>

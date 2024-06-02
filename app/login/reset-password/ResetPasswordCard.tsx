@@ -4,7 +4,7 @@ import React from "react";
 export default function ResetPasswordCard() {
   return (
     <Card className="w-full p-4">
-      <div>ResetPasswordCard</div>
+      <div>Reset</div>
     </Card>
   );
 }
