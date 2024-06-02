@@ -66,3 +66,7 @@ input[type="checkbox"] {
 .hide-when-mobile {
   @apply hidden md:block;
 }
+
+.hide-when-desktop {
+  @apply block md:hidden;
+}

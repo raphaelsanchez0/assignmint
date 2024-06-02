@@ -2,6 +2,7 @@ import React from "react";
 import { MacbookScrollHero } from "./MacbookScrollHero";
 import Hero from "./Hero";
 import Navbar from "./Navbar";
+import Features from "./Features";
 
 export default function Landing() {
   return (
@@ -10,6 +11,7 @@ export default function Landing() {
         <Navbar />
         <Hero />
       </div>
+      <Features />
     </>
   );
 }
