@@ -32,6 +32,5 @@ export const config = {
     "/exams/:path*",
     "/calendar/:path*",
     "/settings/:path*",
-    "/login/change-password",
   ],
 };

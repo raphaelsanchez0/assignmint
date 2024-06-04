@@ -16,9 +16,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { createSupabaseFrontendClient } from "@/utils/supabase/supabaseFrontendClient";
+import { useToast } from "@/components/ui/use-toast";
 
 export default function ChangePasswordForm() {
-  const supabase = createSupabaseFrontendClient();
+  const { toast } = useToast();
   const changePasswordSchema = z.object({
     password: z.string().min(5, {
       message: "Password is required.",
@@ -33,7 +34,17 @@ export default function ChangePasswordForm() {
   });
 
   async function onSubmit() {
-    await supabase.auth.updateUser({ password: form.getValues().password });
+    const supabase = await createSupabaseFrontendClient();
+    const { data, error } = await supabase.auth.updateUser({
+      password: form.getValues().password,
+    });
+
+    if (data) {
+      toast({ title: "Password Changed" });
+    }
+    if (error) {
+      toast({ title: "Error Changing Password", description: error.message });
+    }
   }
   return (
     <Card className="w-full p-4">

@@ -36,9 +36,17 @@ export default function ResetPasswordForm() {
 
   async function onSubmit() {
     const supabase = createSupabaseFrontendClient();
-    await supabase.auth.resetPasswordForEmail(form.getValues().email, {
-      redirectTo: `${getURL("/login/change-password")}`,
-    });
+    const { data, error } = await supabase.auth.resetPasswordForEmail(
+      form.getValues().email,
+      {
+        redirectTo: `${getURL}/login/change-password`,
+      },
+    );
+
+    if (error) {
+      console.error(error);
+      return;
+    }
   }
   return (
     <Card className="w-full p-4">
