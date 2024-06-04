@@ -17,9 +17,11 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { createSupabaseFrontendClient } from "@/utils/supabase/supabaseFrontendClient";
 import { useToast } from "@/components/ui/use-toast";
+import { useRouter } from "next/navigation";
 
 export default function ChangePasswordForm() {
   const { toast } = useToast();
+  const router = useRouter();
   const changePasswordSchema = z.object({
     password: z.string().min(5, {
       message: "Password is required.",
@@ -40,7 +42,7 @@ export default function ChangePasswordForm() {
     });
 
     if (data) {
-      toast({ title: "Password Changed" });
+      router.push("/login/change-password/password-changed");
     }
     if (error) {
       toast({ title: "Error Changing Password", description: error.message });
@@ -50,16 +52,19 @@ export default function ChangePasswordForm() {
     <Card className="w-full p-4">
       <CardTitle>Change Password</CardTitle>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-2">
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="grid gap-2 pt-2"
+        >
           <FormField
             control={form.control}
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Password</FormLabel>
+                <FormLabel>New Password</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="Password"
+                    placeholder="New Password"
                     {...field}
                     type="password"
                     onChange={field.onChange}
