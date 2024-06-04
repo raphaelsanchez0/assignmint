@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const assignmentFormSchema = z.object({
-  course: z.string({ required_error: "Course is required" }).max(50),
+  course: z.string({ required_error: "Course is required" }).max(50).min(1),
   title: z.string({ required_error: "Title is required" }).min(2).max(50),
   dueDate: z.date(),
   priority: z.boolean(),
