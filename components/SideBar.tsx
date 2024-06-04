@@ -14,13 +14,20 @@ import { usePathname } from "next/navigation";
 
 const Sidebar = () => {
   const pathname = usePathname();
-  if (
-    pathname === "/" ||
-    pathname.startsWith("/account/") ||
-    pathname === "/login" ||
-    pathname === "/privacy-policy"
-  ) {
-    return <> </>;
+
+  const renderOnRoutes = [
+    "/dashboard",
+    "/exams",
+    "/assignments",
+    "/calendar",
+    "/settings",
+  ];
+
+  /**
+   * If the current route is not in the renderOnRoutes array, then don't display the sidebar
+   */
+  if (!renderOnRoutes.some((route) => pathname.startsWith(route))) {
+    return <></>;
   }
 
   const sideBarIconStyle = `relative flex items-center justify-center 
