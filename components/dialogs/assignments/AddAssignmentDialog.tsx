@@ -36,6 +36,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Textarea } from "@/components/ui/textarea";
 import useAddAssignmentForm from "@/app/_hooks/forms/useAddAssignmentForm";
+import Link from "next/link";
 
 export default function AddAssignmentDialog() {
   const [open, setOpen] = useState(false);
@@ -62,7 +63,18 @@ export default function AddAssignmentDialog() {
                 name="course"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Course</FormLabel>
+                    <div className="flex justify-between items-center">
+                      <FormLabel>Course</FormLabel>
+
+                      <FormLabel>
+                        <Link
+                          href="/settings"
+                          className="text-xs text-gray-500 dark:text-gray-600"
+                        >
+                          Add Courses
+                        </Link>
+                      </FormLabel>
+                    </div>
                     <Select onValueChange={field.onChange} value={field.value}>
                       <FormControl>
                         <SelectTrigger>
