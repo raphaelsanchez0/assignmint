@@ -35,6 +35,7 @@ import { Calendar } from "@/components/ui/calendar";
 
 import { Textarea } from "@/components/ui/textarea";
 import useAddExamForm from "@/app/_hooks/forms/useAddExamForm";
+import Link from "next/link";
 
 export default function AddExamDialog() {
   const [open, setOpen] = useState(false);
@@ -60,7 +61,18 @@ export default function AddExamDialog() {
                 name="course"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Course</FormLabel>
+                    <div className="flex justify-between items-center">
+                      <FormLabel>Course</FormLabel>
+
+                      <FormLabel>
+                        <Link
+                          href="/settings"
+                          className="text-xs text-gray-500 dark:text-gray-600"
+                        >
+                          Add Courses
+                        </Link>
+                      </FormLabel>
+                    </div>
                     <Select onValueChange={field.onChange} value={field.value}>
                       <FormControl>
                         <SelectTrigger>
