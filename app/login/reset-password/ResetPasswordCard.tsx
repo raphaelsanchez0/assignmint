@@ -39,7 +39,7 @@ export default function ResetPasswordForm() {
     const { data, error } = await supabase.auth.resetPasswordForEmail(
       form.getValues().email,
       {
-        redirectTo: `${getURL}/login/change-password`,
+        redirectTo: getURL("login/change-password"),
       },
     );
 
