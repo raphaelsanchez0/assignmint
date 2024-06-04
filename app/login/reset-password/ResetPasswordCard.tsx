@@ -21,6 +21,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { createSupabaseFrontendClient } from "@/utils/supabase/supabaseFrontendClient";
 import getURL from "@/utils/getURL";
+import { useToast } from "@/components/ui/use-toast";
 
 export default function ResetPasswordForm() {
   const resetPasswordSchema = z.object({
@@ -34,6 +35,7 @@ export default function ResetPasswordForm() {
     },
   });
 
+  const { toast } = useToast();
   async function onSubmit() {
     const supabase = createSupabaseFrontendClient();
     const { data, error } = await supabase.auth.resetPasswordForEmail(
@@ -43,9 +45,11 @@ export default function ResetPasswordForm() {
       },
     );
 
+    if (data) {
+      toast({ title: "Email Sent" });
+    }
     if (error) {
-      console.error(error);
-      return;
+      toast({ title: "Error Sending Email", description: error.message });
     }
   }
   return (
