@@ -1,3 +1,4 @@
+"use client";
 import AssignmentsList from "../../components/AssignmentsList/AssignmentsList";
 import ThisWeek from "./_ThisWeek/ThisWeek";
 import MiniCalender from "./_MiniCalendar/MiniCalendar";
@@ -8,6 +9,7 @@ import {
   HydrationBoundary,
   dehydrate,
 } from "@tanstack/react-query";
+import CommandBar from "@/components/command-bar/CommandBar";
 
 export default async function Dashboard() {
   return (
@@ -31,6 +33,7 @@ export default async function Dashboard() {
           </div>
         </div>
       </div>
+      <CommandBar />
     </>
   );
 }

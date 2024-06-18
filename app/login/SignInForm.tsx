@@ -17,8 +17,6 @@ import { signInWithEmailAndPassword, signInWithOAuth } from "./authActions";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 import { createSupabaseFrontendClient } from "@/utils/supabase/supabaseFrontendClient";
-import getURL from "@/utils/getURL";
-import OAuthForm from "./OAuthForm";
 import Link from "next/link";
 
 const formSchema = z.object({
