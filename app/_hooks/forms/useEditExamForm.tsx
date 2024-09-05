@@ -6,7 +6,8 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { examFormSchema } from "@/lib/schemas";
-import { getCourses, updateExam } from "@/server/actions";
+import { updateExam } from "@/server/actions";
+import { getCourses } from "@/server/apis/courses";
 import utcToZonedTime from "date-fns-tz/utcToZonedTime";
 import { getExam } from "@/server/apis/exams";
 

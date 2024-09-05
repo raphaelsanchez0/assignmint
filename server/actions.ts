@@ -110,21 +110,6 @@ export async function updateExam(variables: { input: any; id: string }) {
   }
 }
 
-export async function getCourses(): Promise<Course[]> {
-  const supabase = await createSupabaseServerClient();
-  const { data: courseList, error } = await supabase
-    .from("courses")
-    .select("id, title, color")
-    .order("id");
-
-  if (error) {
-    console.error("Error getting courses: ", error);
-    throw error;
-  }
-
-  return courseList || [];
-}
-
 export async function deleteCourse(courseID: string) {
   const supabase = await createSupabaseServerClient();
   const { error } = await supabase.from("courses").delete().eq("id", courseID);

@@ -1,4 +1,5 @@
-import { createExam, getCourses } from "@/server/actions";
+import { createExam } from "@/server/actions";
+import { getCourses } from "@/server/apis/courses";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { examFormSchema } from "@/lib/schemas";
 import { useForm } from "react-hook-form";
