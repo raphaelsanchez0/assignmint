@@ -1,5 +1,5 @@
 import AddExam from "./AddExam";
-import { getExams, getCourses } from "@/server/actions";
+import { getExams } from "@/server/actions";
 import {
   QueryClient,
   HydrationBoundary,

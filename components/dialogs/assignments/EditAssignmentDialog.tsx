@@ -131,7 +131,7 @@ const EditAssignmentDialog: React.FC<EditAssignmentDialogProps> = ({
                     <PopoverContent className="w-auto p-0" align="start">
                       <Calendar
                         mode="single"
-                        selected={field.value}
+                        selected={field.value || new Date()}
                         onSelect={field.onChange}
                       />
                     </PopoverContent>

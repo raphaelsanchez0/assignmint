@@ -31,7 +31,6 @@ import { format } from "date-fns";
 import { Calendar } from "@/components/ui/calendar";
 import { Button } from "@/components/ui/button";
 import { CalendarIcon } from "lucide-react";
-import { getCourses } from "@/server/actions";
 
 export default function AddAssignment() {
   const { form, courses, onSubmit } = useAddAssignmentForm();
