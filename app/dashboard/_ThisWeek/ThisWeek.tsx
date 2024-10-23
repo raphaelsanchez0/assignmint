@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+"use client";
 import Day from "./Day";
 import add from "date-fns/add";
 import { Card } from "@/components/ui/card";
