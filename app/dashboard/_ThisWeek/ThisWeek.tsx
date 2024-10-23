@@ -5,6 +5,8 @@ import { Card } from "@/components/ui/card";
 export default function ThisWeek() {
   const daysThisWeek = getNextSevenDays();
 
+  console.log(daysThisWeek);
+
   return (
     <Card className="hide-when-mobile">
       <h3 className="card-title ">This Week</h3>
@@ -23,7 +25,7 @@ function getNextSevenDays(): Date[] {
   const DAYS_IN_WEEK = 7;
 
   for (let i = 0; i < DAYS_IN_WEEK; i++) {
-    const newDate = add(currentDay, { days: i });
+    const newDate = add(new Date(currentDay), { days: i });
     days.push(newDate);
   }
   return days;

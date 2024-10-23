@@ -81,14 +81,19 @@ function ExpandComponentToggleArrow({ expanded }: { expanded: boolean }) {
 }
 
 function handleDayOfWeekString(date: Date) {
-  if (date.getDay() === new Date().getDay()) {
+  debugger;
+  const today = new Date();
+  const isToday = date.toDateString() === today.toDateString();
+  const tomorrow = new Date(today);
+  tomorrow.setDate(today.getDate() + 1);
+  const isTomorrow = date.toDateString() === tomorrow.toDateString();
+
+  if (isToday) {
     return "Today";
-  } else if (date.getDay() === new Date().getDay() + 1) {
+  } else if (isTomorrow) {
     return "Tomorrow";
-  } else {
-    //Return the date in the format of "Monday"
-    return format(date, "iiii");
   }
+  return format(date, "iiii");
 }
 /**
  * Creates a string that represents how many exams and assignments are due
