@@ -1,12 +1,9 @@
-import { format } from "date-fns";
+"use client";
 import Day from "./Day";
 import add from "date-fns/add";
 import { Card } from "@/components/ui/card";
 export default function ThisWeek() {
   const daysThisWeek = getNextSevenDays();
-
-  console.log(daysThisWeek);
-
   return (
     <Card className="hide-when-mobile">
       <h3 className="card-title ">This Week</h3>
