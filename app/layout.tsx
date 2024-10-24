@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import Sidebar from "../components/SideBar";
@@ -19,6 +19,13 @@ export const metadata: Metadata = {
   description: "Manage your tasks and assignments with ease.",
 };
 
+export const viewPort: Viewport = {
+  width: "device-width",
+  height: "device-height",
+  initialScale: 1,
+  minimumScale: 1,
+  maximumScale: 1,
+};
 export default function RootLayout({
   children,
 }: {
