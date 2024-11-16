@@ -20,15 +20,17 @@ import AssignmentCatagories from "./AssignmentCatagories";
 
 interface AssignmentsListProps {
   showAddAssignment?: boolean;
+  cardTitle?: string;
 }
 
 const AssignmentsList: React.FC<AssignmentsListProps> = async ({
   showAddAssignment = false,
+  cardTitle = "Assignments",
 }) => {
   return (
     <Card>
       <div className="flex items-center justify-between">
-        <h3 className="card-title">Assignments</h3>
+        <h3 className="card-title">{cardTitle}</h3>
         {showAddAssignment && (
           <div>
             <AddAssignmentDialog />
