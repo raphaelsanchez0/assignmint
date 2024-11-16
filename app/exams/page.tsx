@@ -1,10 +1,4 @@
 import AddExam from "./AddExam";
-import { getExams } from "@/server/actions";
-import {
-  QueryClient,
-  HydrationBoundary,
-  dehydrate,
-} from "@tanstack/react-query";
 import ExamsCard from "@/components/ExamsList/ExamsCard";
 
 export default async function Exams() {
