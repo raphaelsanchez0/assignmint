@@ -34,7 +34,6 @@ export default function AssignmentCatagories({
 
   return (
     <IsInteractiveContext.Provider value={isInteractive}>
-      ,
       <ol>
         <OverdueAssignments />
         <PriorityAssignments />
