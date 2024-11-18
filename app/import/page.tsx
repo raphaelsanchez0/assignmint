@@ -31,7 +31,10 @@ export default function ImportAssignments() {
             ))}
         </Card>
         <div className="basis-1/2">
-          <AssignmentsList cardTitle="Existing Assignments" />
+          <AssignmentsList
+            cardTitle="Existing Assignments"
+            isInteractive={false}
+          />
         </div>
       </div>
     </div>

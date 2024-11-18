@@ -14,8 +14,9 @@ import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
 import EditAssignmentDialog from "@/components/dialogs/assignments/EditAssignmentDialog";
 import { format } from "date-fns";
 import { utcToZonedTime } from "date-fns-tz";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ViewAssignmentDialog from "@/components/dialogs/assignments/ViewAssignmentDialog";
+import { IsInteractiveContext } from "./AssignmentCatagories";
 
 interface AssignmentProps {
   assignment: Assignment;
@@ -37,17 +38,23 @@ const Assignment: React.FC<AssignmentProps> = ({ assignment }) => {
     deleteAssignmentMutation.mutate(assignment.id);
   }
 
+  const isInteractive = useContext(IsInteractiveContext);
+
   return (
     <>
       <hr className="h-px w-full bg-gray-400 border-0" />
 
       <ContextMenu>
-        <ContextMenuTrigger>
+        <ContextMenuTrigger disabled={!isInteractive}>
           <Dialog
             open={openViewDialog}
-            onOpenChange={(open) => setOpenViewDialog(open)}
+            onOpenChange={(open) => {
+              if (isInteractive) {
+                setOpenViewDialog(open);
+              }
+            }}
           >
-            <DialogTrigger asChild>
+            <DialogTrigger asChild disabled={!isInteractive}>
               <div className="flex flex-row w-full hover:bg-gray-100 dark:hover:bg-zinc-800">
                 <div
                   className="w-1"
