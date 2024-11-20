@@ -1,6 +1,8 @@
 import { Card } from "@/components/ui/card";
 import React from "react";
 import Date from "./Date";
+import ImportAssignments from "./page";
+import { ImportAssignmentsContextProvider } from "./ImportAssignmentsContext";
 
 interface AssignmentFromCanvasProps {
   assignments: { [date: string]: string[] };
@@ -15,10 +17,12 @@ export default function AssignmentsFromCanvas({
         <h3 className="card-title">Assignments From Canvas</h3>
         <button className="btn">Add</button>
       </div>
-      {assignments &&
-        Object.entries(assignments).map(([date, assignments], index) => (
-          <Date key={index} date={date} assignments={assignments} />
-        ))}
+      <ImportAssignmentsContextProvider>
+        {assignments &&
+          Object.entries(assignments).map(([date, assignments], index) => (
+            <Date key={index} date={date} assignments={assignments} />
+          ))}
+      </ImportAssignmentsContextProvider>
     </Card>
   );
 }
