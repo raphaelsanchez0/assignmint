@@ -2,7 +2,7 @@
 import { Card } from "../ui/card";
 import AddAssignmentDialog from "@/components/dialogs/assignments/AddAssignmentDialog";
 import FutureAssignments from "./AssignmentCatagories/FutureAssignments";
-import AssignmentCatagories from "./AssignmentCatagories";
+import AssignmentCategories from "./AssignmentCatagories";
 
 interface AssignmentsListProps {
   showAddAssignment?: boolean;
@@ -25,7 +25,7 @@ const AssignmentsList: React.FC<AssignmentsListProps> = async ({
           </div>
         )}
       </div>
-      <AssignmentCatagories isInteractive={isInteractive} />
+      <AssignmentCategories isInteractive={isInteractive} />
     </Card>
   );
 };

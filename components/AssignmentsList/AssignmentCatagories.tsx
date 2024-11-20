@@ -10,15 +10,15 @@ import ThisWeekAssignments from "./AssignmentCatagories/ThisWeekAssignments";
 import { hasAssignments } from "@/server/apis/assignments";
 import { createContext, useContext } from "react";
 
-interface AssignmentCatagoriesProps {
+interface AssignmentCategoriesProps {
   isInteractive?: boolean;
 }
 
 export const IsInteractiveContext = createContext<boolean>(true);
 
-export default function AssignmentCatagories({
+export default function AssignmentCategories({
   isInteractive = true,
-}: AssignmentCatagoriesProps) {
+}: AssignmentCategoriesProps) {
   const { data: assignmentsExist } = useQuery<boolean>({
     queryKey: ["assignments"],
     queryFn: () => hasAssignments(),
