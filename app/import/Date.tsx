@@ -13,7 +13,7 @@ export default function Date({
     <Card className="mb-2">
       <CardTitle className="mb-2">{date}</CardTitle>
       {assignments.map((assignment, index) => (
-        <Assignment key={index} name={assignment} />
+        <Assignment key={index} name={assignment} date={date} />
       ))}
     </Card>
   );

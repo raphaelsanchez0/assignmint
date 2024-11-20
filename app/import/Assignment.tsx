@@ -11,26 +11,43 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useQuery } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
 
-export default function Assignment({ name }: { name: string }) {
-  const [selectedCourseId, setSelectedCourseId] = useState<string | undefined>(
-    undefined,
-  );
+interface AssignmentProps {
+  name: string;
+  date: string;
+}
 
-  const [importAssignment, setImportAssignment] = useState<boolean>(false);
+interface ImportAssignment {
+  selectedCourseID: string | undefined;
+  title: string;
+  dueDate: string;
+  importToPlanner: boolean;
+}
+
+export default function Assignment({ name, date }: AssignmentProps) {
+  const [importAssignment, setImportAssignment] = useState<ImportAssignment>({
+    selectedCourseID: undefined,
+    title: name,
+    dueDate: date,
+    importToPlanner: false,
+  });
 
   const { data: courses, isLoading: coursesLoading } = useQuery<Course[]>({
     queryKey: ["courses"],
     queryFn: getCourses,
   });
 
-  const courseColor = selectedCourseId
-    ? courses?.find((course) => course.id === selectedCourseId)?.color
+  const courseColor = importAssignment.selectedCourseID
+    ? courses?.find((course) => course.id === importAssignment.selectedCourseID)
+        ?.color
     : undefined;
 
   // Reset the course selection when `importAssignment` is disabled
   useEffect(() => {
     if (!importAssignment) {
-      setSelectedCourseId(undefined);
+      setImportAssignment((prevAssignment) => ({
+        ...prevAssignment,
+        selectedCourseID: undefined,
+      }));
     }
   }, [importAssignment]);
 
@@ -52,8 +69,13 @@ export default function Assignment({ name }: { name: string }) {
           >
             <Checkbox
               id={`import-${name}`}
-              checked={importAssignment}
-              onCheckedChange={(checked) => setImportAssignment(!!checked)}
+              checked={importAssignment.importToPlanner}
+              onCheckedChange={(checked) =>
+                setImportAssignment((prevAssignment) => ({
+                  ...prevAssignment,
+                  importToPlanner: !!checked,
+                }))
+              }
             />
             <span
               className="text-md font-medium text-off-black truncate"
@@ -67,9 +89,14 @@ export default function Assignment({ name }: { name: string }) {
         {/* Course Select */}
         <div className="w-1/2">
           <Select
-            onValueChange={(value) => setSelectedCourseId(value)}
-            value={selectedCourseId || ""}
-            disabled={!importAssignment}
+            onValueChange={(value) =>
+              setImportAssignment((prevAssignment) => ({
+                ...prevAssignment,
+                selectedCourseID: value,
+              }))
+            }
+            value={importAssignment.selectedCourseID || ""}
+            disabled={!importAssignment.importToPlanner}
           >
             <SelectTrigger>
               <SelectValue placeholder="Select a Course" />
