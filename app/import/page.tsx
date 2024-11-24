@@ -13,7 +13,7 @@ import { ImportAssignmentsContextProvider } from "./ImportAssignmentsContext";
 export default function ImportAssignments() {
   const searchParams = useSearchParams();
   const searchQuery = searchParams.get("assignments");
-  let assignments: { [date: string]: string[] };
+  let assignments: CanvasAssignmentsByDate;
   assignments = parseAssignments(searchQuery!);
 
   return (

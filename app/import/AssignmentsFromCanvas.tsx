@@ -5,7 +5,7 @@ import ImportAssignments from "./page";
 import { useAssignmentsContext } from "./ImportAssignmentsContext";
 
 interface AssignmentFromCanvasProps {
-  assignments: { [date: string]: string[] };
+  assignments: CanvasAssignmentsByDate;
 }
 
 export default function AssignmentsFromCanvas({
@@ -13,9 +13,7 @@ export default function AssignmentsFromCanvas({
 }: AssignmentFromCanvasProps) {
   const { importAssignments } = useAssignmentsContext();
 
-  const handleImportAssignments = () => {
-    console.log(importAssignments);
-  };
+  const handleImportAssignments = () => {};
 
   return (
     <Card className="basis-1/2 sm:p-4 md:p-6">

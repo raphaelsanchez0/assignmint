@@ -37,3 +37,6 @@ interface ModifiedCanvasCourse extends CanvasCourse {
   import: boolean;
   assignmintID: string | undefined;
 }
+
+interface CanvasAssignmentsByDate { [date: string]: string[] }
+
