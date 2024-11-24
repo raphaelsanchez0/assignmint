@@ -2,7 +2,7 @@ import { Card } from "@/components/ui/card";
 import React from "react";
 import Date from "./Date";
 import ImportAssignments from "./page";
-import { ImportAssignmentsContextProvider } from "./ImportAssignmentsContext";
+import { useAssignmentsContext } from "./ImportAssignmentsContext";
 
 interface AssignmentFromCanvasProps {
   assignments: { [date: string]: string[] };
@@ -11,18 +11,24 @@ interface AssignmentFromCanvasProps {
 export default function AssignmentsFromCanvas({
   assignments,
 }: AssignmentFromCanvasProps) {
+  const { importAssignments } = useAssignmentsContext();
+
+  const handleImportAssignments = () => {
+    console.log(importAssignments);
+  };
+
   return (
     <Card className="basis-1/2 sm:p-4 md:p-6">
       <div className="flex items-center justify-between mb-4">
         <h3 className="card-title">Assignments From Canvas</h3>
-        <button className="btn">Add</button>
+        <button className="btn" onClick={handleImportAssignments}>
+          Add
+        </button>
       </div>
-      <ImportAssignmentsContextProvider>
-        {assignments &&
-          Object.entries(assignments).map(([date, assignments], index) => (
-            <Date key={index} date={date} assignments={assignments} />
-          ))}
-      </ImportAssignmentsContextProvider>
+      {assignments &&
+        Object.entries(assignments).map(([date, assignments], index) => (
+          <Date key={index} date={date} assignments={assignments} />
+        ))}
     </Card>
   );
 }

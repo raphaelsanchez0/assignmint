@@ -8,6 +8,7 @@ import { getCourses } from "@/server/apis/courses";
 import { Card, CardTitle } from "@/components/ui/card";
 import AssignmentsList from "@/components/AssignmentsList/AssignmentsList";
 import AssignmentsFromCanvas from "./AssignmentsFromCanvas";
+import { ImportAssignmentsContextProvider } from "./ImportAssignmentsContext";
 
 export default function ImportAssignments() {
   const searchParams = useSearchParams();
@@ -21,7 +22,9 @@ export default function ImportAssignments() {
         Import Assignments
       </h2>
       <div className="flex gap-3">
-        <AssignmentsFromCanvas assignments={assignments} />
+        <ImportAssignmentsContextProvider>
+          <AssignmentsFromCanvas assignments={assignments} />
+        </ImportAssignmentsContextProvider>
         <div className="basis-1/2">
           <AssignmentsList
             cardTitle="Existing Assignments"

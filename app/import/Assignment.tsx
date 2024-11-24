@@ -12,6 +12,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
 import { ImportAssignment } from "./ImportAssignmentsContext";
 import { useAssignmentsContext } from "./ImportAssignmentsContext";
+import LoadingListShorter from "@/components/Loading/LoadingListShorter";
 
 interface AssignmentProps {
   name: string;
@@ -28,19 +29,24 @@ export default function Assignment({ name, date }: AssignmentProps) {
     queryFn: getCourses,
   });
 
-  const importAssignment =
-    importAssignments[assignmentKey] ||
-    ({
-      selectedCourseID: undefined,
-      title: name,
-      dueDate: date,
-      importToPlanner: false,
-    } as const);
+  const importAssignment = importAssignments[assignmentKey] ?? {
+    selectedCourseID: undefined,
+    title: name,
+    dueDate: date,
+    importToPlanner: false,
+  };
 
   const courseColor = importAssignment.selectedCourseID
     ? courses?.find((course) => course.id === importAssignment.selectedCourseID)
         ?.color
     : undefined;
+
+  useEffect(() => {
+    setImportAssignments((prev) => ({
+      ...prev,
+      [assignmentKey]: { ...importAssignment },
+    }));
+  }, [name, date]);
 
   useEffect(() => {
     if (!importAssignment.importToPlanner) {
@@ -54,7 +60,7 @@ export default function Assignment({ name, date }: AssignmentProps) {
     }
   }, [importAssignment.importToPlanner]);
 
-  if (coursesLoading) return <div>Loading...</div>;
+  if (coursesLoading) return <LoadingListShorter />;
 
   return (
     <div className="flex flex-row w-full hover:bg-gray-100 dark:hover:bg-zinc-800">
