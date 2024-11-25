@@ -13,8 +13,8 @@ import { ImportAssignmentsContextProvider } from "./ImportAssignmentsContext";
 export default function ImportAssignments() {
   const searchParams = useSearchParams();
   const searchQuery = searchParams.get("assignments");
-  let assignments: CanvasAssignmentsByDate;
-  assignments = parseAssignments(searchQuery!);
+  const { canvasImportAssignments, dates } = parseAssignments(searchQuery!);
+  console.log(canvasImportAssignments, dates);
 
   return (
     <div className="">
@@ -23,7 +23,10 @@ export default function ImportAssignments() {
       </h2>
       <div className="flex gap-3">
         <ImportAssignmentsContextProvider>
-          <AssignmentsFromCanvas assignments={assignments} />
+          <AssignmentsFromCanvas
+            assignments={canvasImportAssignments}
+            dates={dates}
+          />
         </ImportAssignmentsContextProvider>
         <div className="basis-1/2">
           <AssignmentsList

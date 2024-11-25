@@ -1,9 +1,26 @@
-export function parseAssignments(query:string){
+export function parseAssignments(query: string) {
     const params = new URLSearchParams(query);
-    const result:{[date: string]: string[]} = {};
-    
+    const canvasImportAssignments: CanvasImportAssignment[] = [];
+    const dates:Date[] = [];
+
     for (const [key, value] of params.entries()) {
-        result[key] = value.split(',');
+        const dueDate = key;
+        const titles = value.split(','); 
+
+        dates.push(new Date(dueDate))
+
+        titles.forEach(title => {
+            canvasImportAssignments.push({
+                selectedCourseID: undefined, 
+                title: title.trim(), 
+                dueDate, 
+                importToPlanner: false 
+            });
+        });
     }
-    return result;
+
+    return {
+        canvasImportAssignments,
+        dates
+    };
 }
