@@ -297,7 +297,7 @@ export async function hasAssignments(): Promise<boolean> {
   return data.length > 0;
 }
 
-export async function importAssignments(assignments:CanvasImportAssignment[]){
+export async function importAssignmentsToPlanner(assignments:CanvasImportAssignment[]){
   // assignments.forEach((assignment)=>{
   //   if(assignment.importToPlanner){
   //     const {error} = await supabase

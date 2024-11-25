@@ -3,6 +3,7 @@ import React from "react";
 import Date from "./Date";
 import ImportAssignments from "./page";
 import { useAssignmentsContext } from "./ImportAssignmentsContext";
+import { importAssignmentsToPlanner } from "@/server/apis/assignments";
 
 interface AssignmentFromCanvasProps {
   assignments: CanvasAssignmentsByDate;
@@ -13,7 +14,10 @@ export default function AssignmentsFromCanvas({
 }: AssignmentFromCanvasProps) {
   const { importAssignments } = useAssignmentsContext();
 
-  const handleImportAssignments = () => {};
+  const handleImportAssignments = () => {
+    console.log(importAssignments);
+    //importAssignmentsToPlanner(importAssignments)
+  };
 
   return (
     <Card className="basis-1/2 sm:p-4 md:p-6">
