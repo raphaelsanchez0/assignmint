@@ -1,9 +1,22 @@
+"use client";
 import { Card } from "@/components/ui/card";
-import React from "react";
+import React, { useState } from "react";
 import Date from "./Date";
 import ImportAssignments from "./page";
 import { useAssignmentsContext } from "./ImportAssignmentsContext";
 import { importAssignmentsToPlanner } from "@/server/apis/assignments";
+import { areAssignmentsValid } from "@/utils/areAssignmentsValid";
+import { useToast } from "@/components/ui/use-toast";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 interface AssignmentFromCanvasProps {
   assignments: CanvasAssignmentsByDate;
@@ -12,11 +25,23 @@ interface AssignmentFromCanvasProps {
 export default function AssignmentsFromCanvas({
   assignments,
 }: AssignmentFromCanvasProps) {
+  const { toast } = useToast();
+  const router = useRouter();
+
   const { importAssignments } = useAssignmentsContext();
 
-  const handleImportAssignments = () => {
-    console.log(importAssignments);
-    //importAssignmentsToPlanner(importAssignments)
+  const handleImportAssignments = async () => {
+    const assignmentsValid = areAssignmentsValid(importAssignments);
+    if (assignmentsValid) {
+      importAssignmentsToPlanner(importAssignments);
+      router.push("/dashboard");
+    } else {
+      toast({
+        title: "Error",
+        description:
+          "Select at least one assignment and ensure they each have a course selected",
+      });
+    }
   };
 
   return (

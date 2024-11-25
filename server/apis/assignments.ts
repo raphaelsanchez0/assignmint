@@ -297,23 +297,21 @@ export async function hasAssignments(): Promise<boolean> {
   return data.length > 0;
 }
 
-export async function importAssignmentsToPlanner(assignments:CanvasImportAssignment[]){
-  // assignments.forEach((assignment)=>{
-  //   if(assignment.importToPlanner){
-  //     const {error} = await supabase
-  //     .from('assignments')
-  //     .insert({title: assignment.title, ``})
-  //   }
-  // })
+export async function importAssignmentsToPlanner(assignments: {[key: string]: CanvasImportAssignment}){
+  for (const [key, assignment] of Object.entries(assignments)) {
+    if(assignment.importToPlanner)
+    {
+      const dueDateObject = new Date(assignment.dueDate);
+      const formattedDueDate = formatISO(dueDateObject);
 
-  for(const assignment of assignments){
-    if(assignment.importToPlanner){
-      const dueDateObject = new Date(assignment.dueDate)
-      const formattedDueDate = formatISO(dueDateObject)
-      const {error} = await supabase
-      .from('assignments')
-      .insert({title: assignment.title, dueDate: formattedDueDate, course: assignment.selectedCourseID})
-      console.log(error)
+      const { error } = await supabase
+        .from('assignments')
+        .insert({
+          title: assignment.title,
+          dueDate: formattedDueDate,
+          course: assignment.selectedCourseID,
+          priority:false,
+        });
     }
   }
 }
