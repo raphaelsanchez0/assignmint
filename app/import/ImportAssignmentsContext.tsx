@@ -6,17 +6,10 @@ import {
   useState,
 } from "react";
 
-export interface ImportAssignment {
-  selectedCourseID: string | undefined;
-  title: string;
-  dueDate: string;
-  importToPlanner: boolean;
-}
-
 interface ImportAssignmentsContextType {
-  importAssignments: { [key: string]: ImportAssignment };
+  importAssignments: { [key: string]: CanvasImportAssignment };
   setImportAssignments: Dispatch<
-    SetStateAction<{ [key: string]: ImportAssignment }>
+    SetStateAction<{ [key: string]: CanvasImportAssignment }>
   >;
 }
 
@@ -30,7 +23,7 @@ export function ImportAssignmentsContextProvider({
   children: React.ReactNode;
 }) {
   const [importAssignments, setImportAssignments] = useState<{
-    [key: string]: ImportAssignment;
+    [key: string]: CanvasImportAssignment;
   }>({});
   return (
     <ImportAssignmentsContext.Provider

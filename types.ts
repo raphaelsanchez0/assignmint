@@ -40,3 +40,10 @@ interface ModifiedCanvasCourse extends CanvasCourse {
 
 interface CanvasAssignmentsByDate { [date: string]: string[] }
 
+interface CanvasImportAssignment {
+  selectedCourseID: string | undefined;
+  title: string;
+  dueDate: string;
+  importToPlanner: boolean;
+}
+

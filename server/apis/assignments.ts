@@ -297,6 +297,23 @@ export async function hasAssignments(): Promise<boolean> {
   return data.length > 0;
 }
 
-// export async function importAssignments(): Promise<boolean>{
+export async function importAssignments(assignments:CanvasImportAssignment[]){
+  // assignments.forEach((assignment)=>{
+  //   if(assignment.importToPlanner){
+  //     const {error} = await supabase
+  //     .from('assignments')
+  //     .insert({title: assignment.title, ``})
+  //   }
+  // })
 
-// }
+  for(const assignment of assignments){
+    if(assignment.importToPlanner){
+      const dueDateObject = new Date(assignment.dueDate)
+      const formattedDueDate = formatISO(dueDateObject)
+      const {error} = await supabase
+      .from('assignments')
+      .insert({title: assignment.title, dueDate: formattedDueDate, course: assignment.selectedCourseID})
+      console.log(error)
+    }
+  }
+}

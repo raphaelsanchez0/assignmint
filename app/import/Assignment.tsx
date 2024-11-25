@@ -10,7 +10,6 @@ import { getCourses } from "@/server/apis/courses";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useQuery } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
-import { ImportAssignment } from "./ImportAssignmentsContext";
 import { useAssignmentsContext } from "./ImportAssignmentsContext";
 import LoadingListShorter from "@/components/Loading/LoadingListShorter";
 
