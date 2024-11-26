@@ -11,6 +11,7 @@ import {
   sub,
   subDays,
 } from "date-fns";
+import { addYearToDate } from "@/utils/addYearToDate";
 
 const supabase = createSupabaseFrontendClient();
 
@@ -302,7 +303,9 @@ export async function importAssignmentsToPlanner(assignments: {[key: string]: Ca
     if(assignment.importToPlanner)
     {
       const dueDateObject = new Date(assignment.dueDate);
-      const formattedDueDate = formatISO(dueDateObject);
+      const dateWithYear = addYearToDate(dueDateObject)
+      const formattedDueDate = formatISO(dateWithYear);
+      debugger
 
       const { error } = await supabase
         .from('assignments')
