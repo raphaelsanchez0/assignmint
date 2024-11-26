@@ -32,6 +32,7 @@ export default function AssignmentsFromCanvas({
 
   const handleImportAssignments = async () => {
     const assignmentsValid = areAssignmentsValid(importAssignments);
+    console.log(assignmentsValid);
     if (assignmentsValid) {
       importAssignmentsToPlanner(importAssignments);
       router.push("/dashboard");
