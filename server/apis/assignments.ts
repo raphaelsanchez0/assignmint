@@ -11,7 +11,7 @@ import {
   sub,
   subDays,
 } from "date-fns";
-import { addYearToDate } from "@/utils/addYearToDate";
+import { addYearToDate } from "@/utils/addYearToDate/addYearToDate";
 
 const supabase = createSupabaseFrontendClient();
 
