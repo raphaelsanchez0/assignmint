@@ -15,6 +15,7 @@ import { addYearToDate } from "@/utils/addYearToDate/addYearToDate";
 
 const supabase = createSupabaseFrontendClient();
 
+
 export async function getAssignmentsDueOnDate(date: string) {
   const { data, error } = await supabase
     .from("assignments")
@@ -305,7 +306,6 @@ export async function importAssignmentsToPlanner(assignments: {[key: string]: Ca
       const dueDateObject = new Date(assignment.dueDate);
       const dateWithYear = addYearToDate(dueDateObject)
       const formattedDueDate = formatISO(dateWithYear);
-      debugger
 
       const { error } = await supabase
         .from('assignments')
@@ -315,6 +315,8 @@ export async function importAssignmentsToPlanner(assignments: {[key: string]: Ca
           course: assignment.selectedCourseID,
           priority:false,
         });
+
+        
     }
   }
 }

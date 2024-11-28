@@ -7,16 +7,9 @@ import { useAssignmentsContext } from "./ImportAssignmentsContext";
 import { importAssignmentsToPlanner } from "@/server/apis/assignments";
 import { areAssignmentsValid } from "@/utils/areAssignmentsValid";
 import { useToast } from "@/components/ui/use-toast";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface AssignmentFromCanvasProps {
   assignments: CanvasAssignmentsByDate;
@@ -27,15 +20,16 @@ export default function AssignmentsFromCanvas({
 }: AssignmentFromCanvasProps) {
   const { toast } = useToast();
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const { importAssignments } = useAssignmentsContext();
 
   const handleImportAssignments = async () => {
     const assignmentsValid = areAssignmentsValid(importAssignments);
-    console.log(assignmentsValid);
     if (assignmentsValid) {
       importAssignmentsToPlanner(importAssignments);
       router.push("/dashboard");
+      queryClient.invalidateQueries({ queryKey: ["assignments"] });
     } else {
       toast({
         title: "Error",
