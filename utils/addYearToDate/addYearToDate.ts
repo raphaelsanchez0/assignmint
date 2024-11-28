@@ -1,29 +1,23 @@
-import { endOfYesterday, isWithinInterval, startOfYear } from "date-fns";
+import { endOfYesterday, isBefore, isWithinInterval, setYear, startOfYear } from "date-fns";
 
 /**
- * Gets a date with a default year, such as 2001, when determines whether 
+ * Gets a date with a default year, such as 2001, then determines whether 
  * it should be this year or next. If it is from now until the end of the
  * year, it sets the year to the current year, if not, it sets it to the next
  * year, as this would be in the past.
  * @param dateWithNoYear The date with a default date (effectively no year)
+ * @returns The dateWithNoYear with an adjusted date
  */
-export function addYearToDate(dateWithNoYear:Date){
-    const now = new Date()
-    //Sets the date to this year so we can compare
-    dateWithNoYear.setFullYear(now.getFullYear())
 
-    const startOfThisYear = startOfYear(now);
-    const yesterday = endOfYesterday();
+export function addYearToDate(dateWithNoYear: Date) {
+    const now = new Date();
+    const currentYear = now.getFullYear();
 
-    if(isWithinInterval(dateWithNoYear, {
-        start:startOfThisYear,
-        end:yesterday
-    }))
-    {
-        const oneYear = 1
-        return dateWithNoYear.setFullYear(now.getFullYear()+oneYear)
+    let adjustedDate = setYear(dateWithNoYear, currentYear);
+
+    if (isBefore(adjustedDate, now)) {
+        adjustedDate = setYear(dateWithNoYear, currentYear + 1);
     }
-    else{
-        return dateWithNoYear.setFullYear(now.getFullYear())
-    }
+ 
+    return adjustedDate;
 }
