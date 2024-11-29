@@ -1,5 +1,10 @@
 "use client";
-import { Card } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardTitle,
+} from "@/components/ui/card";
 import React, { useState } from "react";
 import Date from "./Date";
 import ImportAssignments from "./page";
@@ -37,6 +42,19 @@ export default function AssignmentsFromCanvas() {
       });
     }
   };
+
+  if (!searchQuery) {
+    return (
+      <Card className="basis-1/2 sm:p-4 md:p-6 flex flex-col gap-2">
+        <CardTitle>Error: Missing Required Parameters</CardTitle>
+
+        <CardDescription>
+          It looks like you have manually attempted to access this page without
+          using the extension. Please use the extension to import assignments.
+        </CardDescription>
+      </Card>
+    );
+  }
 
   return (
     <Card className="basis-1/2 sm:p-4 md:p-6">
