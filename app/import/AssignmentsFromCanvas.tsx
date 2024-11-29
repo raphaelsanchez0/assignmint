@@ -8,21 +8,20 @@ import { importAssignmentsToPlanner } from "@/server/apis/assignments";
 import { areAssignmentsValid } from "@/utils/areAssignmentsValid";
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
+import { parseAssignments } from "@/utils/parseImport";
 
-interface AssignmentFromCanvasProps {
-  assignments: CanvasAssignmentsByDate;
-}
-
-export default function AssignmentsFromCanvas({
-  assignments,
-}: AssignmentFromCanvasProps) {
+export default function AssignmentsFromCanvas() {
   const { toast } = useToast();
   const router = useRouter();
   const queryClient = useQueryClient();
-
   const { importAssignments } = useAssignmentsContext();
+
+  const searchParams = useSearchParams();
+  const searchQuery = searchParams.get("assignments");
+  let assignments: CanvasAssignmentsByDate;
+  assignments = parseAssignments(searchQuery!);
 
   const handleImportAssignments = async () => {
     const assignmentsValid = areAssignmentsValid(importAssignments);
