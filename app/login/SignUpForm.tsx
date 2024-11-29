@@ -65,7 +65,6 @@ export default function SignUpForm() {
       router.push("/dashboard");
     }
     if (error) {
-      console.log(error);
       toast({
         title: error.message,
       });

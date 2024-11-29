@@ -20,7 +20,7 @@ export async function middleware(req: NextRequest) {
   // if user is not signed in and the current path is not / redirect the user to /
   if (!user && req.nextUrl.pathname !== "/") {
     console.log("user is not signed in and the current path is not /");
-    return NextResponse.redirect(new URL("/", req.url));
+    return NextResponse.redirect(new URL("/sign-in-error", req.url));
   }
   return res;
 }
@@ -32,5 +32,6 @@ export const config = {
     "/exams/:path*",
     "/calendar/:path*",
     "/settings/:path*",
+    "/import/:path*"
   ],
 };
