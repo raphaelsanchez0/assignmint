@@ -31,7 +31,7 @@ export default function AssignmentsFromCanvas() {
   const handleImportAssignments = async () => {
     const assignmentsValid = areAssignmentsValid(importAssignments);
     if (assignmentsValid) {
-      importAssignmentsToPlanner(importAssignments);
+      await importAssignmentsToPlanner(importAssignments);
       queryClient.invalidateQueries({ queryKey: ["assignments"] });
       router.push("/dashboard");
       router.refresh();
