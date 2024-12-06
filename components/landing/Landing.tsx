@@ -3,6 +3,7 @@ import { MacbookScrollHero } from "./MacbookScrollHero";
 import Hero from "./Hero";
 import Navbar from "./Navbar";
 import Features from "./Features";
+import ImportFromCanvasFeature from "./ImportFromCanvasFeature";
 
 export default function Landing() {
   return (
@@ -11,6 +12,7 @@ export default function Landing() {
         <Navbar />
         <Hero />
       </div>
+      <ImportFromCanvasFeature />
       <Features />
     </>
   );

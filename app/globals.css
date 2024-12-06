@@ -21,6 +21,10 @@ label {
   @apply lg:max-w-screen-lg lg:mx-auto p-4 md:p-0;
 }
 
+.landing-feature {
+  @apply h-[50vh];
+}
+
 /*  card styles */
 .card {
   @apply m-0;
