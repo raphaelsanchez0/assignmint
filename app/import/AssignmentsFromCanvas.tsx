@@ -34,6 +34,7 @@ export default function AssignmentsFromCanvas() {
       importAssignmentsToPlanner(importAssignments);
       queryClient.invalidateQueries({ queryKey: ["assignments"] });
       router.push("/dashboard");
+      router.refresh();
     } else {
       toast({
         title: "Error",
