@@ -1,4 +1,4 @@
-import { endOfYesterday, isBefore, isWithinInterval, setYear, startOfYear } from "date-fns";
+import { endOfYesterday, isBefore, isWithinInterval, setYear, startOfDay } from "date-fns";
 
 /**
  * Gets a date with a default year, such as 2001, then determines whether 
@@ -12,12 +12,13 @@ import { endOfYesterday, isBefore, isWithinInterval, setYear, startOfYear } from
 export function addYearToDate(dateWithNoYear: Date) {
     const now = new Date();
     const currentYear = now.getFullYear();
-
     let adjustedDate = setYear(dateWithNoYear, currentYear);
+    const todayStart = startOfDay(now); 
+    const adjustedDateStart = startOfDay(adjustedDate);
 
-    if (isBefore(adjustedDate, now)) {
+    if (isBefore(adjustedDateStart, todayStart)) {
         adjustedDate = setYear(dateWithNoYear, currentYear + 1);
     }
- 
+
     return adjustedDate;
 }
