@@ -32,8 +32,8 @@ export default function AssignmentsFromCanvas() {
     const assignmentsValid = areAssignmentsValid(importAssignments);
     if (assignmentsValid) {
       importAssignmentsToPlanner(importAssignments);
-      router.push("/dashboard");
       queryClient.invalidateQueries({ queryKey: ["assignments"] });
+      router.push("/dashboard");
     } else {
       toast({
         title: "Error",
