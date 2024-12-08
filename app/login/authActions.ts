@@ -7,13 +7,22 @@ import { redirect } from "next/navigation";
 
 export async function signInWithEmailAndPassword(
   email: string,
-  password: string,
-) {
+  password: string
+): Promise<{ success: boolean; message: string }> {
   const cookieStore = cookies();
   const supabase = await createSupabaseActionClient(cookieStore);
-  const credentials = { email, password };
 
-  return await supabase.auth.signInWithPassword(credentials);
+  try {
+    const res = await supabase.auth.signInWithPassword({ email, password });
+
+    if (res.error) {
+      return { success: false, message: res.error.message };
+    }
+
+    return { success: true, message: "Signed in successfully" };
+  } catch (error) {
+    return { success: false, message: "An unexpected error occurred." };
+  }
 }
 
 export async function signUpWithEmailAndPassword(
