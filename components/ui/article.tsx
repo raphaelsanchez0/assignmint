@@ -58,7 +58,7 @@ const ArticleContent = React.forwardRef<
     {...props}
   />
 ));
-ArticleTitle.displayName = "ArticleContent";
+ArticleContent.displayName = "ArticleContent";
 
 const ArticleParagraph = React.forwardRef<
   HTMLParagraphElement,
