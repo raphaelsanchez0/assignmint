@@ -1,38 +1,34 @@
 import React from "react";
 import Image from "next/image";
-import { Link } from "lucide-react";
 
 export default function ImportFromCanvasFeature() {
   return (
     <div className="h-screen landing-section landing-feature flex">
-      {/* Left Content */}
-      <div className="flex-1 flex flex-col items-start justify-center gap-6 px-8">
-        <h3 className="font-medium text-3xl ">
-          Import Your Assignments Seamlessly
-        </h3>
-        <p className="text-lg">
+      <div className="feature-text-container">
+        <h3 className="feature-title">Import Your Assignments Seamlessly</h3>
+        <p className="feature-header">
           AssignMint makes it effortless to sync your assignments from Canvas.
           Our Chrome Extension makes importation a breeze, so you can focus on
           what's important.
         </p>
-        <div className="text-lg text-gray-600 space-y-3">
-          <div className="flex items-center gap-2 ">
-            <span className="w-2 h-2 bg-secondary rounded-full"></span>
+        <div className="feature-bullets-container">
+          <div className="feature-bullet-container ">
+            <span className="feature-bullet-point"></span>
             <p>Import all your Canvas assignments in a few clicks</p>
           </div>
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 bg-secondary rounded-full"></span>
+          <div className="feature-bullet-container">
+            <span className="feature-bullet-point"></span>
             <p>Select only the assignments you need</p>
           </div>
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 bg-secondary rounded-full"></span>
+          <div className="feature-bullet-container">
+            <span className="feature-bullet-point"></span>
             <p>Works with any Canvas-powered platform</p>
           </div>
         </div>
       </div>
 
-      <div className="flex-1 flex items-center justify-center">
-        <div className="w-11/12 h-3/4 rounded-lg shadow-md flex items-center justify-center overflow-hidden">
+      <div className="feature-visual-container">
+        <div className="feature-visual">
           <Image
             src="/gifs/importer-demo.gif"
             width={500}
