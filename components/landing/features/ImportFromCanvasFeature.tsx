@@ -33,8 +33,9 @@ export default function ImportFromCanvasFeature() {
             src="/gifs/importer-demo.gif"
             width={500}
             height={500}
-            alt="Demo of Import Feature Importing Assignmints"
+            alt="Demo of Import Feature Importing Assignments"
             className="rounded-lg"
+            unoptimized
           />
         </div>
       </div>
