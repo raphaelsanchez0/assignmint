@@ -22,11 +22,15 @@ label {
 }
 
 .landing-feature {
-  @apply h-[50vh];
+  @apply md:h-[50vh] h-min;
+}
+
+.feature-container {
+  @apply h-screen landing-section landing-feature flex md:gap-0 gap-4;
 }
 
 .feature-title {
-  @apply font-medium text-3xl;
+  @apply font-medium text-3xl md:text-start text-center;
 }
 
 .feature-header {

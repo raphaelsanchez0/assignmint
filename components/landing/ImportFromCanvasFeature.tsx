@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function ImportFromCanvasFeature() {
   return (
-    <div className="h-screen landing-section landing-feature flex">
+    <div className="feature-container md:flex-row flex-col">
       <div className="feature-text-container">
         <h3 className="feature-title">Import Your Assignments Seamlessly</h3>
         <p className="feature-header">

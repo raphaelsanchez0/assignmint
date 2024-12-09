@@ -4,6 +4,9 @@ import Hero from "./Hero";
 import Navbar from "./Navbar";
 import Features from "./Features";
 import ImportFromCanvasFeature from "./ImportFromCanvasFeature";
+import PriorityAssignmentsFeature from "./PriorityAssignmentsFeature";
+import IntegratedCalendarFeature from "./IntegratedCalendarFeature";
+import DashboardFeature from "./DashboardFeature";
 
 export default function Landing() {
   return (
@@ -13,6 +16,9 @@ export default function Landing() {
         <Hero />
       </div>
       <ImportFromCanvasFeature />
+      <PriorityAssignmentsFeature />
+      <IntegratedCalendarFeature />
+      <DashboardFeature />
       <Features />
     </>
   );
