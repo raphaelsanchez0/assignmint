@@ -7,7 +7,7 @@ export default function InstallExtension() {
   return (
     <Card>
       <h3 className="card-title pb-4">Install the extension</h3>
-      <Link href="/articles/why-the-chrome-extension-cant-be-installed-right-now">
+      <Link href="/articles/how-to-install-the-canvas-assignment-importer">
         <Button>Install the extension</Button>
       </Link>
     </Card>

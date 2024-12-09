@@ -5,14 +5,13 @@ import {
   ArticleParagraph,
   ArticleTitle,
 } from "@/components/ui/article";
+import Link from "next/link";
 import React from "react";
 
 export default function page() {
   return (
     <Article>
-      <ArticleTitle>
-        Why the Chrome Extension Can't Be Installed Right Now
-      </ArticleTitle>
+      <ArticleTitle>How to Install the Canvas Assignment Importer</ArticleTitle>
       <ArticleImage
         src="/images/importer-image.png"
         width={1000}
@@ -29,9 +28,16 @@ export default function page() {
         </ArticleParagraph>
         <ArticleParagraph>
           If you’re interested in testing out the extension before its official
-          release, we’d love your feedback! Please don’t hesitate to contact us
-          at <code>sanchezraphael0@gmail.com</code>, and we’ll provide
-          instructions on how to access and try it out.
+          release, we’d love your feedback! If you want to test it out before it
+          officially is released on the chrome extension store, you can install
+          it manually for testing purposes on the{" "}
+          <Link
+            href={
+              "https://github.com/raphaelsanchez0/assignmint-chrome-extension"
+            }
+          >
+            <span className="underline">Github Repo</span>.
+          </Link>
         </ArticleParagraph>
         <ArticleParagraph>
           Thank you for your patience and understanding. We’re working hard to
