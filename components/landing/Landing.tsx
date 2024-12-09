@@ -2,7 +2,6 @@ import React from "react";
 import { MacbookScrollHero } from "./MacbookScrollHero";
 import Hero from "./Hero";
 import Navbar from "./Navbar";
-import Features from "./Features";
 import ImportFromCanvasFeature from "./ImportFromCanvasFeature";
 import PriorityAssignmentsFeature from "./PriorityAssignmentsFeature";
 import IntegratedCalendarFeature from "./IntegratedCalendarFeature";
@@ -19,7 +18,6 @@ export default function Landing() {
       <PriorityAssignmentsFeature />
       <IntegratedCalendarFeature />
       <DashboardFeature />
-      <Features />
     </>
   );
 }
