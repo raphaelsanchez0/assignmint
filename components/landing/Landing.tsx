@@ -2,10 +2,10 @@ import React from "react";
 import { MacbookScrollHero } from "./MacbookScrollHero";
 import Hero from "./Hero";
 import Navbar from "./Navbar";
-import ImportFromCanvasFeature from "./ImportFromCanvasFeature";
-import PriorityAssignmentsFeature from "./PriorityAssignmentsFeature";
-import IntegratedCalendarFeature from "./IntegratedCalendarFeature";
-import DashboardFeature from "./DashboardFeature";
+import ImportFromCanvasFeature from "./features/ImportFromCanvasFeature";
+import PriorityAssignmentsFeature from "./features/PriorityAssignmentsFeature";
+import IntegratedCalendarFeature from "./features/IntegratedCalendarFeature";
+import DashboardFeature from "./features/DashboardFeature";
 
 export default function Landing() {
   return (
