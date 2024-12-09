@@ -15,9 +15,7 @@ export default function Navbar() {
         <div className="dark:hidden">
           <Image src="/logos/black.png" alt="logo" width={48} height={48} />
         </div>
-        <h1 className="text-2xl font-bold dark:font-semibold ml-2">
-          AssignMint
-        </h1>
+        <p className="text-2xl font-bold dark:font-semibold ml-2">AssignMint</p>
       </a>
       <div className="flex">
         <Link href="/login?login=true">

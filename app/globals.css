@@ -21,6 +21,44 @@ label {
   @apply lg:max-w-screen-lg lg:mx-auto p-4 md:p-0;
 }
 
+.landing-feature {
+  @apply md:h-[50vh] h-min;
+}
+
+.feature-container {
+  @apply h-screen landing-section landing-feature flex md:gap-0 gap-4;
+}
+
+.feature-title {
+  @apply font-medium text-3xl md:text-start text-center;
+}
+
+.feature-header {
+  @apply text-lg;
+}
+.feature-bullets-container {
+  @apply text-lg text-gray-600 space-y-3;
+}
+
+.feature-bullet-container {
+  @apply flex items-center gap-2;
+}
+.feature-bullet-point {
+  @apply w-2 h-2 bg-secondary rounded-full;
+}
+
+.feature-text-container {
+  @apply flex-1 flex flex-col items-start justify-center gap-6 px-8;
+}
+
+.feature-visual-container {
+  @apply flex-1 flex items-center justify-center;
+}
+
+.feature-visual {
+  @apply w-11/12 h-3/4 rounded-lg shadow-md flex items-center justify-center overflow-hidden;
+}
+
 /*  card styles */
 .card {
   @apply m-0;
