@@ -14,7 +14,7 @@ export default function IntegratedCalendarFeature() {
       <div className="feature-visual-container">
         <div className="feature-visual">
           <Image
-            src="/images/calendar-demo.PNG"
+            src="/images/calendar-demo.png"
             width={500}
             height={500}
             alt="Demo of Import Feature Importing Assignmints"

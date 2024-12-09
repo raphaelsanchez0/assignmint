@@ -6,7 +6,7 @@ export default function PriorityAssignmentsFeature() {
       <div className="feature-visual-container">
         <div className="feature-visual">
           <Image
-            src="/images/priority-demo.PNG"
+            src="/images/priority-demo.png"
             width={500}
             height={500}
             alt="Demo of Priority Assignments Feature"
