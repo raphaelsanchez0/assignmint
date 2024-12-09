@@ -7,12 +7,12 @@ export default function Hero() {
   return (
     <>
       <div className="flex flex-col items-center justify-center h-full gap-8">
-        <h1 className="font-extrabold text-5xl text-center">
+        <h2 className="font-extrabold text-5xl text-center">
           Study Smarter, Not Harder
-        </h1>
-        <h2 className="text-3xl text-center font-light">
-          The Assignment Tracker that Just Makes Sense
         </h2>
+        <h1 className="text-3xl text-center font-light">
+          The Assignment Tracker that Just Makes Sense
+        </h1>
         <Link href="/login">
           <button
             type="button"
