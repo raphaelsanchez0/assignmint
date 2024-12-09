@@ -6,9 +6,9 @@ export default function Navbar() {
   return (
     <nav
       className="p-6 flex items-center justify-center 
-         lg:justify-between "
+         lg:justify-between"
     >
-      <a className="flex items-center">
+      <Link className="flex items-center" href="/">
         <div className="hidden dark:block">
           <Image src="/logos/white.png" alt="logo" width={48} height={48} />
         </div>
@@ -16,7 +16,7 @@ export default function Navbar() {
           <Image src="/logos/black.png" alt="logo" width={48} height={48} />
         </div>
         <p className="text-2xl font-bold dark:font-semibold ml-2">AssignMint</p>
-      </a>
+      </Link>
       <div className="flex">
         <Link href="/login?login=true">
           <button className="px-6 py-2 font-semibold hidden lg:block">
