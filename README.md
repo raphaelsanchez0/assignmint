@@ -1,4 +1,4 @@
-﻿<!-- PROJECT LOGO -->
+<!-- PROJECT LOGO -->
 <br />
 <div align="center">
   <a href="https://www.assignmint.tech/">
@@ -23,24 +23,37 @@ AssignMint</h3></a>
 
 ## About The Project
 
-<!-- [![Product Name Screen Shot][product-screenshot]](https://github.com/raphaelsanchez0/assignmint/blob/master/public/images/macbook_img_dark.PNG?raw=true) -->
 <div align="center">
 <img src="https://github.com/raphaelsanchez0/assignmint/blob/master/public/images/macbook_img_dark.PNG?raw=true" alt="Logo">
 </div>
 <table>
 <tr>
 <td>
-  A simple assignment tracker  with an integrated calender. The hope is to eventually automatically import assignments from canvas, a popular learning management system (LMS) used by educational institutions worldwide. 
+  AssignMint is a simple yet powerful assignment tracker designed with students in mind. The platform aims to help you stay on top of coursework with an integrated calendar and automated imports from Canvas, one of the most popular learning management systems (LMS). By automatically pulling in assignments, AssignMint saves time and ensures you never miss a due date.
 </td>
 </tr>
 </table>
-<!-- FEATURES -->
 
-## Features
+To enable **Automatic Canvas Imports**, you'll need the [AssignMint Chrome Extension](https://github.com/raphaelsanchez0/assignmint-chrome-extension). 
 
-- **Integrated Calendar** - Easily track assignment due dates and deadlines.
-- **Canvas Import** - Automatically import assignments from Canvas (coming soon).
-- **Responsive Layout** - Works on mobile
+---
+
+## 🌟 Features
+
+- **Automatic Canvas Imports** - Easily pull assignments and coursework from Canvas into AssignMint without any manual input.
+- **Integrated Calendar** - Organize and track your assignments with a sleek, responsive calendar interface.
+- **Secure and Local** - AssignMint respects your privacy by handling imports directly on your device.
+- **Responsive Layout** - Works seamlessly on both desktop and mobile.
+
+---
+
+## 🔧 How Automatic Canvas Imports Work
+
+The [AssignMint Chrome Extension](https://github.com/raphaelsanchez0/assignmint-chrome-extension) simplifies the process of managing your assignments by scraping data directly from Canvas while you're logged in. With just a few clicks, you can import all your upcoming assignments and due dates directly into the AssignMint platform. 
+
+> ⚠️ **Note:** Canvas imports require the AssignMint Chrome Extension. Currently, the extension is under review by the Chrome Development Team and is not yet publicly available in the Chrome Web Store. Until it's approved, you can install it manually in developer mode.
+
+---
 
 ### Built With
 
@@ -48,6 +61,8 @@ AssignMint</h3></a>
 - [![React][React.js]][React-url]
 - [![Supabase][Supabase]][Supabase-url]
 - [![TypeScript][Typescript]][Typescript-url]
+
+---
 
 <!-- GETTING STARTED -->
 
