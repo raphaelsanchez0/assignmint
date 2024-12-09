@@ -34,15 +34,15 @@ export default function SignInForm() {
   const supabase = createSupabaseFrontendClient();
 
   async function onSubmit(credentials: z.infer<typeof formSchema>) {
-    const { data, error } = await signInWithEmailAndPassword(
+    const { success, message } = await signInWithEmailAndPassword(
       credentials.email,
       credentials.password,
     );
-    if (!error) {
+    if (success) {
       router.push("/dashboard");
     } else {
       toast({
-        title: error.message,
+        title: message,
       });
     }
   }

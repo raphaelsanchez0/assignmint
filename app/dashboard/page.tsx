@@ -8,7 +8,7 @@ import {
   HydrationBoundary,
   dehydrate,
 } from "@tanstack/react-query";
-
+export const dynamic = "force-dynamic";
 export default async function Dashboard() {
   return (
     <>
