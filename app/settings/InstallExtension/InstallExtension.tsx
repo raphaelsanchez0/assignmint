@@ -1,14 +1,25 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardDescription } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardTitle,
+} from "@/components/ui/card";
+import { urls } from "@/utils/constants/Constants";
 import Link from "next/link";
 import React from "react";
 
 export default function InstallExtension() {
   return (
-    <Card>
-      <h3 className="card-title pb-4">Install the extension</h3>
-      <Link href="/articles/how-to-install-the-canvas-assignment-importer">
-        <Button>Install the extension</Button>
+    <Card className="flex flex-col gap-2">
+      <CardTitle>Canvas Extension</CardTitle>
+      <CardDescription>
+        Install the chrome extension to import assignments with a just few
+        clicks
+      </CardDescription>
+
+      <Link href={urls.CHROME_EXTENSION} target="_blanks">
+        <button className="w-full btn">Install the extension</button>
       </Link>
     </Card>
   );
