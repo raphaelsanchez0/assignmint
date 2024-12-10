@@ -19,15 +19,24 @@ export async function getDatesWithEventWithinMonth(month:Date){
         "startdate":start,
         "enddate":end
     })
-
-    let datesWithEvents = []
+    let datesWithAssignments = []
+    let datesWithExams = []
+    
 
     for(let i = 0; i <datesOfEvents.length; i++)
     { 
         const eventDateString = datesOfEvents[i].date
+        const typeOfEventOnDate = datesOfEvents[i].type
+        console.log(typeOfEventOnDate)
+
         const eventDateObject = new Date(eventDateString)
         const dateInUtc = utcToZonedTime(eventDateObject, "UTC")
-        datesWithEvents.push(dateInUtc)
+        if(typeOfEventOnDate === "assignment"){
+            datesWithAssignments.push(dateInUtc)
+        }else if(typeOfEventOnDate === "exam"){
+            datesWithExams.push(dateInUtc)
+        }
+        
     }
-    return datesWithEvents
+    return {datesWithAssignments, datesWithExams}
 }

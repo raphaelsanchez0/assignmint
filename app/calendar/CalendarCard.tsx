@@ -27,14 +27,17 @@ export default function CalenderCard() {
     }
   };
 
-  const [datesWithEvents, setDatesWithEvents] = useState<Date[]>([]);
+  const [datesWithAssignments, setDatesWithAssignments] = useState<Date[]>([]);
+  const [datesWithExams, setDatesWithExams] = useState<Date[]>([]);
   const [month, setMonth] = useState<Date>(startOfMonth(selectedDate));
   useEffect(() => {
     const fetchData = async () => {
-      setDatesWithEvents(await getDatesWithEventWithinMonth(month));
+      const { datesWithAssignments, datesWithExams } =
+        await getDatesWithEventWithinMonth(month);
+      setDatesWithAssignments(datesWithAssignments);
+      setDatesWithExams(datesWithExams);
     };
     fetchData();
-    console.log(datesWithEvents);
   }, [month]);
 
   const handleClick = async () => {
@@ -50,7 +53,7 @@ export default function CalenderCard() {
         month={month}
         onMonthChange={(date) => setMonth(date)}
         modifiers={{
-          event: datesWithEvents,
+          event: datesWithExams,
         }}
         modifiersClassNames={{
           event: "event-class",
