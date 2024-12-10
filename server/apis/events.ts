@@ -1,6 +1,6 @@
 import { createSupabaseFrontendClient } from "@/utils/supabase/supabaseFrontendClient";
 import { endOfDay, lastDayOfMonth } from "date-fns";
-
+import { utcToZonedTime } from "date-fns-tz";
 const supabase = createSupabaseFrontendClient();
 
 /**
@@ -23,9 +23,11 @@ export async function getDatesWithEventWithinMonth(month:Date){
     let datesWithEvents = []
 
     for(let i = 0; i <datesOfEvents.length; i++)
-    {
-        datesWithEvents.push(new Date(datesOfEvents[i].date))
+    { 
+        const eventDateString = datesOfEvents[i].date
+        const eventDateObject = new Date(eventDateString)
+        const dateInUtc = utcToZonedTime(eventDateObject, "UTC")
+        datesWithEvents.push(dateInUtc)
     }
-    console.log(datesWithEvents)
     return datesWithEvents
 }
