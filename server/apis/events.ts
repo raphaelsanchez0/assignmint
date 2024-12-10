@@ -1,5 +1,5 @@
 import { createSupabaseFrontendClient } from "@/utils/supabase/supabaseFrontendClient";
-import { endOfDay, lastDayOfMonth } from "date-fns";
+import { addDays, endOfDay, lastDayOfMonth, startOfDay, subDays } from "date-fns";
 import { utcToZonedTime } from "date-fns-tz";
 const supabase = createSupabaseFrontendClient();
 
@@ -11,13 +11,17 @@ const supabase = createSupabaseFrontendClient();
  * 
  */
 export async function getDatesWithEventWithinMonth(month:Date){
-    const start = month
-    const end = endOfDay(lastDayOfMonth(start))
-    console.log(start,end)
+    const oneWeekOffset = 6
+
+    const startOfMonth = startOfDay(month)
+    const endOfMonth = endOfDay(lastDayOfMonth(startOfMonth))
+    const startWithOffsetForOutsideDays = subDays(startOfMonth, oneWeekOffset)
+    const endWithOffsetForOutsideDays = addDays(endOfMonth, oneWeekOffset)
+    
     const {data:datesOfEvents,error} = await supabase
     .rpc('get_events_in_range', {
-        "startdate":start,
-        "enddate":end
+        "startdate":startWithOffsetForOutsideDays,
+        "enddate":endWithOffsetForOutsideDays
     })
     let datesWithAssignments = []
     let datesWithExams = []
