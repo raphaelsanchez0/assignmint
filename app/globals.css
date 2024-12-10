@@ -108,7 +108,3 @@ input[type="checkbox"] {
 .hide-when-desktop {
   @apply block md:hidden;
 }
-
-.event-class {
-  background-color: tomato;
-}

@@ -4,9 +4,13 @@ import { utcToZonedTime } from "date-fns-tz";
 const supabase = createSupabaseFrontendClient();
 
 /**
+ * Gets all events (assignments and exams) within a given date range.
  * 
  * @param month Date object that represents the month of the year. Since
  * this should be from react DayPicker, this should be the first day of the month.
+ * @returns Dates with an event occurring. Includes dates that are 6 days before
+ * and after the given month to account for any "outside of month" dates that the calendar
+ * shows. 
  * 
  * 
  */

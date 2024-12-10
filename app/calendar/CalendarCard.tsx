@@ -3,13 +3,12 @@ import { format, startOfMonth } from "date-fns";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { Suspense, useEffect, useState } from "react";
 import { Calendar } from "@/components/ui/card-calendar";
-import ErrorPage from "next/error";
-
 import { Card } from "@/components/ui/card";
 import { SelectSingleEventHandler } from "react-day-picker";
-import LoadingListShorter from "@/components/Loading/LoadingListShorter";
 import { Button } from "@/components/ui/button";
 import { getDatesWithEventWithinMonth } from "@/server/apis/events";
+import "./calendarCard.css";
+
 export default function CalenderCard() {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -53,10 +52,12 @@ export default function CalenderCard() {
         month={month}
         onMonthChange={(date) => setMonth(date)}
         modifiers={{
-          event: datesWithExams,
+          exam: datesWithExams,
+          assignments: datesWithAssignments,
         }}
         modifiersClassNames={{
-          event: "event-class",
+          exam: "exam-date",
+          assignments: "assignment-date",
         }}
       />
       <Button onClick={() => handleClick()}>Test</Button>
