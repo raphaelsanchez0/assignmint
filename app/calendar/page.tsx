@@ -6,7 +6,7 @@ import { getEventsOnDate } from "@/server/apis/api";
 import { Card } from "@/components/ui/card";
 import { Suspense } from "react";
 import LoadingListShorter from "@/components/Loading/LoadingListShorter";
-
+export const dynamic = "force-dynamic";
 export default async function CalendarPage() {
   return (
     <>
