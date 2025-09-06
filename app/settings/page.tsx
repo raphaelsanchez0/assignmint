@@ -1,6 +1,7 @@
 import CourseList from "./CoursesList/CoursesList";
 import Account from "./Account";
 import InstallExtension from "./InstallExtension/InstallExtension";
+import IssuesAndHelp from "./IssuesHelp/IssuesAndHelp";
 
 export default function Settings() {
   return (
@@ -14,6 +15,9 @@ export default function Settings() {
         </div>
         <div className="basis-1/4">
           <InstallExtension />
+        </div>
+        <div className="basis-1/4">
+          <IssuesAndHelp />
         </div>
       </div>
     </div>
