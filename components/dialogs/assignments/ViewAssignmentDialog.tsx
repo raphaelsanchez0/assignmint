@@ -86,6 +86,12 @@ const ViewAssignmentDialog: React.FC<ViewAssignmentDialogProps> = ({
             <Label className="text-lg">Priority</Label>
           </div>
         </div>
+        {assignment.notes === "" ? null : (
+          <div className="col-span-2">
+            <Label className={labelStyle}>Notes</Label>
+            <p>{assignment.notes}</p>
+          </div>
+        )}
       </div>
       <div className="flex justify-center">
         <Dialog

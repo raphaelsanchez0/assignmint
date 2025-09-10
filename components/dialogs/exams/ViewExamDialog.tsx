@@ -79,6 +79,13 @@ export default function ViewExamDialog({
             {format(utcToZonedTime(exam.examDate, "Etc/UTC"), "MMM d")}
           </p>
         </div>
+        <div></div>
+        {exam.notes === "" ? null : (
+          <div className="col-span-2">
+            <Label className={labelStyle}>Notes</Label>
+            <p>{exam.notes}</p>
+          </div>
+        )}
       </div>
       <div className="flex justify-center">
         <Dialog
