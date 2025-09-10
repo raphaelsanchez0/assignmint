@@ -42,3 +42,6 @@ next-env.d.ts
 #playwright
 /playwright
 .env
+
+# Playwright
+node_modules/
