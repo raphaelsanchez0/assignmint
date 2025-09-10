@@ -9,7 +9,7 @@ test("Signup", async ({ page }) => {
   const testUserEmail = process.env.TEST_USER_EMAIL!;
 
   //Delete User
-  const { data: profiles } = await supabase
+  const { data: profiles, error } = await supabase
     .from("profiles")
     .select()
     .eq("email", testUserEmail);
