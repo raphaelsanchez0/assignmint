@@ -2,6 +2,7 @@ import CourseList from "./CoursesList/CoursesList";
 import Account from "./Account";
 import InstallExtension from "./InstallExtension/InstallExtension";
 import IssuesAndHelp from "./IssuesHelp/IssuesAndHelp";
+import Features from "./Features/Features";
 
 export default function Settings() {
   return (
@@ -16,8 +17,9 @@ export default function Settings() {
         <div className="basis-1/4">
           <InstallExtension />
         </div>
-        <div className="basis-1/4">
+        <div className="basis-1/4 flex flex-col gap-2">
           <IssuesAndHelp />
+          <Features />
         </div>
       </div>
     </div>
