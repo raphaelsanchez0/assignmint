@@ -10,7 +10,7 @@ export default function IssuesAndHelp() {
         bugs, or feature requests, please don't hesitate to reach out:
       </CardDescription>
       <CardDescription className="font-bold">
-        sanchezraphael0@gmail.com
+        assignminthelp@gmail.com
       </CardDescription>
     </Card>
   );
