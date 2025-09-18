@@ -288,6 +288,14 @@ export async function deleteAssignment(id: string) {
   }
 }
 
+export async function completeAssignment(id:string)
+{
+  const {data, error} = await supabase
+  .from("assignments")
+  .update({completed:true})
+  .eq("id",id)
+}
+
 export async function hasAssignments(): Promise<boolean> {
   const { data, error } = await supabase
     .from("assignments")

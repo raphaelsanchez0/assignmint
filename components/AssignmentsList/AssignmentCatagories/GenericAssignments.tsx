@@ -11,6 +11,7 @@ interface GenericAssignmentsProps {
   title: string;
   queryKey: string;
   color: string;
+  displayHeader?: boolean;
 }
 
 const GenericAssignments: React.FC<GenericAssignmentsProps> = ({
@@ -18,6 +19,7 @@ const GenericAssignments: React.FC<GenericAssignmentsProps> = ({
   queryKey,
   title,
   color,
+  displayHeader = true,
 }) => {
   const { data, error, isLoading } = useQuery({
     queryKey: ["assignments", { queryKey }],
@@ -32,7 +34,7 @@ const GenericAssignments: React.FC<GenericAssignmentsProps> = ({
 
   return (
     <>
-      <SectionDivider title={title} color={color} />
+      {displayHeader && <SectionDivider title={title} color={color} />}
       {data?.map((assignment) => (
         <Assignment key={assignment.id} assignment={assignment} />
       ))}

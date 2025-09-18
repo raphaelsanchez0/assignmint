@@ -17,6 +17,7 @@ import { utcToZonedTime } from "date-fns-tz";
 import { useContext, useEffect, useState } from "react";
 import ViewAssignmentDialog from "@/components/dialogs/assignments/ViewAssignmentDialog";
 import { IsInteractiveContext } from "./AssignmentCatagories";
+import { completeAssignment } from "@/server/apis/assignments";
 
 interface AssignmentProps {
   assignment: Assignment;
@@ -27,15 +28,15 @@ const Assignment: React.FC<AssignmentProps> = ({ assignment }) => {
 
   const queryClient = useQueryClient();
 
-  const deleteAssignmentMutation = useMutation({
-    mutationFn: deleteAssignment,
+  const completeAssignmentMutation = useMutation({
+    mutationFn: completeAssignment,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["assignments"] });
     },
   });
 
   function handleDeleteAssignment() {
-    deleteAssignmentMutation.mutate(assignment.id);
+    completeAssignmentMutation.mutate(assignment.id);
   }
 
   const isInteractive = useContext(IsInteractiveContext);

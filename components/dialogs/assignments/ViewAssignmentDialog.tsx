@@ -12,7 +12,11 @@ import { format } from "date-fns";
 import utcToZonedTime from "date-fns-tz/utcToZonedTime";
 import EditAssignmentDialog from "./EditAssignmentDialog";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { deleteAssignment, getAssignment } from "@/server/apis/assignments";
+import {
+  deleteAssignment,
+  getAssignment,
+  completeAssignment,
+} from "@/server/apis/assignments";
 import LoadingListShorter from "@/components/Loading/LoadingListShorter";
 import useAssignment from "./useAssignment";
 import { useState } from "react";
@@ -31,8 +35,8 @@ const ViewAssignmentDialog: React.FC<ViewAssignmentDialogProps> = ({
   const [openEditDialog, setOpenEditDialog] = useState(false);
 
   const queryClient = useQueryClient();
-  const deleteAssignmentMutation = useMutation({
-    mutationFn: deleteAssignment,
+  const completeAssignmentMutation = useMutation({
+    mutationFn: completeAssignment,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["assignments"] });
     },
@@ -50,7 +54,7 @@ const ViewAssignmentDialog: React.FC<ViewAssignmentDialogProps> = ({
   if (!assignment) return null;
 
   function handleCompleteAssignment() {
-    deleteAssignmentMutation.mutate(assignmentID);
+    completeAssignmentMutation.mutate(assignmentID);
     closeDialog();
   }
 
