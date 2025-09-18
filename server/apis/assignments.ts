@@ -170,6 +170,7 @@ interface FetchAssignmentsParams {
   priority?: boolean | null;
   offsetDays?: number;
   daysRange?: number | null;
+  isCompleted? :boolean
 }
 
 /**
@@ -189,6 +190,7 @@ export async function fetchAssignments({
   priority = false,
   offsetDays = 0,
   daysRange = null,
+  isCompleted = false
 }: FetchAssignmentsParams): Promise<Assignment[]> {
   baseDate.setDate(baseDate.getDate() + offsetDays);
   baseDate.setHours(0, 0, 0, 0);
@@ -200,7 +202,7 @@ export async function fetchAssignments({
       *,
       course(*)
     `,
-    )
+    ).eq("completed", isCompleted)
     .order("dueDate", { ascending: true });
 
   // If daysRange is specified, adjust the query to fetch assignments within a range

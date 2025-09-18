@@ -5,6 +5,7 @@ import AddAssignmentDialog from "@/components/dialogs/assignments/AddAssignmentD
 import AssignmentCategories from "../AssignmentCatagories";
 import { Toggle } from "@/components/ui/toggle";
 import { History, HistoryIcon } from "lucide-react";
+import CompletedAssignments from "../AssignmentCatagories/CompletedAssignments";
 
 interface AssignmentsListWithHistoryProps {
   cardTitle?: string;
@@ -33,7 +34,11 @@ export default function AssignmentListWithHistory({
           <AddAssignmentDialog />
         </div>
       </div>
-      <AssignmentCategories isInteractive={isInteractive} />
+      {showHistory ? (
+        <CompletedAssignments />
+      ) : (
+        <AssignmentCategories isInteractive={isInteractive} />
+      )}
     </Card>
   );
 }
