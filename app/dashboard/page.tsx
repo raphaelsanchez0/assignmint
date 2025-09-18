@@ -8,6 +8,7 @@ import {
   HydrationBoundary,
   dehydrate,
 } from "@tanstack/react-query";
+import AssignmentListWithHistory from "@/components/AssignmentsList/AssignmentsListWithHistory/AssignmentListWithHistory";
 export const dynamic = "force-dynamic";
 export default async function Dashboard() {
   return (
@@ -16,7 +17,7 @@ export default async function Dashboard() {
         <PageTitle title="Dashboard" />
         <div className="flex flex-col md:flex-row p-4 gap-4 ">
           <div className="basis-1/3 ">
-            <AssignmentsList showAddAssignment />
+            <AssignmentListWithHistory />
           </div>
           <div className="basis-1/3">
             <ThisWeek />
