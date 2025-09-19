@@ -6,6 +6,7 @@ import AssignmentCategories from "../AssignmentCatagories";
 import { Toggle } from "@/components/ui/toggle";
 import { History, HistoryIcon } from "lucide-react";
 import CompletedAssignments from "../AssignmentCatagories/CompletedAssignments";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface AssignmentsListWithHistoryProps {
   cardTitle?: string;
@@ -13,8 +14,13 @@ interface AssignmentsListWithHistoryProps {
 export default function AssignmentListWithHistory({
   cardTitle = "Assignments",
 }: AssignmentsListWithHistoryProps) {
+  const queryClient = useQueryClient();
   const isInteractive = true;
   const [showHistory, setShowHistory] = useState(false);
+  function handleShowHistoryChange(value: boolean) {
+    setShowHistory(value);
+    queryClient.invalidateQueries({ queryKey: ["assignments"] });
+  }
   return (
     <Card>
       <div className="flex items-center justify-between">
@@ -27,7 +33,7 @@ export default function AssignmentListWithHistory({
           <Toggle
             className="mr-2"
             pressed={showHistory}
-            onPressedChange={setShowHistory}
+            onPressedChange={handleShowHistoryChange}
           >
             <History />
           </Toggle>

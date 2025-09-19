@@ -39,6 +39,7 @@ import useAssignment from "./useAssignment";
 import LoadingListShorter from "@/components/Loading/LoadingListShorter";
 import LoadingDialogContent from "../LoadingDialogContent";
 import ErrorDialogContent from "../ErrorDialogContent";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface EditAssignmentDialogProps {
   assignmentID: string;
@@ -49,6 +50,8 @@ const EditAssignmentDialog: React.FC<EditAssignmentDialogProps> = ({
   assignmentID,
   closeDialog,
 }) => {
+  const queryClient = useQueryClient();
+
   const { assignment, assignmentError, assignmentLoading } =
     useAssignment(assignmentID);
 
@@ -58,6 +61,11 @@ const EditAssignmentDialog: React.FC<EditAssignmentDialogProps> = ({
 
   if (!assignment && assignmentError)
     return <ErrorDialogContent title="Edit Assignment" type="assignment" />;
+
+  function handleEditAssignment() {
+    queryClient.invalidateQueries({ queryKey: ["assignments"] });
+    closeDialog();
+  }
 
   return (
     <DialogContent>
@@ -183,7 +191,7 @@ const EditAssignmentDialog: React.FC<EditAssignmentDialogProps> = ({
             <button
               type="submit"
               className="btn mt-4"
-              onClick={() => closeDialog()}
+              onClick={() => handleEditAssignment()}
             >
               Edit Assignment
             </button>

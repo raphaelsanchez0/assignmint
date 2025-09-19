@@ -20,7 +20,7 @@ export function useEditAssignmentForm(
     error: assignmentError,
     isLoading: assignmentLoading,
   } = useQuery<Assignment>({
-    queryKey: ["assignment", assignmentID],
+    queryKey: ["assignments", assignmentID],
     queryFn: () => getAssignment(assignmentID),
   });
 
@@ -43,7 +43,7 @@ export function useEditAssignmentForm(
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["assignments"] });
       queryClient.invalidateQueries({
-        queryKey: ["assignment", assignmentID],
+        queryKey: ["assignments", assignmentID],
       });
       form.reset();
       if (onSuccessCallback) onSuccessCallback();
