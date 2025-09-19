@@ -223,6 +223,8 @@ export async function fetchAssignments({
 
   const { data, error } = await query;
 
+  console.log(data)
+
   if (error) {
     console.error("Error getting assignments:", error);
     throw error;
@@ -293,6 +295,14 @@ export async function completeAssignment(id:string)
   const {data, error} = await supabase
   .from("assignments")
   .update({completed:true})
+  .eq("id",id)
+}
+
+export async function restoreAssignment(id:string)
+{
+  const {data, error} = await supabase
+  .from("assignments")
+  .update({completed:false})
   .eq("id",id)
 }
 

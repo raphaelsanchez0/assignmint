@@ -16,6 +16,7 @@ import {
   deleteAssignment,
   getAssignment,
   completeAssignment,
+  restoreAssignment,
 } from "@/server/apis/assignments";
 import LoadingListShorter from "@/components/Loading/LoadingListShorter";
 import useAssignment from "./useAssignment";
@@ -41,6 +42,12 @@ const ViewAssignmentDialog: React.FC<ViewAssignmentDialogProps> = ({
       queryClient.invalidateQueries({ queryKey: ["assignments"] });
     },
   });
+  const restoreAssignmentMutation = useMutation({
+    mutationFn: restoreAssignment,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["assignments"] });
+    },
+  });
 
   const { assignment, assignmentError, assignmentLoading } =
     useAssignment(assignmentID);
@@ -55,6 +62,11 @@ const ViewAssignmentDialog: React.FC<ViewAssignmentDialogProps> = ({
 
   function handleCompleteAssignment() {
     completeAssignmentMutation.mutate(assignmentID);
+    closeDialog();
+  }
+
+  function handleRestoreAssignment() {
+    restoreAssignmentMutation.mutate(assignmentID);
     closeDialog();
   }
 
@@ -98,21 +110,33 @@ const ViewAssignmentDialog: React.FC<ViewAssignmentDialogProps> = ({
         )}
       </div>
       <div className="flex justify-center">
-        <Dialog
-          open={openEditDialog}
-          onOpenChange={(open) => setOpenEditDialog(open)}
-        >
-          <DialogTrigger asChild>
-            <button className="btn mt-4">Edit</button>
-          </DialogTrigger>
-          <EditAssignmentDialog
-            assignmentID={assignmentID}
-            closeDialog={() => setOpenEditDialog(false)}
-          />
-        </Dialog>
-        <button className="btn mt-4 ml-4" onClick={handleCompleteAssignment}>
-          Complete
-        </button>
+        {!assignment.completed && (
+          <>
+            <Dialog
+              open={openEditDialog}
+              onOpenChange={(open) => setOpenEditDialog(open)}
+            >
+              <DialogTrigger asChild>
+                <button className="btn mt-4">Edit</button>
+              </DialogTrigger>
+              <EditAssignmentDialog
+                assignmentID={assignmentID}
+                closeDialog={() => setOpenEditDialog(false)}
+              />
+            </Dialog>
+            <button
+              className="btn mt-4 ml-4"
+              onClick={handleCompleteAssignment}
+            >
+              Complete
+            </button>
+          </>
+        )}
+        {assignment.completed && (
+          <button className="btn mt-4 ml-4" onClick={handleRestoreAssignment}>
+            Restore
+          </button>
+        )}
       </div>
     </DialogContent>
   );
