@@ -5,6 +5,7 @@ interface Assignment {
   dueDate: Date;
   notes: string;
   priority: boolean;
+  isComplete: boolean;
 }
 
 interface Exam {
