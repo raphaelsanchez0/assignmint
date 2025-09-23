@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import React, { useState } from "react";
 import { ChevronRight, ChevronLeft } from "lucide-react";
+import CourseList from "../settings/CoursesList/CoursesList";
 
 export default function OnboardingCard() {
   const [step, setStep] = useState(1);
@@ -8,10 +9,15 @@ export default function OnboardingCard() {
   const MIN_STEP = 1;
   const MAX_STEP = 4;
 
+  const inactiveDotStyle = "bg-gray-500 w-2 h-2";
+  const activeDotStyle = "bg-gray-100 w-3 h-3";
+
   function handleNextStep() {
     setStep((prev) => Math.min(prev + 1, MAX_STEP));
     if (step === 3) {
-      alert("maybe have the chrome extension pop up here? not sure how to do that");
+      alert(
+        "maybe have the chrome extension pop up here? not sure how to do that",
+      );
     }
   }
   function handlePrevStep() {
@@ -29,7 +35,9 @@ export default function OnboardingCard() {
       {step === 2 && (
         <>
           <CardHeader>Make some courses</CardHeader>
-          <CardContent>video embed here</CardContent>
+          <CardContent>
+            <CourseList />
+          </CardContent>
         </>
       )}
       {step === 3 && (
@@ -40,7 +48,8 @@ export default function OnboardingCard() {
               <a
                 href="https://chromewebstore.google.com/detail/assignmint-importer/bfhdafafkmognhflmmifjagjcemcegpn?authuser=0&hl=en"
                 target="_blank"
-                rel="noopener noreferrer">
+                rel="noopener noreferrer"
+              >
                 Add to Chrome
               </a>
             </div>
@@ -50,30 +59,44 @@ export default function OnboardingCard() {
       {step === 4 && (
         <>
           <CardHeader>Thank you for joining!</CardHeader>
-          <CardContent>We are just two people, if you want to donate for server costs, pls do here</CardContent>
+          <CardContent>
+            We are just two people, if you want to donate for server costs, pls
+            do here
+          </CardContent>
         </>
       )}
       <div className="flex justify-between">
-        <button className="btn" onClick={handlePrevStep}>
-          <ChevronLeft />
-        </button>
+        {step === 1 ? (
+          <button className="btn-disabled" onClick={handlePrevStep}>
+            <ChevronLeft />
+          </button>
+        ) : (
+          <button className="btn" onClick={handlePrevStep}>
+            <ChevronLeft />
+          </button>
+        )}
+
         {/* Incremental dots to show user how many steps are left */}
         <div className="flex gap-3">
           <div
-            className={`rounded-full transition-all duration-200 ${step === 1 ? "w-3 h-3 bg-gray-500" : "w-2 h-2 bg-gray-100"
-              }`}
+            className={`rounded-full transition-all duration-200 ${
+              step === 1 ? activeDotStyle : inactiveDotStyle
+            }`}
           />
           <div
-            className={`rounded-full transition-all duration-200 ${step === 2 ? "w-3 h-3 bg-gray-500" : "w-2 h-2 bg-gray-100"
-              }`}
+            className={`rounded-full transition-all duration-200 ${
+              step === 2 ? activeDotStyle : inactiveDotStyle
+            }`}
           />
           <div
-            className={`rounded-full transition-all duration-200 ${step === 3 ? "w-3 h-3 bg-gray-500" : "w-2 h-2 bg-gray-100"
-              }`}
+            className={`rounded-full transition-all duration-200 ${
+              step === 3 ? activeDotStyle : inactiveDotStyle
+            }`}
           />
           <div
-            className={`rounded-full transition-all duration-200 ${step === 4 ? "w-3 h-3 bg-gray-500" : "w-2 h-2 bg-gray-100"
-              }`}
+            className={`rounded-full transition-all duration-200 ${
+              step === 4 ? activeDotStyle : inactiveDotStyle
+            }`}
           />
         </div>
 
