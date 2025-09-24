@@ -17,7 +17,10 @@ import { utcToZonedTime } from "date-fns-tz";
 import { useContext, useEffect, useState } from "react";
 import ViewAssignmentDialog from "@/components/dialogs/assignments/ViewAssignmentDialog";
 import { IsInteractiveContext } from "./AssignmentCatagories";
-import { completeAssignment } from "@/server/apis/assignments";
+import {
+  completeAssignment,
+  restoreAssignment,
+} from "@/server/apis/assignments";
 
 interface AssignmentProps {
   assignment: Assignment;
@@ -35,8 +38,19 @@ const Assignment: React.FC<AssignmentProps> = ({ assignment }) => {
     },
   });
 
-  function handleDeleteAssignment() {
-    completeAssignmentMutation.mutate(assignment.id);
+  const restoreAssignmentMutation = useMutation({
+    mutationFn: restoreAssignment,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["assignments"] });
+    },
+  });
+
+  function handleAssignmentQuickAction() {
+    if (assignment.completed) {
+      restoreAssignmentMutation.mutate(assignment.id);
+    } else {
+      completeAssignmentMutation.mutate(assignment.id);
+    }
   }
 
   const isInteractive = useContext(IsInteractiveContext);
@@ -88,8 +102,8 @@ const Assignment: React.FC<AssignmentProps> = ({ assignment }) => {
           </Dialog>
         </ContextMenuTrigger>
         <ContextMenuContent>
-          <ContextMenuItem onSelect={handleDeleteAssignment}>
-            Complete
+          <ContextMenuItem onSelect={handleAssignmentQuickAction}>
+            {assignment.completed ? "Restore" : "Complete"}
           </ContextMenuItem>
         </ContextMenuContent>
       </ContextMenu>
