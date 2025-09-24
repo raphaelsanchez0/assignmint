@@ -101,6 +101,7 @@ export async function getThisWeekAssignments(): Promise<Assignment[]> {
     )
     .gte("dueDate", formatISO(startDate))
     .lte("dueDate", formatISO(endDate))
+    .eq("completed", false)
     .order("dueDate", { ascending: true });
 
   if (error) {
@@ -131,6 +132,7 @@ export async function getNextWeekAssignments() {
     )
     .gte("dueDate", formatISO(startOfNextWeek))
     .lte("dueDate", formatISO(endOfNextWeek))
+    .eq("completed", false)
     .order("dueDate", { ascending: true });
 
   if (error) {
@@ -154,6 +156,7 @@ export async function getFutureAssignments() {
     `,
     )
     .gte("dueDate", formatISO(startDate))
+    .eq("completed", false)
     .order("dueDate", { ascending: true });
 
   if (error) {
