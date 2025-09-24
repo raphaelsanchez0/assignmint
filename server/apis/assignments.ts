@@ -233,6 +233,34 @@ export async function fetchAssignments({
   return data;
 }
 
+export async function fetchAssignmentsCompletedToday(date:Date): Promise<Assignment[]>
+{
+  //Adjusts date to fix time
+  const formattedDate = date.toISOString().split("T")[0];
+
+  let query = supabase
+  .from("assignments")
+  .select(
+      `
+      *,
+      course(*)
+    `,
+  )
+  .eq("completed", true)
+  .eq("completedDate", formattedDate)
+  .order("completedDate", { ascending: true });
+
+  const {data, error} = await query;
+
+  if (error) {
+    console.error("Error getting assignments:", error);
+    throw error;
+  }
+
+  return data;
+
+}
+
 export async function fetchAssignmentsInRange(startDate: Date, endDate: Date) {
   startDate.setHours(0, 0, 0, 0);
   endDate.setHours(23, 59, 59, 999);
@@ -294,7 +322,7 @@ export async function completeAssignment(id:string)
 {
   const {data, error} = await supabase
   .from("assignments")
-  .update({completed:true})
+  .update({completed:true, completedDate: new Date().toISOString()})
   .eq("id",id)
 }
 
@@ -302,14 +330,15 @@ export async function restoreAssignment(id:string)
 {
   const {data, error} = await supabase
   .from("assignments")
-  .update({completed:false})
+  .update({completed:false, completedDate: null})
   .eq("id",id)
 }
 
-export async function hasAssignments(): Promise<boolean> {
+export async function hasActiveAssignments(): Promise<boolean> {
   const { data, error } = await supabase
     .from("assignments")
     .select("id")
+    .eq("completed", false)
     .limit(1);
 
   if (error) {

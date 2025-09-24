@@ -7,7 +7,7 @@ import NextWeekAssignments from "./AssignmentCatagories/NextWeekAssignments";
 import OverdueAssignments from "./AssignmentCatagories/OverdueAssignments";
 import PriorityAssignments from "./AssignmentCatagories/PriorityAssignments";
 import ThisWeekAssignments from "./AssignmentCatagories/ThisWeekAssignments";
-import { hasAssignments } from "@/server/apis/assignments";
+import { hasActiveAssignments } from "@/server/apis/assignments";
 import { createContext, useContext } from "react";
 
 interface AssignmentCategoriesProps {
@@ -21,7 +21,7 @@ export default function AssignmentCategories({
 }: AssignmentCategoriesProps) {
   const { data: assignmentsExist } = useQuery<boolean>({
     queryKey: ["assignments"],
-    queryFn: () => hasAssignments(),
+    queryFn: () => hasActiveAssignments(),
   });
 
   if (!assignmentsExist) {
