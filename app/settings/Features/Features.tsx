@@ -10,12 +10,18 @@ export default function Features() {
       </CardDescription>
       <ul className="list-disc pl-5">
         <li>Progress slider for assignments</li>
+        <li>Detailed Assignment/Exam history page</li>
         <li>
-          Assignment/Exam history page and "Completed Today" tab in Dashboard
+          Day in calendar page uses colors on day to show if an event is
+          happening
         </li>
       </ul>
       <CardDescription>Where is what we just added:</CardDescription>
       <ul className="list-disc pl-5">
+        <li>
+          "Completed Today" under Assignments in Dashboard and restore
+          assignment feature - 9/24
+        </li>
         <li>Fix: View Assignments/Exams popup shows notes - 9/10</li>
       </ul>
       <CardDescription>
