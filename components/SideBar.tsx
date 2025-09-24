@@ -9,6 +9,7 @@ import iconPaper from "@/public/icons/paper.svg";
 import iconCalendar from "@/public/icons/calendar.svg";
 import iconPencil from "@/public/icons/pencil.svg";
 import iconSettings from "@/public/icons/settings.svg";
+import iconHistory from "@/public/icons/history.svg";
 
 import { usePathname } from "next/navigation";
 
@@ -20,6 +21,7 @@ const Sidebar = () => {
     "/exams",
     "/assignments",
     "/calendar",
+    "/history",
     "/settings",
   ];
 
@@ -82,12 +84,20 @@ const Sidebar = () => {
         className={`${sideBarIconStyle} md:order-5`}
       />
       <SideBarIcon
+        name="History"
+        icon={iconHistory}
+        alt="logo"
+        width={32}
+        href="/history"
+        className={`${sideBarIconStyle} md:order-6`}
+      />
+      <SideBarIcon
         name="Settings"
         icon={iconSettings}
         alt="logo"
         width={50}
         href="/settings"
-        className={`${sideBarIconStyle} md:order-6 mt-auto`}
+        className={`${sideBarIconStyle} md:order-7 mt-auto`}
       />
     </div>
   );
