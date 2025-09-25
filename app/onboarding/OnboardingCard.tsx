@@ -1,7 +1,13 @@
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+} from "@/components/ui/card";
 import React, { useState } from "react";
 import { ChevronRight, ChevronLeft } from "lucide-react";
 import CourseList from "../settings/CoursesList/CoursesList";
+import Image from "next/image";
 
 export default function OnboardingCard() {
   const [step, setStep] = useState(1);
@@ -14,37 +20,47 @@ export default function OnboardingCard() {
 
   function handleNextStep() {
     setStep((prev) => Math.min(prev + 1, MAX_STEP));
-    if (step === 3) {
-      alert(
-        "maybe have the chrome extension pop up here? not sure how to do that",
-      );
-    }
   }
   function handlePrevStep() {
     setStep((prev) => Math.max(prev - 1, MIN_STEP));
   }
 
   return (
-    <Card className="w-full p-4 flex flex-col text-center">
+    <Card className="w-full p-4 flex flex-col text-center ">
       {step === 1 && (
         <>
-          <CardHeader>Welcome to Assignmint!</CardHeader>
-          {/* <CardContent>feffjeklfj</CardContent> */}
-        </>
-      )}
-      {step === 2 && (
-        <>
-          <CardHeader>Make some courses</CardHeader>
+          <CardHeader>Welcome to AssignMint!</CardHeader>
           <CardContent>
+            <p className="pb-4 text-md font-medium text-muted-foreground">
+              Lets start by adding your courses!
+            </p>
             <CourseList />
           </CardContent>
         </>
       )}
-      {step === 3 && (
-        <>
-          <CardHeader>Get the Extension!</CardHeader>
-          <CardContent>
-            <div className="font-bold text-blue-600 underline hover:text-blue-800">
+      {step === 2 && (
+        <div className="flex flex-col gap-4 justify-center items-center">
+          <h1 className="onboarding-card-header">Get our Chrome Extension</h1>
+
+          <p className="font-medium">
+            Our Chrome Extension lets you import your assignments in just a few
+            clicks
+          </p>
+
+          <div className="feature-visual-container">
+            <div className="rounded-lg flex items-center justify-center overflow-hidden">
+              <Image
+                src="/gifs/importer-demo.gif"
+                width={500}
+                height={500}
+                alt="Demo of Import Feature Importing Assignments"
+                className="rounded-lg"
+                unoptimized
+              />
+            </div>
+          </div>
+          <div className="">
+            <div className="btn">
               <a
                 href="https://chromewebstore.google.com/detail/assignmint-importer/bfhdafafkmognhflmmifjagjcemcegpn?authuser=0&hl=en"
                 target="_blank"
@@ -53,10 +69,11 @@ export default function OnboardingCard() {
                 Add to Chrome
               </a>
             </div>
-          </CardContent>
-        </>
+          </div>
+        </div>
       )}
-      {step === 4 && (
+
+      {step === 3 && (
         <>
           <CardHeader>Thank you for joining!</CardHeader>
           <CardContent>
@@ -77,7 +94,7 @@ export default function OnboardingCard() {
         )}
 
         {/* Incremental dots to show user how many steps are left */}
-        <div className="flex gap-3">
+        <div className="flex gap-3 pt-4">
           <div
             className={`rounded-full transition-all duration-200 ${
               step === 1 ? activeDotStyle : inactiveDotStyle
