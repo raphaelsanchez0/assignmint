@@ -2,24 +2,31 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
 } from "@/components/ui/card";
 import React, { useState } from "react";
 import { ChevronRight, ChevronLeft } from "lucide-react";
 import CourseList from "../settings/CoursesList/CoursesList";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function OnboardingCard() {
   const [step, setStep] = useState(1);
 
   const MIN_STEP = 1;
-  const MAX_STEP = 4;
+  const MAX_STEP = 3;
 
   const inactiveDotStyle = "bg-gray-500 w-2 h-2";
   const activeDotStyle = "bg-gray-100 w-3 h-3";
 
+  const router = useRouter();
   function handleNextStep() {
     setStep((prev) => Math.min(prev + 1, MAX_STEP));
+    if (step === MAX_STEP) {
+      router.push("/dashboard");
+    }
   }
   function handlePrevStep() {
     setStep((prev) => Math.max(prev - 1, MIN_STEP));
@@ -77,9 +84,27 @@ export default function OnboardingCard() {
         <>
           <CardHeader>Thank you for joining!</CardHeader>
           <CardContent>
-            We are just two people, if you want to donate for server costs, pls
-            do here
+            We are just two people trying to make a better, free, planner, with
+            no strings attached. New features are constantly being added, so
+            feel free to reach out with any suggestions or feedback! <br />
+            <br />
+            If you’d like to support us, consider sharing AssignMint with your
+            friends or making a small donation. Every bit helps us keep
+            improving!
           </CardContent>
+          <CardFooter className="flex justify-center">
+            <Link
+              href="https://buymeacoffee.com/raphaelsanchez"
+              target="_blank"
+            >
+              <Image
+                src="/images/buy-me-a-coffee.png"
+                width={200}
+                height={50}
+                alt="Buy me a coffee donation link"
+              />
+            </Link>
+          </CardFooter>
         </>
       )}
       <div className="flex justify-between">
@@ -108,11 +133,6 @@ export default function OnboardingCard() {
           <div
             className={`rounded-full transition-all duration-200 ${
               step === 3 ? activeDotStyle : inactiveDotStyle
-            }`}
-          />
-          <div
-            className={`rounded-full transition-all duration-200 ${
-              step === 4 ? activeDotStyle : inactiveDotStyle
             }`}
           />
         </div>
