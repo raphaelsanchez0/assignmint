@@ -17,7 +17,8 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: "AssignMint",
   description:
-    "Boost your productivity with Assignmint, the ultimate assignment tracker and task management tool for students. Automatically import assignments from Canvas, organize deadlines, manage tasks, plan projects, and prioritize your workload with ease. Perfect for schools, universities, and online courses, Assignmint simplifies academic life and enhances time management for better success.",
+    "Boost your productivity with Assignmint, the ultimate assignment tracker and task management tool for students. Automatically import assignments from Canvas, organize deadlines, manage tasks, plan projects, and prioritize your workload with ease. Perfect for schools, universities, and online courses, Assignmint simplifies academic life and enhances time management for better success. If you're looking for a myStudyLife alternative, Assignmint offers a modern, feature-rich solution designed to fit the needs of today’s students.",
+  keywords: ["assignment tracker", "myStudyLife alternative"],
 };
 
 export const viewPort: Viewport = {

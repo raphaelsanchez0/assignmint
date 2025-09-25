@@ -5,20 +5,29 @@ const supabase = createSupabaseFrontendClient();
 export async function getEventsOnDate(
   type: "assignments" | "exams",
   date: Date,
+  includeCompletedEvents: boolean = false
 ) {
   const targetDate = new Date(date);
   targetDate.setHours(0, 0, 0, 0);
-  const formatedDate = targetDate.toISOString();
+  const formattedDate = targetDate.toISOString();
 
   const fieldName = type === "exams" ? "examDate" : "dueDate";
-  const { data, error } = await supabase
+
+  let query = supabase
     .from(type)
     .select(
       `
-  *,
-  course(*)`,
+    *,
+    course(*)`,
     )
-    .eq(fieldName, formatedDate);
+    .eq(fieldName, formattedDate);
+
+  if(type === "assignments")
+  {
+    query.eq("completed", includeCompletedEvents)
+  }
+
+  const { data, error } = await query
 
   if (error) {
     console.error(`Error getting ${type}"`, error);

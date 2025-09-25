@@ -12,7 +12,12 @@ import { format } from "date-fns";
 import utcToZonedTime from "date-fns-tz/utcToZonedTime";
 import EditAssignmentDialog from "./EditAssignmentDialog";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { deleteAssignment, getAssignment } from "@/server/apis/assignments";
+import {
+  deleteAssignment,
+  getAssignment,
+  completeAssignment,
+  restoreAssignment,
+} from "@/server/apis/assignments";
 import LoadingListShorter from "@/components/Loading/LoadingListShorter";
 import useAssignment from "./useAssignment";
 import { useState } from "react";
@@ -31,8 +36,14 @@ const ViewAssignmentDialog: React.FC<ViewAssignmentDialogProps> = ({
   const [openEditDialog, setOpenEditDialog] = useState(false);
 
   const queryClient = useQueryClient();
-  const deleteAssignmentMutation = useMutation({
-    mutationFn: deleteAssignment,
+  const completeAssignmentMutation = useMutation({
+    mutationFn: completeAssignment,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["assignments"] });
+    },
+  });
+  const restoreAssignmentMutation = useMutation({
+    mutationFn: restoreAssignment,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["assignments"] });
     },
@@ -50,7 +61,12 @@ const ViewAssignmentDialog: React.FC<ViewAssignmentDialogProps> = ({
   if (!assignment) return null;
 
   function handleCompleteAssignment() {
-    deleteAssignmentMutation.mutate(assignmentID);
+    completeAssignmentMutation.mutate(assignmentID);
+    closeDialog();
+  }
+
+  function handleRestoreAssignment() {
+    restoreAssignmentMutation.mutate(assignmentID);
     closeDialog();
   }
 
@@ -94,21 +110,33 @@ const ViewAssignmentDialog: React.FC<ViewAssignmentDialogProps> = ({
         )}
       </div>
       <div className="flex justify-center">
-        <Dialog
-          open={openEditDialog}
-          onOpenChange={(open) => setOpenEditDialog(open)}
-        >
-          <DialogTrigger asChild>
-            <button className="btn mt-4">Edit</button>
-          </DialogTrigger>
-          <EditAssignmentDialog
-            assignmentID={assignmentID}
-            closeDialog={() => setOpenEditDialog(false)}
-          />
-        </Dialog>
-        <button className="btn mt-4 ml-4" onClick={handleCompleteAssignment}>
-          Complete
-        </button>
+        {!assignment.completed && (
+          <>
+            <Dialog
+              open={openEditDialog}
+              onOpenChange={(open) => setOpenEditDialog(open)}
+            >
+              <DialogTrigger asChild>
+                <button className="btn mt-4">Edit</button>
+              </DialogTrigger>
+              <EditAssignmentDialog
+                assignmentID={assignmentID}
+                closeDialog={() => setOpenEditDialog(false)}
+              />
+            </Dialog>
+            <button
+              className="btn mt-4 ml-4"
+              onClick={handleCompleteAssignment}
+            >
+              Complete
+            </button>
+          </>
+        )}
+        {assignment.completed && (
+          <button className="btn mt-4 ml-4" onClick={handleRestoreAssignment}>
+            Restore
+          </button>
+        )}
       </div>
     </DialogContent>
   );

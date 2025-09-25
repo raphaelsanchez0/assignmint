@@ -101,6 +101,7 @@ export async function getThisWeekAssignments(): Promise<Assignment[]> {
     )
     .gte("dueDate", formatISO(startDate))
     .lte("dueDate", formatISO(endDate))
+    .eq("completed", false)
     .order("dueDate", { ascending: true });
 
   if (error) {
@@ -131,6 +132,7 @@ export async function getNextWeekAssignments() {
     )
     .gte("dueDate", formatISO(startOfNextWeek))
     .lte("dueDate", formatISO(endOfNextWeek))
+    .eq("completed", false)
     .order("dueDate", { ascending: true });
 
   if (error) {
@@ -154,6 +156,7 @@ export async function getFutureAssignments() {
     `,
     )
     .gte("dueDate", formatISO(startDate))
+    .eq("completed", false)
     .order("dueDate", { ascending: true });
 
   if (error) {
@@ -170,6 +173,7 @@ interface FetchAssignmentsParams {
   priority?: boolean | null;
   offsetDays?: number;
   daysRange?: number | null;
+  isCompleted? :boolean
 }
 
 /**
@@ -189,6 +193,7 @@ export async function fetchAssignments({
   priority = false,
   offsetDays = 0,
   daysRange = null,
+  isCompleted = false
 }: FetchAssignmentsParams): Promise<Assignment[]> {
   baseDate.setDate(baseDate.getDate() + offsetDays);
   baseDate.setHours(0, 0, 0, 0);
@@ -200,7 +205,7 @@ export async function fetchAssignments({
       *,
       course(*)
     `,
-    )
+    ).eq("completed", isCompleted)
     .order("dueDate", { ascending: true });
 
   // If daysRange is specified, adjust the query to fetch assignments within a range
@@ -221,12 +226,42 @@ export async function fetchAssignments({
 
   const { data, error } = await query;
 
+  console.log(data)
+
   if (error) {
     console.error("Error getting assignments:", error);
     throw error;
   }
 
   return data;
+}
+
+export async function fetchAssignmentsCompletedToday(date:Date): Promise<Assignment[]>
+{
+  //Adjusts date to fix time
+  const formattedDate = date.toISOString().split("T")[0];
+
+  let query = supabase
+  .from("assignments")
+  .select(
+      `
+      *,
+      course(*)
+    `,
+  )
+  .eq("completed", true)
+  .eq("completedDate", formattedDate)
+  .order("completedDate", { ascending: true });
+
+  const {data, error} = await query;
+
+  if (error) {
+    console.error("Error getting assignments:", error);
+    throw error;
+  }
+
+  return data;
+
 }
 
 export async function fetchAssignmentsInRange(startDate: Date, endDate: Date) {
@@ -286,10 +321,27 @@ export async function deleteAssignment(id: string) {
   }
 }
 
-export async function hasAssignments(): Promise<boolean> {
+export async function completeAssignment(id:string)
+{
+  const {data, error} = await supabase
+  .from("assignments")
+  .update({completed:true, completedDate: new Date().toISOString()})
+  .eq("id",id)
+}
+
+export async function restoreAssignment(id:string)
+{
+  const {data, error} = await supabase
+  .from("assignments")
+  .update({completed:false, completedDate: null})
+  .eq("id",id)
+}
+
+export async function hasActiveAssignments(): Promise<boolean> {
   const { data, error } = await supabase
     .from("assignments")
     .select("id")
+    .eq("completed", false)
     .limit(1);
 
   if (error) {

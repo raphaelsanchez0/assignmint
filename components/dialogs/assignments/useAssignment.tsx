@@ -8,7 +8,7 @@ export default function useAssignment(assignmentID: string) {
     error: assignmentError,
     isLoading: assignmentLoading,
   } = useQuery<Assignment>({
-    queryKey: ["assignment", assignmentID],
+    queryKey: ["assignments", assignmentID],
     queryFn: () => getAssignment(assignmentID),
   });
   return { assignment, assignmentError, assignmentLoading };

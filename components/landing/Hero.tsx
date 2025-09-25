@@ -11,7 +11,7 @@ export default function Hero() {
           Study Smarter, Not Harder
         </h2>
         <h1 className="text-3xl text-center font-light">
-          The Assignment Tracker that Just Makes Sense
+          The myStudyLife alternative that just makes sense
         </h1>
         <Link href="/login">
           <button
