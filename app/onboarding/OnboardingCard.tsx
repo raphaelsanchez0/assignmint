@@ -39,7 +39,8 @@ export default function OnboardingCard() {
           <CardHeader>Welcome to AssignMint!</CardHeader>
           <CardContent>
             <p className="pb-4 text-md font-medium text-muted-foreground">
-              Let's start by adding your courses
+              Let's start by adding your courses (You can always add or edit
+              them)
             </p>
             <CourseList />
           </CardContent>
@@ -62,7 +63,7 @@ export default function OnboardingCard() {
                 height={500}
                 alt="Demo of Import Feature Importing Assignments"
                 className="rounded-lg"
-                unoptimized
+                priority
               />
             </div>
           </div>
@@ -102,6 +103,7 @@ export default function OnboardingCard() {
                 width={200}
                 height={50}
                 alt="Buy me a coffee donation link"
+                priority
               />
             </Link>
           </CardFooter>
