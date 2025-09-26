@@ -19,7 +19,7 @@ export default function OnboardingCard() {
   const MAX_STEP = 3;
 
   const inactiveDotStyle = "bg-gray-500 w-2 h-2";
-  const activeDotStyle = "bg-gray-100 w-3 h-3";
+  const activeDotStyle = "dark:bg-gray-100 w-3 h-3 bg-gray-700";
 
   const router = useRouter();
   function handleNextStep() {
@@ -39,7 +39,7 @@ export default function OnboardingCard() {
           <CardHeader>Welcome to AssignMint!</CardHeader>
           <CardContent>
             <p className="pb-4 text-md font-medium text-muted-foreground">
-              Lets start by adding your courses!
+              Let's start by adding your courses
             </p>
             <CourseList />
           </CardContent>
@@ -47,7 +47,7 @@ export default function OnboardingCard() {
       )}
       {step === 2 && (
         <div className="flex flex-col gap-4 justify-center items-center">
-          <h1 className="onboarding-card-header">Get our Chrome Extension</h1>
+          <CardHeader>Get our Chrome Extension</CardHeader>
 
           <p className="font-medium">
             Our Chrome Extension lets you import your assignments in just a few
@@ -55,7 +55,7 @@ export default function OnboardingCard() {
           </p>
 
           <div className="feature-visual-container">
-            <div className="rounded-lg flex items-center justify-center overflow-hidden">
+            <div className="rounded-lg flex items-center justify-center overflow-hidden shadow-lg">
               <Image
                 src="/gifs/importer-demo.gif"
                 width={500}
@@ -67,7 +67,7 @@ export default function OnboardingCard() {
             </div>
           </div>
           <div className="">
-            <div className="btn">
+            <div className="btn-action">
               <a
                 href="https://chromewebstore.google.com/detail/assignmint-importer/bfhdafafkmognhflmmifjagjcemcegpn?authuser=0&hl=en"
                 target="_blank"
@@ -89,13 +89,13 @@ export default function OnboardingCard() {
             feel free to reach out with any suggestions or feedback! <br />
             <br />
             If you’d like to support us, consider sharing AssignMint with your
-            friends or making a small donation. Every bit helps us keep
-            improving!
+            friends or making a donation. Every bit helps us keep improving!
           </CardContent>
           <CardFooter className="flex justify-center">
             <Link
               href="https://buymeacoffee.com/raphaelsanchez"
               target="_blank"
+              className="shadow-lg rounded-xl"
             >
               <Image
                 src="/images/buy-me-a-coffee.png"
@@ -110,11 +110,11 @@ export default function OnboardingCard() {
       <div className="flex justify-between">
         {step === 1 ? (
           <button className="btn-disabled" onClick={handlePrevStep}>
-            <ChevronLeft />
+            <ChevronLeft color="white" />
           </button>
         ) : (
-          <button className="btn" onClick={handlePrevStep}>
-            <ChevronLeft />
+          <button className="btn-action" onClick={handlePrevStep}>
+            <ChevronLeft color="white" />
           </button>
         )}
 
@@ -137,8 +137,8 @@ export default function OnboardingCard() {
           />
         </div>
 
-        <button className="btn" onClick={handleNextStep}>
-          <ChevronRight />
+        <button className="btn-action" onClick={handleNextStep}>
+          <ChevronRight color="white" />
         </button>
       </div>
     </Card>

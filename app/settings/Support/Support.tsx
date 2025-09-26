@@ -13,9 +13,9 @@ export default function Features() {
     <Card className="flex flex-col gap-2">
       <CardTitle>Want to support us?</CardTitle>
       <CardDescription>
-        We are just two people working on this because we want you to have an
-        easier time. If you like what we are doing and want to support us, we
-        would really appreciate it!
+        We are just two people working on this because we want to make it
+        better. If you like what we are doing and want to support us, we would
+        really appreciate it!
       </CardDescription>
       <CardFooter className="flex justify-center">
         <Link href="https://buymeacoffee.com/raphaelsanchez" target="_blank">
