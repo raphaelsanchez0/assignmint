@@ -23,6 +23,7 @@ import useAssignment from "./useAssignment";
 import { useState } from "react";
 import LoadingDialogContent from "../LoadingDialogContent";
 import ErrorDialogContent from "../ErrorDialogContent";
+import { Slider } from "@/components/ui/slider";
 
 interface ViewAssignmentDialogProps {
   assignmentID: string;
@@ -72,6 +73,10 @@ const ViewAssignmentDialog: React.FC<ViewAssignmentDialogProps> = ({
 
   const labelStyle = "font-light";
   const pStyle = "text-lg font-medium";
+  //assignment.progress
+  const [progress, setProgress] = useState<number>(0);
+
+  console.log(progress);
 
   return (
     <DialogContent className="lg:max-w-[500px]">
@@ -108,6 +113,15 @@ const ViewAssignmentDialog: React.FC<ViewAssignmentDialogProps> = ({
             <p>{assignment.notes}</p>
           </div>
         )}
+      </div>
+      <div>
+        <Slider
+          defaultValue={[0]}
+          max={100}
+          step={5}
+          value={[progress]}
+          onValueChange={(value) => setProgress(value[0])}
+        />
       </div>
       <div className="flex justify-center">
         {!assignment.completed && (
