@@ -19,8 +19,8 @@ export default function Features() {
         <li>Fix: View Assignments/Exams popup shows notes - 9/10</li>
       </ul>
       <CardDescription>
-        Please bear with me, I'm just one guy! More help coming soon. Stay
-        tuned!
+        Please bear with us, we are just two students who work on this in our
+        free time! More help coming soon. Stay tuned!
       </CardDescription>
     </Card>
   );

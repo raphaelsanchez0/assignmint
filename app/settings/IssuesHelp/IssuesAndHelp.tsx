@@ -6,7 +6,7 @@ export default function IssuesAndHelp() {
     <Card className="flex flex-col gap-2">
       <CardTitle>Feedback + Suggestions</CardTitle>
       <CardDescription>
-        I am always trying to make AssignMint better! If you have any feedback,
+        We always trying to make AssignMint better! If you have any feedback,
         bugs, or feature requests, please don't hesitate to reach out:
       </CardDescription>
       <CardDescription className="font-bold">

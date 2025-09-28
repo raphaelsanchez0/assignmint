@@ -33,15 +33,15 @@ export default function OnboardingCard() {
   }
 
   return (
-    <Card className="w-full p-4 flex flex-col text-center ">
+    <Card className="w-full p-4 flex flex-col text-center onboarding-card-transition">
       {step === 1 && (
         <>
           <CardHeader>Welcome to AssignMint!</CardHeader>
           <CardContent>
             <p className="pb-4 text-md font-medium text-muted-foreground">
-              Let's start by adding your courses (You can always add or edit
-              them)
+              Let's start by adding your courses
             </p>
+
             <CourseList />
           </CardContent>
         </>
@@ -68,7 +68,7 @@ export default function OnboardingCard() {
             </div>
           </div>
           <div className="">
-            <div className="btn-action">
+            <div className="btn-action-animated">
               <a
                 href="https://chromewebstore.google.com/detail/assignmint-importer/bfhdafafkmognhflmmifjagjcemcegpn?authuser=0&hl=en"
                 target="_blank"
@@ -85,12 +85,15 @@ export default function OnboardingCard() {
         <>
           <CardHeader>Thank you for joining!</CardHeader>
           <CardContent>
-            We are just two people trying to make a better, free, planner, with
-            no strings attached. New features are constantly being added, so
-            feel free to reach out with any suggestions or feedback! <br />
-            <br />
-            If you’d like to support us, consider sharing AssignMint with your
-            friends or making a donation. Every bit helps us keep improving!
+            <p className="text-md font-medium">
+              We’re just two students building AssignMint because we wanted a
+              better, free planner with no strings attached.
+            </p>
+            <p className="mt-3 text-muted-foreground">
+              We’re adding new features all the time, so if you have ideas or
+              feedback, we’d love to hear from you. Your support helps keep
+              AssignMint alive!
+            </p>
           </CardContent>
           <CardFooter className="flex justify-center">
             <Link

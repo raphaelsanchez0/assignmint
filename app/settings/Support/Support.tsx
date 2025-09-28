@@ -17,7 +17,7 @@ export default function Features() {
         better. If you like what we are doing and want to support us, we would
         really appreciate it!
       </CardDescription>
-      <CardFooter className="flex justify-center">
+      <div className="flex justify-center mt-2">
         <Link href="https://buymeacoffee.com/raphaelsanchez" target="_blank">
           <Image
             src="/images/buy-me-a-coffee.png"
@@ -26,7 +26,7 @@ export default function Features() {
             alt="Buy me a coffee donation link"
           />
         </Link>
-      </CardFooter>
+      </div>
     </Card>
   );
 }

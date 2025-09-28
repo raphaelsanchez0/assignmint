@@ -30,7 +30,6 @@ export default function Account() {
     <Card>
       <div className="flex justify-between">
         <h3 className="card-title ">Account</h3>
-        <Image src={iconEdit} alt="edit" width={20} />
       </div>
 
       <div className="flex flex-col">
