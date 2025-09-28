@@ -68,11 +68,31 @@ label {
   @apply text-2xl font-bold text-off-black dark:text-zinc-50;
 }
 
+.onboarding-card-header {
+  @apply flex flex-col space-y-1.5 p-6 text-4xl font-bold text-off-black dark:text-zinc-50;
+}
+
 /*  button styles */
 .btn {
   @apply bg-primary text-white font-bold py-2 px-4 rounded-lg
   hover:bg-secondary
   transition-colors duration-200 ease-in-out;
+}
+
+.btn-action {
+  @apply bg-primary text-white font-bold py-2 px-4 rounded-lg shadow-lg
+  hover:bg-secondary
+  transition-colors duration-200 ease-in-out;
+}
+
+.btn-action-animated {
+  @apply bg-primary text-white font-bold py-2 px-4 rounded-lg shadow-lg
+  hover:bg-secondary 
+  transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110;
+}
+
+.btn-disabled {
+  @apply bg-gray-600 text-white font-bold py-2 px-4 rounded-lg;
 }
 
 .btn-neutral {
@@ -107,4 +127,10 @@ input[type="checkbox"] {
 
 .hide-when-desktop {
   @apply block md:hidden;
+}
+
+.onboarding-card-transition {
+  transition:
+    height 1s linear,
+    width 1s linear;
 }

@@ -52,7 +52,7 @@ export default function SignUpForm() {
       email: credentials.email,
       password: credentials.password,
       options: {
-        emailRedirectTo: `${getURL("/dashboard")}`,
+        emailRedirectTo: `${getURL("/onboarding")}`,
         data: {
           first_name: credentials.firstName,
           last_name: credentials.lastName,
@@ -62,7 +62,7 @@ export default function SignUpForm() {
     });
 
     if (data) {
-      router.push("/dashboard");
+      router.push("/onboarding");
     }
     if (error) {
       toast({
