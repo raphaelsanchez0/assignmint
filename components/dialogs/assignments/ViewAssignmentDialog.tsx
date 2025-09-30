@@ -17,6 +17,7 @@ import {
   getAssignment,
   completeAssignment,
   restoreAssignment,
+  modifyAssignmentProgress,
 } from "@/server/apis/assignments";
 import LoadingListShorter from "@/components/Loading/LoadingListShorter";
 import useAssignment from "./useAssignment";
@@ -35,6 +36,7 @@ const ViewAssignmentDialog: React.FC<ViewAssignmentDialogProps> = ({
   closeDialog,
 }) => {
   const [openEditDialog, setOpenEditDialog] = useState(false);
+  const [progress, setProgress] = useState<number>(0);
 
   const queryClient = useQueryClient();
   const completeAssignmentMutation = useMutation({
@@ -45,6 +47,13 @@ const ViewAssignmentDialog: React.FC<ViewAssignmentDialogProps> = ({
   });
   const restoreAssignmentMutation = useMutation({
     mutationFn: restoreAssignment,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["assignments"] });
+    },
+  });
+  const modifyAssignmentProgressMutation = useMutation({
+    mutationFn: ({ id, newProgress }: { id: string; newProgress: number }) =>
+      modifyAssignmentProgress(id, newProgress),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["assignments"] });
     },
@@ -70,11 +79,21 @@ const ViewAssignmentDialog: React.FC<ViewAssignmentDialogProps> = ({
     restoreAssignmentMutation.mutate(assignmentID);
     closeDialog();
   }
+  const MAX_PROGRESS = 100;
+
+  function handleProgressChange(newProgress: number) {
+    setProgress(newProgress);
+    modifyAssignmentProgressMutation.mutate({
+      id: assignmentID,
+      newProgress: newProgress,
+    });
+    if (newProgress >= MAX_PROGRESS) {
+      closeDialog();
+    }
+  }
 
   const labelStyle = "font-light";
   const pStyle = "text-lg font-medium";
-  //assignment.progress
-  const [progress, setProgress] = useState<number>(0);
 
   console.log(progress);
 
@@ -120,7 +139,7 @@ const ViewAssignmentDialog: React.FC<ViewAssignmentDialogProps> = ({
           max={100}
           step={5}
           value={[progress]}
-          onValueChange={(value) => setProgress(value[0])}
+          onValueChange={(value) => handleProgressChange(value[0])}
         />
       </div>
       <div className="flex justify-center">

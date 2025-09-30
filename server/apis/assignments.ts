@@ -12,6 +12,7 @@ import {
   subDays,
 } from "date-fns";
 import { addYearToDate } from "@/utils/addYearToDate/addYearToDate";
+import { progress } from "framer-motion";
 
 const supabase = createSupabaseFrontendClient();
 
@@ -331,10 +332,33 @@ export async function completeAssignment(id:string)
 
 export async function restoreAssignment(id:string)
 {
+  const ZERO_PERCENT = 0;
   const {data, error} = await supabase
   .from("assignments")
-  .update({completed:false, completedDate: null})
-  .eq("id",id)
+  .update({completed:false, completedDate: null, progress: ZERO_PERCENT})
+  .eq("id",id);
+}
+
+export async function modifyAssignmentProgress(id: string, newProgress: number)
+{
+  const COMPLETE_PROGRESS = 100;
+  if(newProgress >= COMPLETE_PROGRESS)
+  {
+    await supabase
+    .from("assignments")
+    .update({
+      completed: true,
+      completedDate: new Date().toISOString(),
+      progress: null,
+    })
+    .eq("id", id);
+  }
+  else{
+    await supabase
+    .from("assignments")
+    .update({ progress: newProgress })
+    .eq("id", id);
+  }
 }
 
 export async function hasActiveAssignments(): Promise<boolean> {
@@ -372,3 +396,5 @@ export async function importAssignmentsToPlanner(assignments: {[key: string]: Ca
     }
   }
 }
+
+

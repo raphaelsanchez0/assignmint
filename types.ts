@@ -7,7 +7,7 @@ interface Assignment {
   priority: boolean;
   completed: boolean;
   completedDate: Date;
-  progress: number;
+  progress: number | null;
 }
 
 interface Exam {
