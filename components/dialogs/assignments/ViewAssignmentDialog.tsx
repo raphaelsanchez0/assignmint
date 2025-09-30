@@ -21,7 +21,7 @@ import {
 } from "@/server/apis/assignments";
 import LoadingListShorter from "@/components/Loading/LoadingListShorter";
 import useAssignment from "./useAssignment";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LoadingDialogContent from "../LoadingDialogContent";
 import ErrorDialogContent from "../ErrorDialogContent";
 import { Slider } from "@/components/ui/slider";
@@ -61,6 +61,12 @@ const ViewAssignmentDialog: React.FC<ViewAssignmentDialogProps> = ({
 
   const { assignment, assignmentError, assignmentLoading } =
     useAssignment(assignmentID);
+
+  useEffect(() => {
+    if (assignment && typeof assignment.progress === "number") {
+      setProgress(assignment.progress);
+    }
+  }, [assignment]);
 
   if (!assignment && assignmentLoading) {
     return <LoadingDialogContent title="View Assignment" />;
@@ -132,19 +138,21 @@ const ViewAssignmentDialog: React.FC<ViewAssignmentDialogProps> = ({
             <p>{assignment.notes}</p>
           </div>
         )}
-      </div>
-      <div>
-        <Slider
-          defaultValue={[0]}
-          max={100}
-          step={5}
-          value={[progress]}
-          onValueChange={(value) => handleProgressChange(value[0])}
-        />
+        {!assignment.completed && (
+          <div className="col-span-2 flex flex-col gap-3">
+            <Label className={labelStyle}>Progress</Label>
+            <Slider
+              max={100}
+              step={5}
+              value={[progress]}
+              onValueChange={(value) => handleProgressChange(value[0])}
+            />
+          </div>
+        )}
       </div>
       <div className="flex justify-center">
         {!assignment.completed && (
-          <>
+          <div className="flex items-center flex-col w-full justify-center gap-4">
             <Dialog
               open={openEditDialog}
               onOpenChange={(open) => setOpenEditDialog(open)}
@@ -157,13 +165,7 @@ const ViewAssignmentDialog: React.FC<ViewAssignmentDialogProps> = ({
                 closeDialog={() => setOpenEditDialog(false)}
               />
             </Dialog>
-            <button
-              className="btn mt-4 ml-4"
-              onClick={handleCompleteAssignment}
-            >
-              Complete
-            </button>
-          </>
+          </div>
         )}
         {assignment.completed && (
           <button className="btn mt-4 ml-4" onClick={handleRestoreAssignment}>
