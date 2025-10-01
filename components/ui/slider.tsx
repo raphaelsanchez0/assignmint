@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 const Slider = React.forwardRef<
   React.ElementRef<typeof SliderPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof SliderPrimitive.Root>
->(({ className, value, ...props }, ref) => (
+>(({ className, ...props }, ref) => (
   <SliderPrimitive.Root
     ref={ref}
     className={cn(
@@ -22,13 +22,13 @@ const Slider = React.forwardRef<
     </SliderPrimitive.Track>
     <SliderPrimitive.Thumb className="group relative block h-5 w-5 rounded-full border-2 border-slate-900 bg-white ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:border-slate-50  dark:ring-offset-slate-950 dark:focus-visible:ring-slate-300">
       <span
-        className="absolute -bottom-8 left-1/2 -translate-x-1/2
-                   rounded-md bg-primary text-white text-xs font-bold
+        className="absolute -top-9 left-1/2 -translate-x-1/2
+                   rounded-md bg-primary text-white text-sm font-bold
                    px-2 py-1 shadow-md opacity-0 scale-0
                    group-hover:opacity-100 group-hover:scale-100
                    transition-all duration-150"
       >
-        {value}
+        {props.value?.[0] ?? 0}%
       </span>
     </SliderPrimitive.Thumb>
   </SliderPrimitive.Root>
