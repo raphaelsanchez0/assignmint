@@ -31,19 +31,19 @@ import {
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, Loader2Icon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Textarea } from "@/components/ui/textarea";
 import useAddAssignmentForm from "@/app/_hooks/forms/useAddAssignmentForm";
 import Link from "next/link";
+import FormActionSubmitButton from "@/components/formInputs/FormActionSubmitButton";
 
 export default function AddAssignmentDialog() {
   const [open, setOpen] = useState(false);
 
-  const { form, courses, onSubmit } = useAddAssignmentForm(() =>
-    setOpen(false),
-  );
+  const { form, courses, onSubmit, createAssignmentMutation } =
+    useAddAssignmentForm(() => setOpen(false));
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -181,9 +181,10 @@ export default function AddAssignmentDialog() {
               />
             </div>
             <div className="flex justify-center">
-              <button type="submit" className="btn mt-4">
-                Create Assignment
-              </button>
+              <FormActionSubmitButton
+                buttonText="Create Assignment"
+                isPending={createAssignmentMutation.isPending}
+              />
             </div>
           </form>
         </Form>

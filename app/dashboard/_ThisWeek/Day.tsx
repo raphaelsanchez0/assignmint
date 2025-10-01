@@ -81,7 +81,6 @@ function ExpandComponentToggleArrow({ expanded }: { expanded: boolean }) {
 }
 
 function handleDayOfWeekString(date: Date) {
-  debugger;
   const today = new Date();
   const isToday = date.toDateString() === today.toDateString();
   const tomorrow = new Date(today);
