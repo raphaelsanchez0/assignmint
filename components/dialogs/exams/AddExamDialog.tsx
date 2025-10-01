@@ -36,10 +36,11 @@ import { Calendar } from "@/components/ui/calendar";
 import { Textarea } from "@/components/ui/textarea";
 import useAddExamForm from "@/app/_hooks/forms/useAddExamForm";
 import Link from "next/link";
+import FormActionSubmitButton from "@/components/formInputs/FormActionSubmitButton";
 
 export default function AddExamDialog() {
   const [open, setOpen] = useState(false);
-  const { form, courses, onSubmit } = useAddExamForm(() => {
+  const { form, courses, onSubmit, createExamMutation } = useAddExamForm(() => {
     setOpen(false);
   });
 
@@ -163,6 +164,10 @@ export default function AddExamDialog() {
               <button type="submit" className="btn mt-4">
                 Create Exam
               </button>
+              <FormActionSubmitButton
+                buttonText="Create Exam"
+                isPending={createExamMutation.isPending}
+              />
             </div>
           </form>
         </Form>

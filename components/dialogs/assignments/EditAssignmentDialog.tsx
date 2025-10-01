@@ -40,6 +40,7 @@ import LoadingListShorter from "@/components/Loading/LoadingListShorter";
 import LoadingDialogContent from "../LoadingDialogContent";
 import ErrorDialogContent from "../ErrorDialogContent";
 import { useQueryClient } from "@tanstack/react-query";
+import FormActionSubmitButton from "@/components/formInputs/FormActionSubmitButton";
 
 interface EditAssignmentDialogProps {
   assignmentID: string;
@@ -55,7 +56,8 @@ const EditAssignmentDialog: React.FC<EditAssignmentDialogProps> = ({
   const { assignment, assignmentError, assignmentLoading } =
     useAssignment(assignmentID);
 
-  const { form, courses, onSubmit } = useEditAssignmentForm(assignmentID);
+  const { form, courses, onSubmit, updateAssignmentMutation } =
+    useEditAssignmentForm(assignmentID);
   if (!assignment && assignmentLoading)
     return <LoadingDialogContent title="Edit Assignment" />;
 
@@ -188,13 +190,11 @@ const EditAssignmentDialog: React.FC<EditAssignmentDialogProps> = ({
             />
           </div>
           <div className="flex justify-center">
-            <button
-              type="submit"
-              className="btn mt-4"
+            <FormActionSubmitButton
+              buttonText="Edit Assignment"
+              isPending={updateAssignmentMutation.isPending}
               onClick={() => handleEditAssignment()}
-            >
-              Edit Assignment
-            </button>
+            />
           </div>
         </form>
       </Form>

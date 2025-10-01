@@ -36,6 +36,7 @@ import { useEditExamForm } from "@/app/_hooks/forms/useEditExamForm";
 import useExam from "./useExam";
 import LoadingDialogContent from "../LoadingDialogContent";
 import ErrorDialogContent from "../ErrorDialogContent";
+import FormActionSubmitButton from "@/components/formInputs/FormActionSubmitButton";
 
 interface EditExamDialogProps {
   examID: string;
@@ -48,7 +49,8 @@ const EditExamDialog: React.FC<EditExamDialogProps> = ({
 }) => {
   const { exam, examError, examLoading } = useExam(examID);
 
-  const { form, courses, onSubmit } = useEditExamForm(examID);
+  const { form, courses, onSubmit, updateExamMutation } =
+    useEditExamForm(examID);
 
   if (!exam && examLoading) return <LoadingDialogContent title="Edit Exam" />;
 
@@ -156,13 +158,18 @@ const EditExamDialog: React.FC<EditExamDialogProps> = ({
             />
           </div>
           <div className="flex justify-center">
-            <button
+            {/* <button
               type="submit"
               className="btn mt-4"
               onClick={() => closeDialog()}
             >
               Edit Exam
-            </button>
+            </button> */}
+            <FormActionSubmitButton
+              buttonText="Edit Exam"
+              isPending={updateExamMutation.isPending}
+              onClick={() => closeDialog()}
+            />
           </div>
         </form>
       </Form>

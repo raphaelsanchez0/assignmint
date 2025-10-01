@@ -4,11 +4,13 @@ import React from "react";
 interface FormActionSubmitButtonProps {
   buttonText: string;
   isPending: boolean;
+  onClick?: () => void;
 }
 
 export default function FormActionSubmitButton({
   buttonText,
   isPending,
+  onClick,
 }: FormActionSubmitButtonProps) {
   return (
     <>
@@ -17,7 +19,7 @@ export default function FormActionSubmitButton({
           <Loader2Icon className="animate-spin " color="black" />
         </button>
       ) : (
-        <button type="submit" className="btn mt-4">
+        <button type="submit" className="btn mt-4" onClick={onClick}>
           {buttonText}
         </button>
       )}
