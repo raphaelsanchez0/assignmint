@@ -6,7 +6,7 @@ export default function Features() {
     <Card className="flex flex-col gap-2">
       <CardTitle>Changelog + Upcoming</CardTitle>
       <CardDescription>
-        Here are some features that we am working on:
+        Here are some features that we are working on:
       </CardDescription>
       <ul className="list-disc pl-5">
         <li>Detailed Assignment/Exam history page</li>
