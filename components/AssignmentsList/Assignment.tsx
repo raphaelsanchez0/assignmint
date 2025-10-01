@@ -91,6 +91,11 @@ const Assignment: React.FC<AssignmentProps> = ({ assignment }) => {
                         "MMM d",
                       )}
                     </h5>
+                    <h5 className="text-sm text-gray-500 dark:text-gray-400 text-right">
+                      {assignment.progress != null && (
+                        <>{assignment.progress}%</>
+                      )}
+                    </h5>
                   </div>
                 </div>
               </div>

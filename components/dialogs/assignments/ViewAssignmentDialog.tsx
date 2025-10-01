@@ -17,12 +17,14 @@ import {
   getAssignment,
   completeAssignment,
   restoreAssignment,
+  modifyAssignmentProgress,
 } from "@/server/apis/assignments";
 import LoadingListShorter from "@/components/Loading/LoadingListShorter";
 import useAssignment from "./useAssignment";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LoadingDialogContent from "../LoadingDialogContent";
 import ErrorDialogContent from "../ErrorDialogContent";
+import { Slider } from "@/components/ui/slider";
 
 interface ViewAssignmentDialogProps {
   assignmentID: string;
@@ -34,6 +36,7 @@ const ViewAssignmentDialog: React.FC<ViewAssignmentDialogProps> = ({
   closeDialog,
 }) => {
   const [openEditDialog, setOpenEditDialog] = useState(false);
+  const [progress, setProgress] = useState<number>(0);
 
   const queryClient = useQueryClient();
   const completeAssignmentMutation = useMutation({
@@ -48,9 +51,22 @@ const ViewAssignmentDialog: React.FC<ViewAssignmentDialogProps> = ({
       queryClient.invalidateQueries({ queryKey: ["assignments"] });
     },
   });
+  const modifyAssignmentProgressMutation = useMutation({
+    mutationFn: ({ id, newProgress }: { id: string; newProgress: number }) =>
+      modifyAssignmentProgress(id, newProgress),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["assignments"] });
+    },
+  });
 
   const { assignment, assignmentError, assignmentLoading } =
     useAssignment(assignmentID);
+
+  useEffect(() => {
+    if (assignment && typeof assignment.progress === "number") {
+      setProgress(assignment.progress);
+    }
+  }, [assignment]);
 
   if (!assignment && assignmentLoading) {
     return <LoadingDialogContent title="View Assignment" />;
@@ -69,9 +85,23 @@ const ViewAssignmentDialog: React.FC<ViewAssignmentDialogProps> = ({
     restoreAssignmentMutation.mutate(assignmentID);
     closeDialog();
   }
+  const MAX_PROGRESS = 100;
+
+  function handleProgressChange(newProgress: number) {
+    setProgress(newProgress);
+    modifyAssignmentProgressMutation.mutate({
+      id: assignmentID,
+      newProgress: newProgress,
+    });
+    if (newProgress >= MAX_PROGRESS) {
+      closeDialog();
+    }
+  }
 
   const labelStyle = "font-light";
   const pStyle = "text-lg font-medium";
+
+  console.log(progress);
 
   return (
     <DialogContent className="lg:max-w-[500px]">
@@ -108,10 +138,22 @@ const ViewAssignmentDialog: React.FC<ViewAssignmentDialogProps> = ({
             <p>{assignment.notes}</p>
           </div>
         )}
+        {!assignment.completed && (
+          <div className="col-span-2 flex flex-col gap-3">
+            <Label className={labelStyle}>Progress</Label>
+            <Slider
+              max={100}
+              step={5}
+              value={[progress]}
+              onValueChange={(value) => setProgress(value[0])}
+              onValueCommit={(value) => handleProgressChange(value[0])}
+            />
+          </div>
+        )}
       </div>
       <div className="flex justify-center">
         {!assignment.completed && (
-          <>
+          <div className="flex items-center flex-col w-full justify-center gap-4">
             <Dialog
               open={openEditDialog}
               onOpenChange={(open) => setOpenEditDialog(open)}
@@ -124,13 +166,7 @@ const ViewAssignmentDialog: React.FC<ViewAssignmentDialogProps> = ({
                 closeDialog={() => setOpenEditDialog(false)}
               />
             </Dialog>
-            <button
-              className="btn mt-4 ml-4"
-              onClick={handleCompleteAssignment}
-            >
-              Complete
-            </button>
-          </>
+          </div>
         )}
         {assignment.completed && (
           <button className="btn mt-4 ml-4" onClick={handleRestoreAssignment}>
