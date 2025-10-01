@@ -326,7 +326,7 @@ export async function completeAssignment(id:string)
 {
   const {data, error} = await supabase
   .from("assignments")
-  .update({completed:true, completedDate: new Date().toISOString()})
+  .update({completed:true, completedDate: new Date().toISOString(), progress: null})
   .eq("id",id)
 }
 

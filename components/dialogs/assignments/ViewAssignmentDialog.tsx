@@ -145,7 +145,8 @@ const ViewAssignmentDialog: React.FC<ViewAssignmentDialogProps> = ({
               max={100}
               step={5}
               value={[progress]}
-              onValueChange={(value) => handleProgressChange(value[0])}
+              onValueChange={(value) => setProgress(value[0])}
+              onValueCommit={(value) => handleProgressChange(value[0])}
             />
           </div>
         )}
